@@ -2,9 +2,6 @@
 	"version": 3,
 	"routes": [
 		{
-			"handle": "filesystem"
-		},
-		{
 			"src": "^/_astro/(.*)$",
 			"headers": {
 				"cache-control": "public, max-age=31536000, immutable"
@@ -12,91 +9,94 @@
 			"continue": true
 		},
 		{
-			"src": "^/_server-islands/([^/]+?)/?$",
+			"handle": "filesystem"
+		},
+		{
+			"src": "^\\/_image\\/?$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/_image/?$",
+			"src": "^\\/404\\/?$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/404/?$",
+			"src": "^\\/api\\/analyze\\/?$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/api/analyze/?$",
+			"src": "^\\/blog\\/?$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/blog/?$",
+			"src": "^\\/cases\\/case-1\\/?$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/cases/case-1/?$",
+			"src": "^\\/cases\\/case-2\\/?$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/cases/case-2/?$",
+			"src": "^\\/cases\\/case-3\\/?$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/cases/case-3/?$",
+			"src": "^\\/cases\\/case-4\\/?$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/cases/case-4/?$",
+			"src": "^\\/cases\\/case-5\\/?$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/cases/case-5/?$",
+			"src": "^\\/cases\\/case-6\\/?$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/cases/case-6/?$",
+			"src": "^\\/cases\\/?$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/cases/?$",
+			"src": "^\\/contact\\/?$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/contact/?$",
+			"src": "^\\/pricing\\/?$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/pricing/?$",
+			"src": "^\\/privacy\\/?$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/privacy/?$",
+			"src": "^\\/services\\/analytics\\/?$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/services/analytics/?$",
+			"src": "^\\/services\\/consulting\\/?$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/services/consulting/?$",
+			"src": "^\\/services\\/facebook-ads\\/?$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/services/facebook-ads/?$",
+			"src": "^\\/services\\/google-ads\\/?$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/services/google-ads/?$",
+			"src": "^\\/services\\/?$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/services/?$",
+			"src": "^\\/tools\\/site-audit\\/?$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/$",
+			"src": "^\\/$",
 			"dest": "_render"
 		},
 		{
-			"src": "^/.*$",
+			"src": "/.*",
 			"dest": "_render",
 			"status": 404
 		}
