@@ -7,7 +7,9 @@ export default defineConfig({
   site: 'https://targetsy.agency',
   integrations: [tailwind()],
   output: 'server',
-  adapter: vercel(),
+  adapter: vercel({
+    webAnalytics: { enabled: true },
+  }),
   compressHTML: true,
   build: {
     inlineStylesheets: 'auto',
