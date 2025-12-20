@@ -6,7 +6,7 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   site: 'https://targetsy.agency',
   integrations: [tailwind()],
-  output: 'static',
+  output: 'server',
   adapter: vercel(),
   compressHTML: true,
   build: {
