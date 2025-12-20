@@ -6,10 +6,8 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   site: 'https://targetsy.agency',
   integrations: [tailwind()],
-  output: 'server',
-  adapter: vercel({
-    webAnalytics: { enabled: true },
-  }),
+  output: 'static',
+  adapter: vercel(),
   compressHTML: true,
   build: {
     inlineStylesheets: 'auto',
