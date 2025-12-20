@@ -1,8 +1,9 @@
 // Smooth scroll to anchor links
 export function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener('click', function (e) {
-      const href = this.getAttribute('href');
+    anchor.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLAnchorElement;
+      const href = target.getAttribute('href');
       if (!href || href === '#') return;
 
       e.preventDefault();

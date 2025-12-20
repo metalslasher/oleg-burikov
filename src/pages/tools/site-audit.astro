@@ -325,8 +325,8 @@ const seo = {
                 // Remove Markdown bold **
                 const cleanText = result.analysis.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>');
                 // Format lists
-                const paragraphs = cleanText.split('\n').filter(p => p.trim() !== '');
-                auditResults.innerHTML = paragraphs.map(p => {
+                const paragraphs = cleanText.split('\n').filter((p: string) => p.trim() !== '');
+                auditResults.innerHTML = paragraphs.map((p: string) => {
                     if (p.trim().startsWith('-') || p.trim().startsWith('•') || p.trim().startsWith('✓')) {
                          return `<div class="flex gap-2 mb-3"><span class="text-accent-500 mt-1">•</span><span>${p.trim().substring(1).trim()}</span></div>`
                     } else if (p.trim().match(/^\d+\./)) {

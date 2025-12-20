@@ -195,7 +195,7 @@ const oneTime = [
     const planButtons = document.querySelectorAll('.plan-select-btn');
     
     planButtons.forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener('click', () => {
         const planName = btn.getAttribute('data-plan');
         const planPrice = btn.getAttribute('data-price');
         
@@ -210,7 +210,7 @@ const oneTime = [
     // Check if there's a selected plan and fill the message field
     const checkAndFillPlan = () => {
       const selectedPlan = sessionStorage.getItem('selectedPlan');
-      const messageField = document.getElementById('message');
+      const messageField = document.getElementById('message') as HTMLTextAreaElement;
       
       if (selectedPlan && messageField && !messageField.value) {
         messageField.value = `Ви обрали пакет "${selectedPlan}". Опишіть ваш проєкт: `;

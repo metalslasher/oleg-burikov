@@ -162,9 +162,11 @@ const { header } = content;
           const icon = btn.querySelector('svg');
           const isExpanded = btn.getAttribute('aria-expanded') === 'true';
           
-          btn.setAttribute('aria-expanded', (!isExpanded).toString());
-          content.classList.toggle('hidden');
-          icon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
+          if (content && icon) {
+            btn.setAttribute('aria-expanded', (!isExpanded).toString());
+            content.classList.toggle('hidden');
+            icon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
+          }
         });
       });
 

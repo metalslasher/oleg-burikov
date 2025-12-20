@@ -64,7 +64,7 @@ const { cases } = content;
           <div class="border-t-2 border-white/10 pt-6">
             <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4">Результати</p>
             <div class="grid grid-cols-2 gap-4">
-              {caseItem.results.map((result) => (
+              {caseItem.results.map((result: { value: string; metric: string; description?: string; period?: string }) => (
                 <div class="relative">
                   <div class="text-3xl md:text-4xl font-black text-accent-400">
                     {result.value}
