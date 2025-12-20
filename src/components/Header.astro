@@ -1,0 +1,181 @@
+---
+import content from '../content/home-uk.json';
+
+const { header } = content;
+---
+
+<header id="header" class="fixed top-0 left-0 right-0 z-50 px-4 pt-6">
+  <div class="container mx-auto">
+    <nav class="bg-[#0F1419]/80 backdrop-blur-xl border border-white/10 rounded-[32px] px-6" aria-label="Основна навігація">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <div class="flex-shrink-0">
+          <a href="/" class="flex items-center hover:opacity-90 transition-opacity" aria-label="Targetsy Agency">
+            <img 
+              src="/images/logo.png" 
+              alt="Targetsy Agency Logo" 
+              class="h-8 w-auto"
+              loading="eager"
+            />
+          </a>
+        </div>
+
+        <!-- Desktop Navigation (Center) -->
+        <div class="hidden lg:flex items-center space-x-8">
+          {header.nav.map((item) => (
+            item.children ? (
+              <div class="relative group">
+                <button
+                  class="flex items-center gap-1 text-[15px] text-gray-300 hover:text-white font-medium transition-colors py-2 focus:outline-none"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  {item.label}
+                  <svg class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div class="absolute left-0 mt-2 w-48 bg-[#161b22] border border-white/10 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-left z-50 overflow-hidden">
+                  <div class="py-1">
+                    {item.children.map((child) => (
+                      <a
+                        href={child.href}
+                        class="block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+                      >
+                        {child.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <a
+                href={item.href}
+                class="text-[15px] text-gray-300 hover:text-white font-medium transition-colors"
+              >
+                {item.label}
+              </a>
+            )
+          ))}
+        </div>
+
+        <!-- Right Side Buttons (Desktop) -->
+        <div class="hidden lg:flex items-center">
+          <a
+            href="#contact"
+            class="inline-flex items-center gap-2 text-[15px] text-accent-500 hover:text-accent-400 font-medium transition-colors"
+          >
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            {header.cta}
+          </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobile-menu-button"
+          class="lg:hidden inline-flex items-center justify-center p-2 rounded-xl text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Відкрити меню"
+        >
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden lg:hidden pb-4 border-t border-white/10 mt-2">
+        <div class="flex flex-col space-y-2 pt-4">
+          {header.nav.map((item) => (
+            item.children ? (
+              <div class="space-y-1">
+                <button
+                  class="flex w-full items-center justify-between text-left text-gray-300 hover:text-white hover:bg-white/10 font-medium py-3 px-4 rounded-xl transition-all mobile-dropdown-btn"
+                  aria-expanded="false"
+                >
+                  {item.label}
+                  <svg class="w-4 h-4 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div class="hidden pl-4 space-y-1 mobile-dropdown-content">
+                  {item.children.map((child) => (
+                    <a
+                      href={child.href}
+                      class="block text-gray-400 hover:text-white hover:bg-white/10 font-medium py-2.5 px-4 rounded-xl transition-all mobile-nav-link"
+                    >
+                      {child.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <a
+                href={item.href}
+                class="block text-gray-300 hover:text-white hover:bg-white/10 font-medium py-3 px-4 rounded-xl transition-all mobile-nav-link"
+              >
+                {item.label}
+              </a>
+            )
+          ))}
+          <div class="pt-3 border-t border-white/10">
+            <a href={`tel:${header.phone}`} class="block text-gray-300 hover:text-white py-2 px-4">
+              {header.phone}
+            </a>
+            <a href={`mailto:${header.email}`} class="block text-gray-300 hover:text-white py-2 px-4">
+              {header.email}
+            </a>
+          </div>
+          <a
+            href="#contact"
+            class="bg-white text-gray-900 text-center px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all mobile-nav-link"
+          >
+            Зв'язатися
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Mobile menu toggle
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (menuButton && mobileMenu) {
+      menuButton.addEventListener('click', () => {
+        const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+        menuButton.setAttribute('aria-expanded', (!isExpanded).toString());
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      // Mobile dropdown toggles
+      const dropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
+      dropdownBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const content = btn.nextElementSibling;
+          const icon = btn.querySelector('svg');
+          const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+          
+          btn.setAttribute('aria-expanded', (!isExpanded).toString());
+          content.classList.toggle('hidden');
+          icon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
+        });
+      });
+
+      // Close mobile menu when clicking on nav links
+      const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+      mobileNavLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          menuButton?.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  });
+</script>

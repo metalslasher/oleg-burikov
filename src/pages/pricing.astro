@@ -1,0 +1,241 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+
+const plans = [
+  {
+    name: 'Starter',
+    description: 'Для малого бізнесу, що тільки починає з реклами',
+    price: '$400',
+    period: '/міс',
+    adBudget: 'до $1,000',
+    features: [
+      '1 рекламний канал (Google або Meta)',
+      'До 3 кампаній',
+      'Базова аналітика',
+      'Щомісячний звіт',
+      'Telegram підтримка',
+    ],
+    highlighted: false,
+    cta: 'Почати',
+  },
+  {
+    name: 'Growth',
+    description: 'Для бізнесу, що активно зростає',
+    price: '$700',
+    period: '/міс',
+    adBudget: '$1,000 - $5,000',
+    features: [
+      '2 рекламних канали',
+      'До 10 кампаній',
+      'Повна аналітика (GA4 + GTM)',
+      'Щотижневі звіти',
+      'A/B тестування креативів',
+      'Пріоритетна підтримка',
+    ],
+    highlighted: true,
+    cta: 'Обрати',
+  },
+  {
+    name: 'Scale',
+    description: 'Для бізнесу з великими амбіціями',
+    price: '$1,200',
+    period: '/міс',
+    adBudget: '$5,000+',
+    features: [
+      'Всі рекламні канали',
+      'Необмежена кількість кампаній',
+      'Повна аналітика + дашборди',
+      'Щоденний моніторинг',
+      'Стратегічні сесії щомісяця',
+      'Виділений менеджер',
+      'Креативи від нашої команди',
+    ],
+    highlighted: false,
+    cta: 'Обговорити',
+  },
+];
+
+const oneTime = [
+  { name: 'Аудит рекламних кампаній', price: 'від $300', description: 'Детальний аналіз + рекомендації' },
+  { name: 'Налаштування GA4 + GTM', price: 'від $200', description: 'Базове відстеження конверсій' },
+  { name: 'Стратегічна сесія', price: 'від $200', description: '2-3 години роботи над стратегією' },
+  { name: 'Налаштування e-commerce', price: 'від $400', description: 'Повне налаштування для інтернет-магазину' },
+];
+---
+
+<PageLayout 
+  title="Ціни | Targetsy Agency"
+  description="Прозорі ціни на послуги digital-маркетингу. Пакети для бізнесу будь-якого розміру: від стартапів до великих компаній."
+>
+  <!-- Hero -->
+  <section class="pt-8 pb-16 px-4">
+    <div class="max-w-7xl mx-auto text-center">
+      <span class="inline-block px-4 py-2 rounded-full bg-accent-500/10 text-accent-400 text-sm font-medium mb-6">
+        Тарифи
+      </span>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+        Прозорі ціни
+        <span class="block text-accent-400">
+          без прихованих платежів
+        </span>
+      </h1>
+      <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+        Оберіть пакет, що відповідає вашим потребам та бюджету. Кожен пакет можна налаштувати індивідуально.
+      </p>
+    </div>
+  </section>
+
+  <!-- Pricing Cards -->
+  <section class="py-16 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-8">
+        {plans.map((plan) => (
+          <div class={`relative bg-white/5 backdrop-blur-sm border rounded-2xl p-8 ${plan.highlighted ? 'border-accent-500 scale-105' : 'border-white/10'}`}>
+            {plan.highlighted && (
+              <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-accent-500 rounded-full text-sm font-medium text-white">
+                Популярний
+              </div>
+            )}
+            
+            <h3 class="text-2xl font-bold text-white mb-2">{plan.name}</h3>
+            <p class="text-gray-400 mb-6">{plan.description}</p>
+            
+            <div class="mb-2">
+              <span class="text-4xl font-bold text-white">{plan.price}</span>
+              <span class="text-gray-400">{plan.period}</span>
+            </div>
+            <p class="text-sm text-gray-500 mb-6">Рекламний бюджет: {plan.adBudget}</p>
+            
+            <ul class="space-y-3 mb-8">
+              {plan.features.map((feature) => (
+                <li class="flex items-start gap-3 text-gray-300">
+                  <svg class="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+            
+            <a 
+              href="#contact" 
+              data-plan={plan.name}
+              data-price={plan.price}
+              class={`plan-select-btn block w-full text-center py-3 rounded-xl font-semibold transition-all ${
+                plan.highlighted 
+                  ? 'bg-gradient-to-r from-accent-500 to-primary-500 text-white hover:shadow-lg hover:shadow-accent-500/30' 
+                  : 'bg-white/10 text-white hover:bg-white/20'
+              }`}
+            >
+              {plan.cta}
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- One-time Services -->
+  <section class="py-16 px-4">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-white text-center mb-12">Разові послуги</h2>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        {oneTime.map((service) => (
+          <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex justify-between items-center">
+            <div>
+              <h3 class="text-lg font-semibold text-white">{service.name}</h3>
+              <p class="text-gray-400 text-sm">{service.description}</p>
+            </div>
+            <div class="text-xl font-bold text-accent-400 whitespace-nowrap ml-4">
+              {service.price}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ-like section -->
+  <section class="py-16 px-4">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-white text-center mb-12">Важливо знати</h2>
+      
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-white mb-2">💰 Як формується ціна?</h3>
+          <p class="text-gray-400">Вартість залежить від обсягу робіт та рекламного бюджету. Чим більший бюджет — тим більше часу потрібно на оптимізацію.</p>
+        </div>
+        
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-white mb-2">📅 Мінімальний термін?</h3>
+          <p class="text-gray-400">Рекомендуємо мінімум 3 місяці для отримання стабільних результатів. Але можемо працювати і помісячно.</p>
+        </div>
+        
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-white mb-2">💳 Як оплачувати рекламу?</h3>
+          <p class="text-gray-400">Рекламний бюджет оплачується напряму в Google/Meta. Ми не беремо посередницьких комісій.</p>
+        </div>
+        
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-white mb-2">🎯 Що якщо немає результату?</h3>
+          <p class="text-gray-400">Ми зацікавлені в вашому успіху. Якщо не бачимо результатів — разом шукаємо рішення або припиняємо співпрацю.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <ContactCTA />
+</PageLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const planButtons = document.querySelectorAll('.plan-select-btn');
+    
+    planButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const planName = btn.getAttribute('data-plan');
+        const planPrice = btn.getAttribute('data-price');
+        
+        // Store selected plan in sessionStorage
+        if (planName) {
+          sessionStorage.setItem('selectedPlan', planName);
+          sessionStorage.setItem('selectedPrice', planPrice || '');
+        }
+      });
+    });
+    
+    // Check if there's a selected plan and fill the message field
+    const checkAndFillPlan = () => {
+      const selectedPlan = sessionStorage.getItem('selectedPlan');
+      const messageField = document.getElementById('message');
+      
+      if (selectedPlan && messageField && !messageField.value) {
+        messageField.value = `Ви обрали пакет "${selectedPlan}". Опишіть ваш проєкт: `;
+        messageField.focus();
+        // Clear after filling
+        sessionStorage.removeItem('selectedPlan');
+        sessionStorage.removeItem('selectedPrice');
+      }
+    };
+    
+    // Check on page load (if user scrolled to contact)
+    checkAndFillPlan();
+    
+    // Also check when contact section becomes visible (for smooth scroll)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(checkAndFillPlan, 100);
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      observer.observe(contactSection);
+    }
+  });
+</script>

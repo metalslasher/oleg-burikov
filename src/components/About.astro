@@ -1,0 +1,84 @@
+---
+import content from '../content/home-uk.json';
+
+const { about } = content;
+---
+
+<section id="about" class="py-20 md:py-24">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div
+      class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] gap-10 md:gap-14 items-start"
+    >
+      <!-- Left Column: Text Content -->
+      <div>
+        <p class="text-fluid-sm font-semibold tracking-[0.16em] text-accent-400 uppercase mb-4">
+          Про агенцію
+        </p>
+        <h2 class="text-fluid-4xl font-bold text-white mb-5">
+          {about.title}
+        </h2>
+        <p class="text-fluid-lg text-gray-300 leading-relaxed mb-8">
+          {about.intro}
+        </p>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-2 gap-4 md:gap-6">
+          {about.stats.map((stat) => (
+            <div class="relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 p-5 md:p-6">
+              <div class="relative z-10">
+                <div class="text-3xl md:text-4xl font-black text-accent-400 mb-1">
+                  {stat.value}
+                </div>
+                <div class="text-xs md:text-sm text-gray-400 font-medium">
+                  {stat.label}
+                </div>
+              </div>
+              <div class="absolute -bottom-2 -right-2 w-20 h-20 bg-accent-500/10 rounded-full blur-2xl"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Right Column: Advantages as modern cards -->
+      <div class="space-y-5 md:space-y-6">
+        {about.advantages.map((advantage) => (
+          <div
+            class="relative rounded-2xl border border-white/10 bg-white/5 p-5 md:p-6 hover:bg-white/10 transition-all duration-200 hover:-translate-y-1"
+          >
+            <div
+              class="absolute inset-y-4 left-0 w-1 rounded-full bg-gradient-to-b from-accent-400 to-primary-400"
+            ></div>
+
+            <div class="pl-5 md:pl-6">
+              <div class="mb-2 flex items-center gap-2">
+                <div
+                  class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-accent-500/20 text-accent-400"
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+                <h3 class="text-base md:text-lg font-semibold text-white">
+                  {advantage.title}
+                </h3>
+              </div>
+              <p class="text-sm md:text-base text-gray-400 leading-relaxed">
+                {advantage.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

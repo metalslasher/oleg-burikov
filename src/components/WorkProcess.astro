@@ -1,0 +1,83 @@
+---
+import content from '../content/home-uk.json';
+
+const { workProcess } = content;
+---
+
+<section id="work-process" class="py-20 md:py-28">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+      <p class="text-fluid-sm font-semibold tracking-[0.18em] text-accent-400 uppercase mb-3">
+        Процес
+      </p>
+      <h2 class="text-fluid-4xl font-bold text-white mb-4">
+        {workProcess.title}
+      </h2>
+      <p class="text-fluid-lg text-gray-400">
+        {workProcess.subtitle}
+      </p>
+    </div>
+
+    <!-- Steps Grid -->
+    <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8 md:gap-10">
+      {workProcess.steps.map((step, index) => (
+        <div class="relative">
+          <!-- Step Card -->
+          <div class="relative h-full rounded-3xl bg-white/5 border border-white/10 p-8 hover:bg-white/10 hover:border-accent-500/50 transition-all duration-300 group">
+            <!-- Step Number Badge -->
+            <div class="absolute -top-4 -right-4 w-12 h-12 rounded-2xl bg-gradient-to-br from-accent-500 to-primary-500 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+              <span class="text-white font-black text-lg">{index + 1}</span>
+            </div>
+
+            <!-- Step Icon -->
+            <div class="mb-6">
+              <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent-500/20 group-hover:bg-accent-500/30 transition-colors">
+                <svg class="w-8 h-8 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  {index === 0 ? (
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  ) : index === 1 ? (
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                  ) : (
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  )}
+                </svg>
+              </div>
+            </div>
+
+            <!-- Step Title -->
+            <h3 class="text-xl md:text-2xl font-bold text-white mb-2">
+              {step.title}
+            </h3>
+            <p class="text-sm font-medium text-accent-400 mb-6 uppercase tracking-wider">
+              {step.subtitle}
+            </p>
+
+            <!-- Step Items -->
+            <ul class="space-y-3">
+              {step.items.map((item) => (
+                <li class="flex items-start gap-3">
+                  <div class="flex-shrink-0 mt-1">
+                    <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <span class="text-gray-300 leading-relaxed">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Connector Arrow (hidden on last item) -->
+          {index < workProcess.steps.length - 1 && (
+            <div class="hidden md:block absolute top-1/2 -right-5 transform -translate-y-1/2 z-10">
+              <svg class="w-10 h-10 text-accent-500/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

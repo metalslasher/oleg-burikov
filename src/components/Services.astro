@@ -1,0 +1,50 @@
+---
+import content from '../content/home-uk.json';
+
+const { services } = content;
+
+const iconMap: Record<string, string> = {
+  google: 'M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z',
+  meta: 'M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z',
+  analytics: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+  consulting: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
+};
+---
+
+<section id="services" class="py-16 md:py-24">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+      <h2 class="text-fluid-4xl font-bold text-white mb-4">
+        {services.title}
+      </h2>
+      <p class="text-fluid-lg text-gray-400">
+        {services.subtitle}
+      </p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 max-w-7xl mx-auto">
+      {services.items.map((service) => (
+        <div class="group bg-white/5 border border-white/10 rounded-xl p-6 md:p-8 hover:border-accent-500/50 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1">
+          <!-- Icon -->
+          <div class="w-14 h-14 bg-accent-500/20 rounded-lg flex items-center justify-center mb-5 group-hover:bg-accent-500 group-hover:scale-110 transition-all duration-300">
+            <svg class="w-7 h-7 text-accent-400 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+              <path d={iconMap[service.icon] || iconMap.analytics} />
+            </svg>
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-xl font-bold text-white mb-3">
+            {service.title}
+          </h3>
+
+          <!-- Description -->
+          <p class="text-gray-400 leading-relaxed">
+            {service.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
