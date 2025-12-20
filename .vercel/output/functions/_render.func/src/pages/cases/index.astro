@@ -1,0 +1,272 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+import content from '../../content/home-uk.json';
+
+const cases = content.cases.items;
+
+// Generate slugs for cases
+const casesWithSlugs = cases.map((c, index) => ({
+  ...c,
+  slug: `case-${index + 1}`
+}));
+
+// Auto-extract unique industries from cases
+const extractedIndustries = [...new Set(cases.map(c => c.industry))];
+
+// Initial visible filters count
+const INITIAL_FILTERS_COUNT = 6;
+const INITIAL_CASES_COUNT = 6;
+---
+
+<PageLayout 
+  title="Кейси | Targetsy Agency"
+  description="Реальні результати для реального бізнесу. Дивіться наші кейси з Google Ads та Meta Ads: зменшення вартості ліда, збільшення ROAS, масштабування продажів."
+>
+  <!-- Hero -->
+  <section class="pt-8 pb-12 px-4">
+    <div class="max-w-7xl mx-auto text-center">
+      <span class="inline-block px-4 py-2 rounded-full bg-accent-500/10 text-accent-400 text-sm font-medium mb-6">
+        Наші проекти
+      </span>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+        Реальні результати
+        <span class="block text-accent-400">
+          для реального бізнесу
+        </span>
+      </h1>
+      <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+        Кожен кейс — це історія успіху. Дивіться, як ми допомогли бізнесам різних ніш досягти результатів.
+      </p>
+    </div>
+  </section>
+
+  <!-- Filter Tabs -->
+  <section class="pb-8 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-wrap justify-center gap-3" id="filter-tabs">
+        <!-- "All" filter -->
+        <button 
+          class="filter-btn px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 bg-accent-500 text-white"
+          data-filter="all"
+        >
+          Всі
+        </button>
+        
+        <!-- Dynamic filters from cases -->
+        {extractedIndustries.map((industry, index) => (
+          <button 
+            class={`filter-btn px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 bg-white/5 border border-white/10 text-gray-300 hover:border-accent-500/50 hover:text-white ${index >= INITIAL_FILTERS_COUNT - 1 ? 'hidden-filter hidden' : ''}`}
+            data-filter={industry}
+          >
+            {industry}
+          </button>
+        ))}
+        
+        <!-- Show more filters button (only if there are more filters) -->
+        {extractedIndustries.length > INITIAL_FILTERS_COUNT - 1 && (
+          <button 
+            id="show-more-filters"
+            class="px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-300 bg-white/5 border border-white/10 text-gray-400 hover:border-accent-500/50 hover:text-white flex items-center gap-1"
+          >
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            <span id="filters-toggle-text">Ще {extractedIndustries.length - INITIAL_FILTERS_COUNT + 1}</span>
+          </button>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- Cases Grid -->
+  <section class="py-8 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="cases-grid">
+        {casesWithSlugs.map((caseItem, index) => (
+          <a 
+            href={`/cases/${caseItem.slug}`}
+            class={`case-card group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-accent-500/50 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 ${index >= INITIAL_CASES_COUNT ? 'hidden-case hidden' : ''}`}
+            data-industry={caseItem.industry}
+            data-index={index}
+          >
+            <div class="p-6">
+              <!-- Industry Badge -->
+              <div class="flex items-center justify-between mb-4">
+                <span class="px-3 py-1 bg-accent-500/20 text-accent-400 text-xs font-medium rounded-full">
+                  {caseItem.industry}
+                </span>
+                <svg class="w-5 h-5 text-gray-500 group-hover:text-accent-400 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </div>
+              
+              <!-- Client Name -->
+              <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent-400 transition-colors">
+                {caseItem.client}
+              </h3>
+              
+              <!-- Challenge Preview -->
+              <p class="text-gray-400 text-sm mb-6 line-clamp-2">
+                {caseItem.challenge}
+              </p>
+              
+              <!-- Key Results -->
+              <div class="grid grid-cols-2 gap-3 pt-4 border-t border-white/10">
+                {caseItem.results.slice(0, 2).map((result) => (
+                  <div>
+                    <div class="text-lg font-bold text-accent-400">{result.value}</div>
+                    <div class="text-xs text-gray-500">{result.metric}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+      
+      <!-- Load More Button -->
+      {casesWithSlugs.length > INITIAL_CASES_COUNT && (
+        <div class="text-center mt-12">
+          <button 
+            id="load-more-cases"
+            class="group inline-flex items-center gap-2 px-8 py-4 bg-white/5 border border-white/10 rounded-full text-white font-medium hover:bg-white/10 hover:border-accent-500/50 transition-all duration-300"
+          >
+            <span id="load-more-text">Показати більше</span>
+            <svg class="w-5 h-5 group-hover:translate-y-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </button>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <ContactCTA />
+</PageLayout>
+
+<script define:vars={{ INITIAL_CASES_COUNT, INITIAL_FILTERS_COUNT, totalCases: casesWithSlugs.length, totalFilters: extractedIndustries.length }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const caseCards = document.querySelectorAll('.case-card');
+    const loadMoreBtn = document.getElementById('load-more-cases');
+    const loadMoreText = document.getElementById('load-more-text');
+    const showMoreFiltersBtn = document.getElementById('show-more-filters');
+    const filtersToggleText = document.getElementById('filters-toggle-text');
+    
+    let visibleCasesCount = INITIAL_CASES_COUNT;
+    let filtersExpanded = false;
+    let currentFilter = 'all';
+    
+    // Filter functionality
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active button
+        filterBtns.forEach(b => {
+          b.classList.remove('bg-accent-500', 'text-white');
+          b.classList.add('bg-white/5', 'border', 'border-white/10', 'text-gray-300');
+        });
+        btn.classList.remove('bg-white/5', 'border', 'border-white/10', 'text-gray-300');
+        btn.classList.add('bg-accent-500', 'text-white');
+        
+        currentFilter = btn.getAttribute('data-filter');
+        
+        // Filter cards
+        caseCards.forEach(card => {
+          const industry = card.getAttribute('data-industry');
+          const index = parseInt(card.getAttribute('data-index'));
+          const isHiddenCase = card.classList.contains('hidden-case');
+          
+          if (currentFilter === 'all' || industry === currentFilter) {
+            if (!isHiddenCase || index < visibleCasesCount) {
+              card.style.display = 'block';
+            }
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        
+        updateLoadMoreButton();
+      });
+    });
+    
+    // Load more cases
+    if (loadMoreBtn) {
+      loadMoreBtn.addEventListener('click', () => {
+        const hiddenCards = document.querySelectorAll('.case-card.hidden-case');
+        let shown = 0;
+        
+        hiddenCards.forEach(card => {
+          if (shown < 6) {
+            const industry = card.getAttribute('data-industry');
+            if (currentFilter === 'all' || industry === currentFilter) {
+              card.classList.remove('hidden-case', 'hidden');
+              card.style.display = 'block';
+              shown++;
+            }
+          }
+        });
+        
+        visibleCasesCount += 6;
+        updateLoadMoreButton();
+      });
+    }
+    
+    function updateLoadMoreButton() {
+      if (!loadMoreBtn) return;
+      
+      const remainingHidden = document.querySelectorAll('.case-card.hidden-case').length;
+      
+      if (remainingHidden === 0) {
+        loadMoreBtn.style.display = 'none';
+      } else {
+        loadMoreBtn.style.display = 'inline-flex';
+        loadMoreText.textContent = `Показати ще (${remainingHidden})`;
+      }
+    }
+    
+    // Show more filters
+    if (showMoreFiltersBtn) {
+      showMoreFiltersBtn.addEventListener('click', () => {
+        const hiddenFilters = document.querySelectorAll('.filter-btn.hidden-filter');
+        
+        if (!filtersExpanded) {
+          hiddenFilters.forEach(f => {
+            f.classList.remove('hidden');
+          });
+          filtersToggleText.textContent = 'Сховати';
+          showMoreFiltersBtn.querySelector('svg').style.transform = 'rotate(45deg)';
+          filtersExpanded = true;
+        } else {
+          hiddenFilters.forEach(f => {
+            f.classList.add('hidden');
+          });
+          filtersToggleText.textContent = `Ще ${totalFilters - INITIAL_FILTERS_COUNT + 1}`;
+          showMoreFiltersBtn.querySelector('svg').style.transform = 'rotate(0deg)';
+          filtersExpanded = false;
+        }
+      });
+    }
+    
+    // Initial state
+    updateLoadMoreButton();
+  });
+</script>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .case-card {
+    transition: all 0.3s ease;
+  }
+  
+  #show-more-filters svg {
+    transition: transform 0.3s ease;
+  }
+</style>

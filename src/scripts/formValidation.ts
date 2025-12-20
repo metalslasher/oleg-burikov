@@ -1,10 +1,4 @@
-interface FormData {
-  name: string;
-  email: string;
-  phone?: string;
-  service?: string;
-  message?: string;
-}
+
 
 interface ValidationResult {
   isValid: boolean;
@@ -29,7 +23,7 @@ export class FormValidator {
 
   private init() {
     this.form.addEventListener('submit', (e) => this.handleSubmit(e));
-    
+
     // Real-time validation on blur
     const inputs = this.form.querySelectorAll('input, textarea, select');
     inputs.forEach((input) => {
@@ -46,16 +40,16 @@ export class FormValidator {
     if (!phone) return false; // Phone is required now
     // Remove all non-digit characters except +
     const cleanPhone = phone.replace(/[^\d+]/g, '');
-    
+
     // Valid formats:
     // 380962290400 (12 digits starting with 38)
     // +380962290400 (+ and 12 digits starting with 38)
     // 0962290400 (10 digits starting with 0)
-    
+
     const withPlus = /^\+380\d{9}$/;      // +380XXXXXXXXX (13 chars total)
     const withoutPlus = /^380\d{9}$/;      // 380XXXXXXXXX (12 digits)
     const shortFormat = /^0\d{9}$/;        // 0XXXXXXXXX (10 digits)
-    
+
     return withPlus.test(cleanPhone) || withoutPlus.test(cleanPhone) || shortFormat.test(cleanPhone);
   }
 
@@ -94,7 +88,7 @@ export class FormValidator {
   private validateForm(): ValidationResult {
     const errors: { [key: string]: string } = {};
     const inputs = this.form.querySelectorAll('input[required], textarea[required], select[required]');
-    
+
     let isValid = true;
     inputs.forEach((input) => {
       if (!this.validateField(input as HTMLInputElement)) {
@@ -124,7 +118,7 @@ export class FormValidator {
 
     // Send to Google Sheets
     const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbx4OfLk5LvraXgy4tdoHbu-29j3QoQ2apZTyaknKmioTIn_IN1spCtcn6t_ZOioQDr-Rg/exec';
-    
+
     const params = new URLSearchParams({
       name: data.name || '',
       phone: data.phone || '',
@@ -168,11 +162,10 @@ export class FormValidator {
 
     // Create message element
     const messageDiv = document.createElement('div');
-    messageDiv.className = `form-message p-4 rounded-xl text-center font-semibold mb-4 ${
-      type === 'success' 
-        ? 'bg-green-500/20 text-green-300 border border-green-500/30' 
-        : 'bg-red-500/20 text-red-300 border border-red-500/30'
-    }`;
+    messageDiv.className = `form-message p-4 rounded-xl text-center font-semibold mb-4 ${type === 'success'
+      ? 'bg-green-500/20 text-green-300 border border-green-500/30'
+      : 'bg-red-500/20 text-red-300 border border-red-500/30'
+      }`;
     messageDiv.textContent = message;
 
     // Find the submit button and insert message before it
