@@ -92,10 +92,6 @@
 			"dest": "_render"
 		},
 		{
-			"src": "^/tools/site-audit/?$",
-			"dest": "_render"
-		},
-		{
 			"src": "^/$",
 			"dest": "_render"
 		},
