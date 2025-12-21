@@ -1,0 +1,344 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+
+const meta = {
+  title: 'B2B Google Ads: лідогенерація на основі даних та гіпотез',
+  description:
+    'B2B lead generation у Google Ads: як будувати PPC кампанії для SaaS та EDI/API інтеграцій, оптимізувати ключові слова, лендінги, аналітику й валідацію лідів.',
+  date: '20 грудня 2025',
+  readTime: '12 хв читання',
+  category: 'Google Ads',
+  tags: ['Google Ads', 'B2B SaaS', 'Аналітика', 'Lead Gen']
+};
+
+const badgeTag = meta.category;
+
+const toc = [
+  { id: 'b2b-different', title: 'B2B vs B2C: що важливо в PPC' },
+  { id: 'why-ppc', title: 'Чому Google Ads працює для B2B' },
+  { id: 'hypothesis', title: 'Підхід на основі гіпотез' },
+  { id: 'keywords', title: 'Ключові та мінус-слова: точність > обсяг' },
+  { id: 'display', title: 'Медійка та ремаркетинг' },
+  { id: 'analytics', title: 'Аналітика, CRM і валідація лідів' },
+  { id: 'steps', title: '3 кроки для старту' }
+];
+---
+
+<PageLayout
+  title={`${meta.title} | Targetsy`}
+  description={meta.description}
+  ogTitle={meta.title}
+  ogDescription={meta.description}
+>
+  <article class="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+    <!-- Hero -->
+    <section class="pt-8 pb-12 px-4">
+      <div class="max-w-5xl mx-auto">
+        <nav class="flex items-center gap-2 text-sm text-gray-400 mb-8">
+          <a href="/blog" class="hover:text-accent-400 transition-colors">Блог</a>
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+          <span class="text-white">{meta.title}</span>
+        </nav>
+
+        <div class="flex flex-wrap items-center gap-3 mb-6">
+          <span class="px-4 py-1.5 bg-accent-500/20 text-accent-400 text-sm font-medium rounded-full">
+            {badgeTag}
+          </span>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+          {meta.title}
+        </h1>
+
+        <div class="flex items-center gap-2 text-sm text-gray-400 mb-4">
+          <span>{meta.date}</span>
+          <span aria-hidden="true">•</span>
+          <span>{meta.readTime}</span>
+        </div>
+
+        <p class="text-xl text-gray-400 mb-8 max-w-3xl leading-relaxed">
+          Ми підготували практичний гайд про B2B lead generation у Google Ads для SaaS та EDI/API інтеграцій. У прикладі — інтеграційне рішення корпоративного рівня в США, де продажі довгі, LTV високий, а CPC дорожчий — тож потрібні точні гіпотези, релевантні ключові слова й сильна аналітика.
+        </p>
+      </div>
+    </section>
+
+    <!-- TOC -->
+    <section class="py-12 px-4">
+      <div class="max-w-5xl mx-auto">
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
+          <h2 class="text-lg font-semibold text-white mb-4">Зміст</h2>
+          <ol class="list-decimal list-inside space-y-2 text-gray-300">
+            {toc.map((item) => (
+              <li>
+                <a class="hover:text-accent-400 transition-colors" href={`#${item.id}`}>
+                  {item.title}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: B2B vs B2C -->
+    <section id="b2b-different" class="py-12 px-4">
+      <div class="max-w-5xl mx-auto">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 bg-accent-500/20 rounded-xl flex items-center justify-center">
+            <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-white">B2B vs B2C: що важливо в PPC</h2>
+        </div>
+
+        <p class="text-gray-400 mb-6 leading-relaxed">
+          B2B-рішення купують не імпульсивно, тому лідогенерація в B2B відрізняється від B2C. Тут важлива якість, а не кількість кліків, бо рішення приймаються довго і колективно.
+        </p>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 mb-6">
+          <ul class="list-disc list-inside space-y-2 text-gray-300">
+            <li><strong class="text-white">Довгі цикли продажів.</strong> Угода може тривати тижні або місяці.</li>
+            <li><strong class="text-white">Багато стейкхолдерів.</strong> ІТ, закупівлі, фінанси, користувачі.</li>
+            <li><strong class="text-white">Високий LTV.</strong> Кілька лідів можуть дати великий контракт.</li>
+            <li><strong class="text-white">Високий CPC.</strong> Конкуренція за B2B ключі з наміром.</li>
+          </ul>
+        </div>
+
+        <div class="bg-accent-500/10 border border-accent-500/30 rounded-2xl p-6 text-white leading-relaxed">
+          Приклад: EDI/API SaaS для великих мереж. Продаж включає оцінку безпеки, погодження бюджету, пілот і лише потім контракт. Реклама має говорити мовою ROI та операційної вигоди, а лендінг підтверджувати обіцянки.
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Why PPC -->
+    <section id="why-ppc" class="py-12 px-4">
+      <div class="max-w-5xl mx-auto">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 bg-accent-500/20 rounded-xl flex items-center justify-center">
+            <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-white">Чому Google Ads працює для B2B</h2>
+        </div>
+
+        <p class="text-gray-400 mb-6 leading-relaxed">
+          Google Ads для B2B працює, бо ловить запит у момент потреби. Це сильніше за “холодні” листи: люди самі шукають рішення, а значить їхній намір уже сформований.
+        </p>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+          <ul class="list-disc list-inside space-y-2 text-gray-300">
+            <li>Оптимізація під транзакційний намір, а не інформаційний трафік.</li>
+            <li>Текст оголошень відповідає етапу воронки (усвідомлення → рішення).</li>
+            <li>Лендінг і реклама говорять одним повідомленням (message match).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Hypothesis -->
+    <section id="hypothesis" class="py-12 px-4">
+      <div class="max-w-5xl mx-auto">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 bg-accent-500/20 rounded-xl flex items-center justify-center">
+            <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-white">Підхід на основі гіпотез</h2>
+        </div>
+
+        <p class="text-gray-400 mb-6 leading-relaxed">
+          Ефективна B2B PPC-стратегія базується на гіпотезах. Це спосіб зменшити ризики при високій CPC та довгих циклах продажів.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-2">
+            <h3 class="text-lg font-semibold text-white">Структура гіпотези</h3>
+            <ul class="list-disc list-inside text-gray-300 space-y-1">
+              <li>Тип реклами: пошук, медійка, ремаркетинг.</li>
+              <li>Таргетинг: галузь, посада, розмір компанії.</li>
+              <li>Намір: транзакційні vs інформаційні запити.</li>
+              <li>Меседж: біль клієнта + рішення + результат.</li>
+              <li>Лендінг: обіцянка з реклами має бути виконана.</li>
+            </ul>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-2">
+            <h3 class="text-lg font-semibold text-white">Метрики для перевірки</h3>
+            <ul class="list-disc list-inside text-gray-300 space-y-1">
+              <li>SQL-rate і якість лідів з CRM.</li>
+              <li>CAC у порівнянні з LTV.</li>
+              <li>Час до угоди та pipeline value.</li>
+              <li>Ефект A/B-тестів: оголошення і лендінги.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Keywords -->
+    <section id="keywords" class="py-12 px-4">
+      <div class="max-w-5xl mx-auto">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 bg-accent-500/20 rounded-xl flex items-center justify-center">
+            <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-white">Ключові та мінус-слова: точність важливіша за обсяг</h2>
+        </div>
+
+        <p class="text-gray-400 mb-6 leading-relaxed">
+          У B2B Google Ads важливо таргетувати користувачів на етапі прийняття рішення. Приклади високонамірених запитів: “best cloud EDI integration for manufacturers”, “EDI integration software for logistics”.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-6">
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-2">
+            <h3 class="text-lg font-semibold text-white">Типи відповідності</h3>
+            <ul class="list-disc list-inside text-gray-300 space-y-1">
+              <li><strong class="text-white">Exact</strong>: найточніші транзакційні запити.</li>
+              <li><strong class="text-white">Phrase</strong>: контрольовані варіації.</li>
+              <li><strong class="text-white">Broad</strong>: лише з жорсткими мінус-словами.</li>
+            </ul>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-2">
+            <h3 class="text-lg font-semibold text-white">Мінус-слова</h3>
+            <ul class="list-disc list-inside text-gray-300 space-y-1">
+              <li>“free”, “open source”, “DIY”.</li>
+              <li>Кар’єрні запити: “jobs”, “salary”.</li>
+              <li>Освітні запити: “what is EDI”, “how does API work”.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-accent-500/10 border border-accent-500/30 rounded-2xl p-6 text-white leading-relaxed">
+          Релевантність = ключове слово → оголошення → лендінг. Це підвищує Quality Score, зменшує CPC і відсікає неякісний трафік.
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Display -->
+    <section id="display" class="py-12 px-4">
+      <div class="max-w-5xl mx-auto">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 bg-accent-500/20 rounded-xl flex items-center justify-center">
+            <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-white">Медійка та ремаркетинг</h2>
+        </div>
+
+        <p class="text-gray-400 mb-6 leading-relaxed">
+          У B2B медійна реклама створює намір, а ремаркетинг повертає теплих користувачів. Це критично для довгих циклів продажів.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-2">
+            <h3 class="text-lg font-semibold text-white">Сегментація</h3>
+            <ul class="list-disc list-inside text-gray-300 space-y-1">
+              <li>Галузі: логістика, фінанси, виробництво.</li>
+              <li>Посади: ІТ-директори, закупівлі, операційні менеджери.</li>
+              <li>Розмір компанії та ICP.</li>
+              <li>Custom Intent / In-Market / Lookalike.</li>
+            </ul>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-2">
+            <h3 class="text-lg font-semibold text-white">Оптимізація показів</h3>
+            <ul class="list-disc list-inside text-gray-300 space-y-1">
+              <li>Пріоритет десктопу, виключення мобільних додатків.</li>
+              <li>Dayparting: будні, робочий час.</li>
+              <li>Більша частка бюджету на ремаркетинг.</li>
+              <li>Контроль частоти та якості розміщень.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Analytics -->
+    <section id="analytics" class="py-12 px-4">
+      <div class="max-w-5xl mx-auto">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 bg-accent-500/20 rounded-xl flex items-center justify-center">
+            <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-white">Аналітика, CRM і валідація лідів</h2>
+        </div>
+
+        <p class="text-gray-400 mb-6 leading-relaxed">
+          Аналітика в B2B PPC — це не тільки заявки, а шлях ліда до угоди. Без CRM і атрибуції неможливо зрозуміти реальну окупність.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-6">
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-2">
+            <h3 class="text-lg font-semibold text-white">Ключові метрики</h3>
+            <ul class="list-disc list-inside text-gray-300 space-y-1">
+              <li>Якість лідів (MQL → SQL → угода).</li>
+              <li>Час до закриття угоди.</li>
+              <li>CAC vs LTV.</li>
+              <li>Pipeline value за каналами.</li>
+            </ul>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-2">
+            <h3 class="text-lg font-semibold text-white">Інструменти</h3>
+            <ul class="list-disc list-inside text-gray-300 space-y-1">
+              <li>Google Ads Conversion Tracking + GA4.</li>
+              <li>GTM події: скрол, кліки, взаємодія з формою.</li>
+              <li>UTM-мітки та Looker Studio.</li>
+              <li>CRM інтеграція (HubSpot, Salesforce, Pipedrive).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-accent-500/10 border border-accent-500/30 rounded-2xl p-6 text-white leading-relaxed">
+          Валідація лідів: lead scoring, корпоративна пошта, кваліфікаційні питання у формі, сегментація MQL/SQL/DQL. Це зменшує витрати на нерелевантні заявки.
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Steps -->
+    <section id="steps" class="py-12 px-4">
+      <div class="max-w-5xl mx-auto">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 bg-accent-500/20 rounded-xl flex items-center justify-center">
+            <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-white">3 кроки для старту</h2>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+          <ol class="list-decimal list-inside space-y-2 text-gray-300">
+            <li><strong class="text-white">Сформуйте гіпотези.</strong> Сегменти, ролі, болі, цінність.</li>
+            <li><strong class="text-white">Зберіть high-intent кампанію.</strong> Точні ключі, мінус-слова, релевантний лендінг.</li>
+            <li><strong class="text-white">Налаштуйте аналітику.</strong> CRM, атрибуція, lead scoring, оптимізація.</li>
+          </ol>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 mt-6">
+          <h3 class="text-lg font-semibold text-white mb-2">Де ще працює цей підхід</h3>
+          <ul class="list-disc list-inside text-gray-300 space-y-1">
+            <li>FinTech і криптоінфраструктура.</li>
+            <li>Корпоративне ПЗ та кібербезпека.</li>
+            <li>B2B e-commerce і логістика.</li>
+            <li>Виробництво та ланцюги постачань.</li>
+          </ul>
+        </div>
+
+        <p class="text-gray-400 mt-6 leading-relaxed">
+          Коли стратегія, ключі, лендінг і аналітика працюють разом, Google Ads для B2B генерує не просто трафік, а якісні ліди, які доходять до контракту.
+        </p>
+      </div>
+    </section>
+
+    <ContactCTA />
+  </article>
+</PageLayout>
