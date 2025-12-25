@@ -130,14 +130,16 @@ const subheadlineParts = hero.subheadline
       </h1>
 
       <div class="text-gray-300 mb-8 sm:mb-10 leading-relaxed max-w-3xl mx-auto">
-        <div class="flex flex-wrap justify-center gap-2 sm:gap-3 text-sm sm:text-xl md:text-2xl">
+        <div class="flex flex-wrap justify-center gap-2 sm:gap-0 text-sm sm:text-xl md:text-2xl">
           {subheadlineParts.map((part, index) => (
             <span class="inline-flex items-center">
               <span class="rounded-full bg-white/5 border border-white/10 px-3 py-1 sm:bg-transparent sm:border-transparent sm:px-0 sm:py-0">
                 {part}
               </span>
               {index < subheadlineParts.length - 1 && (
-                <span class="hidden sm:inline text-accent-400/70 mx-2">•</span>
+                <span class="hidden sm:inline-flex items-center justify-center mx-2 h-[1em]">
+                  <span class="w-1.5 h-1.5 rounded-full bg-accent-400/70"></span>
+                </span>
               )}
             </span>
           ))}

@@ -437,6 +437,10 @@
           "href": "/services"
         },
         {
+          "label": "Інструменти",
+          "href": "/tools"
+        },
+        {
           "label": "Кейси",
           "href": "/cases"
         },
