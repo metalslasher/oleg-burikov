@@ -4,7 +4,7 @@ import content from '../content/home-uk.json';
 const { hero } = content;
 ---
 
-<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+<section id="hero" class="relative min-h-screen flex items-start sm:items-center justify-center overflow-hidden">
   <!-- Animated Background Elements -->
   <div class="absolute inset-0 overflow-hidden">
     <div class="absolute top-1/4 -left-48 w-96 h-96 bg-primary-500/30 rounded-full blur-3xl animate-pulse"></div>
@@ -99,19 +99,19 @@ const { hero } = content;
     </div>
   </div>
 
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pt-0 md:pt-40 pb-16">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pt-4 sm:pt-10 md:pt-40 pb-12 sm:pb-16">
     <div class="max-w-5xl mx-auto text-center">
       <!-- Headline -->
       <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
         {hero.headline}
       </h1>
 
-      <p class="text-lg sm:text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed max-w-3xl mx-auto">
+      <p class="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 sm:mb-10 leading-relaxed max-w-3xl mx-auto">
         {hero.subheadline}
       </p>
 
       <!-- CTA Buttons -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 sm:mb-12">
         <a
           href="#contact"
           class="group relative inline-flex items-center justify-center bg-gradient-to-r from-accent-500 to-accent-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-[0_0_40px_rgba(251,146,60,0.5)] transition-all duration-300 hover:scale-105 w-full sm:w-auto"
