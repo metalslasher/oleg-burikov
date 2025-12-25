@@ -2,11 +2,20 @@
 import content from '../content/home-uk.json';
 
 const { hero } = content;
+const highlightPhrase = 'Google Ads та Meta Ads';
+const hasHighlight = hero.headline.includes(highlightPhrase);
+const [headlinePrefix, headlineSuffix] = hasHighlight
+  ? hero.headline.split(highlightPhrase)
+  : [hero.headline, ''];
+const subheadlineParts = hero.subheadline
+  .split('.')
+  .map((part) => part.trim())
+  .filter(Boolean);
 ---
 
 <section id="hero" class="relative min-h-0 sm:min-h-screen flex items-start sm:items-center justify-center overflow-hidden">
   <!-- Animated Background Elements -->
-  <div class="absolute inset-0 overflow-hidden hidden sm:block">
+  <div class="absolute inset-0 overflow-hidden hidden">
     <div class="absolute top-1/4 -left-48 w-96 h-96 bg-primary-500/30 rounded-full blur-3xl animate-pulse"></div>
     <div class="absolute bottom-1/4 -right-48 w-96 h-96 bg-accent-500/30 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
@@ -99,16 +108,41 @@ const { hero } = content;
     </div>
   </div>
 
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pt-4 sm:pt-10 md:pt-40 pb-12 sm:pb-16">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pt-8 sm:pt-10 md:pt-40 pb-12 sm:pb-16">
     <div class="max-w-5xl mx-auto text-center">
       <!-- Headline -->
       <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-        {hero.headline}
+        {hasHighlight ? (
+          <>
+            <span class="block sm:inline sm:mr-2">{headlinePrefix.trim()}</span>
+            <span class="block sm:inline sm:mr-2">
+              <span class="text-accent-400">Google Ads</span>
+              <span class="text-white"> та </span>
+              <span class="text-accent-400">Meta Ads</span>
+            </span>
+            {headlineSuffix.trim() && (
+              <span class="block sm:inline">{headlineSuffix.trim()}</span>
+            )}
+          </>
+        ) : (
+          hero.headline
+        )}
       </h1>
 
-      <p class="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 sm:mb-10 leading-relaxed max-w-3xl mx-auto">
-        {hero.subheadline}
-      </p>
+      <div class="text-gray-300 mb-8 sm:mb-10 leading-relaxed max-w-3xl mx-auto">
+        <div class="flex flex-wrap justify-center gap-2 sm:gap-3 text-sm sm:text-xl md:text-2xl">
+          {subheadlineParts.map((part, index) => (
+            <span class="inline-flex items-center">
+              <span class="rounded-full bg-white/5 border border-white/10 px-3 py-1 sm:bg-transparent sm:border-transparent sm:px-0 sm:py-0">
+                {part}
+              </span>
+              {index < subheadlineParts.length - 1 && (
+                <span class="hidden sm:inline text-accent-400/70 mx-2">•</span>
+              )}
+            </span>
+          ))}
+        </div>
+      </div>
 
       <!-- CTA Buttons -->
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 sm:mb-12">
