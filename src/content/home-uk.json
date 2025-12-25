@@ -11,7 +11,25 @@
     "nav": [
       {
         "label": "Послуги",
-        "href": "/services"
+        "href": "/services",
+        "children": [
+          {
+            "label": "Google Ads",
+            "href": "/services/google-ads"
+          },
+          {
+            "label": "Meta Ads",
+            "href": "/services/facebook-ads"
+          },
+          {
+            "label": "Веб-аналітика",
+            "href": "/services/analytics"
+          },
+          {
+            "label": "Консалтинг",
+            "href": "/services/consulting"
+          }
+        ]
       },
       {
         "label": "Інструменти",
