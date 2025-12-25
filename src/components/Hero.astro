@@ -4,9 +4,9 @@ import content from '../content/home-uk.json';
 const { hero } = content;
 ---
 
-<section id="hero" class="relative min-h-screen flex items-start sm:items-center justify-center overflow-hidden">
+<section id="hero" class="relative min-h-0 sm:min-h-screen flex items-start sm:items-center justify-center overflow-hidden">
   <!-- Animated Background Elements -->
-  <div class="absolute inset-0 overflow-hidden">
+  <div class="absolute inset-0 overflow-hidden hidden sm:block">
     <div class="absolute top-1/4 -left-48 w-96 h-96 bg-primary-500/30 rounded-full blur-3xl animate-pulse"></div>
     <div class="absolute bottom-1/4 -right-48 w-96 h-96 bg-accent-500/30 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
@@ -139,8 +139,15 @@ const { hero } = content;
         <span id="animated-metric" class="text-sm font-medium">{hero.metricsLabel}</span>
       </div>
 
+      <!-- Scroll Indicator (Mobile) -->
+      <div class="mt-6 flex justify-center sm:hidden animate-bounce">
+        <svg class="w-6 h-6 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </div>
+
       <!-- Scroll Indicator -->
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden sm:block">
         <svg class="w-6 h-6 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
         </svg>
