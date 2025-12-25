@@ -52,6 +52,7 @@ const { cta } = content;
                   type="text"
                   id="name"
                   name="name"
+                  autocomplete="name"
                   required
                   placeholder={cta.form.fields.name.placeholder}
                   class="w-full px-5 py-3.5 bg-white/5 border-2 border-white/10 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all backdrop-blur-sm"
@@ -67,6 +68,7 @@ const { cta } = content;
                   type="tel"
                   id="phone"
                   name="phone"
+                  autocomplete="tel"
                   required
                   placeholder={cta.form.fields.phone.placeholder}
                   class="w-full px-5 py-3.5 bg-white/5 border-2 border-white/10 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all backdrop-blur-sm"
@@ -84,6 +86,7 @@ const { cta } = content;
                 <select
                   id="contact_method"
                   name="contact_method"
+                  autocomplete="off"
                   required
                   class="w-full px-5 py-3.5 bg-white/5 border-2 border-white/10 rounded-xl text-white focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all backdrop-blur-sm appearance-none cursor-pointer"
                 >
@@ -102,6 +105,7 @@ const { cta } = content;
                 <select
                   id="service"
                   name="service"
+                  autocomplete="off"
                   class="w-full px-5 py-3.5 bg-white/5 border-2 border-white/10 rounded-xl text-white focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all backdrop-blur-sm appearance-none cursor-pointer"
                 >
                   <option value="" class="bg-slate-900">{cta.form.fields.service.placeholder}</option>
@@ -121,6 +125,7 @@ const { cta } = content;
               <textarea
                 id="message"
                 name="message"
+                autocomplete="off"
                 rows="4"
                 placeholder={cta.form.fields.message.placeholder}
                 class="w-full px-5 py-3.5 bg-white/5 border-2 border-white/10 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all resize-none backdrop-blur-sm"
