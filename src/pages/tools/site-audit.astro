@@ -1,4 +1,4 @@
----
+﻿---
 import PageLayout from '../../layouts/PageLayout.astro';
 
 const seo = {
@@ -36,7 +36,7 @@ const seo = {
             <div class="flex items-center justify-center mb-10 space-x-4">
                 <div class="flex items-center">
                     <div id="step-1-indicator" class="w-10 h-10 bg-accent-500/20 rounded-lg flex items-center justify-center text-accent-400 font-bold transition-all duration-300">1</div>
-                    <span class="ml-2 text-sm text-white hidden sm:inline font-medium">URL</span>
+                    <span class="ml-2 text-sm text-white hidden sm:inline font-medium">Адреса вашого сайту</span>
                 </div>
                 <div class="w-16 h-[2px] bg-white/5 rounded-full"></div>
                 <div class="flex items-center">
@@ -50,7 +50,7 @@ const seo = {
             <div id="step-1" class="step-content">
                 <div class="space-y-6">
                     <div>
-                        <label for="url" class="block text-sm font-medium text-gray-300 mb-2">Адреса вашого сайту</label>
+                        <label for="url" class="block text-sm font-medium text-gray-300 mb-2 sr-only">Адреса вашого сайту</label>
                         <input
                             type="url"
                             id="url"
@@ -81,19 +81,20 @@ const seo = {
                 <div class="space-y-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Ім'я</label>
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2 text-left">Ім'я <span class="text-accent-400">*</span></label>
                             <input
                                 type="text"
                                 id="name"
                                 name="name"
                                 autocomplete="name"
                                 required
-                                placeholder="Олександр"
-                                class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent-500 focus:ring-1 focus:ring-accent-500 transition-colors"
+                                placeholder="Ваше ім'я"
+                                class="w-full px-5 py-3.5 bg-white/5 border-2 border-white/10 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all backdrop-blur-sm"
                             />
+                            <p class="error-message text-accent-300 text-sm mt-2 hidden"></p>
                         </div>
                         <div>
-                            <label for="phone" class="block text-sm font-medium text-gray-300 mb-2">Телефон</label>
+                            <label for="phone" class="block text-sm font-medium text-gray-300 mb-2 text-left">Телефон <span class="text-accent-400">*</span></label>
                             <input
                                 type="tel"
                                 id="phone"
@@ -101,31 +102,20 @@ const seo = {
                                 autocomplete="tel"
                                 required
                                 placeholder="+38 (0XX) XXX XX XX"
-                                class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent-500 focus:ring-1 focus:ring-accent-500 transition-colors"
+                                class="w-full px-5 py-3.5 bg-white/5 border-2 border-white/10 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all backdrop-blur-sm"
                             />
+                            <p class="error-message text-accent-300 text-sm mt-2 hidden"></p>
                         </div>
                     </div>
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email (для надсилання звіту)</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            autocomplete="email"
-                            required
-                            placeholder="mail@example.com"
-                            class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent-500 focus:ring-1 focus:ring-accent-500 transition-colors"
-                        />
-                    </div>
-                     <div>
-                        <label for="notes" class="block text-sm font-medium text-gray-300 mb-2">Додатковий коментар (необов'язково)</label>
+                        <label for="message" class="block text-sm font-medium text-gray-300 mb-2 text-left">Коротко про ваш проект</label>
                         <textarea
-                            id="notes"
-                            name="notes"
+                            id="message"
+                            name="message"
                             autocomplete="off"
                             rows="2"
-                            placeholder="Яка основна ціль вашого сайту? (напр., продажі, збір лідів...)"
-                            class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent-500 focus:ring-1 focus:ring-accent-500 transition-colors"
+                            placeholder="Опишіть коротко задачу або ціль проєкту"
+                            class="w-full px-5 py-3.5 bg-white/5 border-2 border-white/10 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all resize-none backdrop-blur-sm"
                         ></textarea>
                     </div>
 
@@ -225,6 +215,102 @@ const seo = {
     const resultsContainer = document.getElementById('results-container');
     const auditResults = document.getElementById('audit-results');
     const errorMessage = document.getElementById('error-message');
+    const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwdJADWtJiV1dALQhdz_209hivO3uaRw-fB6yfeJCF4JfyaxTTo-6E5iggAKeagha3jfw/exec';
+
+    const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+
+    const storeUtmFromUrl = () => {
+        const params = new URLSearchParams(window.location.search);
+        UTM_KEYS.forEach((key) => {
+            const value = params.get(key);
+            if (value) {
+                sessionStorage.setItem(key, value);
+            }
+        });
+    };
+
+    const getUtmValues = () => {
+        const params = new URLSearchParams(window.location.search);
+        const utmValues: { [key: string]: string } = {};
+
+        UTM_KEYS.forEach((key) => {
+            const value = params.get(key) || sessionStorage.getItem(key) || '';
+            if (value) {
+                utmValues[key] = value;
+            }
+        });
+
+        return utmValues;
+    };
+
+    const validatePhone = (phone: string) => {
+        if (!phone) return false;
+        const cleanPhone = phone.replace(/[^\d+]/g, '');
+        const withPlus = /^\+380\d{9}$/;
+        const withoutPlus = /^380\d{9}$/;
+        const shortFormat = /^0\d{9}$/;
+        return withPlus.test(cleanPhone) || withoutPlus.test(cleanPhone) || shortFormat.test(cleanPhone);
+    };
+
+    const setFieldError = (field: HTMLInputElement | HTMLTextAreaElement, message: string) => {
+        const errorElement = field.parentElement?.querySelector('.error-message') as HTMLElement | null;
+        if (errorElement) {
+            errorElement.textContent = message;
+            errorElement.classList.toggle('hidden', !message);
+        }
+        if (message) {
+            field.classList.add('border-red-500');
+            field.classList.remove('border-green-500');
+        } else {
+            field.classList.remove('border-red-500');
+            if (field.value.trim()) {
+                field.classList.add('border-green-500');
+            }
+        }
+    };
+
+    const validateStep2 = () => {
+        let isValid = true;
+        const nameInput = document.getElementById('name') as HTMLInputElement;
+        const phoneInput = document.getElementById('phone') as HTMLInputElement;
+
+        if (!nameInput.value.trim()) {
+            setFieldError(nameInput, 'Будь ласка, введіть ім’я');
+            isValid = false;
+        } else if (nameInput.value.trim().length < 2) {
+            setFieldError(nameInput, 'Ім’я має містити мінімум 2 символи');
+            isValid = false;
+        } else {
+            setFieldError(nameInput, '');
+        }
+
+        if (!phoneInput.value.trim()) {
+            setFieldError(phoneInput, 'Будь ласка, введіть телефон');
+            isValid = false;
+        } else if (!validatePhone(phoneInput.value)) {
+            setFieldError(phoneInput, 'Введіть коректний номер телефону');
+            isValid = false;
+        } else {
+            setFieldError(phoneInput, '');
+        }
+
+        return isValid;
+    };
+
+    const sendLeadToSheets = (payload: Record<string, string>) => {
+        const params = new URLSearchParams(payload);
+        const url = `${SHEETS_URL}?${params.toString()}`;
+        const script = document.createElement('script');
+        script.src = url;
+        document.head.appendChild(script);
+        setTimeout(() => {
+            if (script.parentNode) {
+                script.parentNode.removeChild(script);
+            }
+        }, 3000);
+    };
+
+    storeUtmFromUrl();
 
     // Validation helper
     const validateStep1 = () => {
@@ -232,7 +318,7 @@ const seo = {
         
         let url = urlInput.value.trim();
         if(!url) {
-            urlInput.setCustomValidity('Будь ласка, введіть URL');
+            urlInput.setCustomValidity('Будь ласка, введіть адресу сайту');
             urlInput.reportValidity();
             return false;
         }
@@ -297,6 +383,10 @@ const seo = {
     form?.addEventListener('submit', async (e) => {
         e.preventDefault();
         errorMessage?.classList.add('hidden');
+
+        if (!validateStep2()) {
+            return;
+        }
         
         const formData = new FormData(form as HTMLFormElement);
         const data: any = Object.fromEntries(formData.entries());
@@ -306,6 +396,24 @@ const seo = {
         if (urlInput) {
             data.url = urlInput.value;
         }
+
+        const utmValues = getUtmValues();
+        const messageValue = data.message ? String(data.message).trim() : '';
+        const combinedMessage = messageValue ? `${messageValue}\nURL: ${data.url}` : `URL: ${data.url}`;
+
+        sendLeadToSheets({
+            name: data.name || '',
+            phone: data.phone || '',
+            contact_method: '',
+            service: 'Аудит сайту',
+            message: combinedMessage,
+            plan: '',
+            utm_source: utmValues.utm_source || '',
+            utm_medium: utmValues.utm_medium || '',
+            utm_campaign: utmValues.utm_campaign || '',
+            utm_term: utmValues.utm_term || '',
+            utm_content: utmValues.utm_content || ''
+        });
 
         loadingOverlay?.classList.remove('hidden');
 
@@ -328,6 +436,11 @@ const seo = {
             // Show results
             form.classList.add('hidden');
             resultsContainer?.classList.remove('hidden');
+            if (step2Indicator) {
+                step2Indicator.classList.remove('bg-accent-500/20');
+                step2Indicator.classList.add('bg-white/5', 'text-green-500');
+                step2Indicator.innerHTML = '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>';
+            }
             
              if (auditResults) {
                 // Remove Markdown bold **

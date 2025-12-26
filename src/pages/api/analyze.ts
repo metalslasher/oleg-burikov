@@ -21,9 +21,9 @@ export const POST: APIRoute = async ({ request }) => {
         return new Response(JSON.stringify({ error: 'Bot detected' }), { status: 400 });
     }
 
-    const { url, name, email, phone, notes } = body;
+    const { url, name, phone, message, notes } = body;
 
-    if (!url || !name || !email || !phone) {
+    if (!url || !name || !phone) {
         return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
     }
 
@@ -76,7 +76,7 @@ export const POST: APIRoute = async ({ request }) => {
         const completion = await openai.chat.completions.create({
             messages: [
                 { role: "system", content: "Ти досвідчений маркетолог та експерт з конверсії сайтів (CRO). Твоє завдання - проаналізувати текст з сайту клієнта і надати 3-5 конкретних, дієвих порад українською мовою, як покращити цей сайт для збільшення продажів. Будь лаконічним, професійним та переконливим. Форматуй відповідь як простий список порад." },
-                { role: "user", content: `Проаналізуй цей контент сайту (${targetUrl}) і дай поради. Контекст бізнесу від клієнта: ${notes || "Не вказано"}. \n\nКонтент сайту:\n${cleanText}` }
+                { role: "user", content: `Проаналізуй цей контент сайту (${targetUrl}) і дай поради. Контекст бізнесу від клієнта: ${message || notes || "Не вказано"}. \n\nКонтент сайту:\n${cleanText}` }
             ],
             model: "gpt-4o-mini", // Cost effective
         });
