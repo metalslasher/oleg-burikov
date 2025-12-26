@@ -3,28 +3,53 @@ import type { APIRoute } from 'astro';
 import OpenAI from 'openai';
 
 // Rate limiting (simple in-memory for demo/MVP)
-const rateLimit = new Map<string, number>();
+type RateLimitEntry = { count: number; windowStart: number };
+const rateLimit = new Map<string, RateLimitEntry>();
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
 const MAX_REQUESTS = 3; // 3 requests per minute per IP
 
 export const POST: APIRoute = async ({ request }) => {
+    const now = Date.now();
+    const forwardedFor = request.headers.get('x-forwarded-for') || '';
+    const clientId =
+        forwardedFor.split(',')[0]?.trim() ||
+        request.headers.get('x-real-ip') ||
+        request.headers.get('cf-connecting-ip') ||
+        request.headers.get('x-vercel-forwarded-for') ||
+        'unknown';
+
+    const current = rateLimit.get(clientId);
+    if (!current || now - current.windowStart > RATE_LIMIT_WINDOW) {
+        rateLimit.set(clientId, { count: 1, windowStart: now });
+    } else {
+        current.count += 1;
+        if (current.count > MAX_REQUESTS) {
+            return new Response(
+                JSON.stringify({ error: 'Too many requests. Try again in a minute.' }),
+                { status: 429, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Retry-After': '60' } }
+            );
+        }
+    }
+
+    const jsonHeaders = { 'Content-Type': 'application/json; charset=utf-8' };
+
     // Simple Honeypot Check
     let body;
     try {
         body = await request.json();
     } catch (e) {
-        return new Response(JSON.stringify({ error: 'Invalid JSON' }), { status: 400 });
+        return new Response(JSON.stringify({ error: 'Invalid JSON' }), { status: 400, headers: jsonHeaders });
     }
 
     if (body.website_hp) {
         // Bot detected
-        return new Response(JSON.stringify({ error: 'Bot detected' }), { status: 400 });
+        return new Response(JSON.stringify({ error: 'Bot detected' }), { status: 400, headers: jsonHeaders });
     }
 
     const { url, name, phone, message, notes } = body;
 
     if (!url || !name || !phone) {
-        return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
+        return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400, headers: jsonHeaders });
     }
 
     // Validate URL
@@ -50,15 +75,51 @@ export const POST: APIRoute = async ({ request }) => {
 
         const html = await siteResponse.text();
 
-        // Extract text content (very naive implementation)
-        // Removing scripts, styles, and tags
-        const cleanText = html
-            .replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gm, "")
-            .replace(/<style\b[^>]*>([\s\S]*?)<\/style>/gm, "")
-            .replace(/<[^>]+>/g, " ")
-            .replace(/\s+/g, " ")
-            .trim()
-            .substring(0, 8000); // Limit context size for LLM
+        const MAX_PAGE_TEXT_CHARS = 20000;
+
+        const stripHtml = (rawHtml: string) =>
+            rawHtml
+                .replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gm, "")
+                .replace(/<style\b[^>]*>([\s\S]*?)<\/style>/gm, "")
+                .replace(/<[^>]+>/g, " ")
+                .replace(/\s+/g, " ")
+                .trim();
+
+        const extractTagText = (rawHtml: string, tag: string) => {
+            const regex = new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'gi');
+            const matches = rawHtml.match(regex) || [];
+            return matches
+                .map((match) =>
+                    match
+                        .replace(/<[^>]+>/g, ' ')
+                        .replace(/\s+/g, ' ')
+                        .trim()
+                )
+                .filter(Boolean);
+        };
+
+        const buildPageContext = (pageUrl: string, rawHtml: string) => {
+            const titleMatch = rawHtml.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+            const metaDescMatch = rawHtml.match(
+                /<meta[^>]*name=["']description["'][^>]*content=["']([^"']*)["'][^>]*>/i
+            );
+            const h1Text = extractTagText(rawHtml, 'h1').join(' | ');
+            const h2Text = extractTagText(rawHtml, 'h2').join(' | ');
+            const cleanText = stripHtml(rawHtml).substring(0, MAX_PAGE_TEXT_CHARS);
+
+            return [
+                `URL: ${pageUrl}`,
+                titleMatch?.[1] ? `Title: ${titleMatch[1].trim()}` : '',
+                metaDescMatch?.[1] ? `Meta description: ${metaDescMatch[1].trim()}` : '',
+                h1Text ? `H1: ${h1Text}` : '',
+                h2Text ? `H2: ${h2Text}` : '',
+                `Visible text excerpt:\n${cleanText}`,
+            ]
+                .filter(Boolean)
+                .join("\n");
+        };
+
+        const combinedContext = buildPageContext(targetUrl, html);
 
         // 3. Call OpenAI
         const openai = new OpenAI({
@@ -67,28 +128,66 @@ export const POST: APIRoute = async ({ request }) => {
 
         if (!import.meta.env.OPENAI_API_KEY) {
             console.error("OPENAI_API_KEY is missing");
-            // Return dummy data if no key for testing
-            return new Response(JSON.stringify({
-                analysis: "Демо режим: API ключ не знайдено. \n\n1. Покращіть швидкість завантаження.\n2. Додайте CTA кнопки на перший екран.\n3. Оптимізуйте мобільну версію."
-            }), { status: 200 });
+            return new Response(
+                JSON.stringify({
+                    analysis: 'API key is missing. Add OPENAI_API_KEY to environment variables.',
+                }),
+                { status: 200, headers: jsonHeaders }
+            );
         }
 
         const completion = await openai.chat.completions.create({
             messages: [
-                { role: "system", content: "Ти досвідчений маркетолог та експерт з конверсії сайтів (CRO). Твоє завдання - проаналізувати текст з сайту клієнта і надати 3-5 конкретних, дієвих порад українською мовою, як покращити цей сайт для збільшення продажів. Будь лаконічним, професійним та переконливим. Форматуй відповідь як простий список порад." },
-                { role: "user", content: `Проаналізуй цей контент сайту (${targetUrl}) і дай поради. Контекст бізнесу від клієнта: ${message || notes || "Не вказано"}. \n\nКонтент сайту:\n${cleanText}` }
+                {
+                    role: "system",
+                    content:
+                        "You are a senior CRO/UX auditor at a marketing agency. Respond in Ukrainian. " +
+                        "Provide ONLY actionable recommendations to improve UX or conversion based on the provided content. " +
+                        "Do NOT summarize the business or repeat the page content. " +
+                        "No headings, no markdown, no numbered lists. Output plain text only. " +
+                        "Each recommendation must be on a new line and start with a hyphen (-). " +
+                        "If information is missing, add a recommendation that clearly states what should be added or clarified.",
+                },
+                {
+                    role: "user",
+                    content: [
+                        "Audit the page using the data below.",
+                        `Client context: ${message || notes || "Not provided"}.`,
+                        "Page data:",
+                        combinedContext,
+                    ].join("\n\n"),
+                },
             ],
-            model: "gpt-4o-mini", // Cost effective
+            model: "gpt-4o",
+            temperature: 0.2,
+            max_tokens: 1800,
         });
 
-        const analysis = completion.choices[0].message.content;
+        const analysis = completion.choices[0].message.content || '';
+        const sanitized = analysis
+            .replace(/^#{1,6}\s*/gm, '')
+            .replace(/^\s*\d+\.\s*/gm, '')
+            .replace(/^\s*[-*\u2022]\s+/gm, '- ')
+            .replace(/\*\*(.*?)\*\*/g, '$1')
+            .replace(/`+/g, '')
+            .replace(/\n{3,}/g, '\n\n')
+            .trim();
+        const formatted = sanitized
+            .split('\n')
+            .map((line) => line.trim())
+            .filter(Boolean)
+            .map((line) => (line.startsWith('-') ? line : `- ${line}`))
+            .join('\n');
 
         // In a real app, you would also SAVE this lead to a database or send an email to the admin.
 
-        return new Response(JSON.stringify({ analysis }), { status: 200 });
+        return new Response(JSON.stringify({ analysis: formatted }), { status: 200, headers: jsonHeaders });
 
     } catch (error: any) {
         console.error("Audit Error:", error);
-        return new Response(JSON.stringify({ error: 'Не вдалося проаналізувати сайт. Перевірте URL або спробуйте пізніше.' }), { status: 500 });
+        return new Response(
+            JSON.stringify({ error: 'Unable to analyze the site. Check the URL or try again later.' }),
+            { status: 500, headers: jsonHeaders }
+        );
     }
 }

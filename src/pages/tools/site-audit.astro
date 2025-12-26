@@ -148,7 +148,7 @@ const seo = {
 
                 <div class="bg-[#0d1117] border border-white/10 rounded-2xl overflow-hidden shadow-inner">
                     <div class="p-2">
-                        <div id="audit-results" class="space-y-4 text-gray-300 text-base leading-relaxed max-h-[600px] overflow-y-auto custom-scrollbar p-8">
+                        <div id="audit-results" class="space-y-4 text-left text-gray-300 text-base leading-relaxed max-h-[600px] overflow-y-auto custom-scrollbar p-8">
                             <!-- Results will be injected here -->
                         </div>
                     </div>
@@ -195,7 +195,7 @@ const seo = {
                     <svg class="w-7 h-7 text-accent-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 </div>
                 <h3 class="text-xl font-bold text-white mb-3">Результат</h3>
-                <p class="text-gray-400 leading-relaxed">Отримайте список з 3-5 конкретних порад, що можна покращити прямо зараз.</p>
+                <p class="text-gray-400 leading-relaxed">Отримайте персональний список конкретних порад, що можна покращити прямо зараз.</p>
             </div>
         </div>
       </div>
@@ -443,20 +443,18 @@ const seo = {
             }
             
              if (auditResults) {
-                // Remove Markdown bold **
-                const cleanText = result.analysis.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>');
-                // Format lists
-                const paragraphs = cleanText.split('\n').filter((p: string) => p.trim() !== '');
-                auditResults.innerHTML = paragraphs.map((p: string) => {
-                    if (p.trim().startsWith('-') || p.trim().startsWith('•') || p.trim().startsWith('✓')) {
-                         return `<div class="flex gap-2 mb-3"><span class="text-accent-500 mt-1">•</span><span>${p.trim().substring(1).trim()}</span></div>`
-                    } else if (p.trim().match(/^\d+\./)) {
-                         return `<div class="flex gap-2 mb-3"><span class="text-accent-500 font-bold mt-0.5">${p.trim().split('.')[0]}.</span><span>${p.trim().substring(p.indexOf('.') + 1).trim()}</span></div>`
-                    } else if (p.trim().startsWith('---')) {
-                        return '<hr class="my-6 border-white/10" />';
-                    }
-                    return `<p class="mb-4 text-gray-300">${p}</p>`;
-                }).join('');
+                const rawText = String(result.analysis || '')
+                    .replace(/^#{1,6}\s*/gm, '')
+                    .replace(/^\s*\d+\.\s*/gm, '')
+                    .replace(/^\s*[-*\u2022]\s+/gm, '- ')
+                    .replace(/`+/g, '')
+                    .replace(/\n{3,}/g, '\n\n')
+                    .trim();
+
+                const paragraphs = rawText.split('\n').filter((p: string) => p.trim() !== '');
+                auditResults.innerHTML = paragraphs
+                    .map((p: string) => '<p class="mb-4 text-gray-300">' + p.trim() + '</p>')
+                    .join('');
             }
 
 
