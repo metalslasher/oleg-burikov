@@ -12,12 +12,14 @@ const { cta } = content;
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
           {cta.headline}
         </h2>
-        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-          {cta.subheadline}
-        </p>
+        {cta.subheadline && (
+          <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+            {cta.subheadline}
+          </p>
+        )}
 
         <!-- Benefits badges -->
-        <div class="flex flex-wrap justify-center gap-4 mb-10">
+        <div class="flex flex-wrap justify-center gap-4 mb-10 mt-10">
           {cta.benefits.map((benefit) => (
             <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm text-sm font-medium">
               <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
