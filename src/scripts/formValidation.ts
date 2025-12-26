@@ -1,9 +1,37 @@
-
+﻿
 
 interface ValidationResult {
   isValid: boolean;
   errors: { [key: string]: string };
 }
+
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+
+const storeUtmFromUrl = () => {
+  if (typeof window === 'undefined') return;
+  const params = new URLSearchParams(window.location.search);
+  UTM_KEYS.forEach((key) => {
+    const value = params.get(key);
+    if (value) {
+      sessionStorage.setItem(key, value);
+    }
+  });
+};
+
+const getUtmValues = () => {
+  if (typeof window === 'undefined') return {};
+  const params = new URLSearchParams(window.location.search);
+  const utmValues: { [key: string]: string } = {};
+
+  UTM_KEYS.forEach((key) => {
+    const value = params.get(key) || sessionStorage.getItem(key) || '';
+    if (value) {
+      utmValues[key] = value;
+    }
+  });
+
+  return utmValues;
+};
 
 export class FormValidator {
   private form: HTMLFormElement;
@@ -114,17 +142,26 @@ export class FormValidator {
       data[key] = value;
     });
 
+    const utmValues = getUtmValues() as { [key: string]: string };
+    const selectedPlan = sessionStorage.getItem('selectedPlan') || '';
+
     // console.log('Sending form data:', data);
 
     // Send to Google Sheets
-    const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbx4OfLk5LvraXgy4tdoHbu-29j3QoQ2apZTyaknKmioTIn_IN1spCtcn6t_ZOioQDr-Rg/exec';
+    const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwdJADWtJiV1dALQhdz_209hivO3uaRw-fB6yfeJCF4JfyaxTTo-6E5iggAKeagha3jfw/exec';
 
     const params = new URLSearchParams({
       name: data.name || '',
       phone: data.phone || '',
       contact_method: data.contact_method || '',
       service: data.service || 'Не вказано',
-      message: data.message || 'Не вказано'
+      message: data.message || 'Не вказано',
+      plan: selectedPlan,
+      utm_source: utmValues.utm_source || '',
+      utm_medium: utmValues.utm_medium || '',
+      utm_campaign: utmValues.utm_campaign || '',
+      utm_term: utmValues.utm_term || '',
+      utm_content: utmValues.utm_content || ''
     });
 
     const url = `${SHEETS_URL}?${params.toString()}`;
@@ -145,6 +182,9 @@ export class FormValidator {
     // Show success message
     this.showMessage(this.successMessage, 'success');
     this.form.reset();
+    if (selectedPlan) {
+      sessionStorage.removeItem('selectedPlan');
+    }
 
     // Remove validation classes
     const inputs = this.form.querySelectorAll('input, textarea, select');
@@ -190,6 +230,7 @@ export class FormValidator {
 if (typeof window !== 'undefined') {
   document.addEventListener('DOMContentLoaded', () => {
     try {
+      storeUtmFromUrl();
       new FormValidator(
         'contact-form',
         'Дякуємо! Ми отримали вашу заявку. Наш менеджер зв\'яжеться з вами протягом 1 робочого дня.',

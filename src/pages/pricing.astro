@@ -1,4 +1,4 @@
----
+﻿---
 import PageLayout from '../layouts/PageLayout.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 
@@ -121,7 +121,6 @@ const oneTime = [
             <a 
               href="#contact" 
               data-plan={plan.name}
-              data-price={plan.price}
               class={`plan-select-btn block w-full text-center py-3 rounded-xl font-semibold transition-all ${
                 plan.highlighted 
                   ? 'bg-gradient-to-r from-accent-500 to-primary-500 text-white hover:shadow-lg hover:shadow-accent-500/30' 
@@ -193,49 +192,14 @@ const oneTime = [
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const planButtons = document.querySelectorAll('.plan-select-btn');
-    
-    planButtons.forEach(btn => {
+
+    planButtons.forEach((btn) => {
       btn.addEventListener('click', () => {
         const planName = btn.getAttribute('data-plan');
-        const planPrice = btn.getAttribute('data-price');
-        
-        // Store selected plan in sessionStorage
         if (planName) {
           sessionStorage.setItem('selectedPlan', planName);
-          sessionStorage.setItem('selectedPrice', planPrice || '');
         }
       });
     });
-    
-    // Check if there's a selected plan and fill the message field
-    const checkAndFillPlan = () => {
-      const selectedPlan = sessionStorage.getItem('selectedPlan');
-      const messageField = document.getElementById('message') as HTMLTextAreaElement;
-      
-      if (selectedPlan && messageField && !messageField.value) {
-        messageField.value = `Ви обрали пакет "${selectedPlan}". Опишіть ваш проєкт: `;
-        messageField.focus();
-        // Clear after filling
-        sessionStorage.removeItem('selectedPlan');
-        sessionStorage.removeItem('selectedPrice');
-      }
-    };
-    
-    // Check on page load (if user scrolled to contact)
-    checkAndFillPlan();
-    
-    // Also check when contact section becomes visible (for smooth scroll)
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setTimeout(checkAndFillPlan, 100);
-        }
-      });
-    }, { threshold: 0.5 });
-    
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      observer.observe(contactSection);
-    }
   });
 </script>
