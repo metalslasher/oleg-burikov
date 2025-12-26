@@ -5,48 +5,83 @@ import ContactCTA from '../../components/ContactCTA.astro';
 
 <PageLayout 
   title="Інструменти | Targetsy Agency"
-  description="Корисні інструменти для аналізу сайту та покращення маркетингових результатів."
+  description="Набір інструментів для аналізу, планування та формування маркетингової стратегії."
 >
   <section class="pt-8 pb-16 px-4">
-    <div class="max-w-6xl mx-auto text-center">
+    <div class="max-w-7xl mx-auto text-center">
       <span class="inline-block px-4 py-2 rounded-full bg-accent-500/10 text-accent-400 text-sm font-medium mb-6">
         Інструменти
       </span>
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-        Практичні інструменти
-        <span class="block text-accent-400">для зростання бізнесу</span>
+        Маркетингові інструменти
       </h1>
       <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-        Перевіряйте сайт, знаходьте слабкі місця та отримуйте зрозумілі рекомендації.
+        Практичні інструменти для швидкої оцінки, планування і прийняття рішень у маркетингу.
       </p>
     </div>
   </section>
 
   <section class="pb-16 px-4">
-    <div class="max-w-3xl mx-auto">
-      <a 
-        href="/tools/site-audit"
-        class="group block bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-accent-500/50 transition-all duration-300"
-      >
-        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent-500/20 group-hover:bg-accent-500/30 transition-colors mb-6">
-          <svg class="w-8 h-8 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-          </svg>
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <a 
+          href="/tools/site-audit"
+          class="group block bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-accent-500/50 transition-all duration-300"
+        >
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent-500/20 group-hover:bg-accent-500/30 transition-colors mb-6">
+            <svg class="w-8 h-8 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+
+          <h2 class="text-2xl font-bold text-white mb-3 group-hover:text-accent-400 transition-colors">
+            Аудит сайту
+          </h2>
+          <p class="text-gray-400 mb-6">
+            Швидка перевірка технічних і маркетингових показників сайту.
+          </p>
+          <div class="flex items-center text-accent-400 font-medium">
+            Перейти до інструмента
+            <svg class="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </div>
+        </a>
+
+        <div class="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 overflow-hidden select-none">
+          <div class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-white/80 border border-white/10">
+            В розробці
+          </div>
+          <div class="relative z-10 filter blur-[1px] opacity-70">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent-500/20 mb-6">
+              <svg class="w-8 h-8 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3M4 11h16M5 19h14a2 2 0 002-2v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-white mb-3">Медіаплан</h2>
+            <p class="text-gray-400 mb-6">
+              Планування бюджету, каналів і прогнозу результатів.
+            </p>
+          </div>
         </div>
 
-        <h2 class="text-2xl font-bold text-white mb-3 group-hover:text-accent-400 transition-colors">
-          Аудит сайту
-        </h2>
-        <p class="text-gray-400 mb-6">
-          Швидка перевірка основних технічних та маркетингових показників сайту.
-        </p>
-        <div class="flex items-center text-accent-400 font-medium">
-          Перейти до інструмента
-          <svg class="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-          </svg>
+        <div class="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 overflow-hidden select-none">
+          <div class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-white/80 border border-white/10">
+            В розробці
+          </div>
+          <div class="relative z-10 filter blur-[1px] opacity-70">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent-500/20 mb-6">
+              <svg class="w-8 h-8 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a4 4 0 014-4h4M7 7h.01M3 7a4 4 0 014-4h10a4 4 0 014 4v10a4 4 0 01-4 4H7a4 4 0 01-4-4V7z" />
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-white mb-3">Конструктор стратегії</h2>
+            <p class="text-gray-400 mb-6">
+              Формування цілей, KPI та етапів запуску.
+            </p>
+          </div>
         </div>
-      </a>
+      </div>
     </div>
   </section>
 
