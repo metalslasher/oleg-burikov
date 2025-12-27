@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
+import content from '../../content/home-uk.json';
 
 const benefits = [
   {
@@ -42,18 +43,44 @@ const process = [
   { step: '04', title: 'Масштабування', description: 'Знаходимо найкращі зв\'язки та масштабуємо успіх' },
 ];
 
-const cases = [
-  { metric: '865', label: 'Лідів через Lead Forms', description: 'Для ЖК' },
-  { metric: '$13.75', label: 'Вартість ліда', description: 'Нерухомість' },
-  { metric: '405K+', label: 'Охоплення', description: 'Потенційних клієнтів' },
+const caseSlides = content.cases.items.map((caseItem, index) => ({
+  ...caseItem,
+  slug: `case-${index + 1}`,
+}));
+
+const deliverables = [
+  {
+    title: 'Стратегія аудиторій',
+    description: 'Сегментуємо аудиторії та формуємо воронку під цілі бізнесу.',
+  },
+  {
+    title: 'Креативи та меседжі',
+    description: 'Тексти, UGC або дизайн‑креативи з фокусом на CTR та конверсії.',
+  },
+  {
+    title: 'Налаштування кампаній',
+    description: 'Lead Forms, конверсії, продажі, трафік і ремаркетинг.',
+  },
+  {
+    title: 'Pixel та CAPI',
+    description: 'Коректне відстеження подій і передачі конверсій у Meta Ads.',
+  },
+  {
+    title: 'Тестування та оптимізація',
+    description: 'A/B тести креативів і аудиторій, оптимізація CPA/ROAS.',
+  },
+  {
+    title: 'Звітність і масштабування',
+    description: 'Прозорі звіти та масштабування найефективніших звʼязок.',
+  },
 ];
+
 ---
 
 <PageLayout 
-  title="Meta Ads (Facebook/Instagram) реклама | Targetsy Agency"
-  description="Таргетована реклама в Facebook та Instagram. Lead Forms, Advantage+, Lookalike аудиторії. Залучаємо вашу цільову аудиторію в соцмережах."
->
-  <!-- Hero -->
+  title="Meta Ads (Facebook/Instagram): реклама для бізнесу | Targetsy Agency"
+  description="Реклама в Facebook та Instagram: Lead Forms, конверсії, ремаркетинг, Advantage+. Оптимізуємо CPA/ROAS і приводимо якісні ліди."
+>  <!-- Hero -->
   <section class="pt-8 pb-16 px-4">
     <div class="max-w-7xl mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
@@ -73,8 +100,8 @@ const cases = [
           </h1>
           
           <p class="text-xl text-gray-400 mb-8">
-            Залучаємо вашу аудиторію в Facebook та Instagram. Створюємо креативи, 
-            налаштовуємо таргетинг та оптимізуємо для максимальних результатів.
+            Будуємо системну рекламу в Meta Ads для лідів і продажів.
+            Від аудиторій і креативів до аналітики, тестів і масштабування.
           </p>
           
           <div class="flex flex-wrap gap-4">
@@ -87,16 +114,31 @@ const cases = [
           </div>
         </div>
         
-        <div class="relative">
-          <div class="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-sm rounded-3xl p-8 border border-purple-500/30">
-            <div class="grid grid-cols-3 gap-4 text-center">
-              {cases.map((item) => (
-                <div>
-                  <div class="text-2xl md:text-3xl font-bold text-white mb-1">{item.metric}</div>
-                  <div class="text-sm text-gray-400">{item.label}</div>
+        <div class="w-full lg:justify-self-end">
+          <div class="case-slider w-full">
+            {caseSlides.map((caseItem, index) => (
+              <article class={`case-slide ${index === 0 ? 'is-active' : ''}`} data-case-slide aria-hidden={index === 0 ? 'false' : 'true'}>
+                <div class="bg-gradient-to-br from-purple-500/15 to-pink-500/15 border border-purple-500/30 rounded-3xl p-8">
+                  <div class="text-xs uppercase tracking-wide text-purple-200/80">{caseItem.industry}</div>
+                  <h2 class="text-2xl font-bold text-white mt-2 mb-3">{caseItem.client}</h2>
+                  <p class="text-gray-400 text-sm leading-relaxed line-clamp-3">{caseItem.challenge}</p>
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
+                    {caseItem.results.slice(0, 3).map((result) => (
+                      <div class="bg-white/5 border border-white/10 rounded-xl p-3">
+                        <div class="text-lg font-semibold text-white">{result.value}</div>
+                        <div class="text-xs text-gray-400">{result.metric}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <a href={`/cases/${caseItem.slug}`} class="inline-flex items-center gap-2 text-purple-300 hover:text-purple-200 font-semibold mt-6">
+                    Дивитись кейс
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </a>
                 </div>
-              ))}
-            </div>
+              </article>
+            ))}
           </div>
         </div>
       </div>
@@ -125,6 +167,26 @@ const cases = [
     </div>
   </section>
 
+  <!-- Deliverables -->
+  <section class="py-16 px-4">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-4">
+        Що ви отримуєте від Meta Ads
+      </h2>
+      <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+        Результат співпраці, що дає прогнозовані ліди та продажі.
+      </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {deliverables.map((item) => (
+          <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
+            <h3 class="text-lg font-semibold text-white mb-2">{item.title}</h3>
+            <p class="text-gray-400">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- Process -->
   <section class="py-16 px-4">
     <div class="max-w-7xl mx-auto">
@@ -134,7 +196,7 @@ const cases = [
       
       <div class="grid md:grid-cols-4 gap-8">
         {process.map((item) => (
-          <div class="text-center">
+          <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center hover:bg-white/10 transition-colors">
             <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-xl">
               {item.step}
             </div>
@@ -146,25 +208,72 @@ const cases = [
     </div>
   </section>
 
-  <!-- Pricing Hint -->
-  <section class="py-16 px-4">
-    <div class="max-w-4xl mx-auto text-center">
-      <div class="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-2xl p-8">
-        <h2 class="text-2xl font-bold text-white mb-4">Вартість послуги</h2>
-        <p class="text-gray-400 mb-6">
-          Вартість залежить від обсягу робіт та рекламного бюджету. Включає створення креативів та постійну оптимізацію. 
-          Мінімальний рекламний бюджет від $300/міс.
-        </p>
-        <a href="/pricing" class="inline-flex items-center text-purple-400 hover:text-purple-300 font-medium">
-          Дізнатись детальніше про ціни
-          <svg class="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-          </svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
   <!-- CTA -->
   <ContactCTA />
 </PageLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const slides = Array.from(document.querySelectorAll('[data-case-slide]'));
+    if (slides.length <= 1) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let current = 0;
+    const show = (index) => {
+      slides.forEach((slide, i) => {
+        const isActive = i === index;
+        slide.classList.toggle('is-active', isActive);
+        slide.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      });
+    };
+
+    const advance = () => {
+      current = (current + 1) % slides.length;
+      show(current);
+    };
+
+    let timer = setInterval(advance, 6000);
+    const slider = document.querySelector('.case-slider');
+    if (slider) {
+      slider.addEventListener('mouseenter', () => clearInterval(timer));
+      slider.addEventListener('mouseleave', () => {
+        timer = setInterval(advance, 6000);
+      });
+    }
+  });
+</script>
+
+<style>
+  .case-slider {
+    display: grid;
+  }
+
+  .case-slide {
+    grid-area: 1 / 1;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+
+  .case-slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .case-slide {
+      transition: none;
+    }
+  }
+</style>
+
+
+
+

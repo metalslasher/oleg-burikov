@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
+import content from '../../content/home-uk.json';
 
 const benefits = [
   {
@@ -35,6 +36,11 @@ const benefits = [
   }
 ];
 
+const caseSlides = content.cases.items.map((caseItem, index) => ({
+  ...caseItem,
+  slug: `case-${index + 1}`,
+}));
+
 const formats = [
   { 
     title: 'Разовий аудит', 
@@ -55,12 +61,72 @@ const formats = [
     features: ['4 консультації/міс', 'Ревю кампаній', 'Відповіді на питання', 'Пріоритетна підтримка']
   },
 ];
+
+const deliverables = [
+  {
+    title: 'Аудит реклами й воронки',
+    description: 'Розбираємо кампанії, креативи та етапи конверсії.',
+  },
+  {
+    title: 'Стратегія росту',
+    description: 'Формуємо позиціонування, оффери та пріоритети каналів.',
+  },
+  {
+    title: 'План оптимізації',
+    description: 'Детальний roadmap із кроками, дедлайнами та метриками.',
+  },
+  {
+    title: 'Розбір креативів',
+    description: 'Пояснюємо, що не працює, і даємо ідеї для тестів.',
+  },
+  {
+    title: 'Підтримка команди',
+    description: 'Відповідаємо на питання, допомагаємо з рішеннями та фокусом.',
+  },
+  {
+    title: 'Контроль KPI',
+    description: 'Визначаємо ключові метрики та регулярно відстежуємо прогрес.',
+  },
+];
+
+const faq = [
+  {
+    question: 'Які формати консалтингу доступні?',
+    answer: 'Разова консультація, стратегічна сесія або регулярний супровід.',
+  },
+  {
+    question: 'Чи працюєте з інхаус‑командою?',
+    answer: 'Так, можемо підсилити вашу команду або допомогти її навчити.',
+  },
+  {
+    question: 'Чи можна тільки аудит без супроводу?',
+    answer: 'Так, робимо аудит і передаємо чіткий план подальших дій.',
+  },
+  {
+    question: 'Які дані потрібні на старті?',
+    answer: 'Доступи до рекламних акаунтів, аналітики та короткий опис цілей.',
+  },
+];
+
+const faqStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
 ---
 
 <PageLayout 
-  title="Консалтинг з реклами | Targetsy Agency"
-  description="Аудит рекламних кампаній, маркетингова стратегія, оптимізація бюджету, навчання команди. Експертні консультації з digital-маркетингу."
+  title="Маркетинговий консалтинг і аудит реклами | Targetsy Agency"
+  description="Консалтинг для бізнесу та інхаус‑команд: аудит кампаній, стратегія, оптимізація воронки, підтримка та навчання."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
   <!-- Hero -->
   <section class="pt-8 pb-16 px-4">
     <div class="max-w-7xl mx-auto">
@@ -81,8 +147,8 @@ const formats = [
           </h1>
           
           <p class="text-xl text-gray-400 mb-8">
-            Аналізуємо вашу поточну рекламу та стратегію просування. 
-            Надаємо покроковий план покращення та допомагаємо з впровадженням.
+            Консалтинг для реклами та зростання: аудит кампаній, стратегія, оптимізація воронки.
+            Допомагаємо команді швидко приймати рішення та масштабувати результат.
           </p>
           
           <div class="flex flex-wrap gap-4">
@@ -95,17 +161,31 @@ const formats = [
           </div>
         </div>
         
-        <div class="relative">
-          <div class="bg-gradient-to-br from-amber-500/20 to-orange-500/20 backdrop-blur-sm rounded-3xl p-8 border border-amber-500/30">
-            <div class="text-center">
-              <div class="text-5xl mb-4">💡</div>
-              <h3 class="text-2xl font-bold text-white mb-2">4+ років досвіду</h3>
-              <p class="text-gray-400">в digital-маркетингу</p>
-              <div class="mt-6 pt-6 border-t border-white/10">
-                <div class="text-3xl font-bold text-white">100+</div>
-                <div class="text-gray-400">проектів реалізовано</div>
-              </div>
-            </div>
+        <div class="w-full lg:justify-self-end">
+          <div class="case-slider w-full">
+            {caseSlides.map((caseItem, index) => (
+              <article class={`case-slide ${index === 0 ? 'is-active' : ''}`} data-case-slide aria-hidden={index === 0 ? 'false' : 'true'}>
+                <div class="bg-gradient-to-br from-amber-500/15 to-orange-500/15 border border-amber-500/30 rounded-3xl p-8">
+                  <div class="text-xs uppercase tracking-wide text-amber-200/80">{caseItem.industry}</div>
+                  <h2 class="text-2xl font-bold text-white mt-2 mb-3">{caseItem.client}</h2>
+                  <p class="text-gray-400 text-sm leading-relaxed line-clamp-3">{caseItem.challenge}</p>
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
+                    {caseItem.results.slice(0, 3).map((result) => (
+                      <div class="bg-white/5 border border-white/10 rounded-xl p-3">
+                        <div class="text-lg font-semibold text-white">{result.value}</div>
+                        <div class="text-xs text-gray-400">{result.metric}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <a href={`/cases/${caseItem.slug}`} class="inline-flex items-center gap-2 text-amber-300 hover:text-amber-200 font-semibold mt-6">
+                    Дивитись кейс
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </a>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </div>
@@ -128,6 +208,26 @@ const formats = [
             <div class="text-4xl mb-4">{benefit.icon}</div>
             <h3 class="text-xl font-bold text-white mb-2">{benefit.title}</h3>
             <p class="text-gray-400">{benefit.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Deliverables -->
+  <section class="py-16 px-4">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-4">
+        Що ви отримуєте від консалтингу
+      </h2>
+      <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+        Конкретні кроки й рекомендації, які можна впровадити одразу.
+      </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {deliverables.map((item) => (
+          <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
+            <h3 class="text-lg font-semibold text-white mb-2">{item.title}</h3>
+            <p class="text-gray-400">{item.description}</p>
           </div>
         ))}
       </div>
@@ -163,6 +263,85 @@ const formats = [
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="py-16 px-4">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+        Часті питання про консалтинг
+      </h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        {faq.map((item) => (
+          <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+            <h3 class="text-lg font-semibold text-white mb-2">{item.question}</h3>
+            <p class="text-gray-400">{item.answer}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <ContactCTA />
 </PageLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const slides = Array.from(document.querySelectorAll('[data-case-slide]'));
+    if (slides.length <= 1) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let current = 0;
+    const show = (index) => {
+      slides.forEach((slide, i) => {
+        const isActive = i === index;
+        slide.classList.toggle('is-active', isActive);
+        slide.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      });
+    };
+
+    const advance = () => {
+      current = (current + 1) % slides.length;
+      show(current);
+    };
+
+    let timer = setInterval(advance, 6000);
+    const slider = document.querySelector('.case-slider');
+    if (slider) {
+      slider.addEventListener('mouseenter', () => clearInterval(timer));
+      slider.addEventListener('mouseleave', () => {
+        timer = setInterval(advance, 6000);
+      });
+    }
+  });
+</script>
+
+<style>
+  .case-slider {
+    display: grid;
+  }
+
+  .case-slide {
+    grid-area: 1 / 1;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+
+  .case-slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .case-slide {
+      transition: none;
+    }
+  }
+</style>

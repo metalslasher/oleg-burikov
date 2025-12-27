@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
+import content from '../../content/home-uk.json';
 
 const benefits = [
   {
@@ -42,17 +43,76 @@ const process = [
   { step: '04', title: 'Оптимізація', description: 'Постійно аналізуємо та покращуємо результати' },
 ];
 
-const cases = [
-  { metric: '$29.84', label: 'Вартість ліда для B2B SaaS', description: 'Зменшення у 8 разів' },
-  { metric: '303%', label: 'ROAS для eCommerce', description: 'За перший місяць' },
-  { metric: '$2.63', label: 'Вартість конверсії у фінтех', description: 'При бюджеті $1,540' },
+const caseSlides = content.cases.items.map((caseItem, index) => ({
+  ...caseItem,
+  slug: `case-${index + 1}`,
+}));
+
+const deliverables = [
+  {
+    title: 'Стратегія та семантика',
+    description: 'Аналізуємо попит і намір, формуємо структуру кампаній під ваші цілі.',
+  },
+  {
+    title: 'Структура кампаній',
+    description: 'Search, Performance Max, Shopping, YouTube та ремаркетинг у правильній логіці.',
+  },
+  {
+    title: 'Оголошення',
+    description: 'Тексти та розширення з фокусом на конверсії.',
+  },
+  {
+    title: 'Трекінг конверсій',
+    description: 'GA4, GTM, події та цілі для точного вимірювання результатів.',
+  },
+  {
+    title: 'Оптимізація бюджету',
+    description: 'Мінус-слова, ставки, контроль CPA/ROAS і пріоритетні аудиторії.',
+  },
+  {
+    title: 'Звіти та прозорість',
+    description: 'Регулярні звіти й пояснення, що працює та де масштабувати.',
+  },
 ];
+
+const faq = [
+  {
+    question: 'Коли зʼявляться перші заявки?',
+    answer: 'Зазвичай у перші 7–14 днів після запуску, але все залежить від ніші, бюджету та конкуренції.',
+  },
+  {
+    question: 'Чи працюєте з існуючим акаунтом Google Ads?',
+    answer: 'Так. Робимо аудит, виправляємо структуру і оптимізуємо без втрати історичних даних.',
+  },
+  {
+    question: 'Хто оплачує рекламний бюджет?',
+    answer: 'Бюджет сплачується напряму в Google Ads, ми керуємо кампаніями та оптимізацією.',
+  },
+  {
+    question: 'Який мінімальний бюджет для старту?',
+    answer: 'Підбираємо індивідуально. Рекомендуємо бюджет після аналізу ніші та цілей.',
+  },
+];
+
+const faqStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
 ---
 
 <PageLayout 
-  title="Google Ads реклама | Targetsy Agency"
-  description="Професійне налаштування та ведення Google Ads. Пошукова реклама, Performance Max, YouTube, ремаркетинг. Збільшуємо продажі та знижуємо вартість ліда."
+  title="Налаштування та ведення Google Ads | Targetsy Agency"
+  description="Налаштовуємо Google Ads для бізнесу: Search, Performance Max, Shopping, YouTube, ремаркетинг. Оптимізуємо CPA/ROAS і приводимо якісні ліди."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
   <!-- Hero -->
   <section class="pt-8 pb-16 px-4">
     <div class="max-w-7xl mx-auto">
@@ -73,8 +133,8 @@ const cases = [
           </h1>
           
           <p class="text-xl text-gray-400 mb-8">
-            Налаштовуємо контекстну рекламу, яка приводить клієнтів, готових купувати. 
-            Від підбору ключових слів до масштабування успішних кампаній.
+            Запускаємо та оптимізуємо Google Ads, щоб приводити клієнтів, використовуючи тільки найкращі рішення.
+            Працюємо від стратегії й семантики до аналітики, тестів і масштабування.
           </p>
           
           <div class="flex flex-wrap gap-4">
@@ -87,16 +147,31 @@ const cases = [
           </div>
         </div>
         
-        <div class="relative">
-          <div class="bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-sm rounded-3xl p-8 border border-blue-500/30">
-            <div class="grid grid-cols-3 gap-4 text-center">
-              {cases.map((item) => (
-                <div>
-                  <div class="text-2xl md:text-3xl font-bold text-white mb-1">{item.metric}</div>
-                  <div class="text-sm text-gray-400">{item.label}</div>
+        <div class="w-full">
+          <div class="case-slider w-full">
+            {caseSlides.map((caseItem, index) => (
+              <article class={`case-slide ${index === 0 ? 'is-active' : ''}`} data-case-slide aria-hidden={index === 0 ? 'false' : 'true'}>
+                <div class="bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/30 rounded-3xl p-8">
+                  <div class="text-xs uppercase tracking-wide text-blue-200/80">{caseItem.industry}</div>
+                  <h2 class="text-2xl font-bold text-white mt-2 mb-3">{caseItem.client}</h2>
+                  <p class="text-gray-400 text-sm leading-relaxed line-clamp-3">{caseItem.challenge}</p>
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
+                    {caseItem.results.slice(0, 3).map((result) => (
+                      <div class="bg-white/5 border border-white/10 rounded-xl p-3">
+                        <div class="text-lg font-semibold text-white">{result.value}</div>
+                        <div class="text-xs text-gray-400">{result.metric}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <a href={`/cases/${caseItem.slug}`} class="inline-flex items-center gap-2 text-blue-300 hover:text-blue-200 font-semibold mt-6">
+                    Дивитись кейс
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </a>
                 </div>
-              ))}
-            </div>
+              </article>
+            ))}
           </div>
         </div>
       </div>
@@ -125,6 +200,26 @@ const cases = [
     </div>
   </section>
 
+  <!-- Deliverables -->
+  <section class="py-16 px-4">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-4">
+        Що ви отримуєте від ведення Google Ads
+      </h2>
+      <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+        Результат співпраці, який напряму впливає на якість лідів і продажі.
+      </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {deliverables.map((item) => (
+          <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
+            <h3 class="text-lg font-semibold text-white mb-2">{item.title}</h3>
+            <p class="text-gray-400">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- Process -->
   <section class="py-16 px-4">
     <div class="max-w-7xl mx-auto">
@@ -134,7 +229,7 @@ const cases = [
       
       <div class="grid md:grid-cols-4 gap-8">
         {process.map((item) => (
-          <div class="text-center">
+          <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center hover:bg-white/10 transition-colors">
             <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold text-xl">
               {item.step}
             </div>
@@ -146,25 +241,68 @@ const cases = [
     </div>
   </section>
 
-  <!-- Pricing Hint -->
-  <section class="py-16 px-4">
-    <div class="max-w-4xl mx-auto text-center">
-      <div class="bg-gradient-to-r from-blue-500/10 to-blue-600/10 border border-blue-500/30 rounded-2xl p-8">
-        <h2 class="text-2xl font-bold text-white mb-4">Вартість послуги</h2>
-        <p class="text-gray-400 mb-6">
-          Вартість залежить від обсягу робіт та рекламного бюджету. Зазвичай це фіксована оплата + % від бюджету. 
-          Мінімальний рекламний бюджет від $500/міс.
-        </p>
-        <a href="/pricing" class="inline-flex items-center text-blue-400 hover:text-blue-300 font-medium">
-          Дізнатись детальніше про ціни
-          <svg class="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-          </svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
   <!-- CTA -->
   <ContactCTA />
 </PageLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const slides = Array.from(document.querySelectorAll('[data-case-slide]'));
+    if (slides.length <= 1) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let current = 0;
+    const show = (index) => {
+      slides.forEach((slide, i) => {
+        const isActive = i === index;
+        slide.classList.toggle('is-active', isActive);
+        slide.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      });
+    };
+
+    const advance = () => {
+      current = (current + 1) % slides.length;
+      show(current);
+    };
+
+    let timer = setInterval(advance, 6000);
+    const slider = document.querySelector('.case-slider');
+    if (slider) {
+      slider.addEventListener('mouseenter', () => clearInterval(timer));
+      slider.addEventListener('mouseleave', () => {
+        timer = setInterval(advance, 6000);
+      });
+    }
+  });
+</script>
+
+<style>
+  .case-slider {
+    display: grid;
+  }
+
+  .case-slide {
+    grid-area: 1 / 1;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+
+  .case-slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .case-slide {
+      transition: none;
+    }
+  }
+</style>
