@@ -16,7 +16,7 @@ Agency website with cases, blog, service pages, and a site audit tool.
 ## Integrations
 - Leads saved to Google Sheets via Apps Script.
 - Site audit via OpenAI API (`/api/analyze`).
-- Optional analytics: GA4 and Meta Pixel (`PUBLIC_*` env vars).
+- Tracking via Google Tag Manager.
 
 ## Stack
 Astro + TypeScript + Tailwind CSS.

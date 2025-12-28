@@ -25,12 +25,10 @@ targetsy-agency/
       api/
         analyze.ts
     scripts/
-      analytics.ts
       formValidation.ts
       smoothScroll.ts
     styles/
       global.css
-  .env.example
   astro.config.mjs
   tailwind.config.cjs
   tsconfig.json

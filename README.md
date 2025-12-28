@@ -21,13 +21,13 @@ npm run preview
 ```
 
 ## Environment variables
-Create `.env` from `.env.example`.
+Create `.env` with the required variables (or set them in Vercel).
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
 | `OPENAI_API_KEY` | Yes (for `/tools/site-audit`) | Used by the audit API. |
-| `PUBLIC_GA4_ID` | Optional | Google Analytics 4. |
-| `PUBLIC_FB_PIXEL_ID` | Optional | Meta/Facebook Pixel. |
+
+Tracking and pixels are managed via Google Tag Manager in `src/layouts/BaseLayout.astro`.
 
 ## Content and pages
 - Homepage content: `src/content/home-uk.json`
