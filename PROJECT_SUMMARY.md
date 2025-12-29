@@ -9,7 +9,6 @@ Agency website with cases, blog, service pages, and a site audit tool.
 - `/cases` — cases
 - `/blog` — blog
 - `/pricing` — pricing
-- `/contact` — contact
 - `/tools/site-audit` — site audit tool
 - `/privacy` — privacy policy
 
