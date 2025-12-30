@@ -12,6 +12,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     ...(isDev ? ["'unsafe-eval'"] : []),
     'https://www.googletagmanager.com',
     'https://www.google-analytics.com',
+    'https://www.clarity.ms',
     'https://script.google.com',
     'https://script.googleusercontent.com',
   ].join(' ');
@@ -21,6 +22,8 @@ export const onRequest = defineMiddleware(async (context, next) => {
     'https://www.googletagmanager.com',
     'https://www.google-analytics.com',
     'https://stats.g.doubleclick.net',
+    'https://www.clarity.ms',
+    'https://c.clarity.ms',
     'https://script.google.com',
     'https://script.googleusercontent.com',
     ...(isDev ? ['ws:', 'http://localhost:*'] : []),
