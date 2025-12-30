@@ -2,6 +2,7 @@
 import content from '../content/home-uk.json';
 
 const { hero } = content;
+const nonce = Astro.locals.cspNonce;
 const highlightPhrase = 'Google Ads та Meta Ads';
 const hasHighlight = hero.headline.includes(highlightPhrase);
 const [headlinePrefix, headlineSuffix] = hasHighlight
@@ -192,11 +193,11 @@ const subheadlineParts = hero.subheadline
   </div>
 </section>
 
-<script is:inline define:vars={{ metrics: hero.metrics }}>
+<script is:inline define:vars={{ metrics: hero.metrics }} nonce={nonce}>
   window.__HERO_METRICS__ = metrics;
 </script>
 
-<script>
+<script nonce={nonce}>
   // Animated metrics rotation
   document.addEventListener('DOMContentLoaded', () => {
     const metricElement = document.getElementById('animated-metric');

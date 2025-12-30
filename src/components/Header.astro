@@ -2,6 +2,7 @@
 import content from '../content/home-uk.json';
 
 const { header } = content;
+const nonce = Astro.locals.cspNonce;
 ---
 
 <header id="header" class="fixed top-0 left-0 right-0 z-50">
@@ -142,7 +143,7 @@ const { header } = content;
     </nav>
 </header>
 
-<script>
+<script nonce={nonce}>
   // Mobile menu toggle
   document.addEventListener('DOMContentLoaded', () => {
     const menuButton = document.getElementById('mobile-menu-button');

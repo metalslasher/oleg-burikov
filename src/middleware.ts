@@ -1,20 +1,45 @@
+import crypto from 'node:crypto';
 import { defineMiddleware } from 'astro/middleware';
 
-const contentSecurityPolicy = [
-  "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://script.google.com https://script.googleusercontent.com",
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: https:",
-  "font-src 'self' data:",
-  "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://stats.g.doubleclick.net",
-  "frame-src https://www.googletagmanager.com",
-  "base-uri 'self'",
-  "form-action 'self'",
-  "object-src 'none'",
-  "frame-ancestors 'none'",
-].join('; ');
+export const onRequest = defineMiddleware(async (context, next) => {
+  const nonce = crypto.randomBytes(16).toString('base64');
+  context.locals.cspNonce = nonce;
+  const isDev = import.meta.env.DEV;
 
-export const onRequest = defineMiddleware(async (_context, next) => {
+  const scriptSrc = [
+    "'self'",
+    `'nonce-${nonce}'`,
+    ...(isDev ? ["'unsafe-eval'"] : []),
+    'https://www.googletagmanager.com',
+    'https://www.google-analytics.com',
+    'https://script.google.com',
+    'https://script.googleusercontent.com',
+  ].join(' ');
+
+  const connectSrc = [
+    "'self'",
+    'https://www.googletagmanager.com',
+    'https://www.google-analytics.com',
+    'https://stats.g.doubleclick.net',
+    'https://script.google.com',
+    'https://script.googleusercontent.com',
+    ...(isDev ? ['ws:', 'http://localhost:*'] : []),
+  ].join(' ');
+
+  const contentSecurityPolicy = [
+    "default-src 'self'",
+    `script-src ${scriptSrc}`,
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data: https:",
+    "font-src 'self' data:",
+    `connect-src ${connectSrc}`,
+    "frame-src https://www.googletagmanager.com",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "object-src 'none'",
+    "frame-ancestors 'none'",
+  ].join('; ');
+
   const response = await next();
 
   response.headers.set('Content-Security-Policy', contentSecurityPolicy);

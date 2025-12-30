@@ -1,6 +1,8 @@
 ﻿---
 import PageLayout from '../../layouts/PageLayout.astro';
 
+const nonce = Astro.locals.cspNonce;
+
 const seo = {
   title: "Аудит сайту | Targetsy Agency",
   description: "Отримайте безкоштовний аудит вашого сайту за допомогою штучного інтелекту. Професійні рекомендації щодо покращення конверсії та SEO.",
@@ -203,7 +205,7 @@ const seo = {
   </div>
 </PageLayout>
 
-<script>
+<script nonce={nonce}>
     const form = document.getElementById('audit-form');
     const step1 = document.getElementById('step-1');
     const step2 = document.getElementById('step-2');

@@ -2,6 +2,8 @@
 import PageLayout from '../../layouts/PageLayout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
 
+const nonce = Astro.locals.cspNonce;
+
 const meta = {
   title: 'Склікування в Google Ads: як ми захистили SaaS‑кампанію в США',
   description:
@@ -66,7 +68,7 @@ const toc = [
   ogDescription={meta.description}
   ogImage={ogImage}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  <script type="application/ld+json" nonce={nonce} set:html={JSON.stringify(structuredData)} />
 
   <article class="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
     <!-- Hero -->

@@ -3,6 +3,8 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
 import content from '../../content/home-uk.json';
 
+const nonce = Astro.locals.cspNonce;
+
 const benefits = [
   {
     title: 'Google Analytics 4',
@@ -212,7 +214,7 @@ const deliverables = [
   <ContactCTA />
 </PageLayout>
 
-<script>
+<script nonce={nonce}>
   document.addEventListener('DOMContentLoaded', () => {
     const slides = Array.from(document.querySelectorAll('[data-case-slide]'));
     if (slides.length <= 1) return;
@@ -273,7 +275,6 @@ const deliverables = [
     }
   }
 </style>
-
 
 
 

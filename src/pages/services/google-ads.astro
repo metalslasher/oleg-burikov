@@ -3,6 +3,8 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
 import content from '../../content/home-uk.json';
 
+const nonce = Astro.locals.cspNonce;
+
 const benefits = [
   {
     title: 'Пошукова реклама',
@@ -112,7 +114,7 @@ const faqStructuredData = {
   title="Налаштування та ведення Google Ads | Targetsy Agency"
   description="Налаштовуємо Google Ads для бізнесу: Search, Performance Max, Shopping, YouTube, ремаркетинг. Оптимізуємо CPA/ROAS і приводимо якісні ліди."
 >
-  <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
+  <script type="application/ld+json" nonce={nonce} set:html={JSON.stringify(faqStructuredData)} />
   <!-- Hero -->
   <section class="pt-8 pb-16 px-4">
     <div class="max-w-7xl mx-auto">
@@ -245,7 +247,7 @@ const faqStructuredData = {
   <ContactCTA />
 </PageLayout>
 
-<script>
+<script nonce={nonce}>
   document.addEventListener('DOMContentLoaded', () => {
     const slides = Array.from(document.querySelectorAll('[data-case-slide]'));
     if (slides.length <= 1) return;
