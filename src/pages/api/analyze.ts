@@ -1,12 +1,89 @@
 
 import type { APIRoute } from 'astro';
 import OpenAI from 'openai';
+import dns from 'node:dns/promises';
+import net from 'node:net';
 
 // Rate limiting (simple in-memory for demo/MVP)
 type RateLimitEntry = { count: number; windowStart: number };
 const rateLimit = new Map<string, RateLimitEntry>();
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
 const MAX_REQUESTS = 3; // 3 requests per minute per IP
+
+const isPrivateIPv4 = (ip: string) => {
+    const parts = ip.split('.').map((part) => Number(part));
+    if (parts.length !== 4 || parts.some((part) => Number.isNaN(part))) {
+        return false;
+    }
+    const [a, b] = parts;
+    if (a === 10 || a === 127 || a === 0) return true;
+    if (a === 169 && b === 254) return true;
+    if (a === 172 && b >= 16 && b <= 31) return true;
+    if (a === 192 && b === 168) return true;
+    if (a === 100 && b >= 64 && b <= 127) return true;
+    return false;
+};
+
+const isPrivateIPv6 = (ip: string) => {
+    const normalized = ip.toLowerCase();
+    return (
+        normalized === '::1' ||
+        normalized === '::' ||
+        normalized.startsWith('fc') ||
+        normalized.startsWith('fd') ||
+        normalized.startsWith('fe80')
+    );
+};
+
+const isPrivateIp = (ip: string) => {
+    const ipVersion = net.isIP(ip);
+    if (ipVersion === 4) return isPrivateIPv4(ip);
+    if (ipVersion === 6) return isPrivateIPv6(ip);
+    return false;
+};
+
+const validateTargetUrl = async (target: URL) => {
+    const protocol = target.protocol.toLowerCase();
+    if (!['http:', 'https:'].includes(protocol)) {
+        throw new Error('Unsupported URL protocol');
+    }
+
+    const hostname = target.hostname.toLowerCase();
+    if (!hostname || hostname === 'localhost' || hostname.endsWith('.local')) {
+        throw new Error('Localhost targets are not allowed');
+    }
+
+    if (net.isIP(hostname) && isPrivateIp(hostname)) {
+        throw new Error('Private IP targets are not allowed');
+    }
+
+    const resolved = await dns.lookup(hostname, { all: true });
+    if (resolved.some((record) => isPrivateIp(record.address))) {
+        throw new Error('Private IP targets are not allowed');
+    }
+};
+
+const safeFetch = async (target: URL, options: RequestInit, maxRedirects = 3) => {
+    let current = new URL(target.toString());
+
+    for (let i = 0; i <= maxRedirects; i += 1) {
+        await validateTargetUrl(current);
+
+        const response = await fetch(current, { ...options, redirect: 'manual' });
+        if (![301, 302, 303, 307, 308].includes(response.status)) {
+            return response;
+        }
+
+        const location = response.headers.get('location');
+        if (!location) {
+            return response;
+        }
+
+        current = new URL(location, current);
+    }
+
+    throw new Error('Too many redirects');
+};
 
 export const POST: APIRoute = async ({ request }) => {
     const now = Date.now();
@@ -53,16 +130,18 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Validate URL
-    let targetUrl = url;
+    let targetUrl = url.trim();
     if (!targetUrl.startsWith('http')) {
         targetUrl = 'https://' + targetUrl;
     }
 
     try {
+        const target = new URL(targetUrl);
+
         // 2. Fetch Website Content
         // Note: In a real prod environment, use a headless browser or specialized scraper to handle JS-heavy sites.
         // For MVP, simple fetch is okay, but might fail on some sites.
-        const siteResponse = await fetch(targetUrl, {
+        const siteResponse = await safeFetch(target, {
             headers: {
                 'User-Agent': 'TargetsyAuditBot/1.0',
             },

@@ -451,10 +451,27 @@ const seo = {
                     .replace(/\n{3,}/g, '\n\n')
                     .trim();
 
-                const paragraphs = rawText.split('\n').filter((p: string) => p.trim() !== '');
-                auditResults.innerHTML = paragraphs
-                    .map((p: string) => '<p class="mb-4 text-gray-300">' + p.trim() + '</p>')
-                    .join('');
+                const lines = rawText
+                    .split('\n')
+                    .map((line: string) => line.trim())
+                    .filter((line: string) => line !== '');
+
+                auditResults.innerHTML = '';
+
+                if (lines.length === 0) {
+                    auditResults.textContent = '';
+                } else {
+                    const list = document.createElement('ul');
+                    list.className = 'list-disc list-inside space-y-3 text-gray-300';
+
+                    lines.forEach((line: string) => {
+                        const item = document.createElement('li');
+                        item.textContent = line.replace(/^-+\s*/, '');
+                        list.appendChild(item);
+                    });
+
+                    auditResults.appendChild(list);
+                }
             }
 
 
