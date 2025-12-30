@@ -4,10 +4,12 @@ import content from '../content/home-uk.json';
 const { header } = content;
 ---
 
-<header id="header" class="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6">
-  <div class="container mx-auto">
-    <nav class="bg-[#0F1419]/80 backdrop-blur-xl border border-white/10 rounded-[26px] sm:rounded-[32px] px-4 sm:px-6" aria-label="Основна навігація">
-      <div class="flex items-center justify-between h-14 sm:h-16">
+<header id="header" class="fixed top-0 left-0 right-0 z-50">
+  <nav
+    class="header-shell bg-[#0F1419]/65 backdrop-blur-2xl border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.35)] px-4 sm:px-6 lg:px-8"
+    aria-label="Основна навігація"
+  >
+    <div class="flex items-center justify-between h-14 sm:h-16">
         <!-- Logo -->
         <div class="flex-shrink-0">
           <a href="/" class="flex items-center hover:opacity-90 transition-opacity" aria-label="Targetsy Agency">
@@ -138,7 +140,6 @@ const { header } = content;
         </div>
       </div>
     </nav>
-  </div>
 </header>
 
 <script>
