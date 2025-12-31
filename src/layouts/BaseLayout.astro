@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { title, description, ogTitle, ogDescription, ogImage } = Astro.props;
-const siteUrl = Astro.site?.toString() || 'https://targetsy.agency';
+const siteUrl = Astro.site?.toString() || 'https://www.targetsy.agency';
 const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 const nonce = Astro.locals.cspNonce;
 ---
