@@ -302,7 +302,7 @@ const seo = {
         return isValid;
     };
 
-    const sendLeadToSheets = (payload: Record<string, string>) => {
+    const sendLeadToSheets = (payload) => {
         const params = new URLSearchParams(payload);
         const url = `${SHEETS_URL}?${params.toString()}`;
         const script = document.createElement('script');
