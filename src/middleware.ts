@@ -1,8 +1,10 @@
-import crypto from 'node:crypto';
 import { defineMiddleware } from 'astro/middleware';
 
 export const onRequest = defineMiddleware(async (context, next) => {
-  const nonce = crypto.randomBytes(16).toString('base64');
+  const cryptoApi = globalThis.crypto;
+  const bytes = cryptoApi?.getRandomValues ? cryptoApi.getRandomValues(new Uint8Array(16)) : new Uint8Array(16);
+  const raw = String.fromCharCode(...bytes);
+  const nonce = typeof btoa === 'function' ? btoa(raw) : Buffer.from(raw, 'binary').toString('base64');
   context.locals.cspNonce = nonce;
   const isDev = import.meta.env.DEV;
 

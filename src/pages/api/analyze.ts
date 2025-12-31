@@ -4,6 +4,8 @@ import OpenAI from 'openai';
 import dns from 'node:dns/promises';
 import net from 'node:net';
 
+export const runtime = 'nodejs';
+
 // Rate limiting (simple in-memory for demo/MVP)
 type RateLimitEntry = { count: number; windowStart: number };
 const rateLimit = new Map<string, RateLimitEntry>();
