@@ -233,7 +233,7 @@ const seo = {
 
     const getUtmValues = () => {
         const params = new URLSearchParams(window.location.search);
-        const utmValues: { [key: string]: string } = {};
+        const utmValues = {};
 
         UTM_KEYS.forEach((key) => {
             const value = params.get(key) || sessionStorage.getItem(key) || '';
@@ -245,7 +245,7 @@ const seo = {
         return utmValues;
     };
 
-    const validatePhone = (phone: string) => {
+    const validatePhone = (phone) => {
         if (!phone) return false;
         const cleanPhone = phone.replace(/[^\d+]/g, '');
         const withPlus = /^\+380\d{9}$/;
@@ -254,8 +254,8 @@ const seo = {
         return withPlus.test(cleanPhone) || withoutPlus.test(cleanPhone) || shortFormat.test(cleanPhone);
     };
 
-    const setFieldError = (field: HTMLInputElement | HTMLTextAreaElement, message: string) => {
-        const errorElement = field.parentElement?.querySelector('.error-message') as HTMLElement | null;
+    const setFieldError = (field, message) => {
+        const errorElement = field.parentElement?.querySelector('.error-message');
         if (errorElement) {
             errorElement.textContent = message;
             errorElement.classList.toggle('hidden', !message);
@@ -273,8 +273,11 @@ const seo = {
 
     const validateStep2 = () => {
         let isValid = true;
-        const nameInput = document.getElementById('name') as HTMLInputElement;
-        const phoneInput = document.getElementById('phone') as HTMLInputElement;
+        const nameInput = document.getElementById('name');
+        const phoneInput = document.getElementById('phone');
+        if (!(nameInput instanceof HTMLInputElement) || !(phoneInput instanceof HTMLInputElement)) {
+            return false;
+        }
 
         if (!nameInput.value.trim()) {
             setFieldError(nameInput, 'Будь ласка, введіть ім’я');
@@ -316,8 +319,11 @@ const seo = {
 
     // Validation helper
     const validateStep1 = () => {
-        const urlInput = document.getElementById('url') as HTMLInputElement;
-        
+        const urlInput = document.getElementById('url');
+        if (!(urlInput instanceof HTMLInputElement)) {
+            return false;
+        }
+
         let url = urlInput.value.trim();
         if(!url) {
             urlInput.setCustomValidity('Будь ласка, введіть адресу сайту');
@@ -362,7 +368,9 @@ const seo = {
             // Update indicators
             step1Indicator?.classList.replace('bg-accent-500/20', 'bg-white/5');
             step1Indicator?.classList.replace('text-accent-400', 'text-green-500');
-             step1Indicator!.innerHTML = '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>';
+            if (step1Indicator) {
+                step1Indicator.innerHTML = '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>';
+            }
 
             step2Indicator?.classList.replace('bg-white/5', 'bg-accent-500/20');
             step2Indicator?.classList.replace('text-gray-400', 'text-accent-400');
@@ -376,7 +384,9 @@ const seo = {
         // Reset indicators
         step1Indicator?.classList.replace('bg-white/5', 'bg-accent-500/20');
         step1Indicator?.classList.replace('text-green-500', 'text-accent-400');
-        step1Indicator!.textContent = '1';
+        if (step1Indicator) {
+            step1Indicator.textContent = '1';
+        }
 
         step2Indicator?.classList.replace('bg-accent-500/20', 'bg-white/5');
         step2Indicator?.classList.replace('text-accent-400', 'text-gray-400');
@@ -390,14 +400,15 @@ const seo = {
             return;
         }
         
-        const formData = new FormData(form as HTMLFormElement);
-        const data: any = Object.fromEntries(formData.entries());
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
         
         // Get URL from step 1
-        const urlInput = document.getElementById('url') as HTMLInputElement;
-        if (urlInput) {
-            data.url = urlInput.value;
+        const urlInput = document.getElementById('url');
+        if (!(urlInput instanceof HTMLInputElement)) {
+            return;
         }
+        data.url = urlInput.value;
 
         const utmValues = getUtmValues();
         const messageValue = data.message ? String(data.message).trim() : '';
@@ -455,8 +466,8 @@ const seo = {
 
                 const lines = rawText
                     .split('\n')
-                    .map((line: string) => line.trim())
-                    .filter((line: string) => line !== '');
+                    .map((line) => line.trim())
+                    .filter((line) => line !== '');
 
                 auditResults.innerHTML = '';
 
@@ -466,7 +477,7 @@ const seo = {
                     const list = document.createElement('ul');
                     list.className = 'list-disc list-inside space-y-3 text-gray-300';
 
-                    lines.forEach((line: string) => {
+                    lines.forEach((line) => {
                         const item = document.createElement('li');
                         item.textContent = line.replace(/^-+\s*/, '');
                         list.appendChild(item);
@@ -477,10 +488,12 @@ const seo = {
             }
 
 
-        } catch (error: any) {
+        } catch (error) {
             console.error(error);
-            errorMessage!.textContent = error.message;
-            errorMessage?.classList.remove('hidden');
+            if (errorMessage) {
+                errorMessage.textContent = error?.message || 'Сталася помилка під час аудиту.';
+                errorMessage.classList.remove('hidden');
+            }
         } finally {
             loadingOverlay?.classList.add('hidden');
         }

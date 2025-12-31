@@ -1,4 +1,4 @@
----
+﻿---
 import content from '../content/home-uk.json';
 
 const { hero } = content;
@@ -203,7 +203,7 @@ const subheadlineParts = hero.subheadline
     const metricElement = document.getElementById('animated-metric');
     
     const metricsData = typeof window !== 'undefined' 
-      ? (window as any).__HERO_METRICS__ || []
+      ? window.__HERO_METRICS__ || []
       : [];
     
     let currentIndex = 0;
@@ -266,7 +266,9 @@ const subheadlineParts = hero.subheadline
       icons.forEach((icon, index) => {
         const speed = 0.3 + (index * 0.1); // Different speeds for each icon
         const yPos = -(scrolled * speed);
-        (icon as HTMLElement).style.transform = `translateY(${yPos}px)`;
+        if (icon instanceof HTMLElement) {
+          icon.style.transform = `translateY(${yPos}px)`;
+        }
       });
       
       ticking = false;
@@ -334,3 +336,4 @@ const subheadlineParts = hero.subheadline
       0 0 100px rgba(var(--shadow-color, 99, 102, 241), 0.6);
   }
 </style>
+
