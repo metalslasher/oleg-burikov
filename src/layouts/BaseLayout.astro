@@ -1,7 +1,5 @@
 ﻿---
 import '../styles/global.css';
-import smoothScrollUrl from '../scripts/smoothScroll.ts?url';
-import formValidationUrl from '../scripts/formValidation.ts?url';
 
 interface Props {
   title: string;
@@ -70,7 +68,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <slot />
     
     <!-- Load scripts after content -->
-    <script type="module" src={smoothScrollUrl}></script>
-    <script type="module" src={formValidationUrl}></script>
+    <script>
+      import '../scripts/smoothScroll.ts';
+      import '../scripts/formValidation.ts';
+    </script>
   </body>
 </html>
