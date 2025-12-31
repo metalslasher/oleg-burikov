@@ -3,15 +3,10 @@ import content from '../content/home-uk.json';
 
 const { hero } = content;
 const nonce = Astro.locals.cspNonce;
-const highlightPhrase = 'Google Ads та Meta Ads';
-const hasHighlight = hero.headline.includes(highlightPhrase);
-const [headlinePrefix, headlineSuffix] = hasHighlight
-  ? hero.headline.split(highlightPhrase)
-  : [hero.headline, ''];
-const subheadlineParts = hero.subheadline
-  .split('.')
-  .map((part) => part.trim())
-  .filter(Boolean);
+const typewriterHeadlines = Array.isArray(hero.typewriterHeadlines) && hero.typewriterHeadlines.length > 0
+  ? hero.typewriterHeadlines
+  : [hero.headline].filter(Boolean);
+const initialHeadline = typewriterHeadlines[0] || hero.headline;
 ---
 
 <section id="hero" class="relative min-h-0 sm:min-h-screen flex items-start sm:items-center justify-center overflow-hidden">
@@ -113,39 +108,15 @@ const subheadlineParts = hero.subheadline
     <div class="max-w-5xl mx-auto text-center">
       <!-- Headline -->
       <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-        {hasHighlight ? (
-          <>
-            <span class="block sm:inline sm:mr-2">{headlinePrefix.trim()}</span>
-            <span class="block sm:inline sm:mr-2">
-              <span class="text-accent-400">Google Ads</span>
-              <span class="text-white"> та </span>
-              <span class="text-accent-400">Meta Ads</span>
-            </span>
-            {headlineSuffix.trim() && (
-              <span class="block sm:inline">{headlineSuffix.trim()}</span>
-            )}
-          </>
-        ) : (
-          hero.headline
-        )}
+        <span class="block min-h-[3.2em] sm:min-h-[2.6em] md:min-h-[2.8em]">
+          <span id="hero-typewriter" class="text-white">{initialHeadline}</span>
+          <span id="hero-typewriter-cursor" class="typewriter-cursor text-accent-400" aria-hidden="true">|</span>
+        </span>
       </h1>
 
-      <div class="text-gray-300 mb-8 sm:mb-10 leading-relaxed max-w-3xl mx-auto">
-        <div class="flex flex-wrap justify-center gap-2 sm:gap-0 text-sm sm:text-xl md:text-2xl">
-          {subheadlineParts.map((part, index) => (
-            <span class="inline-flex items-center">
-              <span class="rounded-full bg-white/5 border border-white/10 px-3 py-1 sm:bg-transparent sm:border-transparent sm:px-0 sm:py-0">
-                {part}
-              </span>
-              {index < subheadlineParts.length - 1 && (
-                <span class="hidden sm:inline-flex items-center justify-center mx-2 h-[1em]">
-                  <span class="w-1.5 h-1.5 rounded-full bg-accent-400/70"></span>
-                </span>
-              )}
-            </span>
-          ))}
-        </div>
-      </div>
+      <p class="text-gray-300 mb-8 sm:mb-10 leading-relaxed max-w-3xl mx-auto text-lg sm:text-xl md:text-2xl">
+        {hero.subheadline}
+      </p>
 
       <!-- CTA Buttons -->
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 sm:mb-12">
@@ -193,17 +164,22 @@ const subheadlineParts = hero.subheadline
   </div>
 </section>
 
-<script is:inline define:vars={{ metrics: hero.metrics }} nonce={nonce}>
+<script is:inline define:vars={{ metrics: hero.metrics, headlines: typewriterHeadlines }} nonce={nonce}>
   window.__HERO_METRICS__ = metrics;
+  window.__HERO_HEADLINES__ = headlines;
 </script>
 
 <script nonce={nonce}>
   // Animated metrics rotation
   document.addEventListener('DOMContentLoaded', () => {
     const metricElement = document.getElementById('animated-metric');
+    const typewriterElement = document.getElementById('hero-typewriter');
     
     const metricsData = typeof window !== 'undefined' 
       ? window.__HERO_METRICS__ || []
+      : [];
+    const headlinesData = typeof window !== 'undefined'
+      ? window.__HERO_HEADLINES__ || []
       : [];
     
     let currentIndex = 0;
@@ -234,6 +210,42 @@ const subheadlineParts = hero.subheadline
       if (metricsData.length > 0) {
         setInterval(updateMetric, 3000);
       }
+    }
+
+    if (typewriterElement && headlinesData.length > 0) {
+      let headlineIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      const TYPE_SPEED = 55;
+      const DELETE_SPEED = 32;
+      const PAUSE = 1400;
+
+      typewriterElement.textContent = '';
+
+      const tick = () => {
+        const current = headlinesData[headlineIndex] || '';
+        if (!isDeleting) {
+          charIndex += 1;
+          typewriterElement.textContent = current.slice(0, charIndex);
+          if (charIndex >= current.length) {
+            isDeleting = true;
+            setTimeout(tick, PAUSE);
+            return;
+          }
+        } else {
+          charIndex -= 1;
+          typewriterElement.textContent = current.slice(0, charIndex);
+          if (charIndex <= 0) {
+            isDeleting = false;
+            headlineIndex = (headlineIndex + 1) % headlinesData.length;
+          }
+        }
+
+        const delay = isDeleting ? DELETE_SPEED : TYPE_SPEED;
+        setTimeout(tick, delay);
+      };
+
+      tick();
     }
 
     // Scroll-triggered fade-in animation for floating icons
@@ -334,6 +346,21 @@ const subheadlineParts = hero.subheadline
     box-shadow: 
       0 20px 60px rgba(0, 0, 0, 0.4),
       0 0 100px rgba(var(--shadow-color, 99, 102, 241), 0.6);
+  }
+
+  .typewriter-cursor {
+    display: inline-block;
+    margin-left: 0.1em;
+    animation: typeBlink 1s steps(2, start) infinite;
+  }
+
+  @keyframes typeBlink {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
   }
 </style>
 
