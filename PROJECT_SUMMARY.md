@@ -1,25 +1,38 @@
-﻿# Project Summary — Targetsy Agency
+# Project Summary — Targetsy Agency
 
-## What it is
-Agency website with cases, blog, service pages, and a site audit tool.
+## Призначення проєкту
+Сайт агенції Targetsy для залучення лідів і презентації експертизи. Основна мета — конверсія відвідувачів у заявки через форму, демонстрацію кейсів і корисний контент.
 
-## Key routes
-- `/` — home
-- `/services/*` — services
-- `/cases` — cases
-- `/blog` — blog
-- `/pricing` — pricing
-- `/tools/site-audit` — site audit tool
-- `/privacy` — privacy policy
+## Ключові можливості
+- **Головна сторінка** з чітким позиціонуванням, CTA та блоками довіри.
+- **Сторінки послуг**: Google Ads, Meta Ads, веб-аналітика, консалтинг.
+- **Кейси**: структуровані кейси з метриками та результатами.
+- **Блог**: експертні статті для органічного трафіку.
+- **Прайсинг**: пакети та разові послуги.
+- **Інструменти**: аудит сайту як лід-магніт.
 
-## Integrations
-- Leads saved to Google Sheets via Apps Script.
-- Site audit via OpenAI API (`/api/analyze`).
-- Tracking via Google Tag Manager.
+## Основні користувацькі сценарії
+1. **Перша сесія → заявка**  
+   Відвідувач бачить УТП і залишає заявку через форму на головній/інших сторінках.
 
-## Stack
-Astro + TypeScript + Tailwind CSS.
+2. **Перша сесія → кейс → заявка**  
+   Перехід у кейси, знайомство з результатами, після чого — CTA на консультацію.
 
-## Docs
-- `README.md` — setup, content, integrations
-- `FILE_STRUCTURE.md` — project tree
+3. **Лід‑магніт → заявка**  
+   Користувач проходить міні‑аудит сайту, отримує рекомендації та переходить до консультації.
+
+## Інтеграції (високий рівень)
+- **GTM** для аналітики й рекламних тегів.
+- **Google Sheets** для збору лідів.
+- **OpenAI API** для генерації рекомендацій в аудиті сайту.
+
+## Дані й потоки
+- Дані з форм відправляються у Google Sheets.  
+- Аудит сайту викликає API `/api/analyze` та повертає текстові рекомендації.  
+
+## Нефункціональні вимоги
+- **SEO**: sitemap, robots, canonical URL, метадані.
+- **Продуктивність**: оптимізовані зображення, мінімізація CSS/JS.
+- **Безпека**: CSP та базові security‑headers.
+
+> Для технічних деталей, структури та інструкцій див. `README.md` і `FILE_STRUCTURE.md`.
