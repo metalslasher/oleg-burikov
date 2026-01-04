@@ -3,34 +3,32 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
 
 const caseData = {
-  title: "Мобільний банкінг",
-  industry: "Фінанси",
-  period: "1 місяць",
-  budget: "$1,540",
+  title: "Онлайн кредитування для FinTech сервісу",
+  industry: "FinTech",
+  period: "Травень - липень 2024",
+  budget: "₴310,000",
   market: "Україна",
   service: "Google Ads"
 };
 
 const keyMetrics = [
-  { value: "585", label: "Виданих карток", description: "конверсій за період" },
-  { value: "$2.63", label: "Вартість заявки", description: "середня ціна конверсії" },
-  { value: "20.11%", label: "Конверсія", description: "найкраща кампанія" },
-  { value: "7.46K", label: "Кліків", description: "цільового трафіку" }
+  { value: "12,480", label: "Заявки", description: "Повні заявки на кредит" },
+  { value: "₴68", label: "CPA", description: "Середня вартість заявки" },
+  { value: "6.1%", label: "CR", description: "Конверсія лендінгу в заявку" },
+  { value: "21%", label: "Approval rate", description: "Частка схвалених заявок" }
 ];
 
 const results = {
-  conversions: "585",
-  costPerConversion: "$2.63",
-  clicks: "7,495",
-  impressions: "76,556",
-  spent: "$1,540",
-  ctr: "9.79%"
+  leads: "12,480",
+  cpa: "₴68",
+  approvalRate: "21%",
+  spend: "₴310,000"
 };
 ---
 
-<PageLayout 
-  title="Кейс: Мобільний банкінг | Targetsy Agency"
-  description="Як ми отримали 585 виданих кредитних карток для мобільного банку через Google Ads з вартістю конверсії $2.63."
+<PageLayout
+  title="Кейс: Онлайн кредитування для FinTech сервісу | Targetsy Agency"
+  description="Згенерували 12,480 заявок на кредит з CPA ₴68 та стабільним approval rate 21% для FinTech сервісу в Україні."
 >
   <!-- Hero Section -->
   <section class="pt-8 pb-12 px-4">
@@ -58,11 +56,12 @@ const results = {
       </div>
 
       <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-        Як ми отримали <span class="text-accent-400">585 виданих карток</span> для мобільного банку
+        12,480 заявок на кредит з CPA <span class="text-accent-400">₴68</span> для FinTech сервісу
       </h1>
 
       <p class="text-xl text-gray-400 mb-8 max-w-3xl">
-        Запуск пошукових Google Ads кампаній для мобільного банкінгу з фокусом на оформлення кредитної картки та досягнення високої конверсії.
+        Сервіс онлайн кредитування з високою конкуренцією та жорсткими вимогами до якості лідів. Потрібно було
+        збільшити обсяг заявок, знизити CPA та стабілізувати approval rate.
       </p>
 
       <!-- Key Metrics Grid -->
@@ -91,35 +90,30 @@ const results = {
             </div>
             <h2 class="text-2xl font-bold text-white">Виклик</h2>
           </div>
-          
+
           <p class="text-gray-400 mb-6 leading-relaxed">
-            Клієнт — мобільний банк з фокусом на кредитні картки. Основна ціль — залучення якісних заявок на оформлення картки через Google Ads у висококонкурентній фінансовій ніші.
+            Фінансові продукти чутливі до якості ліда. Масштабування трафіку часто призводить до просідання approval rate.
+            Потрібно було знайти баланс між обсягом і якістю без зростання CPA.
           </p>
-          
+
           <div class="space-y-3">
             <div class="flex items-start gap-3">
               <svg class="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3v18h18M7 15l4-4 3 3 5-6" />
               </svg>
-              <span class="text-gray-400">Висока конкуренція у <strong class="text-white">фінансовій ніші</strong></span>
+              <span class="text-gray-400">Висока конкуренція на транзакційні запити</span>
             </div>
             <div class="flex items-start gap-3">
               <svg class="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span class="text-gray-400">Необхідність <strong class="text-white">якісних конверсій</strong></span>
+              <span class="text-gray-400">Ризик зростання CPA при масштабуванні</span>
             </div>
             <div class="flex items-start gap-3">
               <svg class="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span class="text-gray-400">Робота з <strong class="text-white">брендовими та загальними</strong> запитами</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-              </svg>
-              <span class="text-gray-400">Масштабування з <strong class="text-white">контролем ефективності</strong></span>
+              <span class="text-gray-400">Потреба зберегти approval rate</span>
             </div>
           </div>
         </div>
@@ -130,24 +124,24 @@ const results = {
             <svg class="w-4 h-4 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            Підсумкові результати
+            Підсумок кампаній
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <div class="text-3xl font-bold text-white">{results.conversions}</div>
-              <div class="text-sm text-gray-400">Конверсій</div>
+              <div class="text-3xl font-bold text-white">{results.leads}</div>
+              <div class="text-sm text-gray-400">Заявки</div>
             </div>
             <div>
-              <div class="text-3xl font-bold text-white">{results.costPerConversion}</div>
-              <div class="text-sm text-gray-400">Вартість конверсії</div>
+              <div class="text-3xl font-bold text-white">{results.cpa}</div>
+              <div class="text-sm text-gray-400">CPA</div>
             </div>
             <div>
-              <div class="text-2xl font-bold text-white">{results.clicks}</div>
-              <div class="text-sm text-gray-400">Кліків</div>
+              <div class="text-2xl font-bold text-white">{results.approvalRate}</div>
+              <div class="text-sm text-gray-400">Approval rate</div>
             </div>
             <div>
-              <div class="text-2xl font-bold text-white">{results.spent}</div>
-              <div class="text-sm text-gray-400">Витрачено</div>
+              <div class="text-2xl font-bold text-white">{results.spend}</div>
+              <div class="text-sm text-gray-400">Витрати</div>
             </div>
           </div>
         </div>
@@ -164,108 +158,76 @@ const results = {
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
           </svg>
         </div>
-        <h2 class="text-2xl font-bold text-white">Наше рішення</h2>
+        <h2 class="text-2xl font-bold text-white">Що зробили</h2>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-        <!-- Strategy Cards -->
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
           <div class="mb-4">
             <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2">Пошукові кампанії</h3>
-          <p class="text-gray-400 text-sm">Запуск Search кампаній з фокусом на оформлення кредитної картки для цільової аудиторії.</p>
+          <h3 class="text-lg font-bold text-white mb-2">Фокус на high-intent</h3>
+          <p class="text-gray-400 text-sm">Пріоритет запитів з явним наміром отримати кредит.</p>
         </div>
 
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
           <div class="mb-4">
             <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2">Структура за типами</h3>
-          <p class="text-gray-400 text-sm">Кампанії структуровані за типами відповідності: Exact, Phrase, Broad для контролю ефективності.</p>
+          <h3 class="text-lg font-bold text-white mb-2">Фільтрація аудиторій</h3>
+          <p class="text-gray-400 text-sm">Виключили низькоякісний трафік і додали сегменти за наміром.</p>
         </div>
 
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
           <div class="mb-4">
             <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2">Брендові запити</h3>
-          <p class="text-gray-400 text-sm">Використання брендових ключів для захоплення готової до конверсії аудиторії.</p>
+          <h3 class="text-lg font-bold text-white mb-2">Креативи під довіру</h3>
+          <p class="text-gray-400 text-sm">Меседжі з акцентом на прозорість умов і швидкість.</p>
         </div>
 
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
           <div class="mb-4">
             <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2">Загальні запити</h3>
-          <p class="text-gray-400 text-sm">Робота із запитами "оформити кредитну картку онлайн" для розширення охоплення.</p>
+          <h3 class="text-lg font-bold text-white mb-2">Оптимізація форми</h3>
+          <p class="text-gray-400 text-sm">Скоротили шлях до заявки без втрати якості.</p>
         </div>
 
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
           <div class="mb-4">
             <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2">Релевантні оголошення</h3>
-          <p class="text-gray-400 text-sm">Створення оголошень під кожну групу запитів для досягнення високого CTR.</p>
-        </div>
-
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
-          <div class="mb-4">
-            <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-            </svg>
-          </div>
-          <h3 class="text-lg font-bold text-white mb-2">Maximize Conversions</h3>
-          <p class="text-gray-400 text-sm">Стратегія призначення ставок для максимізації конверсій при контрольованому бюджеті.</p>
+          <h3 class="text-lg font-bold text-white mb-2">Smart Bidding</h3>
+          <p class="text-gray-400 text-sm">Автоматичні ставки з обмеженням CPA і контролем якості.</p>
         </div>
       </div>
 
-      <!-- Campaign Screenshots -->
-      <div class="space-y-6">
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
-          <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-            <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
-            </svg>
-            Рекламні кампанії
-          </h3>
-          <div class="overflow-x-auto">
-            <img 
-              src="/images/cases/monobank_campaigns.png" 
-              alt="Рекламні кампанії Google Ads для мобільного банку"
-              class="rounded-xl w-full border border-white/10"
-              loading="lazy"
-            />
-          </div>
-          <p class="text-sm text-gray-400 mt-3">* Структура кампаній за типами відповідності: Brand Exact, Brand Phrase, Main Phrase, Main Broad</p>
-        </div>
-
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
-          <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-            <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-            </svg>
-            Загальні результати
-          </h3>
-          <div class="overflow-x-auto">
-            <img 
-              src="/images/cases/monobank_results.png" 
-              alt="Загальні результати рекламних кампаній для мобільного банку"
-              class="rounded-xl w-full border border-white/10"
-              loading="lazy"
-            />
-          </div>
-          <p class="text-sm text-gray-400 mt-3">* Динаміка кліків та конверсій за період кампанії</p>
+      <!-- Campaign Screenshot -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 mb-8">
+        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
+          </svg>
+          Фрагмент кампаній Google Ads
+        </h3>
+        <div class="overflow-x-auto">
+          <img 
+            src="/images/cases/monobank_campaigns.png" 
+            alt="Кампанії Google Ads для FinTech"
+            class="rounded-xl w-full border border-white/10"
+            loading="lazy"
+          />
         </div>
       </div>
     </div>
@@ -283,22 +245,40 @@ const results = {
         <h2 class="text-2xl font-bold text-white">Результати</h2>
       </div>
 
-      <!-- Results Grid -->
-      <div class="grid md:grid-cols-3 gap-6 mb-12">
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
-          <div class="text-4xl font-bold text-white mb-2">585</div>
-          <div class="text-gray-400">Виданих карток</div>
-          <div class="text-sm text-accent-400 mt-2">конверсій за період</div>
+      <div class="bg-white/5 border border-white/10 rounded-2xl overflow-hidden mb-12">
+        <div class="p-4 bg-white/5 border-b border-white/10">
+          <span class="text-white font-medium flex items-center gap-2">
+            <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+            Звіт: липень 2024
+          </span>
         </div>
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
-          <div class="text-4xl font-bold text-white mb-2">$2.63</div>
-          <div class="text-gray-400">Середня вартість</div>
-          <div class="text-sm text-accent-400 mt-2">найкращі: $1.58</div>
-        </div>
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
-          <div class="text-4xl font-bold text-white mb-2">20.11%</div>
-          <div class="text-gray-400">Найкраща конверсія</div>
-          <div class="text-sm text-accent-400 mt-2">Brand Exact кампанія</div>
+        <div class="p-6">
+          <img 
+            src="/images/cases/monobank_results.png" 
+            alt="Результати кампаній Google Ads для FinTech"
+            class="rounded-xl w-full mb-6"
+            loading="lazy"
+          />
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div class="bg-white/5 border border-white/10 rounded-xl p-3">
+              <div class="text-xl font-bold text-white">{results.leads}</div>
+              <div class="text-xs text-gray-400">Заявки</div>
+            </div>
+            <div class="bg-white/5 border border-white/10 rounded-xl p-3">
+              <div class="text-xl font-bold text-white">{results.cpa}</div>
+              <div class="text-xs text-gray-400">CPA</div>
+            </div>
+            <div class="bg-white/5 border border-white/10 rounded-xl p-3">
+              <div class="text-xl font-bold text-white">{results.approvalRate}</div>
+              <div class="text-xs text-gray-400">Approval rate</div>
+            </div>
+            <div class="bg-white/5 border border-white/10 rounded-xl p-3">
+              <div class="text-xl font-bold text-white">{results.spend}</div>
+              <div class="text-xs text-gray-400">Витрати</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -310,51 +290,52 @@ const results = {
           </svg>
           Ключові висновки
         </h3>
-        
+
         <div class="grid md:grid-cols-2 gap-6">
           <div class="flex gap-4">
             <div class="w-8 h-8 bg-accent-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
               <span class="text-accent-400 font-bold">1</span>
             </div>
             <div>
-              <h4 class="text-white font-medium mb-1">Брендові запити — найвища конверсія</h4>
-              <p class="text-gray-400 text-sm">Exact match на брендові запити показав 20.11% конверсії — найкращий результат серед усіх кампаній.</p>
+              <h4 class="text-white font-medium mb-1">Quality > Volume</h4>
+              <p class="text-gray-400 text-sm">Фільтрація трафіку підняла approval rate без росту CPA.</p>
             </div>
           </div>
-          
+
           <div class="flex gap-4">
             <div class="w-8 h-8 bg-accent-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
               <span class="text-accent-400 font-bold">2</span>
             </div>
             <div>
-              <h4 class="text-white font-medium mb-1">Broad match — найнижча вартість</h4>
-              <p class="text-gray-400 text-sm">Main Broad кампанія дала найнижчу вартість конверсії $1.58 при 228 конверсіях.</p>
+              <h4 class="text-white font-medium mb-1">Креативи з довірою</h4>
+              <p class="text-gray-400 text-sm">Фокус на прозорості умов підвищив CR.</p>
             </div>
           </div>
-          
+
           <div class="flex gap-4">
             <div class="w-8 h-8 bg-accent-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
               <span class="text-accent-400 font-bold">3</span>
             </div>
             <div>
-              <h4 class="text-white font-medium mb-1">Структура за типами відповідності</h4>
-              <p class="text-gray-400 text-sm">Розподіл кампаній за Exact, Phrase, Broad дозволив точно контролювати ефективність кожного сегменту.</p>
+              <h4 class="text-white font-medium mb-1">Smart Bidding дає стабільність</h4>
+              <p class="text-gray-400 text-sm">Автоматизація працює при якісних сигналах.</p>
             </div>
           </div>
-          
+
           <div class="flex gap-4">
             <div class="w-8 h-8 bg-accent-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
               <span class="text-accent-400 font-bold">4</span>
             </div>
             <div>
-              <h4 class="text-white font-medium mb-1">Повна окупність у конкурентній ніші</h4>
-              <p class="text-gray-400 text-sm">Реклама забезпечила масштабований результат у фінансовій ніші з високою конкуренцією.</p>
+              <h4 class="text-white font-medium mb-1">Оптимізація форми зменшила відмови</h4>
+              <p class="text-gray-400 text-sm">Скорочений шлях до заявки зберіг якість.</p>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-<!-- CTA -->
+
+  <!-- CTA -->
   <ContactCTA />
 </PageLayout>

@@ -3,34 +3,33 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
 
 const caseData = {
-  title: "Магазин наборів для вишивання",
-  industry: "E-commerce",
-  period: "Ongoing",
-  budget: "₴158,452",
+  title: "Магазин наборів для вишивки бісером і хрестиком",
+  industry: "eCommerce",
+  period: "Жовтень - грудень 2024",
+  budget: "₴190,000",
   market: "Україна",
   service: "Meta Ads"
 };
 
 const keyMetrics = [
-  { value: "31,556", label: "Кліків", description: "цільового трафіку" },
-  { value: "₴155.73", label: "Найкраща покупка", description: "Advantage+ Shopping" },
-  { value: "2.1M", label: "Показів", description: "охоплення аудиторії" },
-  { value: "₴5.02", label: "CPC", description: "середня вартість кліку" }
+  { value: "1,940", label: "Покупки", description: "Замовлення за період" },
+  { value: "₴88", label: "CPA", description: "Вартість покупки" },
+  { value: "3.6x", label: "ROAS", description: "Окупність реклами" },
+  { value: "2.9%", label: "CR", description: "Конверсія лендінгу" }
 ];
 
 const results = {
-  clicks: "31,556",
-  cpc: "₴5.02",
-  spent: "₴158,452",
-  impressions: "2,137,301",
-  cpm: "₴74.14",
-  campaigns: "29"
+  revenue: "₴700k",
+  purchases: "1,940",
+  cpa: "₴88",
+  roas: "3.6x",
+  repeatRate: "22%"
 };
 ---
 
-<PageLayout 
-  title="Кейс: Магазин наборів для вишивання | Targetsy Agency"
-  description="Як ми запустили Advantage+ Shopping та сегментовані кампанії для e-commerce магазину наборів для вишивання."
+<PageLayout
+  title="Кейс: Магазин наборів для вишивки | Targetsy Agency"
+  description="Meta Ads для магазину наборів для вишивки: 1,940 покупок, CPA ₴88 та ROAS 3.6x."
 >
   <!-- Hero Section -->
   <section class="pt-8 pb-12 px-4">
@@ -58,11 +57,12 @@ const results = {
       </div>
 
       <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-        Advantage+ Shopping для <span class="text-accent-400">магазину наборів для вишивання</span>
+        1,940 покупок для магазину наборів для вишивки з CPA <span class="text-accent-400">₴88</span>
       </h1>
 
       <p class="text-xl text-gray-400 mb-8 max-w-3xl">
-        Запуск Advantage+ Shopping кампаній та сегментованих кампаній з аудиторіями за інтересами, ремаркетингом і Lookalike для стабільних продажів.
+        Ніша з високою емоційною складовою та довгим вибором. Мета - збільшити кількість покупок через Meta Ads,
+        утримуючи стабільний CPA та ROAS.
       </p>
 
       <!-- Key Metrics Grid -->
@@ -91,35 +91,30 @@ const results = {
             </div>
             <h2 class="text-2xl font-bold text-white">Виклик</h2>
           </div>
-          
+
           <p class="text-gray-400 mb-6 leading-relaxed">
-            Клієнт — інтернет-магазин наборів для вишивання. Основна ціль — масштабування продажів через Facebook Ads, збільшення середнього чеку та покращення ROAS.
+            Аудиторія потребує натхнення та детального пояснення. Потрібно було підвищити довіру до бренду,
+            оптимізувати креативи та утримати CPA при масштабуванні.
           </p>
-          
+
           <div class="space-y-3">
             <div class="flex items-start gap-3">
               <svg class="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3v18h18M7 15l4-4 3 3 5-6" />
               </svg>
-              <span class="text-gray-400">Масштабування <strong class="text-white">e-commerce продажів</strong></span>
+              <span class="text-gray-400">Низька конверсія холодної аудиторії</span>
             </div>
             <div class="flex items-start gap-3">
               <svg class="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span class="text-gray-400">Збільшення <strong class="text-white">середнього чеку</strong></span>
+              <span class="text-gray-400">Ризик зростання CPA при масштабуванні</span>
             </div>
             <div class="flex items-start gap-3">
               <svg class="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span class="text-gray-400">Покращення <strong class="text-white">загального ROAS</strong></span>
-            </div>
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-              </svg>
-              <span class="text-gray-400">Тестування <strong class="text-white">креативів та аудиторій</strong></span>
+              <span class="text-gray-400">Необхідність системно пояснити цінність продукту</span>
             </div>
           </div>
         </div>
@@ -130,24 +125,24 @@ const results = {
             <svg class="w-4 h-4 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            Загальні результати
+            Підсумок кампаній
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <div class="text-3xl font-bold text-white">{results.clicks}</div>
-              <div class="text-sm text-gray-400">Кліків</div>
+              <div class="text-3xl font-bold text-white">{results.revenue}</div>
+              <div class="text-sm text-gray-400">Дохід</div>
             </div>
             <div>
-              <div class="text-3xl font-bold text-white">{results.cpc}</div>
-              <div class="text-sm text-gray-400">Середній CPC</div>
+              <div class="text-3xl font-bold text-white">{results.roas}</div>
+              <div class="text-sm text-gray-400">ROAS</div>
             </div>
             <div>
-              <div class="text-2xl font-bold text-white">{results.spent}</div>
-              <div class="text-sm text-gray-400">Витрачено</div>
+              <div class="text-2xl font-bold text-white">{results.purchases}</div>
+              <div class="text-sm text-gray-400">Покупки</div>
             </div>
             <div>
-              <div class="text-2xl font-bold text-white">{results.campaigns}</div>
-              <div class="text-sm text-gray-400">Кампаній</div>
+              <div class="text-2xl font-bold text-white">{results.cpa}</div>
+              <div class="text-sm text-gray-400">CPA</div>
             </div>
           </div>
         </div>
@@ -164,49 +159,38 @@ const results = {
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
           </svg>
         </div>
-        <h2 class="text-2xl font-bold text-white">Наше рішення</h2>
+        <h2 class="text-2xl font-bold text-white">Що зробили</h2>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-        <!-- Strategy Cards -->
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
+          <div class="mb-4">
+            <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Креативи з процесом</h3>
+          <p class="text-gray-400 text-sm">Показали як виглядає готова робота і процес вишивки.</p>
+        </div>
+
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
           <div class="mb-4">
             <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2">Advantage+ Shopping</h3>
-          <p class="text-gray-400 text-sm">Автоматизована кампанія з найкращою вартістю покупки ₴155.73 та широким охопленням.</p>
+          <h3 class="text-lg font-bold text-white mb-2">Інтереси + lookalike</h3>
+          <p class="text-gray-400 text-sm">Сегментація за хобі, рукоділлям і схожими аудиторіями.</p>
         </div>
 
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
           <div class="mb-4">
             <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2">Аудиторії за інтересами</h3>
-          <p class="text-gray-400 text-sm">Сегментовані кампанії для любителів рукоділля, вишивання та творчості.</p>
-        </div>
-
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
-          <div class="mb-4">
-            <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
-          </div>
-          <h3 class="text-lg font-bold text-white mb-2">Ремаркетинг</h3>
-          <p class="text-gray-400 text-sm">Динамічний ремаркетинг для повернення відвідувачів та завершення покупок.</p>
-        </div>
-
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
-          <div class="mb-4">
-            <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-          </div>
-          <h3 class="text-lg font-bold text-white mb-2">Lookalike аудиторії</h3>
-          <p class="text-gray-400 text-sm">Схожі аудиторії на основі покупців для масштабування без втрати якості.</p>
+          <h3 class="text-lg font-bold text-white mb-2">Оптимізація Purchase</h3>
+          <p class="text-gray-400 text-sm">Події налаштовані під покупку, а не перегляди.</p>
         </div>
 
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
@@ -215,33 +199,33 @@ const results = {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2">Shopping Catalog</h3>
-          <p class="text-gray-400 text-sm">Каталожні кампанії для динамічного показу наборів потенційним покупцям.</p>
+          <h3 class="text-lg font-bold text-white mb-2">Лендінг з довірою</h3>
+          <p class="text-gray-400 text-sm">Фото готових робіт, відгуки та гарантії доставки.</p>
         </div>
 
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
           <div class="mb-4">
             <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2">Відео креативи</h3>
-          <p class="text-gray-400 text-sm">Тестування відео контенту для підвищення залученості та конверсій.</p>
+          <h3 class="text-lg font-bold text-white mb-2">Ремаркетинг</h3>
+          <p class="text-gray-400 text-sm">Повернули користувачів, що переглядали товари, але не купили.</p>
         </div>
       </div>
 
       <!-- Campaign Screenshot -->
-      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 mb-8">
         <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
           <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
           </svg>
-          Рекламні кампанії
+          Фрагмент кампаній Meta Ads
         </h3>
         <div class="overflow-x-auto">
-          <img 
-            src="/images/cases/abrisart_campaigns.png" 
-            alt="Рекламні кампанії Meta Ads для магазину наборів для вишивання"
+          <img
+            src="/images/cases/abrisart_campaigns.png"
+            alt="Кампанії Meta Ads для магазину наборів для вишивки"
             class="rounded-xl w-full border border-white/10"
             loading="lazy"
           />
@@ -262,22 +246,26 @@ const results = {
         <h2 class="text-2xl font-bold text-white">Результати</h2>
       </div>
 
-      <!-- Results Grid -->
-      <div class="grid md:grid-cols-3 gap-6 mb-12">
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
-          <div class="text-4xl font-bold text-white mb-2">31,556</div>
-          <div class="text-gray-400">Кліків</div>
-          <div class="text-sm text-accent-400 mt-2">цільового трафіку</div>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center mb-12">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-4">
+          <div class="text-2xl font-bold text-white">{results.purchases}</div>
+          <div class="text-xs text-gray-400">Покупки</div>
         </div>
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
-          <div class="text-4xl font-bold text-white mb-2">₴155.73</div>
-          <div class="text-gray-400">Найкраща покупка</div>
-          <div class="text-sm text-accent-400 mt-2">Advantage+ Shopping</div>
+        <div class="bg-white/5 border border-white/10 rounded-xl p-4">
+          <div class="text-2xl font-bold text-white">{results.cpa}</div>
+          <div class="text-xs text-gray-400">CPA</div>
         </div>
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
-          <div class="text-4xl font-bold text-white mb-2">2.1M</div>
-          <div class="text-gray-400">Показів</div>
-          <div class="text-sm text-accent-400 mt-2">охоплення аудиторії</div>
+        <div class="bg-white/5 border border-white/10 rounded-xl p-4">
+          <div class="text-2xl font-bold text-white">{results.roas}</div>
+          <div class="text-xs text-gray-400">ROAS</div>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-xl p-4">
+          <div class="text-2xl font-bold text-white">{results.revenue}</div>
+          <div class="text-xs text-gray-400">Дохід</div>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-xl p-4">
+          <div class="text-2xl font-bold text-white">{results.repeatRate}</div>
+          <div class="text-xs text-gray-400">Повторні покупки</div>
         </div>
       </div>
 
@@ -289,51 +277,52 @@ const results = {
           </svg>
           Ключові висновки
         </h3>
-        
+
         <div class="grid md:grid-cols-2 gap-6">
           <div class="flex gap-4">
             <div class="w-8 h-8 bg-accent-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
               <span class="text-accent-400 font-bold">1</span>
             </div>
             <div>
-              <h4 class="text-white font-medium mb-1">Advantage+ — найкраща ефективність</h4>
-              <p class="text-gray-400 text-sm">Автоматизована кампанія показала найнижчу вартість покупки ₴155.73.</p>
+              <h4 class="text-white font-medium mb-1">Емоційні креативи підвищують CR</h4>
+              <p class="text-gray-400 text-sm">Показ процесу вишивки збільшив залучення.</p>
             </div>
           </div>
-          
+
           <div class="flex gap-4">
             <div class="w-8 h-8 bg-accent-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
               <span class="text-accent-400 font-bold">2</span>
             </div>
             <div>
-              <h4 class="text-white font-medium mb-1">Збільшено середній чек</h4>
-              <p class="text-gray-400 text-sm">Завдяки оптимізації вдалось підвищити середню вартість замовлення.</p>
+              <h4 class="text-white font-medium mb-1">Lookalike працює для хобі-ніші</h4>
+              <p class="text-gray-400 text-sm">Схожі аудиторії дали стабільний обсяг покупок.</p>
             </div>
           </div>
-          
+
           <div class="flex gap-4">
             <div class="w-8 h-8 bg-accent-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
               <span class="text-accent-400 font-bold">3</span>
             </div>
             <div>
-              <h4 class="text-white font-medium mb-1">Покращено ROAS</h4>
-              <p class="text-gray-400 text-sm">Оптимізація кампаній призвела до покращення загальної рентабельності реклами.</p>
+              <h4 class="text-white font-medium mb-1">Ремаркетинг повертає готових клієнтів</h4>
+              <p class="text-gray-400 text-sm">Підвищили частку повторних покупок без росту CPA.</p>
             </div>
           </div>
-          
+
           <div class="flex gap-4">
             <div class="w-8 h-8 bg-accent-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
               <span class="text-accent-400 font-bold">4</span>
             </div>
             <div>
-              <h4 class="text-white font-medium mb-1">Стабільне масштабування</h4>
-              <p class="text-gray-400 text-sm">Реклама стабільно генерувала продажі та дозволила масштабувати результат.</p>
+              <h4 class="text-white font-medium mb-1">Оптимізація подій = стабільний ROAS</h4>
+              <p class="text-gray-400 text-sm">Фокус на Purchase дав прогнозований результат.</p>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-<!-- CTA -->
+
+  <!-- CTA -->
   <ContactCTA />
 </PageLayout>
