@@ -2,6 +2,7 @@
 import content from '../content/home-uk.json';
 
 const { about } = content;
+const nonce = Astro.locals.cspNonce;
 const introParagraphs = about.intro
   .split('\n\n')
   .map((paragraph) => paragraph.trim())
@@ -81,7 +82,10 @@ const introParagraphs = about.intro
           {about.stats.map((stat) => (
             <div class="relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 p-5 md:p-6">
               <div class="relative z-10">
-                <div class="text-3xl md:text-4xl font-black text-accent-400 mb-1">
+                <div
+                  class="text-3xl md:text-4xl font-black text-accent-400 mb-1"
+                  data-countup
+                >
                   {stat.value}
                 </div>
                 <div class="text-xs md:text-sm text-gray-400 font-medium">
@@ -96,3 +100,69 @@ const introParagraphs = about.intro
     </div>
   </div>
 </section>
+
+<script nonce={nonce}>
+  const counters = Array.from(document.querySelectorAll('[data-countup]'));
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const parseCounter = (rawValue) => {
+    const match = rawValue.match(/^([^0-9]*)(\d+(?:[.,]\d+)?)([^0-9]*)$/);
+    if (!match) return null;
+
+    const [, prefix, numberRaw, suffix] = match;
+    const normalized = numberRaw.replace(',', '.');
+    const target = Number.parseFloat(normalized);
+
+    if (!Number.isFinite(target)) return null;
+
+    const decimals = normalized.includes('.') ? normalized.split('.')[1].length : 0;
+    return { prefix, suffix, target, decimals, raw: rawValue };
+  };
+
+  const animateCounter = (element) => {
+    if (element.dataset.counted === 'true') return;
+
+    const rawValue = element.textContent?.trim() ?? '';
+    const data = parseCounter(rawValue);
+    if (!data) return;
+
+    element.dataset.counted = 'true';
+
+    if (prefersReduced) {
+      element.textContent = `${data.prefix}${data.target.toFixed(data.decimals)}${data.suffix}`;
+      return;
+    }
+
+    const duration = 1200;
+    const start = performance.now();
+
+    const step = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = data.target * eased;
+      const value = data.decimals > 0 ? current.toFixed(data.decimals) : Math.round(current).toString();
+      element.textContent = `${data.prefix}${value}${data.suffix}`;
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+
+    requestAnimationFrame(step);
+  };
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.6 });
+
+    counters.forEach((counter) => observer.observe(counter));
+  } else {
+    counters.forEach((counter) => animateCounter(counter));
+  }
+</script>
