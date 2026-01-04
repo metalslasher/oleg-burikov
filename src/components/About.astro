@@ -78,7 +78,7 @@ const introParagraphs = about.intro
 
       <!-- Stats -->
       <div class="mt-12 md:mt-14">
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6" data-countup-group>
           {about.stats.map((stat) => (
             <div class="relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 p-5 md:p-6">
               <div class="relative z-10">
@@ -106,7 +106,15 @@ const introParagraphs = about.intro
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const parseCounter = (rawValue) => {
-    const match = rawValue.match(/^([^0-9]*)(\d+(?:[.,]\d+)?)([^0-9]*)$/);
+    const trimmed = rawValue.replace(/\s+/g, ' ').trim();
+    const ratioMatch = trimmed.match(/^(\d+)\s*\/\s*(\d+)$/);
+    if (ratioMatch) {
+      const target = Number.parseInt(ratioMatch[1], 10);
+      if (!Number.isFinite(target)) return null;
+      return { prefix: '', suffix: `/${ratioMatch[2]}`, target, decimals: 0, raw: rawValue };
+    }
+
+    const match = trimmed.match(/^([^0-9]*)(\d+(?:[.,]\d+)?)([^0-9]*)$/);
     if (!match) return null;
 
     const [, prefix, numberRaw, suffix] = match;
@@ -151,18 +159,27 @@ const introParagraphs = about.intro
     requestAnimationFrame(step);
   };
 
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          animateCounter(entry.target);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.6 });
-
-    counters.forEach((counter) => observer.observe(counter));
-  } else {
+  const startAll = () => {
     counters.forEach((counter) => animateCounter(counter));
+  };
+
+  if ('IntersectionObserver' in window && !prefersReduced) {
+    const group = document.querySelector('[data-countup-group]');
+    if (group) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            startAll();
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.35 });
+
+      observer.observe(group);
+    } else {
+      startAll();
+    }
+  } else {
+    startAll();
   }
 </script>
