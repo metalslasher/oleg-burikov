@@ -1,85 +1,195 @@
----
+﻿---
 import content from '../content/home-uk.json';
 
 const { cases } = content;
+const nonce = Astro.locals.cspNonce;
 ---
 
 <section id="cases" class="py-20 md:py-28">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
-    <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-      <p class="text-fluid-sm font-semibold tracking-[0.18em] text-accent-400 uppercase mb-3">
-        Портфоліо
-      </p>
-      <h2 class="text-fluid-4xl font-bold text-white mb-4">
-        {cases.title}
-      </h2>
-      <p class="text-fluid-lg text-gray-400">
-        {cases.subtitle}
-      </p>
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10 md:mb-12">
+      <div class="text-center max-w-3xl mx-auto">
+        <p class="text-fluid-sm font-semibold tracking-[0.18em] text-accent-400 uppercase mb-3">
+          Портфоліо
+        </p>
+        <h2 class="text-fluid-4xl font-bold text-white mb-4">
+          {cases.title}
+        </h2>
+        <p class="text-fluid-lg text-gray-400">
+          {cases.subtitle}
+        </p>
+      </div>
     </div>
 
-    <!-- Cases Bento Grid -->
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
-      {cases.items.map((caseItem, index) => {
-        const caseSlug = `case-${index + 1}`;
-        
-        return (
-        <a
-          href={`/cases/${caseSlug}`}
-          class="group relative overflow-hidden rounded-3xl bg-white/5 border border-white/10 p-8 hover:bg-white/10 hover:border-accent-500/50 transition-all duration-300 hover:-translate-y-2 block cursor-pointer"
-        >
-          <!-- Card Header -->
-          <div class="mb-6">
-            <div class="flex items-center justify-between mb-4">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-500/20 text-xs font-semibold text-accent-400">
-                {caseItem.industry}
-              </div>
-              <svg class="w-5 h-5 text-gray-500 group-hover:text-accent-400 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </div>
-            <h3 class="text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-accent-400 transition-colors">
-              {caseItem.client}
-            </h3>
-          </div>
+    <!-- Cases Slider -->
+    <div class="cases-carousel max-w-7xl mx-auto" data-cases-carousel>
+      <div class="cases-track" data-cases-track>
+        {cases.items.map((caseItem, index) => {
+          const caseSlug = `case-${index + 1}`;
 
-          <!-- Challenge & Solution -->
-          <div class="space-y-4 mb-6">
-            <div>
-              <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Завдання</p>
-              <p class="text-sm text-gray-300 leading-relaxed">{caseItem.challenge}</p>
-            </div>
-            <div>
-              <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Рішення</p>
-              <p class="text-sm text-gray-300 leading-relaxed">{caseItem.solution}</p>
-            </div>
-          </div>
-
-          <!-- Results - Highlight -->
-          <div class="border-t-2 border-white/10 pt-6">
-            <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4">Результати</p>
-            <div class="grid grid-cols-2 gap-4">
-              {caseItem.results.map((result: { value: string; metric: string; description?: string; period?: string }) => (
-                <div class="relative">
-                  <div class="text-3xl md:text-4xl font-black text-accent-400">
-                    {result.value}
+          return (
+            <a
+              href={`/cases/${caseSlug}`}
+              class="case-slide group relative overflow-hidden rounded-3xl bg-white/5 border border-white/10 p-6 hover:bg-white/10 hover:border-accent-500/50 transition-all duration-300 hover:-translate-y-2 block cursor-pointer"
+              data-case-slide
+            >
+              <!-- Card Header -->
+              <div class="mb-5">
+                <div class="flex items-center justify-between mb-3">
+                  <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-500/20 text-xs font-semibold text-accent-400">
+                    {caseItem.industry}
                   </div>
-                  <div class="text-xs text-gray-400 mt-1 font-medium">
-                    {result.metric}
-                  </div>
-                  {(result.period || result.description) && (
-                    <div class="text-xs text-gray-500 mt-0.5">
-                      {result.period || result.description}
-                    </div>
-                  )}
+                  <svg class="w-5 h-5 text-gray-500 group-hover:text-accent-400 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
                 </div>
-              ))}
-            </div>
-          </div>
-        </a>
-        );
-      })}
+                <h3 class="text-xl md:text-2xl font-bold text-white group-hover:text-accent-400 transition-colors">
+                  {caseItem.client}
+                </h3>
+              </div>
+
+              <!-- Challenge & Solution -->
+              <div class="space-y-3 mb-5">
+                <div>
+                  <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Завдання</p>
+                  <p class="text-sm text-gray-300 leading-relaxed line-clamp-3">{caseItem.challenge}</p>
+                </div>
+                <div>
+                  <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Рішення</p>
+                  <p class="text-sm text-gray-300 leading-relaxed line-clamp-3">{caseItem.solution}</p>
+                </div>
+              </div>
+
+              <!-- Results - Highlight -->
+              <div class="border-t border-white/10 pt-4">
+                <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Результати</p>
+                <div class="grid grid-cols-2 gap-3">
+                  {caseItem.results.map((result: { value: string; metric: string; description?: string; period?: string }) => (
+                    <div class="relative">
+                      <div class="text-2xl md:text-3xl font-black text-accent-400">
+                        {result.value}
+                      </div>
+                      <div class="text-xs text-gray-400 mt-1 font-medium">
+                        {result.metric}
+                      </div>
+                      {(result.period || result.description) && (
+                        <div class="text-xs text-gray-500 mt-0.5">
+                          {result.period || result.description}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </a>
+          );
+        })}
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  .cases-carousel {
+    position: relative;
+  }
+
+  .cases-track {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding-top: 0.75rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .cases-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cases-track {
+    scrollbar-width: none;
+  }
+
+  .case-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+  }
+
+  @media (min-width: 640px) {
+    .case-slide {
+      flex-basis: calc((100% - 1.5rem) / 2);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .case-slide {
+      flex-basis: calc((100% - 3rem) / 3);
+    }
+  }
+
+</style>
+
+<script nonce={nonce}>
+  const carousel = document.querySelector('[data-cases-carousel]');
+  const track = carousel?.querySelector('[data-cases-track]');
+  const slides = track ? Array.from(track.querySelectorAll('[data-case-slide]')) : [];
+
+  if (carousel && track && slides.length > 0) {
+    let currentIndex = 0;
+    let autoTimer = null;
+    let scrollTimeout;
+
+    const goToSlide = (index) => {
+      const total = slides.length;
+      currentIndex = (index + total) % total;
+      const target = slides[currentIndex];
+      track.scrollTo({ left: target.offsetLeft, behavior: 'smooth' });
+    };
+
+    const startAuto = () => {
+      if (autoTimer) return;
+      autoTimer = setInterval(() => {
+        goToSlide(currentIndex + 1);
+      }, 5000);
+    };
+
+    const stopAuto = () => {
+      if (autoTimer) {
+        clearInterval(autoTimer);
+        autoTimer = null;
+      }
+    };
+
+    track.addEventListener('scroll', () => {
+      window.clearTimeout(scrollTimeout);
+      scrollTimeout = window.setTimeout(() => {
+        const trackScroll = track.scrollLeft;
+        let closestIndex = 0;
+        let closestDistance = Infinity;
+
+        slides.forEach((slide, index) => {
+          const distance = Math.abs(slide.offsetLeft - trackScroll);
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestIndex = index;
+          }
+        });
+
+        currentIndex = closestIndex;
+      }, 120);
+    });
+
+    carousel.addEventListener('mouseenter', stopAuto);
+    carousel.addEventListener('mouseleave', startAuto);
+    carousel.addEventListener('focusin', stopAuto);
+    carousel.addEventListener('focusout', startAuto);
+    carousel.addEventListener('touchstart', stopAuto, { passive: true });
+    carousel.addEventListener('touchend', startAuto);
+
+    startAuto();
+  }
+</script>
