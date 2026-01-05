@@ -156,7 +156,8 @@ export const POST: APIRoute = async ({ request }) => {
 
         const html = await siteResponse.text();
 
-        const MAX_PAGE_TEXT_CHARS = 20000;
+        const MAX_PAGE_TEXT_CHARS = 12000;
+        const EXCERPT_CHUNK = 4000;
 
         const stripHtml = (rawHtml: string) =>
             rawHtml
@@ -165,6 +166,9 @@ export const POST: APIRoute = async ({ request }) => {
                 .replace(/<[^>]+>/g, " ")
                 .replace(/\s+/g, " ")
                 .trim();
+
+        const normalizeText = (value: string) =>
+            value.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
 
         const extractTagText = (rawHtml: string, tag: string) => {
             const regex = new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'gi');
@@ -179,22 +183,186 @@ export const POST: APIRoute = async ({ request }) => {
                 .filter(Boolean);
         };
 
+        const extractMetaContent = (rawHtml: string, name: string) => {
+            const regex = new RegExp(
+                `<meta[^>]*name=["']${name}["'][^>]*content=["']([^"']*)["'][^>]*>`,
+                'i'
+            );
+            const match = rawHtml.match(regex);
+            return match?.[1]?.trim() || '';
+        };
+
+        const extractAttr = (tag: string, attr: string) => {
+            const regex = new RegExp(`${attr}=["']([^"']+)["']`, 'i');
+            const match = tag.match(regex);
+            return match?.[1]?.trim() || '';
+        };
+
+        const extractButtons = (rawHtml: string) => {
+            const matches = rawHtml.match(/<button[^>]*>([\s\S]*?)<\/button>/gi) || [];
+            return matches
+                .map((match) => normalizeText(match))
+                .filter(Boolean);
+        };
+
+        const extractAnchors = (rawHtml: string) => {
+            const matches = rawHtml.match(/<a[^>]*>([\s\S]*?)<\/a>/gi) || [];
+            return matches
+                .map((match) => normalizeText(match))
+                .filter(Boolean);
+        };
+
+        const extractInputs = (rawHtml: string) => {
+            const matches = rawHtml.match(/<(input|textarea|select)\b[^>]*>/gi) || [];
+            return matches.map((tag) => {
+                const type = extractAttr(tag, 'type') || (tag.startsWith('<textarea') ? 'textarea' : 'input');
+                const name = extractAttr(tag, 'name');
+                const placeholder = extractAttr(tag, 'placeholder');
+                const required = /\srequired(\s|>|=)/i.test(tag);
+                return { type, name, placeholder, required };
+            });
+        };
+
+        const extractEmails = (text: string) => {
+            const matches = text.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/gi) || [];
+            return Array.from(new Set(matches)).slice(0, 5);
+        };
+
+        const extractPhones = (text: string) => {
+            const matches =
+                text.match(/(\+?\d[\d\s().-]{7,}\d)/g) || [];
+            return Array.from(new Set(matches)).slice(0, 5);
+        };
+
+        const extractMetrics = (text: string) => {
+            const matches =
+                text.match(/(\d[\d\s.,]*\s?(%|₴|грн|uah|\$|€|млн|тис|k|m))/gi) || [];
+            return Array.from(new Set(matches.map((value) => value.trim()))).slice(0, 8);
+        };
+
+        const hasResultKeywords = (text: string) => {
+            const lower = text.toLowerCase();
+            const keywords = ['результат', 'досягнен', 'кейси', 'портфоліо', 'відгук', 'клієнт'];
+            return keywords.some((word) => lower.includes(word));
+        };
+
+        const detectSections = (plainText: string) => {
+            const lower = plainText.toLowerCase();
+            const sectionMap: Record<string, string[]> = {
+                pricing: ['ціна', 'тарифи', 'пакет', 'вартість', 'pricing', 'plans'],
+                faq: ['faq', 'питання', 'відповіді'],
+                testimonials: ['відгук', 'клієнт', 'review', 'testimonial'],
+                portfolio: ['кейси', 'портфоліо', 'case study'],
+                guarantees: ['гарантія', 'guarantee'],
+                delivery: ['доставка', 'shipping'],
+                about: ['про нас', 'about us', 'команда'],
+                blog: ['блог', 'статті', 'resources'],
+            };
+
+            const found: string[] = [];
+            Object.entries(sectionMap).forEach(([key, keywords]) => {
+                if (keywords.some((word) => lower.includes(word))) {
+                    found.push(key);
+                }
+            });
+            return found;
+        };
+
+        const buildTextExcerpts = (text: string) => {
+            if (text.length <= MAX_PAGE_TEXT_CHARS) {
+                return text.substring(0, MAX_PAGE_TEXT_CHARS);
+            }
+
+            const midStart = Math.max(0, Math.floor(text.length / 2) - Math.floor(EXCERPT_CHUNK / 2));
+            const endStart = Math.max(0, text.length - EXCERPT_CHUNK);
+
+            const chunks = [
+                text.slice(0, EXCERPT_CHUNK),
+                text.slice(midStart, midStart + EXCERPT_CHUNK),
+                text.slice(endStart),
+            ]
+                .map((chunk) => chunk.trim())
+                .filter(Boolean);
+
+            const uniqueChunks = Array.from(new Set(chunks));
+            return uniqueChunks.join('\n\n');
+        };
+
         const buildPageContext = (pageUrl: string, rawHtml: string) => {
             const titleMatch = rawHtml.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
-            const metaDescMatch = rawHtml.match(
-                /<meta[^>]*name=["']description["'][^>]*content=["']([^"']*)["'][^>]*>/i
-            );
+            const metaDesc = extractMetaContent(rawHtml, 'description');
+            const metaRobots = extractMetaContent(rawHtml, 'robots');
+            const canonicalMatch = rawHtml.match(/<link[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)["'][^>]*>/i);
+            const htmlLangMatch = rawHtml.match(/<html[^>]*lang=["']([^"']+)["'][^>]*>/i);
             const h1Text = extractTagText(rawHtml, 'h1').join(' | ');
             const h2Text = extractTagText(rawHtml, 'h2').join(' | ');
-            const cleanText = stripHtml(rawHtml).substring(0, MAX_PAGE_TEXT_CHARS);
+            const h3Text = extractTagText(rawHtml, 'h3').join(' | ');
+            const cleanText = stripHtml(rawHtml);
+            const visibleExcerpt = buildTextExcerpts(cleanText);
+
+            const buttons = extractButtons(rawHtml);
+            const anchors = extractAnchors(rawHtml);
+            const ctaKeywords = [
+                'замов', 'отрим', 'консультац', 'заброн', 'звʼяз', 'зв\'яз',
+                'купит', 'записат', 'дізнат', 'детальніше', 'переглянут',
+                'demo', 'trial', 'book', 'contact', 'schedule', 'call', 'start', 'get',
+            ];
+            const ctaCandidates = [...buttons, ...anchors]
+                .map((text) => text.replace(/\s+/g, ' ').trim())
+                .filter(Boolean)
+                .filter((text) => ctaKeywords.some((key) => text.toLowerCase().includes(key)))
+                .slice(0, 10);
+            const ctaTotal = ctaCandidates.length;
+            const ctaMap = new Map<string, string>();
+            ctaCandidates.forEach((text) => {
+                const key = text.toLowerCase();
+                if (!ctaMap.has(key)) {
+                    ctaMap.set(key, text);
+                }
+            });
+            const ctaUnique = ctaMap.size;
+            const ctaSamples = Array.from(ctaMap.values()).slice(0, 6);
+
+            const inputs = extractInputs(rawHtml);
+            const requiredCount = inputs.filter((item) => item.required).length;
+            const typeCounts: Record<string, number> = {};
+            inputs.forEach((item) => {
+                const key = item.type.toLowerCase();
+                typeCounts[key] = (typeCounts[key] || 0) + 1;
+            });
+
+            const images = rawHtml.match(/<img\b[^>]*>/gi) || [];
+            const imagesWithoutAlt = images.filter((tag) => !/\salt=["'][^"']*["']/i.test(tag)).length;
+            const emails = extractEmails(cleanText);
+            const phones = extractPhones(cleanText);
+            const metrics = extractMetrics(cleanText);
+            const resultsKeywordsPresent = hasResultKeywords(cleanText);
+            const sections = detectSections(cleanText);
+            const wordCount = cleanText.split(/\s+/).filter(Boolean).length;
 
             return [
                 `URL: ${pageUrl}`,
                 titleMatch?.[1] ? `Title: ${titleMatch[1].trim()}` : '',
-                metaDescMatch?.[1] ? `Meta description: ${metaDescMatch[1].trim()}` : '',
+                metaDesc ? `Meta description: ${metaDesc}` : '',
+                metaRobots ? `Meta robots: ${metaRobots}` : '',
+                canonicalMatch?.[1] ? `Canonical: ${canonicalMatch[1].trim()}` : '',
+                htmlLangMatch?.[1] ? `HTML lang: ${htmlLangMatch[1].trim()}` : '',
                 h1Text ? `H1: ${h1Text}` : '',
                 h2Text ? `H2: ${h2Text}` : '',
-                `Visible text excerpt:\n${cleanText}`,
+                h3Text ? `H3: ${h3Text}` : '',
+                `Signals:`,
+                `- Word count: ${wordCount}`,
+                `- Forms: ${rawHtml.match(/<form\b[^>]*>/gi)?.length || 0}`,
+                `- Form fields: ${inputs.length} (required: ${requiredCount})`,
+                `- Field types: ${Object.entries(typeCounts).map(([k, v]) => `${k}:${v}`).join(', ') || 'none'}`,
+                `- CTA total: ${ctaTotal}, unique: ${ctaUnique}, samples: ${ctaSamples.length ? ctaSamples.join(' | ') : 'not detected'}`,
+                `- Emails: ${emails.length ? emails.join(' | ') : 'not detected'}`,
+                `- Phones: ${phones.length ? phones.join(' | ') : 'not detected'}`,
+                `- Images: ${images.length} (missing alt: ${imagesWithoutAlt})`,
+                `- Metrics samples: ${metrics.length ? metrics.join(' | ') : 'not detected'}`,
+                `- Result keywords present: ${resultsKeywordsPresent ? 'yes' : 'no'}`,
+                `- Sections detected: ${sections.length ? sections.join(', ') : 'not detected'}`,
+                `Visible text excerpt:\n${visibleExcerpt}`,
             ]
                 .filter(Boolean)
                 .join("\n");
@@ -223,11 +391,16 @@ export const POST: APIRoute = async ({ request }) => {
                     role: "system",
                     content:
                         "You are a senior CRO/UX auditor at a marketing agency. Respond in Ukrainian. " +
-                        "Provide ONLY actionable recommendations to improve UX or conversion based on the provided content. " +
+                        "Use ONLY evidence from the provided Page data and Signals. " +
+                        "Each recommendation must explicitly reference a concrete element from the data (e.g., an exact phrase from Visible text excerpt, H1/H2/H3, CTA samples, form fields, or Signals). " +
+                        "Do NOT make generic or unverifiable suggestions (links, mobile responsiveness, speed, SEO, etc.) unless the data explicitly supports it. " +
                         "Do NOT summarize the business or repeat the page content. " +
+                        "Do not assume missing sections are required unless the Signals explicitly indicate they are absent and this impacts trust or conversion. " +
+                        "Only comment on CTA variety if Signals show CTA total >= 3 and CTA unique = 1. " +
+                        "Only suggest adding results/achievements if Signals show Result keywords present: no AND Metrics samples: not detected. " +
                         "No headings, no markdown, no numbered lists. Output plain text only. " +
                         "Each recommendation must be on a new line and start with a hyphen (-). " +
-                        "If information is missing, add a recommendation that clearly states what should be added or clarified.",
+                        "If you cannot find any concrete improvements based on the data, output exactly one line: - Помітних проблем не виявлено за наданими даними.",
                 },
                 {
                     role: "user",
