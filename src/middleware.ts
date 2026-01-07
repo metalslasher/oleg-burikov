@@ -51,9 +51,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
     "img-src 'self' data: https:",
     "font-src 'self' data:",
     `connect-src ${connectSrc}`,
-    "frame-src https://www.googletagmanager.com",
+    "frame-src https://www.googletagmanager.com https://www.facebook.com https://connect.facebook.net",
     "base-uri 'self'",
-    "form-action 'self'",
+    "form-action 'self' https://www.facebook.com",
     "object-src 'none'",
     "frame-ancestors 'none'",
   ].join('; ');
