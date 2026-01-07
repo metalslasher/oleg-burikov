@@ -1,4 +1,4 @@
-﻿{
+{
   "metadata": {
     "title": "Targetsy Agency - реклама в Google та Meta Ads",
     "description": "Налаштування та ведення Google Ads та Meta Ads. Збільшуємо ваші продажі через ефективну онлайн-рекламу. 4+ років досвіду, 50+ успішних проектів.",
@@ -55,8 +55,8 @@
       }
     ],
     "cta": "Замовити консультацію",
-    "phone": "+38 (096) 229 04 00",
-    "email": "info@targetsy.agency"
+    "phone": "+380686411696",
+    "email": "targetsy.agency@gmail.com"
   },
   "hero": {
     "headline": "Чому реклама не окупається?",
@@ -428,9 +428,26 @@
     "tagline": "Цілимося в результат",
     "contact": {
       "title": "Контакти",
-      "email": "info@targetsy.agency",
-      "phone": "+38 (096) 229 04 00",
-      "address": "м. Київ, Україна"
+      "email": "targetsy.agency@gmail.com",
+      "phone": "+380686411696",
+      "address": "???????, ?. ????"
+    },
+    "messengers": {
+      "title": "??????????",
+      "links": [
+        {
+          "label": "Telegram",
+          "url": "https://t.me/+380686411696"
+        },
+        {
+          "label": "Viber",
+          "url": "viber://chat?number=380686411696"
+        },
+        {
+          "label": "WhatsApp",
+          "url": "https://wa.me/380686411696"
+        }
+      ]
     },
     "menu": {
       "title": "Навігація",
@@ -489,4 +506,3 @@
     "copyright": "© 2025 Targetsy Agency. Всі права захищено."
   }
 }
-
