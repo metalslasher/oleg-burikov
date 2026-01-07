@@ -5,7 +5,7 @@ const nonce = Astro.locals.cspNonce;
 
 const seo = {
   title: "Аудит сайту | Targetsy Agency",
-  description: "Отримайте безкоштовний аудит вашого сайту за допомогою штучного інтелекту. Професійні рекомендації щодо покращення конверсії та SEO.",
+  description: "Миттєвий маркетинговий аудит сайту за скріншотом. Отримайте практичні рекомендації щодо конверсії, структури та позиціювання.",
 };
 ---
 
@@ -15,7 +15,7 @@ const seo = {
       <!-- Section Header -->
       <div class="text-center max-w-3xl mx-auto mb-20">
         <span class="inline-block px-4 py-2 rounded-full bg-accent-500/10 text-accent-400 text-sm font-medium mb-6">
-            Інструменти
+          Інструменти
         </span>
         <h1 class="text-fluid-4xl font-bold text-white mb-6">
           Аудит <span class="text-accent-500">Сайту</span>
@@ -23,215 +23,184 @@ const seo = {
         <p class="text-fluid-lg text-gray-400 mb-12">
           Миттєвий аналіз вашого сайту. Отримайте практичні поради з підвищення конверсії.
         </p>
-      
+      </div>
+
       <!-- Form Container -->
       <div class="max-w-3xl mx-auto mb-24">
         <div class="bg-white/5 border border-white/10 rounded-xl p-6 md:p-8 hover:border-accent-500/50 transition-all duration-300 relative overflow-hidden">
-            <!-- Loading Overlay -->
-            <div id="loading-overlay" class="absolute inset-0 bg-slate-950/95 flex flex-col items-center justify-center z-50 hidden backdrop-blur-sm">
-                <div class="w-12 h-12 border-4 border-accent-500/30 border-t-accent-500 rounded-full animate-spin mb-4"></div>
-                <p class="text-white font-medium animate-pulse">Аналізуємо ваш сайт...</p>
-                <p class="text-sm text-gray-400 mt-2">Це може зайняти до 30 секунд</p>
-            </div>
+          <!-- Loading Overlay -->
+          <div id="loading-overlay" class="absolute inset-0 bg-slate-950/95 flex flex-col items-center justify-center z-50 hidden backdrop-blur-sm">
+            <div class="w-12 h-12 border-4 border-accent-500/30 border-t-accent-500 rounded-full animate-spin mb-4"></div>
+            <p class="text-white font-medium animate-pulse">Готуємо ваш аудит...</p>
+            <p class="text-sm text-gray-400 mt-2">Це може зайняти до 30 секунд</p>
+          </div>
 
-            <!-- Steps Progress -->
-            <div class="flex items-center justify-center mb-10 space-x-4">
-                <div class="flex items-center">
-                    <div id="step-1-indicator" class="w-10 h-10 bg-accent-500/20 rounded-lg flex items-center justify-center text-accent-400 font-bold transition-all duration-300">1</div>
-                    <span class="ml-2 text-sm text-white hidden sm:inline font-medium">Скріншот сторінки</span>
-                </div>
-                <div class="w-16 h-[2px] bg-white/5 rounded-full"></div>
-                <div class="flex items-center">
-                    <div id="step-2-indicator" class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center text-gray-400 font-bold transition-all duration-300">2</div>
-                    <span class="ml-2 text-sm text-gray-400 hidden sm:inline font-medium">Контакти</span>
-                </div>
+          <!-- Steps Progress -->
+          <div class="flex items-center justify-center mb-10 space-x-4">
+            <div class="flex items-center">
+              <div id="step-1-indicator" class="w-10 h-10 bg-accent-500/20 rounded-lg flex items-center justify-center text-accent-400 font-bold transition-all duration-300">1</div>
+              <span class="ml-2 text-sm text-white hidden sm:inline font-medium">Скріншот сайту</span>
             </div>
+            <div class="w-16 h-[2px] bg-white/5 rounded-full"></div>
+            <div class="flex items-center">
+              <div id="step-2-indicator" class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center text-gray-400 font-bold transition-all duration-300">2</div>
+              <span class="ml-2 text-sm text-gray-400 hidden sm:inline font-medium">Контакти</span>
+            </div>
+          </div>
 
           <form id="audit-form" class="space-y-8" enctype="multipart/form-data">
             <!-- Step 1: Screenshot -->
             <div id="step-1" class="step-content">
-                <div class="space-y-6">
-                    <div>
-                        <label for="screenshot" class="block text-sm font-medium text-gray-300 mb-2 text-left">Скріншот сторінки <span class="text-accent-400">*</span></label>
-                        <input
-                            type="file"
-                            id="screenshot"
-                            name="screenshot"
-                            accept="image/png,image/jpeg,image/webp"
-                            required
-                            class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white file:mr-4 file:rounded-lg file:border-0 file:bg-white/10 file:px-4 file:py-2 file:text-sm file:font-medium file:text-white hover:file:bg-white/20 transition-all"
-                        />
-                        <p class="error-message text-accent-300 text-sm mt-2 hidden text-left"></p>
-                    </div>
-                     <div class="bg-blue-500/5 border border-blue-500/20 rounded-xl p-4 text-sm">
-                        <p class="flex gap-2 text-white">
-                           <svg class="w-5 h-5 flex-shrink-0 text-blue-300 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                           <span>Завантажте повний скріншот сторінки (full page). Підтримуються формати PNG, JPG, WebP. Розмір до 6 МБ.</span>
-                        </p>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="site_type" class="block text-sm font-medium text-gray-300 mb-2 text-left">Тип сайту (опційно)</label>
-                            <select
-                                id="site_type"
-                                name="site_type"
-                                class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-gray-200 focus:outline-none focus:border-accent-500 focus:ring-1 focus:ring-accent-500 transition-all"
-                            >
-                                <option value="">Оберіть тип</option>
-                                <option value="landing">Лендінг</option>
-                                <option value="ecommerce">Інтернет-магазин</option>
-                                <option value="services">Послуги</option>
-                                <option value="saas">SaaS / Платформа</option>
-                                <option value="media">Медіа / Блог</option>
-                                <option value="other">Інше</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="site_goal" class="block text-sm font-medium text-gray-300 mb-2 text-left">Головна ціль (опційно)</label>
-                            <select
-                                id="site_goal"
-                                name="site_goal"
-                                class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-gray-200 focus:outline-none focus:border-accent-500 focus:ring-1 focus:ring-accent-500 transition-all"
-                            >
-                                <option value="">Оберіть ціль</option>
-                                <option value="leads">Ліди</option>
-                                <option value="sales">Продажі</option>
-                                <option value="calls">Дзвінки / консультації</option>
-                                <option value="subscriptions">Підписки</option>
-                                <option value="other">Інше</option>
-                            </select>
-                        </div>
-                    </div>
+              <div class="space-y-6">
+                <div>
+                  <label for="screenshot" class="block text-sm font-medium text-gray-300 mb-2 text-left">Скріншот сайту <span class="text-accent-400">*</span></label>
+                  <input
+                    type="file"
+                    id="screenshot"
+                    name="screenshot"
+                    accept="image/png,image/jpeg,image/webp"
+                    required
+                    class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white file:mr-4 file:rounded-lg file:border-0 file:bg-white/10 file:px-4 file:py-2 file:text-sm file:font-medium file:text-white hover:file:bg-white/20 transition-all"
+                  />
+                  <p class="error-message text-accent-300 text-sm mt-2 hidden text-left"></p>
                 </div>
-                <div class="mt-10">
-                    <button type="button" id="next-btn" class="w-full bg-gradient-to-r from-accent-500 to-accent-600 text-white font-semibold px-8 py-4 rounded-xl hover:shadow-[0_0_40px_rgba(251,146,60,0.5)] transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2">
-                        Продовжити
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                    </button>
+                <div class="bg-blue-500/5 border border-blue-500/20 rounded-xl p-4 text-sm">
+                  <p class="flex gap-2 text-white">
+                    <svg class="w-5 h-5 flex-shrink-0 text-blue-300 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span>Завантажте повний скріншот сторінки (full page). Підтримуємо PNG, JPG, WebP. Розмір до 6 МБ.</span>
+                  </p>
                 </div>
+                <div>
+                  <label for="message" class="block text-sm font-medium text-gray-300 mb-2 text-left">Коротко про ваш проєкт</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    autocomplete="off"
+                    rows="2"
+                    placeholder="Опишіть нішу, продукт або задачу"
+                    class="w-full px-5 py-3.5 bg-white/5 border-2 border-white/10 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all resize-none backdrop-blur-sm"
+                  ></textarea>
+                </div>
+                <div>
+                  <label for="site_goal" class="block text-sm font-medium text-gray-300 mb-2 text-left">Головна ціль</label>
+                  <select
+                    id="site_goal"
+                    name="site_goal"
+                    class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-gray-200 focus:outline-none focus:border-accent-500 focus:ring-1 focus:ring-accent-500 transition-all"
+                  >
+                    <option value="">Оберіть ціль</option>
+                    <option value="leads">Ліди</option>
+                    <option value="sales">Продажі</option>
+                    <option value="calls">Дзвінки / консультації</option>
+                    <option value="subscriptions">Підписки</option>
+                    <option value="other">Інше</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mt-10">
+                <button type="button" id="next-btn" class="w-full bg-gradient-to-r from-accent-500 to-accent-600 text-white font-semibold px-8 py-4 rounded-xl hover:shadow-[0_0_40px_rgba(251,146,60,0.5)] transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2">
+                  Продовжити
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                </button>
+              </div>
             </div>
 
             <!-- Step 2: Contact Info -->
             <div id="step-2" class="step-content hidden">
-                <div class="space-y-4">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2 text-left">Ім'я <span class="text-accent-400">*</span></label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                autocomplete="name"
-                                required
-                                placeholder="Ваше ім'я"
-                                class="w-full px-5 py-3.5 bg-white/5 border-2 border-white/10 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all backdrop-blur-sm"
-                            />
-                            <p class="error-message text-accent-300 text-sm mt-2 hidden"></p>
-                        </div>
-                        <div>
-                            <label for="phone" class="block text-sm font-medium text-gray-300 mb-2 text-left">Телефон <span class="text-accent-400">*</span></label>
-                            <input
-                                type="tel"
-                                id="phone"
-                                name="phone"
-                                autocomplete="tel"
-                                required
-                                placeholder="+38 (0XX) XXX XX XX"
-                                class="w-full px-5 py-3.5 bg-white/5 border-2 border-white/10 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all backdrop-blur-sm"
-                            />
-                            <p class="error-message text-accent-300 text-sm mt-2 hidden"></p>
-                        </div>
-                    </div>
-                    <div>
-                        <label for="message" class="block text-sm font-medium text-gray-300 mb-2 text-left">Коротко про ваш проект</label>
-                        <textarea
-                            id="message"
-                            name="message"
-                            autocomplete="off"
-                            rows="2"
-                            placeholder="Опишіть коротко задачу або ціль проєкту"
-                            class="w-full px-5 py-3.5 bg-white/5 border-2 border-white/10 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all resize-none backdrop-blur-sm"
-                        ></textarea>
-                    </div>
-
-                    <!-- HoneyPot -->
-                    <input type="text" name="website_hp" class="hidden" tabindex="-1" autocomplete="off" />
-
+              <div class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label for="name" class="block text-sm font-medium text-gray-300 mb-2 text-left">Ім'я <span class="text-accent-400">*</span></label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      autocomplete="name"
+                      required
+                      placeholder="Ваше ім'я"
+                      class="w-full px-5 py-3.5 bg-white/5 border-2 border-white/10 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all backdrop-blur-sm"
+                    />
+                    <p class="error-message text-accent-300 text-sm mt-2 hidden"></p>
+                  </div>
+                  <div>
+                    <label for="phone" class="block text-sm font-medium text-gray-300 mb-2 text-left">Телефон <span class="text-accent-400">*</span></label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      autocomplete="tel"
+                      required
+                      placeholder="+38 (0XX) XXX XX XX"
+                      class="w-full px-5 py-3.5 bg-white/5 border-2 border-white/10 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all backdrop-blur-sm"
+                    />
+                    <p class="error-message text-accent-300 text-sm mt-2 hidden"></p>
+                  </div>
                 </div>
-                <div class="mt-8 flex gap-3">
-                     <button type="button" id="back-btn" class="w-1/3 bg-white/5 hover:bg-white/10 text-white font-medium py-3.5 px-6 rounded-xl transition-colors">
-                        Назад
-                    </button>
-                    <button type="submit" class="w-2/3 bg-gradient-to-r from-accent-500 to-accent-600 text-white font-semibold py-3.5 px-6 rounded-xl hover:shadow-[0_0_40px_rgba(251,146,60,0.5)] transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2">
-                        Розпочати аудит
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
-                    </button>
-                </div>
+
+                <!-- HoneyPot -->
+                <input type="text" name="website_hp" class="hidden" tabindex="-1" autocomplete="off" />
+              </div>
+              <div class="mt-8 flex gap-3">
+                <button type="button" id="back-btn" class="w-1/3 bg-white/5 hover:bg-white/10 text-white font-medium py-3.5 px-6 rounded-xl transition-colors">
+                  Назад
+                </button>
+                <button type="submit" class="w-2/3 bg-gradient-to-r from-accent-500 to-accent-600 text-white font-semibold py-3.5 px-6 rounded-xl hover:shadow-[0_0_40px_rgba(251,146,60,0.5)] transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2">
+                  Надіслати заявку
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+                </button>
+              </div>
             </div>
-             <div id="error-message" class="hidden mt-6 p-4 bg-red-500/10 border border-red-500/20 text-red-200 rounded-xl text-sm text-center">
-            </div>
+            <div id="error-message" class="hidden mt-6 p-4 bg-red-500/10 border border-red-500/20 text-red-200 rounded-xl text-sm text-center"></div>
           </form>
 
-            <div id="results-container" class="hidden">
-                 <div class="text-center mb-10">
-                    <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-green-500/10 text-green-400 mb-8 ring-1 ring-green-500/20 shadow-[0_0_40px_rgba(34,197,94,0.1)]">
-                        <svg class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    </div>
-                    <h3 class="text-3xl md:text-4xl font-bold text-white mb-4">Готово!</h3>
-                     <p class="text-gray-400 text-lg">Ми проаналізували ваш сайт. Ось ключові рекомендації:</p>
-                </div>
-
-                <div class="bg-[#0d1117] border border-white/10 rounded-2xl overflow-hidden shadow-inner">
-                    <div class="p-2">
-                        <div id="audit-results" class="space-y-4 text-left text-gray-300 text-base leading-relaxed max-h-[600px] overflow-y-auto custom-scrollbar p-8">
-                            <!-- Results will be injected here -->
-                        </div>
-                    </div>
-                </div>
-
-                 <div class="mt-10 grid gap-4">
-                    <a href="/#contact" class="flex items-center justify-center w-full bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-400 hover:to-accent-500 text-white font-bold py-5 px-8 rounded-xl transition-all shadow-[0_0_30px_rgba(251,146,60,0.3)] gap-2 text-lg">
-                         <span>Впровадити рекомендації</span>
-                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                    </a>
-                     <a href="/tools/site-audit" class="block w-full text-center text-gray-500 hover:text-white py-3 text-sm transition-colors opacity-70 hover:opacity-100">
-                        Перевірити інший сайт
-                    </a>
-                </div>
+          <div id="results-container" class="hidden">
+            <div class="text-center mb-10">
+              <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-green-500/10 text-green-400 mb-8 ring-1 ring-green-500/20 shadow-[0_0_40px_rgba(34,197,94,0.1)]">
+                <svg class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              </div>
+              <h3 class="text-3xl md:text-4xl font-bold text-white mb-4">Готово!</h3>
+              <p class="text-gray-400 text-lg">Ми проаналізували ваш сайт. Ось ключові рекомендації:</p>
             </div>
+
+            <div class="bg-[#0d1117] border border-white/10 rounded-2xl overflow-hidden shadow-inner">
+              <div class="p-2">
+                <div id="audit-results" class="space-y-4 text-left text-gray-300 text-base leading-relaxed max-h-[600px] overflow-y-auto custom-scrollbar p-8">
+                  <!-- Results will be injected here -->
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
 
       <!-- How it Works Section -->
       <div class="max-w-7xl mx-auto">
-        <h2 class="text-fluid-4xl font-bold text-white text-center mb-12">Як це працює?</h2>
+        <h2 class="text-fluid-4xl font-bold text-white text-center mb-12">Як це працює</h2>
         <div class="grid md:grid-cols-3 gap-6 md:gap-8">
-            <!-- Step 1 -->
-            <div class="group bg-white/5 border border-white/10 rounded-xl p-6 md:p-8 hover:border-accent-500/50 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 text-center">
-                <div class="w-14 h-14 bg-accent-500/20 rounded-lg flex items-center justify-center mx-auto mb-5 group-hover:bg-accent-500 group-hover:scale-110 transition-all duration-300">
-                    <svg class="w-7 h-7 text-accent-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
-                </div>
-                <h3 class="text-xl font-bold text-white mb-3">Завантажте скріншот</h3>
-                <p class="text-gray-400 leading-relaxed">Зробіть full-page скріншот сторінки — аналізуємо саме те, що видно.</p>
+          <div class="group bg-white/5 border border-white/10 rounded-xl p-6 md:p-8 hover:border-accent-500/50 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 text-center">
+            <div class="w-14 h-14 bg-accent-500/20 rounded-lg flex items-center justify-center mx-auto mb-5 group-hover:bg-accent-500 group-hover:scale-110 transition-all duration-300">
+              <svg class="w-7 h-7 text-accent-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
             </div>
+            <h3 class="text-xl font-bold text-white mb-3">Завантажуєте скріншот</h3>
+            <p class="text-gray-400 leading-relaxed">Додаєте full-page скріншот сторінки — ми бачимо повну картину.</p>
+          </div>
 
-            <!-- Step 2 -->
-             <div class="group bg-white/5 border border-white/10 rounded-xl p-6 md:p-8 hover:border-accent-500/50 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 text-center">
-                <div class="w-14 h-14 bg-accent-500/20 rounded-lg flex items-center justify-center mx-auto mb-5 group-hover:bg-accent-500 group-hover:scale-110 transition-all duration-300">
-                    <svg class="w-7 h-7 text-accent-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4" /></svg>
-                </div>
-                <h3 class="text-xl font-bold text-white mb-3">Аналіз</h3>
-                <p class="text-gray-400 leading-relaxed">Алгоритм оцінює структуру, тексти, CTA та візуальні сигнали на скріншоті.</p>
+          <div class="group bg-white/5 border border-white/10 rounded-xl p-6 md:p-8 hover:border-accent-500/50 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 text-center">
+            <div class="w-14 h-14 bg-accent-500/20 rounded-lg flex items-center justify-center mx-auto mb-5 group-hover:bg-accent-500 group-hover:scale-110 transition-all duration-300">
+              <svg class="w-7 h-7 text-accent-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4" /></svg>
             </div>
+            <h3 class="text-xl font-bold text-white mb-3">Аналізуємо контент</h3>
+            <p class="text-gray-400 leading-relaxed">Оцінюємо зміст, структуру, позиціювання та логіку пропозиції.</p>
+          </div>
 
-            <!-- Step 3 -->
-             <div class="group bg-white/5 border border-white/10 rounded-xl p-6 md:p-8 hover:border-accent-500/50 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 text-center">
-                <div class="w-14 h-14 bg-accent-500/20 rounded-lg flex items-center justify-center mx-auto mb-5 group-hover:bg-accent-500 group-hover:scale-110 transition-all duration-300">
-                    <svg class="w-7 h-7 text-accent-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                </div>
-                <h3 class="text-xl font-bold text-white mb-3">Результат</h3>
-                <p class="text-gray-400 leading-relaxed">Отримайте конкретні рекомендації з доказами прямо зі скріншота.</p>
+          <div class="group bg-white/5 border border-white/10 rounded-xl p-6 md:p-8 hover:border-accent-500/50 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 text-center">
+            <div class="w-14 h-14 bg-accent-500/20 rounded-lg flex items-center justify-center mx-auto mb-5 group-hover:bg-accent-500 group-hover:scale-110 transition-all duration-300">
+              <svg class="w-7 h-7 text-accent-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
             </div>
+            <h3 class="text-xl font-bold text-white mb-3">Отримуєте рекомендації</h3>
+            <p class="text-gray-400 leading-relaxed">Даємо конкретні поради, які можна впровадити одразу.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -239,331 +208,310 @@ const seo = {
 </PageLayout>
 
 <script nonce={nonce}>
-    const form = document.getElementById('audit-form');
-    const step1 = document.getElementById('step-1');
-    const step2 = document.getElementById('step-2');
-    const nextBtn = document.getElementById('next-btn');
-    const backBtn = document.getElementById('back-btn');
-    const step1Indicator = document.getElementById('step-1-indicator');
-    const step2Indicator = document.getElementById('step-2-indicator');
-    const loadingOverlay = document.getElementById('loading-overlay');
-    const resultsContainer = document.getElementById('results-container');
-    const auditResults = document.getElementById('audit-results');
-    const errorMessage = document.getElementById('error-message');
-    const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwdJADWtJiV1dALQhdz_209hivO3uaRw-fB6yfeJCF4JfyaxTTo-6E5iggAKeagha3jfw/exec';
-    const MAX_SCREENSHOT_MB = 6;
-    const ALLOWED_IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
-    const SITE_TYPE_LABELS = {
-        landing: 'Лендінг',
-        ecommerce: 'Інтернет-магазин',
-        services: 'Послуги',
-        saas: 'SaaS / Платформа',
-        media: 'Медіа / Блог',
-        other: 'Інше',
-    };
-    const SITE_GOAL_LABELS = {
-        leads: 'Ліди',
-        sales: 'Продажі',
-        calls: 'Дзвінки / консультації',
-        subscriptions: 'Підписки',
-        other: 'Інше',
-    };
+  const form = document.getElementById('audit-form');
+  const step1 = document.getElementById('step-1');
+  const step2 = document.getElementById('step-2');
+  const nextBtn = document.getElementById('next-btn');
+  const backBtn = document.getElementById('back-btn');
+  const step1Indicator = document.getElementById('step-1-indicator');
+  const step2Indicator = document.getElementById('step-2-indicator');
+  const loadingOverlay = document.getElementById('loading-overlay');
+  const resultsContainer = document.getElementById('results-container');
+  const auditResults = document.getElementById('audit-results');
+  const errorMessage = document.getElementById('error-message');
+  const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwdJADWtJiV1dALQhdz_209hivO3uaRw-fB6yfeJCF4JfyaxTTo-6E5iggAKeagha3jfw/exec';
+  const MAX_SCREENSHOT_MB = 6;
+  const ALLOWED_IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
+  const SITE_GOAL_LABELS = {
+    leads: 'Ліди',
+    sales: 'Продажі',
+    calls: 'Дзвінки / консультації',
+    subscriptions: 'Підписки',
+    other: 'Інше',
+  };
 
-    const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+  const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
 
-    const storeUtmFromUrl = () => {
-        const params = new URLSearchParams(window.location.search);
-        UTM_KEYS.forEach((key) => {
-            const value = params.get(key);
-            if (value) {
-                sessionStorage.setItem(key, value);
-            }
-        });
-    };
+  const storeUtmFromUrl = () => {
+    const params = new URLSearchParams(window.location.search);
+    UTM_KEYS.forEach((key) => {
+      const value = params.get(key);
+      if (value) {
+        sessionStorage.setItem(key, value);
+      }
+    });
+  };
 
-    const getUtmValues = () => {
-        const params = new URLSearchParams(window.location.search);
-        const utmValues = {};
+  const getUtmValues = () => {
+    const params = new URLSearchParams(window.location.search);
+    const utmValues = {};
 
-        UTM_KEYS.forEach((key) => {
-            const value = params.get(key) || sessionStorage.getItem(key) || '';
-            if (value) {
-                utmValues[key] = value;
-            }
-        });
+    UTM_KEYS.forEach((key) => {
+      const value = params.get(key) || sessionStorage.getItem(key) || '';
+      if (value) {
+        utmValues[key] = value;
+      }
+    });
 
-        return utmValues;
-    };
+    return utmValues;
+  };
 
-    const validatePhone = (phone) => {
-        if (!phone) return false;
-        const cleanPhone = phone.replace(/[^\d+]/g, '');
-        const withPlus = /^\+380\d{9}$/;
-        const withoutPlus = /^380\d{9}$/;
-        const shortFormat = /^0\d{9}$/;
-        return withPlus.test(cleanPhone) || withoutPlus.test(cleanPhone) || shortFormat.test(cleanPhone);
-    };
+  const validatePhone = (phone) => {
+    if (!phone) return false;
+    const cleanPhone = phone.replace(/[^\d+]/g, '');
+    const withPlus = /^\+380\d{9}$/;
+    const withoutPlus = /^380\d{9}$/;
+    const shortFormat = /^0\d{9}$/;
+    return withPlus.test(cleanPhone) || withoutPlus.test(cleanPhone) || shortFormat.test(cleanPhone);
+  };
 
-    const setFieldError = (field, message) => {
-        const errorElement = field.parentElement?.querySelector('.error-message');
-        if (errorElement) {
-            errorElement.textContent = message;
-            errorElement.classList.toggle('hidden', !message);
-        }
-        if (message) {
-            field.classList.add('border-red-500');
-            field.classList.remove('border-green-500');
-        } else {
-            field.classList.remove('border-red-500');
-            if (field.value.trim()) {
-                field.classList.add('border-green-500');
-            }
-        }
-    };
+  const setFieldError = (field, message) => {
+    const errorElement = field.parentElement?.querySelector('.error-message');
+    if (errorElement) {
+      errorElement.textContent = message;
+      errorElement.classList.toggle('hidden', !message);
+    }
+    if (message) {
+      field.classList.add('border-red-500');
+      field.classList.remove('border-green-500');
+    } else {
+      field.classList.remove('border-red-500');
+      if (field.value.trim()) {
+        field.classList.add('border-green-500');
+      }
+    }
+  };
 
-    const validateStep2 = () => {
-        let isValid = true;
-        const nameInput = document.getElementById('name');
-        const phoneInput = document.getElementById('phone');
-        if (!(nameInput instanceof HTMLInputElement) || !(phoneInput instanceof HTMLInputElement)) {
-            return false;
-        }
-
-        if (!nameInput.value.trim()) {
-            setFieldError(nameInput, 'Будь ласка, введіть ім’я');
-            isValid = false;
-        } else if (nameInput.value.trim().length < 2) {
-            setFieldError(nameInput, 'Ім’я має містити мінімум 2 символи');
-            isValid = false;
-        } else {
-            setFieldError(nameInput, '');
-        }
-
-        if (!phoneInput.value.trim()) {
-            setFieldError(phoneInput, 'Будь ласка, введіть телефон');
-            isValid = false;
-        } else if (!validatePhone(phoneInput.value)) {
-            setFieldError(phoneInput, 'Введіть коректний номер телефону');
-            isValid = false;
-        } else {
-            setFieldError(phoneInput, '');
-        }
-
-        return isValid;
-    };
-
-    const sendLeadToSheets = (payload) => {
-        const params = new URLSearchParams(payload);
-        const url = `${SHEETS_URL}?${params.toString()}`;
-        const script = document.createElement('script');
-        script.src = url;
-        document.head.appendChild(script);
-        setTimeout(() => {
-            if (script.parentNode) {
-                script.parentNode.removeChild(script);
-            }
-        }, 3000);
-    };
-
-    storeUtmFromUrl();
-
-    const screenshotInput = document.getElementById('screenshot');
-    if (screenshotInput instanceof HTMLInputElement) {
-        screenshotInput.addEventListener('change', () => {
-            if (screenshotInput.files?.length) {
-                setFieldError(screenshotInput, '');
-            }
-        });
+  const validateStep2 = () => {
+    let isValid = true;
+    const nameInput = document.getElementById('name');
+    const phoneInput = document.getElementById('phone');
+    if (!(nameInput instanceof HTMLInputElement) || !(phoneInput instanceof HTMLInputElement)) {
+      return false;
     }
 
-    // Validation helper
-    const validateStep1 = () => {
-        const fileInput = document.getElementById('screenshot');
-        if (!(fileInput instanceof HTMLInputElement)) {
-            return false;
-        }
+    if (!nameInput.value.trim()) {
+      setFieldError(nameInput, "Будь ласка, введіть ім'я");
+      isValid = false;
+    } else if (nameInput.value.trim().length < 2) {
+      setFieldError(nameInput, "Ім'я має містити мінімум 2 символи");
+      isValid = false;
+    } else {
+      setFieldError(nameInput, '');
+    }
 
-        const file = fileInput.files?.[0];
-        if (!file) {
-            setFieldError(fileInput, 'Будь ласка, завантажте скріншот сторінки.');
-            return false;
-        }
+    if (!phoneInput.value.trim()) {
+      setFieldError(phoneInput, 'Будь ласка, введіть телефон');
+      isValid = false;
+    } else if (!validatePhone(phoneInput.value)) {
+      setFieldError(phoneInput, 'Телефон не відповідає формату');
+      isValid = false;
+    } else {
+      setFieldError(phoneInput, '');
+    }
 
-        if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
-            setFieldError(fileInput, 'Підтримуються лише PNG, JPG або WebP.');
-            return false;
-        }
+    return isValid;
+  };
 
-        if (file.size > MAX_SCREENSHOT_MB * 1024 * 1024) {
-            setFieldError(fileInput, `Файл завеликий. Максимум ${MAX_SCREENSHOT_MB} МБ.`);
-            return false;
-        }
+  const sendLeadToSheets = (payload) => {
+    const params = new URLSearchParams(payload);
+    const url = `${SHEETS_URL}?${params.toString()}`;
+    const script = document.createElement('script');
+    script.src = url;
+    document.head.appendChild(script);
+    setTimeout(() => {
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+    }, 3000);
+  };
 
-        setFieldError(fileInput, '');
-        return true;
-    };
+  storeUtmFromUrl();
 
-    nextBtn?.addEventListener('click', () => {
-        if (validateStep1()) {
-            step1?.classList.add('hidden');
-            step2?.classList.remove('hidden');
+  const screenshotInput = document.getElementById('screenshot');
+  if (screenshotInput instanceof HTMLInputElement) {
+    screenshotInput.addEventListener('change', () => {
+      if (screenshotInput.files?.length) {
+        setFieldError(screenshotInput, '');
+      }
+    });
+  }
 
-            // Update indicators
-            step1Indicator?.classList.replace('bg-accent-500/20', 'bg-white/5');
-            step1Indicator?.classList.replace('text-accent-400', 'text-green-500');
-            if (step1Indicator) {
-                step1Indicator.innerHTML = '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>';
-            }
+  const validateStep1 = () => {
+    const fileInput = document.getElementById('screenshot');
+    if (!(fileInput instanceof HTMLInputElement)) {
+      return false;
+    }
 
-            step2Indicator?.classList.replace('bg-white/5', 'bg-accent-500/20');
-            step2Indicator?.classList.replace('text-gray-400', 'text-accent-400');
-        }
+    const file = fileInput.files?.[0];
+    if (!file) {
+      setFieldError(fileInput, 'Будь ласка, додайте скріншот сайту.');
+      return false;
+    }
+
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      setFieldError(fileInput, 'Дозволені формати PNG, JPG або WebP.');
+      return false;
+    }
+
+    if (file.size > MAX_SCREENSHOT_MB * 1024 * 1024) {
+      setFieldError(fileInput, `Розмір файлу не більше ${MAX_SCREENSHOT_MB} МБ.`);
+      return false;
+    }
+
+    setFieldError(fileInput, '');
+    return true;
+  };
+
+  nextBtn?.addEventListener('click', () => {
+    if (validateStep1()) {
+      step1?.classList.add('hidden');
+      step2?.classList.remove('hidden');
+
+      step1Indicator?.classList.replace('bg-accent-500/20', 'bg-white/5');
+      step1Indicator?.classList.replace('text-accent-400', 'text-green-500');
+      if (step1Indicator) {
+        step1Indicator.innerHTML = '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>';
+      }
+
+      step2Indicator?.classList.replace('bg-white/5', 'bg-accent-500/20');
+      step2Indicator?.classList.replace('text-gray-400', 'text-accent-400');
+    }
+  });
+
+  backBtn?.addEventListener('click', () => {
+    step2?.classList.add('hidden');
+    step1?.classList.remove('hidden');
+
+    step1Indicator?.classList.replace('bg-white/5', 'bg-accent-500/20');
+    step1Indicator?.classList.replace('text-green-500', 'text-accent-400');
+    if (step1Indicator) {
+      step1Indicator.textContent = '1';
+    }
+
+    step2Indicator?.classList.replace('bg-accent-500/20', 'bg-white/5');
+    step2Indicator?.classList.replace('text-accent-400', 'text-gray-400');
+  });
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorMessage?.classList.add('hidden');
+
+    if (!validateStep2()) {
+      return;
+    }
+
+    const formData = new FormData(form);
+    const nameValue = String(formData.get('name') || '').trim();
+    const phoneValue = String(formData.get('phone') || '').trim();
+    const messageValue = String(formData.get('message') || '').trim();
+    const siteGoalValue = String(formData.get('site_goal') || '').trim();
+
+    const siteGoalLabel = SITE_GOAL_LABELS[siteGoalValue] || siteGoalValue;
+    if (siteGoalLabel) {
+      formData.set('site_goal', siteGoalLabel);
+    }
+
+    const details = [];
+    if (messageValue) details.push(messageValue);
+    if (siteGoalLabel) details.push(`Ціль: ${siteGoalLabel}`);
+    details.push('Скріншот: надано');
+
+    const combinedMessage = details.join('\n');
+    const utmValues = getUtmValues();
+
+    sendLeadToSheets({
+      name: nameValue,
+      phone: phoneValue,
+      contact_method: '',
+      service: 'Аудит сайту (скріншот)',
+      message: combinedMessage,
+      plan: '',
+      utm_source: utmValues.utm_source || '',
+      utm_medium: utmValues.utm_medium || '',
+      utm_campaign: utmValues.utm_campaign || '',
+      utm_term: utmValues.utm_term || '',
+      utm_content: utmValues.utm_content || '',
     });
 
-    backBtn?.addEventListener('click', () => {
-        step2?.classList.add('hidden');
-        step1?.classList.remove('hidden');
+    loadingOverlay?.classList.remove('hidden');
 
-        // Reset indicators
-        step1Indicator?.classList.replace('bg-white/5', 'bg-accent-500/20');
-        step1Indicator?.classList.replace('text-green-500', 'text-accent-400');
-        if (step1Indicator) {
-            step1Indicator.textContent = '1';
+    try {
+      const response = await fetch('/api/analyze', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Сталася помилка');
+      }
+
+      form.classList.add('hidden');
+      resultsContainer?.classList.remove('hidden');
+      if (step2Indicator) {
+        step2Indicator.classList.remove('bg-accent-500/20');
+        step2Indicator.classList.add('bg-white/5', 'text-green-500');
+        step2Indicator.innerHTML = '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>';
+      }
+
+      if (auditResults) {
+        const rawText = String(result.analysis || '')
+          .replace(/^#{1,6}\s*/gm, '')
+          .replace(/^\s*\d+\.\s*/gm, '')
+          .replace(/^\s*[-*\u2022]\s+/gm, '- ')
+          .replace(/`+/g, '')
+          .replace(/\n{3,}/g, '\n\n')
+          .trim();
+
+        const lines = rawText
+          .split('\n')
+          .map((line) => line.trim())
+          .filter((line) => line !== '');
+
+        auditResults.innerHTML = '';
+
+        if (lines.length === 0) {
+          auditResults.textContent = '';
+        } else {
+          const list = document.createElement('ul');
+          list.className = 'list-disc list-inside space-y-3 text-gray-300';
+
+          lines.forEach((line) => {
+            const item = document.createElement('li');
+            item.textContent = line.replace(/^-+\s*/, '');
+            list.appendChild(item);
+          });
+
+          auditResults.appendChild(list);
         }
-
-        step2Indicator?.classList.replace('bg-accent-500/20', 'bg-white/5');
-        step2Indicator?.classList.replace('text-accent-400', 'text-gray-400');
-    });
-
-    form?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        errorMessage?.classList.add('hidden');
-
-        if (!validateStep2()) {
-            return;
-        }
-        
-        const formData = new FormData(form);
-        const nameValue = String(formData.get('name') || '').trim();
-        const phoneValue = String(formData.get('phone') || '').trim();
-        const messageValue = String(formData.get('message') || '').trim();
-        const siteTypeValue = String(formData.get('site_type') || '').trim();
-        const siteGoalValue = String(formData.get('site_goal') || '').trim();
-
-        const siteTypeLabel = SITE_TYPE_LABELS[siteTypeValue] || siteTypeValue;
-        const siteGoalLabel = SITE_GOAL_LABELS[siteGoalValue] || siteGoalValue;
-        if (siteTypeLabel) {
-            formData.set('site_type', siteTypeLabel);
-        }
-        if (siteGoalLabel) {
-            formData.set('site_goal', siteGoalLabel);
-        }
-
-        const details = [];
-        if (messageValue) details.push(messageValue);
-        if (siteTypeLabel) details.push(`Тип сайту: ${siteTypeLabel}`);
-        if (siteGoalLabel) details.push(`Ціль: ${siteGoalLabel}`);
-        details.push('Скріншот: надано');
-
-        const combinedMessage = details.join('\n');
-        const utmValues = getUtmValues();
-
-        sendLeadToSheets({
-            name: nameValue,
-            phone: phoneValue,
-            contact_method: '',
-            service: 'Аудит сайту (скріншот)',
-            message: combinedMessage,
-            plan: '',
-            utm_source: utmValues.utm_source || '',
-            utm_medium: utmValues.utm_medium || '',
-            utm_campaign: utmValues.utm_campaign || '',
-            utm_term: utmValues.utm_term || '',
-            utm_content: utmValues.utm_content || ''
-        });
-
-        loadingOverlay?.classList.remove('hidden');
-
-        try {
-            // Call API for real AI analysis
-            const response = await fetch('/api/analyze', {
-                method: 'POST',
-                body: formData,
-            });
-
-            const result = await response.json();
-
-            if (!response.ok) {
-                throw new Error(result.error || 'Помилка при аналізі');
-            }
-
-            // Show results
-            form.classList.add('hidden');
-            resultsContainer?.classList.remove('hidden');
-            if (step2Indicator) {
-                step2Indicator.classList.remove('bg-accent-500/20');
-                step2Indicator.classList.add('bg-white/5', 'text-green-500');
-                step2Indicator.innerHTML = '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>';
-            }
-            
-             if (auditResults) {
-                const rawText = String(result.analysis || '')
-                    .replace(/^#{1,6}\s*/gm, '')
-                    .replace(/^\s*\d+\.\s*/gm, '')
-                    .replace(/^\s*[-*\u2022]\s+/gm, '- ')
-                    .replace(/`+/g, '')
-                    .replace(/\n{3,}/g, '\n\n')
-                    .trim();
-
-                const lines = rawText
-                    .split('\n')
-                    .map((line) => line.trim())
-                    .filter((line) => line !== '');
-
-                auditResults.innerHTML = '';
-
-                if (lines.length === 0) {
-                    auditResults.textContent = '';
-                } else {
-                    const list = document.createElement('ul');
-                    list.className = 'list-disc list-inside space-y-3 text-gray-300';
-
-                    lines.forEach((line) => {
-                        const item = document.createElement('li');
-                        item.textContent = line.replace(/^-+\s*/, '');
-                        list.appendChild(item);
-                    });
-
-                    auditResults.appendChild(list);
-                }
-            }
-
-
-        } catch (error) {
-            console.error(error);
-            if (errorMessage) {
-                errorMessage.textContent = error?.message || 'Сталася помилка під час аудиту.';
-                errorMessage.classList.remove('hidden');
-            }
-        } finally {
-            loadingOverlay?.classList.add('hidden');
-        }
-    });
+      }
+    } catch (error) {
+      console.error(error);
+      if (errorMessage) {
+        errorMessage.textContent = error?.message || 'Сталася помилка. Спробуйте ще раз.';
+        errorMessage.classList.remove('hidden');
+      }
+    } finally {
+      loadingOverlay?.classList.add('hidden');
+    }
+  });
 </script>
 
 <style>
-    .custom-scrollbar::-webkit-scrollbar {
-        width: 6px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.02);
-        border-radius: 3px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 3px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-        background: rgba(255, 255, 255, 0.2);
-    }
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
 </style>
