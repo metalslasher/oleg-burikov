@@ -7,8 +7,8 @@ const nonce = Astro.locals.cspNonce;
 const plans = [
   {
     name: 'Starter',
-    description: 'Для малого бізнесу, що тільки починає з реклами',
-    price: '$400',
+    description: 'Для малого бізнесу, що тільки починає',
+    price: '$300',
     period: '/міс',
     adBudget: 'до $1,000',
     features: [
@@ -16,7 +16,7 @@ const plans = [
       'До 3 кампаній',
       'Базова аналітика',
       'Щомісячний звіт',
-      'Telegram підтримка',
+      'Підтримка',
     ],
     highlighted: false,
     cta: 'Почати',
@@ -24,7 +24,7 @@ const plans = [
   {
     name: 'Growth',
     description: 'Для бізнесу, що активно зростає',
-    price: '$700',
+    price: '$500',
     period: '/міс',
     adBudget: '$1,000 - $5,000',
     features: [
@@ -41,7 +41,7 @@ const plans = [
   {
     name: 'Scale',
     description: 'Для бізнесу з великими амбіціями',
-    price: '$1,200',
+    price: '$1,000',
     period: '/міс',
     adBudget: '$5,000+',
     features: [
@@ -59,11 +59,11 @@ const plans = [
 ];
 
 const oneTime = [
-  { name: 'Аудит рекламних кампаній', price: 'від $300', description: 'Аналіз акаунта та рекомендації' },
+  { name: 'Аудит рекламних кампаній', price: 'від $100', description: 'Аналіз акаунта та рекомендації' },
   { name: 'Налаштування GA4 + GTM', price: 'від $200', description: 'Встановлення та перевірка аналітики' },
-  { name: 'Консультація стратегії', price: 'від $200', description: '2-3 години для плану розвитку' },
-  { name: 'Аудит сайту (CRO)', price: 'від $250', description: 'Аналіз UX і конверсійних точок' },
-  { name: 'Аудит та оптимізація Merchant Center', price: 'від $300', description: 'Перевірка фіду та діагностика помилок' },
+  { name: 'Консультація', price: 'від $50', description: '2-3 години для плану розвитку' },
+  { name: 'Аудит сайту (CRO)', price: 'від $100', description: 'Аналіз UX і конверсійних точок' },
+  { name: 'Аудит та оптимізація Merchant Center', price: 'від $200', description: 'Перевірка фіду та діагностика помилок' },
   { name: 'Створення рекламних креативів', price: 'від $250', description: 'Візуали і тексти для реклами' },
 ];
 ---
