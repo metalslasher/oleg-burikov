@@ -1,0 +1,321 @@
+﻿<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=900, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f2ec;
+      --ink: #2a2420;
+      --muted: #6b5f56;
+      --accent: #c26d2a;
+      --card: #fff;
+      --line: #e7ddd2;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--ink);
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      margin: 0;
+    }
+
+    .page {
+      width: 900px;
+      height: 1200px;
+      padding: 32px 40px 36px;
+      background: var(--bg);
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+
+    nav {
+      display: flex;
+      gap: 14px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+    }
+
+    .icons {
+      display: flex;
+      gap: 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+    }
+
+    .section {
+      margin-top: 22px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .category {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .product {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      font-size: 11px;
+    }
+
+    .product img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-info {
+      padding: 8px 10px;
+    }
+
+    .product-info strong {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .segment {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .segment-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      display: grid;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .segment-card img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .benefit {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      background: #fff;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logo">Verde Home</div>
+      <nav>
+        <span>Каталог</span>
+        <span>Колекції</span>
+        <span>Доставка</span>
+        <span>Контакти</span>
+      </nav>
+      <div class="icons">
+        <span>Пошук</span>
+        <span>Кошик</span>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <h1>Декор та текстиль, що створюють атмосферу</h1>
+        <p>Колекції для вітальні, спальні та кухні з доставкою 1-2 дні по Україні.</p>
+        <div class="hero-actions">
+          <span class="btn primary">Перейти в каталог</span>
+          <span class="btn">Новинки сезону</span>
+        </div>
+      </div>
+      <img src="/images/services/website-development/ecommerce-hero.jpg" alt="Інтер'єр шоуруму">
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Категорії для вашого дому</h2>
+      <div class="categories">
+        <div class="category"><strong>Вітальня</strong><div>Декор, світильники, текстиль</div></div>
+        <div class="category"><strong>Спальня</strong><div>Постіль, пледи, подушки</div></div>
+        <div class="category"><strong>Кухня</strong><div>Посуд, сервірування, органайзери</div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">New Drop</h2>
+      <div class="products">
+        <div class="product">
+          <img src="/images/services/website-development/ecommerce-product-01.jpg" alt="Постільна білизна">
+          <div class="product-info"><strong>Комплект Linen Cloud</strong>2 450 грн</div>
+        </div>
+        <div class="product">
+          <img src="/images/services/website-development/ecommerce-product-02.jpg" alt="Кераміка">
+          <div class="product-info"><strong>Ваза Terracotta</strong>890 грн</div>
+        </div>
+        <div class="product">
+          <img src="/images/services/website-development/ecommerce-product-03.jpg" alt="Крісло">
+          <div class="product-info"><strong>Крісло Noma</strong>6 200 грн</div>
+        </div>
+        <div class="product">
+          <img src="/images/services/website-development/ecommerce-product-04.jpg" alt="Диван">
+          <div class="product-info"><strong>Диван Linea</strong>18 900 грн</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Сегменти на головній</h2>
+      <div class="segment">
+        <div class="segment-card">
+          <img src="/images/services/website-development/ecommerce-product-05.jpg" alt="Кухонна зона">
+          <strong>Кухня</strong>
+          <div>Готові набори посуду та сервірування.</div>
+        </div>
+        <div class="segment-card">
+          <img src="/images/services/website-development/ecommerce-product-06.jpg" alt="Текстиль">
+          <strong>Спальня</strong>
+          <div>Пледи, подушки та аксесуари для затишку.</div>
+        </div>
+        <div class="segment-card">
+          <img src="/images/services/website-development/ecommerce-product-03.jpg" alt="Вітальня">
+          <strong>Вітальня</strong>
+          <div>Світильники, меблі та акценти.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Чому нас обирають</h2>
+      <div class="benefits">
+        <div class="benefit"><strong>Швидка доставка</strong><div>1-2 дні по всій Україні.</div></div>
+        <div class="benefit"><strong>Пакування як подарунок</strong><div>Брендовані коробки та листівка.</div></div>
+        <div class="benefit"><strong>Обмін 30 днів</strong><div>Без зайвих питань та бюрократії.</div></div>
+      </div>
+    </section>
+
+    <footer>
+      <span>© Verde Home, 2026</span>
+      <span>hello@verdehome.ua</span>
+      <span>Kyiv · Lviv · Dnipro</span>
+    </footer>
+  </div>
+</body>
+</html>

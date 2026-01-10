@@ -1,4 +1,4 @@
----
+﻿---
 import PageLayout from '../../layouts/PageLayout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
 import content from '../../content/home-uk.json';
@@ -36,6 +36,18 @@ const services = [
     color: 'from-amber-500 to-orange-500',
     features: ['Аудит рекламних кампаній', 'Маркетингова стратегія', 'План дій'],
   },
+  {
+    slug: 'website-development',
+    title: 'Створення сайтів',
+    description: 'Проєктуємо та створюємо сайти, які продають: від структури й дизайну до швидкої, SEO-готової реалізації.',
+    icon: '🖥️',
+    color: 'from-cyan-500 to-blue-600',
+    features: ['Лендінги', 'Корпоративні сайти', 'Інтернет-магазини', 'UX/UI дизайн', 'Швидкість та SEO'],
+    fullWidth: true,
+    featured: true,
+    href: '/services/website-development',
+    cta: 'Обговорити проєкт',
+  },
 ];
 ---
 
@@ -67,8 +79,8 @@ const services = [
       <div class="grid md:grid-cols-2 gap-8">
         {services.map((service) => (
           <a 
-            href={`/services/${service.slug}`}
-            class="group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-accent-500/50 transition-all duration-300"
+            href={service.href ?? `/services/${service.slug}`}
+            class={`group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-accent-500/50 transition-all duration-300 ${service.fullWidth ? 'md:col-span-2' : ''} ${service.featured ? 'featured-card' : ''}`}
           >
             <div class={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-r ${service.color} mb-6 text-3xl`}>
               {service.icon}
@@ -91,7 +103,7 @@ const services = [
             </div>
             
             <div class="flex items-center text-accent-400 font-medium">
-              Детальніше
+              {service.cta ?? 'Детальніше'}
               <svg class="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
@@ -104,4 +116,62 @@ const services = [
 
   <!-- CTA -->
   <ContactCTA />
+
+  <style>
+    .featured-card {
+      position: relative;
+      overflow: hidden;
+      border-color: rgba(56, 189, 248, 0.35);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.12), 0 24px 70px rgba(0, 0, 0, 0.35);
+    }
+
+    .featured-card::before {
+      content: '';
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 30% 30%, rgba(56, 189, 248, 0.22), transparent 55%);
+      opacity: 0.35;
+      animation: featuredGlow 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .featured-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 1rem;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      opacity: 0.6;
+      animation: featuredBorder 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes featuredGlow {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.25;
+      }
+      50% {
+        transform: translateY(-6px) scale(1.04);
+        opacity: 0.45;
+      }
+    }
+
+    @keyframes featuredBorder {
+      0%, 100% {
+        opacity: 0.4;
+      }
+      50% {
+        opacity: 0.8;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .featured-card::before,
+      .featured-card::after {
+        animation: none;
+      }
+    }
+  </style>
 </PageLayout>
+

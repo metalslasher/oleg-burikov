@@ -1,0 +1,1510 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+
+const nonce = Astro.locals.cspNonce;
+
+const heroMetrics = [
+  { value: '14-21 днів', label: 'середній цикл запуску сайту' },
+  { value: '1.4s', label: 'цільовий LCP на мобільних' },
+  { value: '+30%', label: 'приріст конверсії після редизайну' },
+  { value: 'SEO-ready', label: 'структура під органіку' },
+];
+
+const heroCards = [
+  {
+    title: 'Стратегія',
+    items: ['Позиціонування', 'Цільова дія', 'Аргументація'],
+  },
+  {
+    title: 'Дизайн',
+    items: ['UX карта', 'UI система', 'Візуальний тон'],
+  },
+  {
+    title: 'Розробка',
+    items: ['Швидкий фрейм', 'CMS під задачі', 'Оптимізація'],
+  },
+];
+
+const trustStats = [
+  { value: '7+ років', label: 'у digital і performance' },
+  { value: '120+ проектів', label: 'для бізнесів України' },
+  { value: '4.9/5', label: 'середня оцінка клієнтів' },
+  { value: '+45%', label: 'середнє зростання CR' },
+];
+
+const clientLogos = ['B2B SaaS', 'Fintech', 'E-commerce', 'EdTech', 'Healthcare', 'Logistics', 'Manufacturing'];
+
+const principles = [
+  {
+    title: 'Фокус на бізнес-цілях',
+    description:
+      'Починаємо з ролі сайту в маркетингу: продажі, заявки або бренд. Далі будуємо сторінки під цю мету.',
+  },
+  {
+    title: 'UX, що веде до дії',
+    description:
+      'Кожен блок відповідає на запитання користувача, підсилює довіру та підштовхує до правильного рішення.',
+  },
+  {
+    title: 'Швидкість і SEO',
+    description:
+      'Оптимізуємо структуру, технічні параметри та контент так, щоб сайт стабільно ріс в органіці.',
+  },
+];
+
+const formats = [
+  {
+    title: 'Landing для запуску',
+    description: 'Фокус на одній пропозиції, швидкий запуск і чіткі CTA для тестування попиту.',
+    meta: ['2-3 тижні', 'CRO фокус'],
+  },
+  {
+    title: 'Корпоративний сайт',
+    description: 'Стратегічна структура, брендова подача і сторінки під основні напрямки бізнесу.',
+    meta: ['4-6 тижнів', 'B2B/Brand'],
+  },
+  {
+    title: 'Інтернет-магазин',
+    description: 'Каталог, фільтри, кошик і промо-блоки для росту конверсії та середнього чеку.',
+    meta: ['6-10 тижнів', 'E-commerce'],
+  },
+  {
+    title: 'SaaS або продукт',
+    description: 'Сторінки під воронку, onboarding, pricing та сторінки підтримки.',
+    meta: ['6-8 тижнів', 'Product UX'],
+  },
+];
+
+const process = [
+  {
+    step: '01',
+    title: 'Бриф і аналітика',
+    description: 'Визначаємо цільову аудиторію, конкурентів, KPI та головну мету сайту.',
+  },
+  {
+    step: '02',
+    title: 'UX карта і структура',
+    description: 'Проєктуємо логіку сторінок, формуємо контент і сценарії для користувача.',
+  },
+  {
+    step: '03',
+    title: 'Концепція та вайрфрейм',
+    description: 'Затверджуємо основу дизайну та розміщення ключових блоків.',
+  },
+  {
+    step: '04',
+    title: 'UI дизайн',
+    description: 'Створюємо візуальну систему, адаптиви та дизайн усіх сторінок.',
+  },
+  {
+    step: '05',
+    title: 'Розробка і CMS',
+    description: 'Верстка, інтеграції, налаштування швидкості, SEO і аналітики.',
+  },
+  {
+    step: '06',
+    title: 'Запуск і підтримка',
+    description: 'QA, запуск, супровід і навчання вашої команди по управлінню сайтом.',
+  },
+];
+
+const deliverables = [
+  'UX структура і логіка сторінок',
+  'UI дизайн + дизайн-система',
+  'Розробка сайту з адаптивами',
+  'CMS під вашу команду (WordPress/Webflow/Headless)',
+  'SEO база: структура, метадані, схема',
+  'Аналітика: GA4, GTM, події та цілі',
+  'Інтеграції з CRM і сервісами',
+  'Інструкція та підтримка після запуску',
+];
+
+const toolbox = [
+  'Figma',
+  'Astro або Next.js',
+  'WordPress / Webflow',
+  'Headless CMS',
+  'GA4 + GTM',
+  'Hotjar або Clarity',
+  'CRM інтеграції',
+];
+
+const performanceSignals = [
+  { value: 'LCP < 2s', label: 'Core Web Vitals' },
+  { value: 'GA4 + GTM', label: 'події та воронки' },
+  { value: 'CRM-ready', label: 'готовність до лідів' },
+];
+
+const demoCases = [
+  {
+    id: 'saas',
+    title: 'SaaS-платформа для автоматизації RevOps-команди',
+    sector: 'SaaS',
+    summary:
+      'B2B сервіс для продуктових команд: єдиний простір для лідів, pipeline та прогнозів MRR з AI-скорингом.',
+    highlights: ['Структура під MQL до demo', 'Калькулятор ROI', 'Онбординг для sales-команд'],
+    metrics: ['+38% MQL', '-21% CPL', '1.7s LCP'],
+    accent: '#38bdf8',
+    accentRgb: '56, 189, 248',
+    previewUrl: '/demos/website-development/saas.html',
+  },
+  {
+    id: 'ecommerce',
+    title: 'E-commerce для українського lifestyle-бренду',
+    sector: 'E-commerce',
+    summary: 'Онлайн-магазин з сильним візуалом, рекомендаціями та швидким checkout для росту конверсії.',
+    highlights: ['Навігація по кімнатах', 'Швидкий checkout', 'Пакування як подарунок'],
+    metrics: ['+29% CR', '+18% AOV', '1.9s LCP'],
+    accent: '#f97316',
+    accentRgb: '249, 115, 22',
+    previewUrl: '/demos/website-development/ecommerce.html',
+  },
+  {
+    id: 'real-estate',
+    title: 'Сайт девелопера для преміум житлового комплексу',
+    sector: 'Нерухомість',
+    summary: 'Сайт для девелопера: візуалізації, планування квартир та заявка, інтегрована в CRM.',
+    highlights: ['Планування в 3D', 'Іпотека та розтермінування', 'Інтеграція з CRM'],
+    metrics: ['+34% заявок', '-25% CPL', '2.0s LCP'],
+    accent: '#2563eb',
+    accentRgb: '37, 99, 235',
+    previewUrl: '/demos/website-development/real-estate.html',
+  },
+];
+const packages = [
+  {
+    title: 'Start',
+    subtitle: 'Сайт для MVP',
+    timeline: '2-3 тижні',
+    focus: 'Launch',
+    description: 'Швидкий запуск і фокус на одній пропозиції.',
+    includes: ['Бриф і аналітика', 'UX + UI дизайн', 'Розробка + оптимізація', 'Запуск і підтримка'],
+    price: 'від $1 200',
+    accent: '#38bdf8',
+  },
+  {
+    title: 'Growth',
+    subtitle: 'Корпоративний сайт',
+    timeline: '4-6 тижнів',
+    focus: 'Brand',
+    description: 'Сильна структура, брендова подача та SEO база.',
+    includes: ['Стратегія і структура', 'UI kit і дизайн сторінок', 'CMS і інтеграції', 'Аналітика і SEO'],
+    price: 'від $3 500',
+    accent: '#f97316',
+    badge: 'популярний',
+  },
+  {
+    title: 'Scale',
+    subtitle: 'E-commerce або SaaS',
+    timeline: '6-10 тижнів',
+    focus: 'Conversion',
+    description: 'Складні сценарії, інтеграції та оптимізація конверсії.',
+    includes: ['Каталог або продуктові сторінки', 'Онбординг і сценарії', 'Інтеграції і QA', 'Підтримка запуску'],
+    price: 'від $6 000',
+    accent: '#2563eb',
+  },
+];
+
+const testimonials = [
+  {
+    quote:
+      'Команда занурилась у бізнес і побудувала сайт, який підсвітив сильні сторони продукту та збільшив кількість заявок.',
+    name: 'Анна',
+    role: 'Head of Marketing',
+    company: 'B2B SaaS',
+    result: '+41% заявок',
+    initials: 'АП',
+    accent: '#38bdf8',
+  },
+  {
+    quote:
+      'Ми отримали красивий сайт і чітку структуру. Конверсія зросла вже в перший місяць після запуску.',
+    name: 'Сергій',
+    role: 'Founder',
+    company: 'E-commerce',
+    result: '+32% CR',
+    initials: 'СР',
+    accent: '#f97316',
+  },
+  {
+    quote:
+      'Дизайн і UX були на рівні. Клієнти швидше знаходять потрібну інформацію та залишають заявки.',
+    name: 'Олена',
+    role: 'CMO',
+    company: 'EdTech',
+    result: '+24% лідів',
+    initials: 'ОК',
+    accent: '#2563eb',
+  },
+];
+
+const guarantees = [
+  {
+    title: 'Прозорий план робіт',
+    description: 'Фіксуємо roadmap і дедлайни, щоб ви бачили прогрес щотижня.',
+  },
+  {
+    title: 'Прогнозований результат',
+    description: 'Опора на аналітику і кращі практики конверсії.',
+  },
+  {
+    title: '2 кола правок',
+    description: 'Вносимо правки по дизайну і контенту без бюрократії.',
+  },
+  {
+    title: 'Підтримка після запуску',
+    description: '30 днів супроводу для стабільної роботи сайту.',
+  },
+];
+
+const faq = [
+  {
+    question: 'Скільки часу займає розробка сайту?',
+    answer: 'Landing займає 2-3 тижні, корпоративний сайт 4-6 тижнів, складні проєкти 6-10 тижнів.',
+  },
+  {
+    question: 'Чи зможу я оновлювати сайт самостійно?',
+    answer: 'Так. Ми підбираємо CMS та навчаємо вашу команду редагувати контент.',
+  },
+  {
+    question: 'Чи включаєте SEO і аналітику?',
+    answer: 'Так, базова SEO-оптимізація, GA4, GTM та події входять у стандартний пакет.',
+  },
+  {
+    question: 'Що потрібно від мене для старту?',
+    answer: 'Бриф, доступ до аналітики, матеріали бренду або приклади, які вам подобаються.',
+  },
+  {
+    question: 'Чи працюєте з підтримкою після запуску?',
+    answer: 'Так, можемо супроводжувати сайт або передати його вашій команді з інструкцією.',
+  },
+];
+
+const faqStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
+---
+<PageLayout
+  title="Розробка сайтів для бізнесу | Targetsy Agency"
+  description="Створюємо сайти, що конвертують: UX, дизайн, розробка, SEO база, інтеграції та аналітика для росту бізнесу."
+>
+  <script type="application/ld+json" nonce={nonce} set:html={JSON.stringify(faqStructuredData)} />
+
+  <div class="wd-page">
+    <section class="wd-hero">
+      <div class="max-w-7xl mx-auto relative">
+        <a href="/services" class="wd-back">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          До всіх послуг
+        </a>
+
+        <div class="wd-hero__grid">
+          <div class="wd-hero__copy">
+            <h1 class="wd-title">
+              Розробка сайтів, що продають
+              <span class="wd-title__accent">і масштабують бізнес</span>
+            </h1>
+            <p class="wd-subtitle">
+              Стратегія, UX, дизайн і код, які ведуть користувача до дії, підсилюють маркетинг і не гальмують
+              швидкість.
+            </p>
+            <div class="wd-hero__cta">
+              <a href="#contact" class="wd-btn wd-btn--primary">Замовити сайт</a>
+              <a href="#process" class="wd-btn wd-btn--ghost">Подивитись процес</a>
+            </div>
+            <div class="wd-hero__metrics">
+              {heroMetrics.map((item) => (
+                <div class="wd-metric">
+                  <div class="wd-metric__value">{item.value}</div>
+                  <div class="wd-metric__label">{item.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="wd-hero__board">
+            <div class="wd-board">
+              <div class="wd-board__header">
+                <span>Blueprint</span>
+                <span class="wd-board__tag">Targetsy</span>
+              </div>
+              <h3 class="wd-board__title">Карта створення сайту</h3>
+              <div class="wd-board__grid">
+                {heroCards.map((card) => (
+                  <div class="wd-board__card">
+                    <h4>{card.title}</h4>
+                    <ul class="wd-board__list">
+                      {card.items.map((item) => (
+                        <li>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+              <p class="wd-board__note">
+                Збираємо фундамент, який перетворює трафік у заявки та доходи.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wd-section wd-proof">
+      <div class="max-w-7xl mx-auto">
+        <div class="wd-section__header wd-section__header--center">
+          <span class="wd-section__eyebrow">Довіра</span>
+          <h2 class="wd-section__title">Показники, що підтверджують підхід</h2>
+          <p class="wd-section__text">
+            Ми працюємо в парі з маркетингом, дивимося на дані та будуємо сайти з фокусом на результат.
+          </p>
+        </div>
+
+        <div class="wd-proof__stats">
+          {trustStats.map((item) => (
+            <div class="wd-proof__card">
+              <div class="wd-proof__value">{item.value}</div>
+              <div class="wd-proof__label">{item.label}</div>
+            </div>
+          ))}
+        </div>
+
+        <div class="wd-proof__logos">
+          {clientLogos.map((logo) => (
+            <span class="wd-proof__logo">{logo}</span>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="wd-section wd-principles">
+      <div class="max-w-7xl mx-auto">
+        <div class="wd-section__header wd-section__header--center">
+          <span class="wd-section__eyebrow">Підхід</span>
+          <h2 class="wd-section__title">Принципи, які приводять до конверсії</h2>
+          <p class="wd-section__text">
+            Ми не робимо просто красивий сайт. Кожен блок має роль у воронці та відповідає на потреби аудиторії.
+          </p>
+        </div>
+
+        <div class="wd-grid wd-grid-3">
+          {principles.map((item) => (
+            <div class="wd-card wd-card--soft">
+              <h3>{item.title}</h3>
+              <p class="wd-muted">{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="wd-section wd-section--dark" id="formats">
+      <div class="max-w-7xl mx-auto">
+        <div class="wd-section__header wd-section__header--center">
+          <span class="wd-section__eyebrow">Формати</span>
+          <h2 class="wd-section__title">Який формат сайту потрібен вашому бізнесу</h2>
+          <p class="wd-section__text">
+            Підбираємо архітектуру та контент під бізнес-цілі, а не просто під шаблон.
+          </p>
+        </div>
+
+        <div class="wd-grid wd-grid-4">
+          {formats.map((item) => (
+            <div class="wd-card">
+              <div class="wd-format__meta">
+                {item.meta.map((meta) => (
+                  <span class="wd-chip wd-chip--outline">{meta}</span>
+                ))}
+              </div>
+              <h3>{item.title}</h3>
+              <p class="wd-muted">{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="wd-section" id="process">
+      <div class="max-w-7xl mx-auto">
+        <div class="wd-section__header wd-section__header--center">
+          <span class="wd-section__eyebrow">Процес</span>
+          <h2 class="wd-section__title">Як ми будуємо розробку сайту</h2>
+          <p class="wd-section__text">Кожен етап прозорий: від брифу до запуску та підтримки.</p>
+        </div>
+
+        <div class="wd-process">
+          {process.map((item) => (
+            <div class="wd-process-card">
+              <div class="wd-process__step">{item.step}</div>
+              <div class="wd-process__body">
+                <h3>{item.title}</h3>
+                <p class="wd-muted">{item.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="wd-section" id="result">
+      <div class="max-w-7xl mx-auto grid lg:grid-cols-[1.05fr_0.95fr] gap-10 items-start">
+        <div>
+          <div class="wd-section__header wd-section__header--center">
+            <span class="wd-section__eyebrow">Результат</span>
+            <h2 class="wd-section__title">Що ви отримаєте в фіналі</h2>
+            <p class="wd-section__text">
+              Повний пакет матеріалів і інструментів, щоб сайт працював на маркетинг і продажі.
+            </p>
+          </div>
+
+          <ul class="wd-list">
+            {deliverables.map((item) => (
+              <li class="wd-list__item">{item}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="wd-results__side">
+          <div class="wd-card wd-card--soft">
+            <h3>Інструменти і стек</h3>
+            <p class="wd-muted">Збираємо сайт на технологіях, які легко підтримувати.</p>
+            <div class="wd-chip-group">
+              {toolbox.map((item) => (
+                <span class="wd-chip wd-chip--outline">{item}</span>
+              ))}
+            </div>
+          </div>
+
+          <div class="wd-card wd-card--soft">
+            <h3>Ключові сигнали якості</h3>
+            <p class="wd-muted">Контролюємо швидкість, події та інтеграції ще до запуску.</p>
+            <div class="wd-insights__grid">
+              {performanceSignals.map((item) => (
+                <div class="wd-signal">
+                  <div class="wd-signal__value">{item.value}</div>
+                  <div class="wd-signal__label">{item.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wd-section" id="guarantees">
+      <div class="max-w-7xl mx-auto">
+        <div class="wd-section__header wd-section__header--center">
+          <span class="wd-section__eyebrow">Гарантії</span>
+          <h2 class="wd-section__title">Чому процес прогнозований і без стресу</h2>
+          <p class="wd-section__text">
+            Працюємо як партнер: прозорі кроки, контроль якості та підтримка.
+          </p>
+        </div>
+
+        <div class="wd-grid wd-grid-4">
+          {guarantees.map((item) => (
+            <div class="wd-card wd-card--soft wd-guarantee">
+              <h3>{item.title}</h3>
+              <p class="wd-muted">{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="wd-section wd-section--dark" id="cases">
+      <div class="max-w-7xl mx-auto">
+        <div class="wd-section__header wd-section__header--center">
+          <span class="wd-section__eyebrow">Кейси</span>
+          <h2 class="wd-section__title">Демо-проєкти, що показують рівень</h2>
+          <p class="wd-section__text">
+            Показуємо, як виглядає реальний сайт у вашій ніші: з хедером, геро-блоком, контентом та фото.
+          </p>
+        </div>
+
+        <div class="wd-case__visuals">
+          {demoCases.map((item) => (
+            <article
+              class="wd-case__card"
+              style={`--case-accent: ${item.accent}; --case-accent-rgb: ${item.accentRgb};`}
+            >
+              <div class="wd-case__preview">
+                <div class="wd-case__head">
+                  <span class="wd-case__badge">Demo</span>
+                  <span class="wd-case__pill">{item.sector}</span>
+                  <span class="wd-case__pill">UA</span>
+                </div>
+
+                <div class="wd-case__frame">
+                  <iframe
+                    src={item.previewUrl}
+                    title={`Demo ${item.title}`}
+                    loading="lazy"
+                    tabindex="-1"
+                  ></iframe>
+                </div>
+              </div>
+
+              <div class="wd-case__content">
+                <h3>{item.title}</h3>
+                <p class="wd-muted">{item.summary}</p>
+                <ul class="wd-case__list">
+                  {item.highlights.map((point) => (
+                    <li>{point}</li>
+                  ))}
+                </ul>
+                <div class="wd-case__metrics">
+                  {item.metrics.map((metric) => (
+                    <span class="wd-case__stat">{metric}</span>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+    <section class="wd-section" id="testimonials">
+      <div class="max-w-7xl mx-auto">
+        <div class="wd-section__header wd-section__header--center">
+          <span class="wd-section__eyebrow">Відгуки</span>
+          <h2 class="wd-section__title">Що кажуть клієнти після запуску</h2>
+          <p class="wd-section__text">
+            Ми працюємо як партнер і тримаємо фокус на цілях бізнесу.
+          </p>
+        </div>
+
+        <div class="wd-grid wd-grid-3">
+          {testimonials.map((item) => (
+            <div class="wd-card wd-card--soft wd-testimonial">
+              <p class="wd-testimonial__quote">"{item.quote}"</p>
+              <div class="wd-testimonial__meta">
+                <div class="wd-testimonial__person">
+                  <div class="wd-avatar" style={`--accent: ${item.accent};`}>{item.initials}</div>
+                  <div>
+                    <div class="wd-testimonial__name">{item.name}</div>
+                    <div class="wd-testimonial__role">{item.role}, {item.company}</div>
+                  </div>
+                </div>
+                <span class="wd-testimonial__result">{item.result}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="wd-section" id="packages">
+      <div class="max-w-7xl mx-auto">
+        <div class="wd-section__header wd-section__header--center">
+          <span class="wd-section__eyebrow">Пакети</span>
+          <h2 class="wd-section__title">Обирайте формат під ваші задачі</h2>
+          <p class="wd-section__text">Пакети можна масштабувати під складність проєкту.</p>
+        </div>
+
+        <div class="wd-grid wd-grid-3">
+          {packages.map((item) => (
+            <div class="wd-package" style={`--accent: ${item.accent};`}>
+              {item.badge && <span class="wd-badge">{item.badge}</span>}
+              <h3>{item.title}</h3>
+              <p class="wd-package__subtitle">{item.subtitle}</p>
+              <div class="wd-package__price">{item.price}</div>
+              <p class="wd-muted">{item.description}</p>
+              <div class="wd-package__meta">
+                <span>{item.timeline}</span>
+                <span>{item.focus}</span>
+              </div>
+              <ul class="wd-package__list">
+                {item.includes.map((feature) => (
+                  <li>{feature}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <p class="wd-note">Бюджет і терміни уточнюємо після короткого брифу.</p>
+      </div>
+    </section>
+
+    <section class="wd-section wd-section--dark" id="faq">
+      <div class="max-w-5xl mx-auto">
+        <div class="wd-section__header wd-section__header--center">
+          <span class="wd-section__eyebrow">FAQ</span>
+          <h2 class="wd-section__title">Відповіді на часті запитання</h2>
+          <p class="wd-section__text">
+            Якщо маєте інше питання, просто напишіть нам.
+          </p>
+        </div>
+
+        <div class="wd-faq__list">
+          {faq.map((item) => (
+            <details class="wd-faq__item">
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <div id="contact">
+      <ContactCTA />
+    </div>
+  </div>
+
+  <script nonce={nonce}>
+    const baseWidth = 900;
+    const baseHeight = 1200;
+    const frames = document.querySelectorAll('.wd-case__frame');
+
+    const applyScale = (frame) => {
+      const width = frame.clientWidth;
+      if (!width) return;
+      const scale = width / baseWidth;
+      frame.style.setProperty('--demo-scale', scale.toFixed(3));
+      frame.style.height = `${Math.round(baseHeight * scale)}px`;
+    };
+
+    if ('ResizeObserver' in window) {
+      const observer = new ResizeObserver((entries) => {
+        entries.forEach((entry) => applyScale(entry.target));
+      });
+      frames.forEach((frame) => observer.observe(frame));
+    } else {
+      const update = () => frames.forEach(applyScale);
+      update();
+      window.addEventListener('resize', update);
+    }
+  </script>
+
+  <style>
+    :global(.wd-page) {
+      --wd-ink: #e2e8f0;
+      --wd-ink-soft: rgba(226, 232, 240, 0.72);
+      --wd-sand: #0b0f1a;
+      --wd-paper: rgba(15, 23, 42, 0.9);
+      --wd-night: #0b0f1a;
+      --wd-lime: #38bdf8;
+      --wd-sky: #2563eb;
+      --wd-coral: #f97316;
+      --wd-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
+      font-family: inherit;
+      color: var(--wd-ink);
+      background: transparent;
+    }
+
+    :global(.wd-page h1, .wd-page h2, .wd-page h3, .wd-page h4, .wd-page .wd-display) {
+      font-family: inherit;
+      letter-spacing: -0.01em;
+    }
+
+    .wd-hero {
+      position: relative;
+      padding: clamp(2.5rem, 6vw, 5.5rem) 1.5rem 5rem;
+      background: transparent;
+      overflow: hidden;
+    }
+
+    .wd-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      color: rgba(226, 232, 240, 0.7);
+      margin-bottom: 24px;
+      transition: color 0.2s ease;
+    }
+
+    .wd-back svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .wd-back:hover {
+      color: #ffffff;
+    }
+
+    .wd-title {
+      font-size: clamp(2.4rem, 4vw, 4.2rem);
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .wd-title__accent {
+      display: block;
+      background: linear-gradient(90deg, #38bdf8, #f97316);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .wd-subtitle {
+      font-size: 1.1rem;
+      color: rgba(226, 232, 240, 0.72);
+      max-width: 560px;
+      margin-bottom: 28px;
+    }
+
+    .wd-hero__grid {
+      display: grid;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .wd-hero__board {
+      width: 100%;
+      max-width: 480px;
+      margin-left: auto;
+    }
+
+    .wd-hero__cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .wd-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 28px;
+      border-radius: 16px;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .wd-btn--primary {
+      background: linear-gradient(135deg, #f97316, #ea580c);
+      color: #ffffff;
+      box-shadow: 0 16px 30px rgba(249, 115, 22, 0.35);
+    }
+
+    .wd-btn--primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(11, 15, 26, 0.25);
+    }
+
+    .wd-btn--ghost {
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.6);
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .wd-btn--ghost:hover {
+      transform: translateY(-2px);
+      border-color: rgba(56, 189, 248, 0.6);
+    }
+
+    .wd-hero__metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+    }
+
+    .wd-metric {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 16px;
+      padding: 14px 16px;
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .wd-metric__value {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    .wd-metric__label {
+      font-size: 0.85rem;
+      color: rgba(226, 232, 240, 0.65);
+    }
+
+    .wd-board {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: var(--wd-shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .wd-board__header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: rgba(226, 232, 240, 0.6);
+      margin-bottom: 16px;
+    }
+
+    .wd-board__tag {
+      background: rgba(56, 189, 248, 0.2);
+      padding: 4px 10px;
+      border-radius: 999px;
+      color: rgba(226, 232, 240, 0.9);
+      font-weight: 600;
+    }
+
+    .wd-board__title {
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+    }
+
+    .wd-board__grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .wd-board__card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 16px;
+      padding: 12px 14px;
+    }
+
+    .wd-board__card h4 {
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .wd-board__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      color: rgba(226, 232, 240, 0.7);
+      font-size: 0.9rem;
+    }
+
+    .wd-board__list li + li {
+      margin-top: 4px;
+    }
+
+    .wd-board__note {
+      margin-top: 16px;
+      font-size: 0.95rem;
+      color: rgba(226, 232, 240, 0.6);
+    }
+
+    .wd-section {
+      padding: clamp(3rem, 6vw, 5rem) 1.5rem;
+      background: transparent;
+    }
+
+    .wd-section--dark {
+      background: transparent;
+      color: #f8fafc;
+    }
+
+    .wd-section__header {
+      margin-bottom: 32px;
+    }
+
+    .wd-section__header--center {
+      text-align: center;
+    }
+
+    .wd-section__eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: rgba(226, 232, 240, 0.6);
+      margin-bottom: 12px;
+    }
+
+    .wd-section__title {
+      font-size: clamp(2rem, 3vw, 3rem);
+      margin-bottom: 12px;
+    }
+
+    .wd-section__text {
+      color: var(--wd-ink-soft);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .wd-section--dark .wd-section__eyebrow {
+      color: rgba(249, 115, 22, 0.85);
+    }
+
+    .wd-section--dark .wd-section__text {
+      color: rgba(226, 232, 240, 0.7);
+    }
+
+    .wd-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    .wd-grid-3 {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .wd-grid-4 {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .wd-card {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    .wd-card--soft {
+      background: rgba(15, 23, 42, 0.6);
+    }
+
+    .wd-section--dark .wd-card {
+      background: rgba(15, 23, 42, 0.85);
+      border-color: rgba(148, 163, 184, 0.25);
+      box-shadow: 0 26px 55px rgba(0, 0, 0, 0.4);
+    }
+
+    .wd-muted {
+      color: rgba(226, 232, 240, 0.7);
+    }
+
+    .wd-section--dark .wd-muted {
+      color: rgba(226, 232, 240, 0.7);
+    }
+
+    .wd-format__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .wd-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(56, 189, 248, 0.2);
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .wd-chip--outline {
+      background: transparent;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      color: rgba(226, 232, 240, 0.85);
+    }
+
+    .wd-section--dark .wd-chip {
+      background: rgba(56, 189, 248, 0.18);
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .wd-section--dark .wd-chip--outline {
+      border-color: rgba(148, 163, 184, 0.35);
+      color: rgba(226, 232, 240, 0.85);
+    }
+
+    .wd-process {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .wd-process-card {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 20px;
+      border-radius: 20px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.3);
+    }
+
+    .wd-process__step {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: var(--wd-lime);
+      color: #0b0f1a;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .wd-process__body h3 {
+      margin-bottom: 6px;
+    }
+
+    .wd-list {
+      display: grid;
+      gap: 14px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .wd-list__item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      color: var(--wd-ink-soft);
+    }
+
+    .wd-list__item::before {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--wd-lime);
+      box-shadow: 0 0 12px rgba(201, 255, 59, 0.6);
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    .wd-results__side {
+      display: grid;
+      gap: 20px;
+    }
+
+    .wd-chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .wd-insights__grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .wd-signal {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 16px;
+      padding: 12px 14px;
+    }
+
+    .wd-signal__value {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .wd-signal__label {
+      font-size: 0.8rem;
+      color: rgba(226, 232, 240, 0.6);
+    }
+
+    .wd-section--dark .wd-signal {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(148, 163, 184, 0.25);
+    }
+
+    .wd-section--dark .wd-signal__label {
+      color: rgba(226, 232, 240, 0.6);
+    }
+
+    .wd-proof__stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .wd-proof__card {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 18px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .wd-proof__value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    .wd-proof__label {
+      font-size: 0.85rem;
+      color: rgba(226, 232, 240, 0.6);
+      margin-top: 6px;
+    }
+
+    .wd-proof__logos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .wd-proof__logo {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      color: rgba(226, 232, 240, 0.7);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      background: rgba(15, 23, 42, 0.55);
+    }
+    .wd-guarantee h3 {
+      margin-bottom: 8px;
+    }
+
+    .wd-case__visuals {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+      margin-bottom: 28px;
+    }
+
+    .wd-case__card {
+      border-radius: 24px;
+      padding: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(15, 23, 42, 0.78);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.4);
+      display: grid;
+      gap: 18px;
+    }
+
+    .wd-case__preview {
+      display: grid;
+      gap: 12px;
+    }
+
+    .wd-case__head {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .wd-case__badge {
+      background: rgb(var(--case-accent-rgb));
+      color: #0b0f1a;
+      font-weight: 700;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+
+    .wd-case__pill {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      color: rgba(226, 232, 240, 0.7);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+
+    .wd-case__frame {
+      --demo-scale: 1;
+      position: relative;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(8, 12, 22, 0.85);
+      overflow: hidden;
+      height: calc(1200px * var(--demo-scale));
+    }
+
+    .wd-case__frame iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 900px;
+      height: 1200px;
+      border: 0;
+      transform: scale(var(--demo-scale));
+      transform-origin: top left;
+      pointer-events: none;
+    }
+
+    .wd-case__content h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: #f8fafc;
+    }
+
+    .wd-case__list {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0;
+      display: grid;
+      gap: 8px;
+      color: rgba(226, 232, 240, 0.75);
+      font-size: 0.95rem;
+    }
+
+    .wd-case__list li {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .wd-case__list li::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgb(var(--case-accent-rgb));
+      margin: 7px 10px 0 0;
+      flex-shrink: 0;
+    }
+
+    .wd-case__metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .wd-case__stat {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(var(--case-accent-rgb), 0.45);
+      background: rgba(var(--case-accent-rgb), 0.2);
+      color: rgba(226, 232, 240, 0.95);
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .wd-testimonial {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-height: 230px;
+    }
+
+    .wd-testimonial__quote {
+      font-size: 1rem;
+      color: rgba(226, 232, 240, 0.8);
+      line-height: 1.6;
+    }
+
+    .wd-testimonial__meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: auto;
+    }
+
+    .wd-testimonial__person {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .wd-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #0b0f1a;
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.6), rgba(15, 23, 42, 0)),
+        var(--accent);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .wd-testimonial__name {
+      font-weight: 600;
+      color: #f8fafc;
+    }
+
+    .wd-testimonial__role {
+      font-size: 0.85rem;
+      color: rgba(226, 232, 240, 0.6);
+    }
+
+    .wd-testimonial__result {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(249, 115, 22, 0.45);
+      background: rgba(249, 115, 22, 0.18);
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .wd-package {
+      position: relative;
+      border-radius: 24px;
+      padding: 28px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      box-shadow: 0 26px 55px rgba(0, 0, 0, 0.4);
+      border-top: 4px solid var(--accent);
+    }
+
+    .wd-package__subtitle {
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .wd-package__price {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 10px;
+    }
+
+    .wd-package__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 16px 0;
+    }
+
+    .wd-package__meta span {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(226, 232, 240, 0.85);
+    }
+
+    .wd-package__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .wd-package__list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: rgba(226, 232, 240, 0.75);
+    }
+
+    .wd-package__list li::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .wd-badge {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #0b0f1a;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .wd-note {
+      margin-top: 20px;
+      text-align: center;
+      color: rgba(226, 232, 240, 0.6);
+    }
+
+    .wd-faq__list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .wd-faq__item {
+      border-radius: 18px;
+      padding: 18px 22px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    .wd-faq__item summary {
+      cursor: pointer;
+      font-weight: 600;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .wd-faq__item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .wd-faq__item summary::after {
+      content: '+';
+      font-size: 1.25rem;
+      transition: transform 0.2s ease;
+    }
+
+    .wd-faq__item[open] summary::after {
+      transform: rotate(45deg);
+    }
+
+    .wd-faq__item p {
+      margin-top: 12px;
+      color: rgba(226, 232, 240, 0.7);
+    }
+
+    @media (min-width: 1024px) {
+      .wd-hero__grid {
+        grid-template-columns: 1.1fr 0.9fr;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .wd-hero__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wd-hero__cta {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .wd-btn {
+        width: 100%;
+      }
+
+      .wd-hero__metrics {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+
+      .wd-testimonial__meta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</PageLayout>

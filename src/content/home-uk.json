@@ -28,6 +28,10 @@
           {
             "label": "Консалтинг",
             "href": "/services/consulting"
+          },
+          {
+            "label": "Створення сайтів",
+            "href": "/services/website-development"
           }
         ]
       },

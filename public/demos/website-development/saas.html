@@ -1,0 +1,369 @@
+﻿<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=900, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f3f5fb;
+      --card: #ffffff;
+      --ink: #101827;
+      --muted: #566070;
+      --accent: #18a999;
+      --accent-dark: #0f766e;
+      --line: #e2e6f0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      font-family: 'Manrope', sans-serif;
+      color: var(--ink);
+    }
+
+    h1, h2, h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .page {
+      width: 900px;
+      height: 1200px;
+      padding: 32px 40px 36px;
+      background: var(--bg);
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-size: 14px;
+    }
+
+    nav {
+      display: flex;
+      gap: 14px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+
+    .nav-cta {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: #fff;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .btn {
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--line);
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .hero-stats span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--line);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .hero-card {
+      background: var(--card);
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      padding: 16px;
+      box-shadow: 0 24px 40px rgba(16, 24, 39, 0.08);
+      display: grid;
+      gap: 12px;
+    }
+
+    .hero-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 16px;
+    }
+
+    .hero-card .mini {
+      display: flex;
+      gap: 8px;
+    }
+
+    .mini span {
+      flex: 1;
+      padding: 8px;
+      background: #f5f7fb;
+      border-radius: 12px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .section {
+      margin-top: 24px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .card strong {
+      display: block;
+      color: var(--ink);
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    .strip {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .strip span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .story {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .story img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+    }
+
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .price-card {
+      border-radius: 16px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .price-card h4 {
+      margin: 6px 0 4px;
+      font-size: 16px;
+      color: var(--ink);
+    }
+
+    .price-card .price {
+      font-weight: 700;
+      color: var(--accent-dark);
+      margin-bottom: 6px;
+    }
+
+    footer {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logo">FlowOps</div>
+      <nav>
+        <span>Продукт</span>
+        <span>Рішення</span>
+        <span>Тарифи</span>
+        <span>Ресурси</span>
+      </nav>
+      <div class="nav-cta">Спробувати</div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <div class="hero-kicker">RevOps платформа</div>
+        <h1>Контролюйте MRR і pipeline в одному робочому просторі</h1>
+        <p>Дашборди, AI-скоринг лідів та автоматизація продажів для B2B SaaS-команд.</p>
+        <div class="hero-actions">
+          <span class="btn primary">Запросити демо</span>
+          <span class="btn">Подивитись кейс</span>
+        </div>
+        <div class="hero-stats">
+          <span>+42% MQL</span>
+          <span>1.6s LCP</span>
+          <span>SOC2-ready</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <img src="/images/services/website-development/saas-hero.jpg" alt="Дашборд SaaS платформи">
+        <div class="mini">
+          <span>Revenue board</span>
+          <span>AI Lead Score</span>
+          <span>Playbooks</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Чому FlowOps обирають RevOps-команди</h2>
+      <div class="grid-3">
+        <div class="card"><strong>Pipeline control</strong>Єдина картина по каналах, угодах і прогнозах.</div>
+        <div class="card"><strong>AI пріоритизація</strong>Скоринг лідів і алерти про ризики відтоку.</div>
+        <div class="card"><strong>Playbook workflow</strong>Сценарії для SDR та AE на кожному етапі.</div>
+      </div>
+      <div class="strip">
+        <span>Kyiv SaaS Hub</span>
+        <span>CRM-ready</span>
+        <span>ISO 27001</span>
+        <span>99.9% uptime</span>
+      </div>
+    </section>
+
+    <section class="section story">
+      <div>
+        <h2 class="section-title">Історія клієнта</h2>
+        <p>Команда FintechLab зменшила CPL на 23% та пришвидшила цикл продажів на 18 днів завдяки прозорому MRR.</p>
+      </div>
+      <img src="/images/services/website-development/saas-team.jpg" alt="Команда SaaS продукту">
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Пакети</h2>
+      <div class="pricing">
+        <div class="price-card">
+          <span>Starter</span>
+          <h4>Launch</h4>
+          <div class="price">$690 / міс</div>
+          <div>Pipeline + базові звіти</div>
+        </div>
+        <div class="price-card">
+          <span>Growth</span>
+          <h4>Scale</h4>
+          <div class="price">$1 200 / міс</div>
+          <div>AI-скоринг + інтеграції</div>
+        </div>
+        <div class="price-card">
+          <span>Enterprise</span>
+          <h4>Custom</h4>
+          <div class="price">On request</div>
+          <div>Playbooks + SLA 24/7</div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span>© FlowOps, 2026</span>
+      <span>sales@flowops.ai</span>
+      <span>Kyiv · Remote</span>
+    </footer>
+  </div>
+</body>
+</html>
