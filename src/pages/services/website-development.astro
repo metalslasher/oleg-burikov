@@ -140,42 +140,6 @@ const performanceSignals = [
   { value: 'CRM-ready', label: 'готовність до лідів' },
 ];
 
-const demoCases = [
-  {
-    id: 'saas',
-    title: 'SaaS-платформа для автоматизації RevOps-команди',
-    sector: 'SaaS',
-    summary:
-      'B2B сервіс для продуктових команд: єдиний простір для лідів, pipeline та прогнозів MRR з AI-скорингом.',
-    highlights: ['Структура під MQL до demo', 'Калькулятор ROI', 'Онбординг для sales-команд'],
-    metrics: ['+38% MQL', '-21% CPL', '1.7s LCP'],
-    accent: '#38bdf8',
-    accentRgb: '56, 189, 248',
-    previewUrl: '/demos/website-development/saas.html',
-  },
-  {
-    id: 'ecommerce',
-    title: 'E-commerce для українського lifestyle-бренду',
-    sector: 'E-commerce',
-    summary: 'Онлайн-магазин з сильним візуалом, рекомендаціями та швидким checkout для росту конверсії.',
-    highlights: ['Навігація по кімнатах', 'Швидкий checkout', 'Пакування як подарунок'],
-    metrics: ['+29% CR', '+18% AOV', '1.9s LCP'],
-    accent: '#f97316',
-    accentRgb: '249, 115, 22',
-    previewUrl: '/demos/website-development/ecommerce.html',
-  },
-  {
-    id: 'real-estate',
-    title: 'Сайт девелопера для преміум житлового комплексу',
-    sector: 'Нерухомість',
-    summary: 'Сайт для девелопера: візуалізації, планування квартир та заявка, інтегрована в CRM.',
-    highlights: ['Планування в 3D', 'Іпотека та розтермінування', 'Інтеграція з CRM'],
-    metrics: ['+34% заявок', '-25% CPL', '2.0s LCP'],
-    accent: '#2563eb',
-    accentRgb: '37, 99, 235',
-    previewUrl: '/demos/website-development/real-estate.html',
-  },
-];
 const packages = [
   {
     title: 'Start',
@@ -196,7 +160,6 @@ const packages = [
     includes: ['Стратегія і структура', 'UI kit і дизайн сторінок', 'CMS і інтеграції', 'Аналітика і SEO'],
     price: 'від $3 500',
     accent: '#f97316',
-    badge: 'популярний',
   },
   {
     title: 'Scale',
@@ -262,47 +225,12 @@ const guarantees = [
   },
 ];
 
-const faq = [
-  {
-    question: 'Скільки часу займає розробка сайту?',
-    answer: 'Landing займає 2-3 тижні, корпоративний сайт 4-6 тижнів, складні проєкти 6-10 тижнів.',
-  },
-  {
-    question: 'Чи зможу я оновлювати сайт самостійно?',
-    answer: 'Так. Ми підбираємо CMS та навчаємо вашу команду редагувати контент.',
-  },
-  {
-    question: 'Чи включаєте SEO і аналітику?',
-    answer: 'Так, базова SEO-оптимізація, GA4, GTM та події входять у стандартний пакет.',
-  },
-  {
-    question: 'Що потрібно від мене для старту?',
-    answer: 'Бриф, доступ до аналітики, матеріали бренду або приклади, які вам подобаються.',
-  },
-  {
-    question: 'Чи працюєте з підтримкою після запуску?',
-    answer: 'Так, можемо супроводжувати сайт або передати його вашій команді з інструкцією.',
-  },
-];
 
-const faqStructuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faq.map((item) => ({
-    '@type': 'Question',
-    name: item.question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: item.answer,
-    },
-  })),
-};
 ---
 <PageLayout
   title="Розробка сайтів для бізнесу | Targetsy Agency"
   description="Створюємо сайти, що конвертують: UX, дизайн, розробка, SEO база, інтеграції та аналітика для росту бізнесу."
 >
-  <script type="application/ld+json" nonce={nonce} set:html={JSON.stringify(faqStructuredData)} />
 
   <div class="wd-page">
     <section class="wd-hero">
@@ -521,59 +449,6 @@ const faqStructuredData = {
         </div>
       </div>
     </section>
-
-    <section class="wd-section wd-section--dark" id="cases">
-      <div class="max-w-7xl mx-auto">
-        <div class="wd-section__header wd-section__header--center">
-          <span class="wd-section__eyebrow">Кейси</span>
-          <h2 class="wd-section__title">Демо-проєкти, що показують рівень</h2>
-          <p class="wd-section__text">
-            Показуємо, як виглядає реальний сайт у вашій ніші: з хедером, геро-блоком, контентом та фото.
-          </p>
-        </div>
-
-        <div class="wd-case__visuals">
-          {demoCases.map((item) => (
-            <article
-              class="wd-case__card"
-              style={`--case-accent: ${item.accent}; --case-accent-rgb: ${item.accentRgb};`}
-            >
-              <div class="wd-case__preview">
-                <div class="wd-case__head">
-                  <span class="wd-case__badge">Demo</span>
-                  <span class="wd-case__pill">{item.sector}</span>
-                  <span class="wd-case__pill">UA</span>
-                </div>
-
-                <div class="wd-case__frame">
-                  <iframe
-                    src={item.previewUrl}
-                    title={`Demo ${item.title}`}
-                    loading="lazy"
-                    tabindex="-1"
-                  ></iframe>
-                </div>
-              </div>
-
-              <div class="wd-case__content">
-                <h3>{item.title}</h3>
-                <p class="wd-muted">{item.summary}</p>
-                <ul class="wd-case__list">
-                  {item.highlights.map((point) => (
-                    <li>{point}</li>
-                  ))}
-                </ul>
-                <div class="wd-case__metrics">
-                  {item.metrics.map((metric) => (
-                    <span class="wd-case__stat">{metric}</span>
-                  ))}
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
     <section class="wd-section" id="testimonials">
       <div class="max-w-7xl mx-auto">
         <div class="wd-section__header wd-section__header--center">
@@ -630,28 +505,6 @@ const faqStructuredData = {
                 ))}
               </ul>
             </div>
-          ))}
-        </div>
-        <p class="wd-note">Бюджет і терміни уточнюємо після короткого брифу.</p>
-      </div>
-    </section>
-
-    <section class="wd-section wd-section--dark" id="faq">
-      <div class="max-w-5xl mx-auto">
-        <div class="wd-section__header wd-section__header--center">
-          <span class="wd-section__eyebrow">FAQ</span>
-          <h2 class="wd-section__title">Відповіді на часті запитання</h2>
-          <p class="wd-section__text">
-            Якщо маєте інше питання, просто напишіть нам.
-          </p>
-        </div>
-
-        <div class="wd-faq__list">
-          {faq.map((item) => (
-            <details class="wd-faq__item">
-              <summary>{item.question}</summary>
-              <p>{item.answer}</p>
-            </details>
           ))}
         </div>
       </div>
@@ -771,47 +624,6 @@ const faqStructuredData = {
     }
   </script>
 
-  <script nonce={nonce}>
-    const baseWidth = 900;
-    const baseHeight = 1200;
-    const frames = document.querySelectorAll('.wd-case__frame');
-
-    const applyScale = (frame) => {
-      const iframe = frame.querySelector('iframe');
-      const width = frame.clientWidth;
-      if (!width || !iframe) return;
-      const scale = width / baseWidth;
-      frame.style.setProperty('--demo-scale', scale.toFixed(3));
-
-      const doc = iframe.contentDocument;
-      if (doc) {
-        const height = Math.max(doc.documentElement.scrollHeight, doc.body?.scrollHeight || 0, baseHeight);
-        iframe.style.height = `${height}px`;
-        frame.style.height = `${Math.round(height * scale)}px`;
-      } else {
-        iframe.style.height = `${baseHeight}px`;
-        frame.style.height = `${Math.round(baseHeight * scale)}px`;
-      }
-    };
-
-    frames.forEach((frame) => {
-      const iframe = frame.querySelector('iframe');
-      if (!iframe) return;
-      iframe.addEventListener('load', () => applyScale(frame));
-    });
-
-    if ('ResizeObserver' in window) {
-      const observer = new ResizeObserver((entries) => {
-        entries.forEach((entry) => applyScale(entry.target));
-      });
-      frames.forEach((frame) => observer.observe(frame));
-    } else {
-      const update = () => frames.forEach(applyScale);
-      update();
-      window.addEventListener('resize', update);
-    }
-  </script>
-
   <style>
     :global(.wd-page) {
       --wd-ink: #e2e8f0;
@@ -919,6 +731,7 @@ const faqStructuredData = {
       display: grid;
       gap: 28px;
       align-items: center;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
     }
 
     .wd-hero__copy {
@@ -1755,139 +1568,17 @@ const faqStructuredData = {
       margin-bottom: 8px;
     }
 
-    .wd-case__visuals {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 22px;
-      margin-bottom: 28px;
-    }
-
-    .wd-case__card {
-      border-radius: 24px;
-      padding: 20px;
-      border: 1px solid rgba(148, 163, 184, 0.2);
-      background: rgba(15, 23, 42, 0.78);
-      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.4);
-      display: grid;
-      gap: 18px;
-    }
-
-    .wd-case__preview {
-      display: grid;
-      gap: 12px;
-    }
-
-    .wd-case__head {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .wd-case__badge {
-      background: rgb(var(--case-accent-rgb));
-      color: #0b0f1a;
-      font-weight: 700;
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      padding: 6px 10px;
-      border-radius: 999px;
-    }
-
-    .wd-case__pill {
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.25);
-      color: rgba(226, 232, 240, 0.7);
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-    }
-
-    .wd-case__frame {
-      --demo-scale: 1;
-      position: relative;
-      border-radius: 18px;
-      border: 1px solid rgba(148, 163, 184, 0.2);
-      background: rgba(8, 12, 22, 0.85);
-      overflow: hidden;
-      height: calc(1200px * var(--demo-scale));
-    }
-
-    .wd-case__frame iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 900px;
-      height: 1200px;
-      border: 0;
-      transform: scale(var(--demo-scale));
-      transform-origin: top left;
-      pointer-events: none;
-    }
-
-    .wd-case__content h3 {
-      font-size: var(--wd-text-xl);
-      line-height: 1.3;
-      margin-bottom: 10px;
-      color: #f8fafc;
-    }
-
-    .wd-case__list {
-      list-style: none;
-      padding: 0;
-      margin: 12px 0 0;
-      display: grid;
-      gap: 8px;
-      color: #9ca3af;
-      font-size: var(--wd-text-base);
-      line-height: 1.6;
-    }
-
-    .wd-case__list li {
-      display: flex;
-      align-items: flex-start;
-    }
-
-    .wd-case__list li::before {
-      content: '';
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: rgb(var(--case-accent-rgb));
-      margin: 7px 10px 0 0;
-      flex-shrink: 0;
-    }
-
-    .wd-case__metrics {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
-    }
-
-    .wd-case__stat {
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(var(--case-accent-rgb), 0.45);
-      background: rgba(var(--case-accent-rgb), 0.2);
-      color: rgba(226, 232, 240, 0.95);
-      font-weight: 600;
-      font-size: 0.8rem;
-    }
-
     .wd-testimonial {
       display: flex;
       flex-direction: column;
       gap: 16px;
-      min-height: 230px;
+      min-height: 240px;
     }
 
     .wd-testimonial__quote {
       font-size: var(--wd-text-base);
-      color: #d1d5db;
       line-height: 1.6;
+      color: #e2e8f0;
     }
 
     .wd-testimonial__meta {
@@ -1907,19 +1598,18 @@ const faqStructuredData = {
     .wd-avatar {
       width: 42px;
       height: 42px;
-      border-radius: 50%;
+      border-radius: 14px;
       display: grid;
       place-items: center;
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: #0b0f1a;
-      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.6), rgba(15, 23, 42, 0)),
-        var(--accent);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0)), var(--accent, #38bdf8);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
     }
 
     .wd-testimonial__name {
-      font-weight: 600;
+      font-weight: 700;
       color: #f8fafc;
     }
 
@@ -1929,149 +1619,104 @@ const faqStructuredData = {
     }
 
     .wd-testimonial__result {
-      padding: 6px 12px;
+      font-size: var(--wd-text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #f8fafc;
       border-radius: 999px;
-      border: 1px solid rgba(249, 115, 22, 0.45);
-      background: rgba(249, 115, 22, 0.18);
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 0.8rem;
-      font-weight: 600;
+      padding: 6px 10px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.6);
+      white-space: nowrap;
     }
 
     .wd-package {
       position: relative;
+      display: grid;
+      gap: 12px;
+      padding: 26px;
       border-radius: 24px;
-      padding: 28px;
-      background: rgba(15, 23, 42, 0.75);
-      border: 1px solid rgba(148, 163, 184, 0.2);
-      box-shadow: 0 26px 55px rgba(0, 0, 0, 0.4);
-      border-top: 4px solid var(--accent);
+      background: linear-gradient(165deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.7));
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+    }
+
+    .wd-package::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.08), transparent 60%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .wd-package::after {
+      content: "";
+      position: absolute;
+      top: 22px;
+      left: 22px;
+      width: 42px;
+      height: 3px;
+      border-radius: 999px;
+      background: var(--accent, #38bdf8);
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.2);
+      pointer-events: none;
+    }
+
+    .wd-package > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .wd-package h3 {
+      font-size: var(--wd-text-xl);
+      margin: 0;
+      color: #f8fafc;
     }
 
     .wd-package__subtitle {
-      font-weight: 600;
-      margin-bottom: 8px;
+      margin: 0;
+      font-size: var(--wd-text-sm);
+      color: #d1d5db;
     }
 
     .wd-package__price {
-      font-size: var(--wd-text-xl);
+      font-size: var(--wd-text-2xl);
       font-weight: 700;
-      color: #f8fafc;
-      margin-bottom: 10px;
+      color: #ffffff;
     }
 
     .wd-package__meta {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin: 16px 0;
     }
 
     .wd-package__meta span {
-      padding: 6px 12px;
+      padding: 6px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      font-size: 12px;
-      font-weight: 600;
-      color: rgba(226, 232, 240, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      color: #e2e8f0;
+      font-size: var(--wd-text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      background: rgba(15, 23, 42, 0.6);
     }
 
     .wd-package__list {
       list-style: none;
       padding: 0;
-      margin: 0;
+      margin: 10px 0 0;
       display: grid;
-      gap: 10px;
+      gap: 8px;
+      color: #d1d5db;
+      font-size: var(--wd-text-base);
     }
 
     .wd-package__list li {
       display: flex;
-      gap: 10px;
       align-items: flex-start;
-      font-size: var(--wd-text-base);
-      line-height: 1.6;
-      color: #9ca3af;
-    }
-
-    .wd-package__list li::before {
-      content: '';
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent);
-      margin-top: 6px;
-      flex-shrink: 0;
-    }
-
-    .wd-badge {
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: var(--accent);
-      color: #0b0f1a;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .wd-note {
-      margin-top: 20px;
-      text-align: center;
-      font-size: var(--wd-text-base);
-      color: #9ca3af;
-    }
-
-    .wd-faq__list {
-      display: grid;
-      gap: 16px;
-    }
-
-    .wd-faq__item {
-      border-radius: 18px;
-      padding: 18px 22px;
-      border: 1px solid rgba(148, 163, 184, 0.2);
-      background: rgba(15, 23, 42, 0.85);
-    }
-
-    .wd-faq__item summary {
-      cursor: pointer;
-      font-weight: 600;
-      font-size: var(--wd-text-base);
-      list-style: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .wd-faq__item summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .wd-faq__item summary::after {
-      content: '+';
-      font-size: 1.25rem;
-      transition: transform 0.2s ease;
-    }
-
-    .wd-faq__item[open] summary::after {
-      transform: rotate(45deg);
-    }
-
-    .wd-faq__item p {
-      margin-top: 12px;
-      font-size: var(--wd-text-base);
-      line-height: 1.6;
-      color: #9ca3af;
-    }
-
-    @media (min-width: 1024px) {
-      .wd-hero__grid {
-        grid-template-columns: 1.1fr 0.9fr;
-      }
     }
 
     @media (max-width: 1024px) {
@@ -2178,17 +1823,19 @@ const faqStructuredData = {
       }
 
       .wd-hero__build {
+        width: 100%;
+        max-width: none;
         min-height: 360px;
         align-self: center;
       }
 
       .wd-build {
-        width: min(360px, 100%);
+        width: 100%;
         min-height: 360px;
       }
 
       .wd-build__screen {
-        width: min(300px, 100%);
+        width: 100%;
         padding: 14px;
       }
 
