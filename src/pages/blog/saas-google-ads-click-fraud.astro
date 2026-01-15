@@ -45,8 +45,6 @@ const structuredData = {
   articleSection: ['Google Ads', 'B2B SaaS', 'Click Fraud']
 };
 
-const badgeTag = meta.category;
-
 const toc = [
   { id: 'summary', title: 'Коротко про кейс' },
   { id: 'context', title: 'SaaS‑проєкт і конкурентне середовище' },
@@ -82,12 +80,6 @@ const toc = [
           <span class="text-white">{meta.title}</span>
         </nav>
 
-        <div class="flex flex-wrap items-center gap-3 mb-6">
-          <span class="px-4 py-1.5 bg-accent-500/20 text-accent-400 text-sm font-medium rounded-full">
-            {badgeTag}
-          </span>
-        </div>
-
         <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
           {meta.title}
         </h1>
@@ -98,7 +90,7 @@ const toc = [
           <span>{meta.readTime}</span>
         </div>
 
-        <p class="text-xl text-gray-400 mb-8 max-w-3xl leading-relaxed">
+        <p class="text-xl text-gray-400 mb-8 leading-relaxed">
           У цьому кейсі показуємо, як ми виявили й зменшили склікування (click fraud) у Google Ads для SaaS‑проєкту в США: від аномального CTR і низького CPC до використання ClickCease та повернення коштів від Google.
         </p>
       </div>
