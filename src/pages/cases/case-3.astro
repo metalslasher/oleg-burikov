@@ -3,32 +3,32 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
 
 const caseData = {
-  title: "Житловий комплекс у Києві",
+  title: "Житловий комплекс Synergy у Києві",
   industry: "Real Estate",
   period: "Серпень - листопад 2024",
-  budget: "₴420,000",
+  budget: "$11,895",
   market: "Київ",
-  service: "Google Ads"
+  service: "Meta Ads"
 };
-
-const keyMetrics = [
-  { value: "865", label: "Ліди", description: "Заповнені заявки з лендінгу" },
-  { value: "₴510", label: "CPL", description: "Середня вартість ліда" },
-  { value: "132", label: "Записи на перегляд", description: "Кваліфіковані дії" },
-  { value: "4.1%", label: "CR лендінгу", description: "Конверсія в заявку" }
-];
 
 const results = {
   leads: "865",
-  cpl: "₴510",
-  visits: "132",
-  qualifiedRate: "41%"
+  cpl: "$13.75",
+  viewings: "132",
+  qualifiedRate: "15%"
 };
+
+const keyMetrics = [
+  { value: "$13.75", label: "CPL", description: "Середня вартість ліда" },
+  { value: "15%", label: "Запис на перегляд", description: "Частка переглядів від лідів" },
+  { value: "$11,895", label: "Витрати", description: "Сумарний бюджет Meta Ads" },
+  { value: "865", label: "Ліди", description: "Meta lead-форми та заявки" }
+];
 ---
 
 <PageLayout
-  title="Кейс: Житловий комплекс у Києві | Targetsy Agency"
-  description="Google Ads для житлового комплексу в Києві: 865 лідів, CPL ₴510 та 132 записи на перегляд завдяки сегментації та оптимізації."
+  title="Кейс Meta Ads для житлового комплексу у Києві | Targetsy Agency"
+  description="Кейс Meta Ads для ЖК у Києві: 865 лідів, CPL $13.75 та 132 записи на перегляд за серпень–листопад 2024."
 >
   <!-- Hero Section -->
   <section class="pt-8 pb-12 px-4">
@@ -42,107 +42,67 @@ const results = {
         <span class="text-white">{caseData.title}</span>
       </nav>
 
-      <!-- Header -->
-      <div class="flex flex-wrap items-center gap-3 mb-6">
-        <span class="px-4 py-1.5 bg-accent-500/20 text-accent-400 text-sm font-medium rounded-full">
-          {caseData.industry}
-        </span>
-        <span class="px-4 py-1.5 bg-white/5 border border-white/10 text-gray-300 text-sm rounded-full">
-          {caseData.service}
-        </span>
-        <span class="px-4 py-1.5 bg-white/5 border border-white/10 text-gray-300 text-sm rounded-full">
-          {caseData.market}
-        </span>
-      </div>
-
       <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-        865 лідів для житлового комплексу в Києві з CPL <span class="text-accent-400">₴510</span>
+        <span class="text-accent-400">865</span> лідів для ЖК у Києві з CPL <span class="text-accent-400">$13.75</span>
       </h1>
 
-      <p class="text-xl text-gray-400 mb-8 max-w-3xl">
-        Проєкт у конкурентному сегменті первинного житла. Мета - стабільно отримувати заявки, відсіювати нерелевантні
-        аудиторії та підвищити частку записів на перегляд.
-      </p>
-
-      <!-- Key Metrics Grid -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-        {keyMetrics.map((metric) => (
-          <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5 text-center hover:border-accent-500/50 transition-colors">
-            <div class="text-2xl md:text-3xl font-bold text-accent-400 mb-1">{metric.value}</div>
-            <div class="text-white font-medium mb-1">{metric.label}</div>
-            <div class="text-xs text-gray-400">{metric.description}</div>
-          </div>
-        ))}
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-6 mb-8">
+        <img
+          src="/images/cases/synergy_site_hero.png"
+          alt="Hero-секція сайту ЖК Synergy"
+          class="rounded-xl w-full border border-white/10"
+          loading="lazy"
+        />
       </div>
+
+      <p class="text-xl text-gray-400 mb-8">
+        ЖК Synergy — проєкт у конкурентному сегменті первинного житла Києва з активною фазою продажів.
+        Ми запускали Meta Ads для стабільного потоку цільових заявок і збільшення записів на перегляд, відсіюючи нерелевантні звернення.
+        Фокус — контроль CPL, якість лідів і прогнозоване навантаження на відділ продажів.
+      </p>
     </div>
   </section>
 
   <!-- Challenge Section -->
   <section class="py-12 px-4">
     <div class="max-w-5xl mx-auto">
-      <div class="grid lg:grid-cols-2 gap-12 items-start">
-        <div>
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 bg-accent-500/20 rounded-xl flex items-center justify-center">
-              <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
-            </div>
-            <h2 class="text-2xl font-bold text-white">Виклик</h2>
-          </div>
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-5 h-5 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-white">Виклик</h2>
+      </div>
 
-          <p class="text-gray-400 mb-6 leading-relaxed">
-            Ринок первинної нерухомості має довгий цикл прийняття рішення та високі вимоги до якості лідів. Потрібно було
-            знизити CPL, збільшити частку записів на перегляд і не втратити обсяг трафіку.
-          </p>
+      <p class="text-gray-400 mb-6 leading-relaxed">
+        Ринок новобудов у Києві перегрітий: висока конкуренція в аукціоні Meta Ads, часті нецільові звернення та складність з якістю лідів.
+        Потрібно було стабілізувати CPL, підняти частку якісних лідів і збільшити записи на перегляд без росту бюджету.
+      </p>
 
-          <div class="space-y-3">
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
-              </svg>
-              <span class="text-gray-400">Висока конкуренція на бренд і загальні запити</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span class="text-gray-400">Низька якість частини заявок</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span class="text-gray-400">Необхідність утримати CPL у цільових межах</span>
-            </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+          <div class="flex items-start gap-3">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+            <span class="text-white font-medium">Висока конкуренція за цільові аудиторії в Києві</span>
           </div>
         </div>
-
-        <!-- Stats Card -->
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
-          <div class="text-sm text-white font-medium mb-4 flex items-center gap-2">
-            <svg class="w-4 h-4 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            Підсумок кампаній
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+          <div class="flex items-start gap-3">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+            <span class="text-white font-medium">Нецільові звернення й різна мотивація лідів</span>
           </div>
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <div class="text-3xl font-bold text-white">{results.leads}</div>
-              <div class="text-sm text-gray-400">Ліди</div>
-            </div>
-            <div>
-              <div class="text-3xl font-bold text-white">{results.cpl}</div>
-              <div class="text-sm text-gray-400">CPL</div>
-            </div>
-            <div>
-              <div class="text-2xl font-bold text-white">{results.visits}</div>
-              <div class="text-sm text-gray-400">Записи на перегляд</div>
-            </div>
-            <div>
-              <div class="text-2xl font-bold text-white">{results.qualifiedRate}</div>
-              <div class="text-sm text-gray-400">Частка якісних лідів</div>
-            </div>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+          <div class="flex items-start gap-3">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+            <span class="text-white font-medium">Потрібно збільшити записи на перегляд без росту CPL</span>
+          </div>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+          <div class="flex items-start gap-3">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+            <span class="text-white font-medium">Сегментація за районами й бюджетами</span>
           </div>
         </div>
       </div>
@@ -153,15 +113,15 @@ const results = {
   <section class="py-12 px-4">
     <div class="max-w-5xl mx-auto">
       <div class="flex items-center gap-3 mb-8">
-        <div class="w-10 h-10 bg-accent-500/20 rounded-xl flex items-center justify-center">
-          <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="w-5 h-5 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
           </svg>
         </div>
         <h2 class="text-2xl font-bold text-white">Що зробили</h2>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
           <div class="mb-4">
             <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -169,7 +129,7 @@ const results = {
             </svg>
           </div>
           <h3 class="text-lg font-bold text-white mb-2">Сегментація аудиторій</h3>
-          <p class="text-gray-400 text-sm">Окремі кампанії під різні запити: локація, тип житла, бюджет.</p>
+          <p class="text-gray-400 text-sm">Розділили аудиторії за районами Києва, інтересами та поведінкою.</p>
         </div>
 
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
@@ -178,8 +138,8 @@ const results = {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2">Search + Display</h3>
-          <p class="text-gray-400 text-sm">Пошук для гарячого попиту, медійка для формування наміру.</p>
+          <h3 class="text-lg font-bold text-white mb-2">Lookalike та інтереси</h3>
+          <p class="text-gray-400 text-sm">Зібрали LAL на базі лідів і протестували інтереси під купівлю житла.</p>
         </div>
 
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
@@ -188,44 +148,104 @@ const results = {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2">Якісні фільтри</h3>
-          <p class="text-gray-400 text-sm">Мінус-слова та уточнення, що відсікають нерелевантні запити.</p>
+          <h3 class="text-lg font-bold text-white mb-2">Креативні сценарії</h3>
+          <p class="text-gray-400 text-sm">Окремі меседжі під УТП: інфраструктура, укриття, програми фінансування.</p>
         </div>
 
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
           <div class="mb-4">
             <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a2 2 0 01-1-1v-6z" />
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2">Посадкова сторінка</h3>
-          <p class="text-gray-400 text-sm">Посилили меседжі, планування перегляду та соцдоказ.</p>
+          <h3 class="text-lg font-bold text-white mb-2">Lead Ads + сайт</h3>
+          <p class="text-gray-400 text-sm">Паралельно вели Lead Ads і трафік на сайт, щоб відбирати найякісніші заявки.</p>
         </div>
 
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
           <div class="mb-4">
             <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2">Оптимізація під CPL</h3>
-          <p class="text-gray-400 text-sm">Стратегія ставок з контролем вартості ліда.</p>
+          <h3 class="text-lg font-bold text-white mb-2">Оптимізація лід-форми</h3>
+          <p class="text-gray-400 text-sm">Скоротили форму та додали кваліфікаційні поля для релевантності.</p>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
+          <div class="mb-4">
+            <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Ретаргетинг і відсікання</h3>
+          <p class="text-gray-400 text-sm">Ремаркетинг на взаємодії та виключення нецільових сегментів.</p>
         </div>
       </div>
 
-      <!-- Campaign Screenshot -->
-      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 mb-8">
+      <!-- Campaigns Section -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 mb-6">
         <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
           <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
           </svg>
-          Фрагмент кампаній Google Ads
+          Рекламні кампанії
         </h3>
-        <div class="overflow-x-auto">
-          <img 
-            src="/images/cases/synergy_campaigns.png" 
-            alt="Кампанії Google Ads для житлового комплексу"
+        <div class="overflow-x-auto mb-4">
+          <img
+            src="/images/cases/synergy_campaigns.png"
+            alt="Рекламні кампанії Meta Ads для ЖК Synergy"
             class="rounded-xl w-full border border-white/10"
+            loading="lazy"
+          />
+        </div>
+        <div class="text-sm text-gray-400 leading-relaxed space-y-3">
+          <p>
+            На скріншоті — структура Meta Ads з окремими кампаніями під ліди, промо та трафік на сайт.
+            Основний акцент — Lead Ads у Києві з підтримкою промо‑кампаній і A/B тестів креативів.
+          </p>
+          <ul class="grid md:grid-cols-3 gap-3 text-gray-300">
+            <li class="flex items-start gap-3">
+              <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+              <span>Lead Ads на холодні аудиторії Києва з фокусом на заявки.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+              <span>Промо‑кампанії для прогріву та сезонних меседжів.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+              <span>Lead‑to‑site кампанії й A/B тести креативів та форм.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Creatives Section -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4-4 4 4 8-8M4 4h16v16H4V4z" />
+          </svg>
+          Рекламні креативи
+        </h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          <img
+            src="/images/cases/synergy_cereo_1.jpg"
+            alt="Креатив про програму Оселя та ВПО для ЖК Synergy"
+            class="rounded-xl w-full border border-white/10 bg-white/5"
+            loading="lazy"
+          />
+          <img
+            src="/images/cases/synergy_cereo_2.jpg"
+            alt="Креатив про інфраструктуру та укриття в ЖК Synergy"
+            class="rounded-xl w-full border border-white/10 bg-white/5"
+            loading="lazy"
+          />
+          <img
+            src="/images/cases/synergy_cereo_3.jpg"
+            alt="Креатив про стабільність і інженерні рішення ЖК Synergy"
+            class="rounded-xl w-full border border-white/10 bg-white/5"
             loading="lazy"
           />
         </div>
@@ -237,31 +257,22 @@ const results = {
   <section class="py-12 px-4">
     <div class="max-w-5xl mx-auto">
       <div class="flex items-center gap-3 mb-8">
-        <div class="w-10 h-10 bg-accent-500/20 rounded-xl flex items-center justify-center">
-          <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="w-5 h-5 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
           </svg>
         </div>
         <h2 class="text-2xl font-bold text-white">Результати</h2>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center mb-12">
-        <div class="bg-white/5 border border-white/10 rounded-xl p-4">
-          <div class="text-2xl font-bold text-white">{results.leads}</div>
-          <div class="text-xs text-gray-400">Ліди</div>
-        </div>
-        <div class="bg-white/5 border border-white/10 rounded-xl p-4">
-          <div class="text-2xl font-bold text-white">{results.cpl}</div>
-          <div class="text-xs text-gray-400">CPL</div>
-        </div>
-        <div class="bg-white/5 border border-white/10 rounded-xl p-4">
-          <div class="text-2xl font-bold text-white">{results.visits}</div>
-          <div class="text-xs text-gray-400">Записи на перегляд</div>
-        </div>
-        <div class="bg-white/5 border border-white/10 rounded-xl p-4">
-          <div class="text-2xl font-bold text-white">{results.qualifiedRate}</div>
-          <div class="text-xs text-gray-400">Якісні ліди</div>
-        </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        {keyMetrics.map((metric) => (
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-5 text-center">
+            <div class="text-2xl md:text-3xl font-bold text-accent-400 mb-1">{metric.value}</div>
+            <div class="text-white font-medium mb-1">{metric.label}</div>
+            <div class="text-xs text-gray-400">{metric.description}</div>
+          </div>
+        ))}
       </div>
 
       <!-- Key Takeaways -->
@@ -279,8 +290,8 @@ const results = {
               <span class="text-accent-400 font-bold">1</span>
             </div>
             <div>
-              <h4 class="text-white font-medium mb-1">Локальна сегментація = якісні ліди</h4>
-              <p class="text-gray-400 text-sm">Запити за районами дали найвищу конверсію.</p>
+              <h4 class="text-white font-medium mb-1">Гео-кластери підняли якість лідів</h4>
+              <p class="text-gray-400 text-sm">Розподіл за районами зменшив шумні заявки.</p>
             </div>
           </div>
 
@@ -289,8 +300,8 @@ const results = {
               <span class="text-accent-400 font-bold">2</span>
             </div>
             <div>
-              <h4 class="text-white font-medium mb-1">Посадкова сторінка критично впливає на CR</h4>
-              <p class="text-gray-400 text-sm">Після оптимізації зросла частка заявок.</p>
+              <h4 class="text-white font-medium mb-1">Оголошення з УТП знижують CPL</h4>
+              <p class="text-gray-400 text-sm">Акцент на плануваннях і локації підвищив конверсію.</p>
             </div>
           </div>
 
@@ -299,8 +310,8 @@ const results = {
               <span class="text-accent-400 font-bold">3</span>
             </div>
             <div>
-              <h4 class="text-white font-medium mb-1">Контроль якості важливіший за обсяг</h4>
-              <p class="text-gray-400 text-sm">Записи на перегляд підвищили цінність ліда.</p>
+              <h4 class="text-white font-medium mb-1">Фокус на переглядах підвищує продажі</h4>
+              <p class="text-gray-400 text-sm">Оптимізація під записи дала більше якісних лідів.</p>
             </div>
           </div>
 
@@ -309,8 +320,8 @@ const results = {
               <span class="text-accent-400 font-bold">4</span>
             </div>
             <div>
-              <h4 class="text-white font-medium mb-1">Search + Display працюють разом</h4>
-              <p class="text-gray-400 text-sm">Поєднання каналів підсилює ефект у довгому циклі.</p>
+              <h4 class="text-white font-medium mb-1">Тести креативів очищують трафік</h4>
+              <p class="text-gray-400 text-sm">A/B сценарії дали нижчий CPL і більше якісних заявок.</p>
             </div>
           </div>
         </div>

@@ -6,30 +6,22 @@ const caseData = {
   title: "Магазин сирних снеків",
   industry: "eCommerce",
   period: "Вересень - листопад 2024",
-  budget: "₴260,000",
+  budget: "₴189,453",
   market: "Україна",
   service: "Meta Ads"
 };
 
 const keyMetrics = [
-  { value: "4.2x", label: "ROAS", description: "Стабільна окупність реклами" },
-  { value: "₴92", label: "CPA", description: "Вартість покупки" },
-  { value: "3,240", label: "Покупки", description: "Замовлення за період" },
-  { value: "₴340", label: "AOV", description: "Середній чек" }
+  { value: "442", label: "Покупки", description: "Замовлення за період" },
+  { value: "₴429", label: "CPA", description: "Середня вартість покупки" },
+  { value: "2.0x", label: "ROAS", description: "Окупність рекламних витрат" },
+  { value: "₴850", label: "AOV", description: "Середній чек замовлення" }
 ];
-
-const results = {
-  revenue: "₴1.1M",
-  purchases: "3,240",
-  cpa: "₴92",
-  roas: "4.2x",
-  newCustomers: "58%"
-};
 ---
 
 <PageLayout
-  title="Кейс: Магазин сирних снеків | Targetsy Agency"
-  description="Meta Ads для eCommerce: 3,240 покупок, CPA ₴92 та ROAS 4.2x для магазину сирних снеків."
+  title="Кейс Meta Ads для магазину сирних снеків | Targetsy Agency"
+  description="Кейс Meta Ads для eCommerce: 442 покупки, CPA ₴429, ROAS 2.0x та AOV ₴850 для магазину сирних снеків."
 >
   <!-- Hero Section -->
   <section class="pt-8 pb-12 px-4">
@@ -43,107 +35,67 @@ const results = {
         <span class="text-white">{caseData.title}</span>
       </nav>
 
-      <!-- Header -->
-      <div class="flex flex-wrap items-center gap-3 mb-6">
-        <span class="px-4 py-1.5 bg-accent-500/20 text-accent-400 text-sm font-medium rounded-full">
-          {caseData.industry}
-        </span>
-        <span class="px-4 py-1.5 bg-white/5 border border-white/10 text-gray-300 text-sm rounded-full">
-          {caseData.service}
-        </span>
-        <span class="px-4 py-1.5 bg-white/5 border border-white/10 text-gray-300 text-sm rounded-full">
-          {caseData.market}
-        </span>
-      </div>
-
       <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-        3,240 покупок для магазину сирних снеків з CPA <span class="text-accent-400">₴92</span>
+        <span class="text-accent-400">442</span> покупки для магазину сирних снеків з CPA <span class="text-accent-400">₴429</span>
       </h1>
 
-      <p class="text-xl text-gray-400 mb-8 max-w-3xl">
-        Завдання - масштабувати продажі через Meta Ads, зберігаючи високу маржинальність. Пріоритет - покупка,
-        а не просто трафік. Тестували креативи, аудиторії та структуру воронки.
-      </p>
-
-      <!-- Key Metrics Grid -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-        {keyMetrics.map((metric) => (
-          <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5 text-center hover:border-accent-500/50 transition-colors">
-            <div class="text-2xl md:text-3xl font-bold text-accent-400 mb-1">{metric.value}</div>
-            <div class="text-white font-medium mb-1">{metric.label}</div>
-            <div class="text-xs text-gray-400">{metric.description}</div>
-          </div>
-        ))}
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-6 mb-8">
+        <img
+          src="/images/cases/sneco_site_hero.png"
+          alt="Hero-секція сайту магазину сирних снеків"
+          class="rounded-xl w-full border border-white/10"
+          loading="lazy"
+        />
       </div>
+
+      <p class="text-xl text-gray-400 mb-8">
+        Магазин сирних снеків — eCommerce бренд з регулярними повторними покупками та високою залежністю від креативів у стрічці.
+        Ми зосередилися на стабільному масштабуванні без втрати ефективності, тестували каталожні й креативні підходи
+        та вибудували структуру, яка підтримує повторні покупки.
+      </p>
     </div>
   </section>
 
   <!-- Challenge Section -->
   <section class="py-12 px-4">
     <div class="max-w-5xl mx-auto">
-      <div class="grid lg:grid-cols-2 gap-12 items-start">
-        <div>
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 bg-accent-500/20 rounded-xl flex items-center justify-center">
-              <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
-            </div>
-            <h2 class="text-2xl font-bold text-white">Виклик</h2>
-          </div>
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-5 h-5 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-white">Виклик</h2>
+      </div>
 
-          <p class="text-gray-400 mb-6 leading-relaxed">
-            Ринок снеків насичений, користувачі швидко порівнюють альтернативи. Потрібно було виділитись у стрічці,
-            підвищити відсоток покупок і масштабувати бюджет без зростання CPA.
-          </p>
+      <p class="text-gray-400 mb-6 leading-relaxed">
+        Категорія снеків дуже конкурентна, а увага у стрічці коротка. Потрібно було швидко знаходити переможні креативи,
+        масштабувати бюджети без росту CPA та збільшити частку нових клієнтів.
+      </p>
 
-          <div class="space-y-3">
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3v18h18M7 15l4-4 3 3 5-6" />
-              </svg>
-              <span class="text-gray-400">Висока конкуренція в стрічці Meta</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span class="text-gray-400">Ризик зростання CPA при масштабуванні</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span class="text-gray-400">Необхідність збільшити частку нових клієнтів</span>
-            </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+          <div class="flex items-start gap-3">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+            <span class="text-white font-medium">Висока конкуренція у стрічці Meta</span>
           </div>
         </div>
-
-        <!-- Stats Card -->
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
-          <div class="text-sm text-white font-medium mb-4 flex items-center gap-2">
-            <svg class="w-4 h-4 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            Підсумок кампаній
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+          <div class="flex items-start gap-3">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+            <span class="text-white font-medium">Швидке вигорання креативів</span>
           </div>
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <div class="text-3xl font-bold text-white">{results.revenue}</div>
-              <div class="text-sm text-gray-400">Дохід</div>
-            </div>
-            <div>
-              <div class="text-3xl font-bold text-white">{results.roas}</div>
-              <div class="text-sm text-gray-400">ROAS</div>
-            </div>
-            <div>
-              <div class="text-2xl font-bold text-white">{results.purchases}</div>
-              <div class="text-sm text-gray-400">Покупки</div>
-            </div>
-            <div>
-              <div class="text-2xl font-bold text-white">{results.cpa}</div>
-              <div class="text-sm text-gray-400">CPA</div>
-            </div>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+          <div class="flex items-start gap-3">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+            <span class="text-white font-medium">Ризик зростання CPA при масштабуванні</span>
+          </div>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+          <div class="flex items-start gap-3">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+            <span class="text-white font-medium">Потреба збільшити частку нових покупців</span>
           </div>
         </div>
       </div>
@@ -154,15 +106,15 @@ const results = {
   <section class="py-12 px-4">
     <div class="max-w-5xl mx-auto">
       <div class="flex items-center gap-3 mb-8">
-        <div class="w-10 h-10 bg-accent-500/20 rounded-xl flex items-center justify-center">
-          <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="w-5 h-5 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
           </svg>
         </div>
         <h2 class="text-2xl font-bold text-white">Що зробили</h2>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
           <div class="mb-4">
             <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -180,7 +132,7 @@ const results = {
             </svg>
           </div>
           <h3 class="text-lg font-bold text-white mb-2">Сегментація аудиторій</h3>
-          <p class="text-gray-400 text-sm">Інтереси, lookalike та ретаргетинг у різних групах.</p>
+          <p class="text-gray-400 text-sm">Інтереси, lookalike і broad у різних групах.</p>
         </div>
 
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
@@ -196,11 +148,11 @@ const results = {
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
           <div class="mb-4">
             <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a2 2 0 01-1-1v-6z" />
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2">Покращення лендінгу</h3>
-          <p class="text-gray-400 text-sm">Додали соціальний доказ і спростили шлях до покупки.</p>
+          <h3 class="text-lg font-bold text-white mb-2">Креативна матриця</h3>
+          <p class="text-gray-400 text-sm">Офери під набори та різні сценарії споживання.</p>
         </div>
 
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
@@ -209,26 +161,56 @@ const results = {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2">Scale-підхід</h3>
-          <p class="text-gray-400 text-sm">Масштабували бюджети без різкого росту CPA.</p>
+          <h3 class="text-lg font-bold text-white mb-2">Ретаргетинг-ланцюжок</h3>
+          <p class="text-gray-400 text-sm">Сегменти за переглядом, кошиком і повторним інтересом.</p>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
+          <div class="mb-4">
+            <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Покращення лендінгу</h3>
+          <p class="text-gray-400 text-sm">Додали соціальний доказ і підкреслили вигоду наборів.</p>
         </div>
       </div>
 
-      <!-- Campaign Screenshot -->
-      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 mb-8">
+      <!-- Campaigns Section -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
         <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
           <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
           </svg>
-          Фрагмент кампаній Meta Ads
+          Рекламні кампанії
         </h3>
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto mb-4">
           <img
             src="/images/cases/sneko_campaigns.png"
             alt="Кампанії Meta Ads для магазину сирних снеків"
             class="rounded-xl w-full border border-white/10"
             loading="lazy"
           />
+        </div>
+        <div class="text-sm text-gray-400 leading-relaxed space-y-3">
+          <p>
+            Структуру кампаній будували навколо Purchase із чітким розділенням на холодний трафік, lookalike та ретаргетинг.
+            Основний бюджет спрямували на prospecting, а ретаргетинг підтримував стабільний CPA і повторні покупки.
+          </p>
+          <ul class="grid md:grid-cols-3 gap-3 text-gray-300">
+            <li class="flex items-start gap-3">
+              <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+              <span>Тестували як класичні каталожні кампанії, так і кампанії з креативами.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+              <span>Ретаргетинг на відеоперегляд, додавання в кошик і checkout.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+              <span>Окремі групи оголошень під офери та набори для росту середнього чека.</span>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -238,35 +220,22 @@ const results = {
   <section class="py-12 px-4">
     <div class="max-w-5xl mx-auto">
       <div class="flex items-center gap-3 mb-8">
-        <div class="w-10 h-10 bg-accent-500/20 rounded-xl flex items-center justify-center">
-          <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="w-5 h-5 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
           </svg>
         </div>
         <h2 class="text-2xl font-bold text-white">Результати</h2>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center mb-12">
-        <div class="bg-white/5 border border-white/10 rounded-xl p-4">
-          <div class="text-2xl font-bold text-white">{results.purchases}</div>
-          <div class="text-xs text-gray-400">Покупки</div>
-        </div>
-        <div class="bg-white/5 border border-white/10 rounded-xl p-4">
-          <div class="text-2xl font-bold text-white">{results.cpa}</div>
-          <div class="text-xs text-gray-400">CPA</div>
-        </div>
-        <div class="bg-white/5 border border-white/10 rounded-xl p-4">
-          <div class="text-2xl font-bold text-white">{results.roas}</div>
-          <div class="text-xs text-gray-400">ROAS</div>
-        </div>
-        <div class="bg-white/5 border border-white/10 rounded-xl p-4">
-          <div class="text-2xl font-bold text-white">{results.revenue}</div>
-          <div class="text-xs text-gray-400">Дохід</div>
-        </div>
-        <div class="bg-white/5 border border-white/10 rounded-xl p-4">
-          <div class="text-2xl font-bold text-white">{results.newCustomers}</div>
-          <div class="text-xs text-gray-400">Нові клієнти</div>
-        </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        {keyMetrics.map((metric) => (
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-5 text-center">
+            <div class="text-2xl md:text-3xl font-bold text-accent-400 mb-1">{metric.value}</div>
+            <div class="text-white font-medium mb-1">{metric.label}</div>
+            <div class="text-xs text-gray-400">{metric.description}</div>
+          </div>
+        ))}
       </div>
 
       <!-- Key Takeaways -->
@@ -294,8 +263,8 @@ const results = {
               <span class="text-accent-400 font-bold">2</span>
             </div>
             <div>
-              <h4 class="text-white font-medium mb-1">Lookalike 1-3% стабільно масштабує</h4>
-              <p class="text-gray-400 text-sm">Дали найбільший приріст продажів без росту CPA.</p>
+              <h4 class="text-white font-medium mb-1">Lookalike 1–3% масштабує без росту CPA</h4>
+              <p class="text-gray-400 text-sm">Дав найбільший приріст продажів без втрати ефективності.</p>
             </div>
           </div>
 
@@ -314,8 +283,8 @@ const results = {
               <span class="text-accent-400 font-bold">4</span>
             </div>
             <div>
-              <h4 class="text-white font-medium mb-1">Лендінг напряму впливає на ROAS</h4>
-              <p class="text-gray-400 text-sm">Зміни у структурі сторінки підняли AOV.</p>
+              <h4 class="text-white font-medium mb-1">Набори підвищили середній чек</h4>
+              <p class="text-gray-400 text-sm">Пакетні оффери дали стабільний приріст середнього чека.</p>
             </div>
           </div>
         </div>

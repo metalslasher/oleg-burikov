@@ -27,16 +27,16 @@ const results = {
 };
 
 const keyMetrics = [
-  { value: "173", label: "SQL-ліди", description: "Погоджені у CRM ліди для відділу продажів" },
-  { value: "36%", label: "MQL -> SQL", description: "Зростання частки кваліфікації лідів" },
-  { value: "9 днів", label: "Time to SQL", description: "Скорочення часу від кліка до SQL" },
-  { value: "5.1x", label: "Зниження CPL", description: "З $1,130 до $144" }
+  { value: "83", label: "SQL-ліди", description: "Погоджені у CRM ліди для відділу продажів" },
+  { value: "40%", label: "MQL -> SQL", description: "Частка MQL, що стали SQL" },
+  { value: "9 днів", label: "Час до SQL", description: "Скорочення часу від кліка до SQL" },
+  { value: "7.9x", label: "Зниження CPL", description: "З $1,130 до $144" }
 ];
 ---
 
 <PageLayout
-  title="Кейс: EDI & API платформа для B2B SaaS (США) | Targetsy Agency"
-  description="Знизили CPL з $1,130 до $144 та підняли якість SQL-лідів для B2B SaaS у США за допомогою системної оптимізації Google Ads."
+  title="Кейс Google Ads для B2B SaaS EDI/API (США) | Targetsy Agency"
+  description="Кейс Google Ads для B2B SaaS (EDI/API): CPL $1,130 → $144, 209 конверсій і 83 SQL-ліди в США."
 >
   <!-- Hero Section -->
   <section class="pt-8 pb-12 px-4">
@@ -50,114 +50,67 @@ const keyMetrics = [
         <span class="text-white">{caseData.title}</span>
       </nav>
 
-      <!-- Header -->
-      <div class="flex flex-wrap items-center gap-3 mb-6">
-        <span class="px-4 py-1.5 bg-accent-500/20 text-accent-400 text-sm font-medium rounded-full">
-          {caseData.industry}
-        </span>
-        <span class="px-4 py-1.5 bg-white/5 border border-white/10 text-gray-300 text-sm rounded-full">
-          {caseData.service}
-        </span>
-        <span class="px-4 py-1.5 bg-white/5 border border-white/10 text-gray-300 text-sm rounded-full">
-          {caseData.market}
-        </span>
-      </div>
-
       <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-        Знизили CPL з $1,130 до <span class="text-accent-400">$144</span> та стабілізували SQL-ліди для B2B SaaS у США
+        Знизили CPL з <span class="text-accent-400">$1,130</span> до <span class="text-accent-400">$144</span> для SaaS продукту у США
       </h1>
 
-      <p class="text-xl text-gray-400 mb-8 max-w-3xl">
-        Проєкт: інтеграційна EDI/API платформа для корпоративного сегмента. Високі CPC, довгі цикли продажів і
-        відсутність імпорту офлайн-конверсій давали дорогі, але слабко кваліфіковані ліди. Завдання - підвищити якість
-        та знизити CPL без втрати обсягу.
-      </p>
-
-      <!-- Key Metrics Grid -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-        {keyMetrics.map((metric) => (
-          <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5 text-center hover:border-accent-500/50 transition-colors">
-            <div class="text-2xl md:text-3xl font-bold text-accent-400 mb-1">{metric.value}</div>
-            <div class="text-white font-medium mb-1">{metric.label}</div>
-            <div class="text-xs text-gray-400">{metric.description}</div>
-          </div>
-        ))}
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-6 mb-8">
+        <img
+          src="/images/cases/cleo_site_hero.png"
+          alt="Hero-секція сайту клієнта Cleo"
+          class="rounded-xl w-full border border-white/10"
+          loading="lazy"
+        />
       </div>
+
+      <p class="text-xl text-gray-400 mb-8">
+        Cleo Integration Cloud — B2B платформа оркестрації ланцюга постачання для вантажовідправників і логістичних команд, що об’єднує API, EDI та MFT в одному рішенні.
+        Ми налаштували рекламу у США для залучення якісних лідів з корпоративного сегмента, де цикл продажів довгий і важлива точність.
+        Ми прагнули знизити CPL і підвищити частку SQL, прив’язати ліди до CRM та відстежувати якість, а також стабілізувати трафік з високим наміром у США.
+      </p>
     </div>
   </section>
 
   <!-- Challenge Section -->
   <section class="py-12 px-4">
     <div class="max-w-5xl mx-auto">
-      <div class="grid lg:grid-cols-2 gap-12 items-start">
-        <div>
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 bg-accent-500/20 rounded-xl flex items-center justify-center">
-              <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
-            </div>
-            <h2 class="text-2xl font-bold text-white">Виклик</h2>
-          </div>
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-5 h-5 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-white">Виклик</h2>
+      </div>
 
-          <p class="text-gray-400 mb-6 leading-relaxed">
-            B2B SaaS з дорогими ключовими словами та комплексним продуктом. Стартові кампанії давали трафік, але
-            комерційна якість лідів була низькою. Потрібно було підняти частку SQL без збільшення бюджету.
-          </p>
+      <p class="text-gray-400 mb-6 leading-relaxed">
+        Реклама працювала в ніші з дорогими ключовими словами та складним продуктом. Стартові кампанії приносили трафік, але генерували мало SQL-конверсій та кінцевих продажів. 
+        Потрібно було підняти частку SQL без збільшення бюджету.
+      </p>
 
-          <div class="space-y-3">
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3v18h18M7 15l4-4 3 3 5-6" />
-              </svg>
-              <span class="text-gray-400">CPL вище <strong class="text-white">$1,000</strong> при низькій якості лідів</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              <span class="text-gray-400">Низький перехід MQL -> SQL у CRM</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
-              </svg>
-              <span class="text-gray-400">Відсутність імпорту офлайн-конверсій</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span class="text-gray-400">Змішані сегменти та слабка релевантність оголошень</span>
-            </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+          <div class="flex items-start gap-3">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+            <span class="text-white font-medium">CPL вище $1,000 при низькій якості лідів</span>
           </div>
         </div>
-
-        <!-- Before Stats Card -->
-        <div class="bg-white/10 border border-white/20 rounded-2xl p-6">
-          <div class="text-sm text-white font-medium mb-4 flex items-center gap-2">
-            <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            До оптимізації (квітень 2024)
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+          <div class="flex items-start gap-3">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+            <span class="text-white font-medium">Неповноцінний трекінг подій</span>
           </div>
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <div class="text-3xl font-bold text-white">{results.before.conversions}</div>
-              <div class="text-sm text-gray-400">Конверсії</div>
-            </div>
-            <div>
-              <div class="text-3xl font-bold text-white">{results.before.costPerConversion}</div>
-              <div class="text-sm text-gray-400">CPL</div>
-            </div>
-            <div>
-              <div class="text-2xl font-bold text-white">{results.before.clicks}</div>
-              <div class="text-sm text-gray-400">Кліки</div>
-            </div>
-            <div>
-              <div class="text-2xl font-bold text-white">{results.before.impressions}</div>
-              <div class="text-sm text-gray-400">Покази</div>
-            </div>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+          <div class="flex items-start gap-3">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+            <span class="text-white font-medium">Відсутність імпорту офлайн-конверсій</span>
+          </div>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+          <div class="flex items-start gap-3">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+            <span class="text-white font-medium">Низька релевантність оголошень</span>
           </div>
         </div>
       </div>
@@ -168,15 +121,15 @@ const keyMetrics = [
   <section class="py-12 px-4">
     <div class="max-w-5xl mx-auto">
       <div class="flex items-center gap-3 mb-8">
-        <div class="w-10 h-10 bg-accent-500/20 rounded-xl flex items-center justify-center">
-          <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="w-5 h-5 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
           </svg>
         </div>
         <h2 class="text-2xl font-bold text-white">Що зробили</h2>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
           <div class="mb-4">
             <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -184,7 +137,7 @@ const keyMetrics = [
             </svg>
           </div>
           <h3 class="text-lg font-bold text-white mb-2">ICP-сегментація</h3>
-          <p class="text-gray-400 text-sm">Розділили кампанії за індустріями, ролями та розміром компаній.</p>
+          <p class="text-gray-400 text-sm">Розділили кампанії за індустріями, ролями та розміром компаній, щоб підсилити релевантність.</p>
         </div>
 
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
@@ -193,8 +146,8 @@ const keyMetrics = [
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2">High-intent семантика</h3>
-          <p class="text-gray-400 text-sm">Сфокусувалися на запитах з явним комерційним наміром.</p>
+          <h3 class="text-lg font-bold text-white mb-2">Запити з високим наміром</h3>
+          <p class="text-gray-400 text-sm">Сфокусувалися на запитах, де користувач уже шукає інтеграцію або рішення для EDI/API.</p>
         </div>
 
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
@@ -203,18 +156,18 @@ const keyMetrics = [
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2">Offline-конверсії</h3>
-          <p class="text-gray-400 text-sm">Імпортували SQL зі CRM, щоб оптимізувати під якість, а не кліки.</p>
+          <h3 class="text-lg font-bold text-white mb-2">Офлайн-конверсії</h3>
+          <p class="text-gray-400 text-sm">Імпортували SQL із CRM, щоб оптимізувати під якість, а не кліки.</p>
         </div>
 
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
           <div class="mb-4">
             <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a2 2 0 01-1-1v-6z" />
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2">Message-match</h3>
-          <p class="text-gray-400 text-sm">Посилили відповідність між оголошенням і лендінгом для кожного сегмента.</p>
+          <h3 class="text-lg font-bold text-white mb-2">Відповідність меседжу</h3>
+          <p class="text-gray-400 text-sm">Узгодили оголошення й лендінги для кожного сегмента, щоб підвищити конверсію.</p>
         </div>
 
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
@@ -223,8 +176,8 @@ const keyMetrics = [
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2">Smart Bidding tCPA</h3>
-          <p class="text-gray-400 text-sm">Перейшли на tCPA з контролем SQL-якості та стабільності.</p>
+          <h3 class="text-lg font-bold text-white mb-2">Комбіновані стратегії ставок</h3>
+          <p class="text-gray-400 text-sm">Поєднали Manual CPC й Maximize Conversions.</p>
         </div>
 
         <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
@@ -238,19 +191,71 @@ const keyMetrics = [
         </div>
       </div>
 
-      <!-- Campaign Screenshot -->
-      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 mb-8">
+      <!-- Campaigns Section -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 mb-6">
         <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
           <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
           </svg>
-          Фрагмент кампаній Google Ads
+          Рекламні кампанії
         </h3>
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto mb-4">
           <img
             src="/images/cases/cleo_campaigns.png"
-            alt="Фрагмент кампаній Google Ads для B2B SaaS"
+            alt="Рекламні кампанії Google Ads для B2B SaaS"
             class="rounded-xl w-full border border-white/10"
+            loading="lazy"
+          />
+        </div>
+        <div class="text-sm text-gray-400 leading-relaxed space-y-3">
+          <p>
+            Побудували кілька типів кампаній для різних сценаріїв попиту та географій, щоб зберегти контроль якості й масштабувати лише те, що приносить SQL.
+          </p>
+          <ul class="grid md:grid-cols-3 gap-3 text-gray-300">
+            <li class="flex items-start gap-3">
+              <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+              <span>Пошукові кампанії для холодної аудиторії, брендових і конкурентних запитів (US/CA/UK).</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+              <span>PMax для масштабування з фокусом на інтеграційні сценарії EDI/API.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+              <span>Display-ремаркетинг для повернення та підігріву до демо.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Creatives Section -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4-4 4 4 8-8M4 4h16v16H4V4z" />
+          </svg>
+          Рекламні креативи
+        </h3>
+        <p class="text-sm text-gray-400 mb-5">
+          Тестували різні акценти: ефективність для виробників, соціальний доказ і пряма пропозиція демо.
+        </p>
+        <div class="grid md:grid-cols-3 gap-4">
+          <img
+            src="/images/cases/cleo_cereo_1.png"
+            alt="Креатив для виробників із фокусом на ефективність"
+            class="rounded-xl w-full border border-white/10 bg-white/5"
+            loading="lazy"
+          />
+          <img
+            src="/images/cases/cleo_cereo_2.png"
+            alt="Креатив із соціальним доказом і нагородами"
+            class="rounded-xl w-full border border-white/10 bg-white/5"
+            loading="lazy"
+          />
+          <img
+            src="/images/cases/cleo_cereo_3.png"
+            alt="Креатив із меседжем про результати та демо"
+            class="rounded-xl w-full border border-white/10 bg-white/5"
             loading="lazy"
           />
         </div>
@@ -262,15 +267,15 @@ const keyMetrics = [
   <section class="py-12 px-4">
     <div class="max-w-5xl mx-auto">
       <div class="flex items-center gap-3 mb-8">
-        <div class="w-10 h-10 bg-accent-500/20 rounded-xl flex items-center justify-center">
-          <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="w-5 h-5 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
           </svg>
         </div>
         <h2 class="text-2xl font-bold text-white">Результати</h2>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-8 mb-12">
+      <div class="grid md:grid-cols-2 gap-8 mb-8">
         <div class="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
           <div class="p-4 bg-white/5 border-b border-white/10">
             <span class="text-white font-medium flex items-center gap-2">
@@ -294,7 +299,7 @@ const keyMetrics = [
               </div>
               <div class="bg-white/5 border border-white/10 rounded-xl p-3">
                 <div class="text-xl font-bold text-white">{results.before.costPerConversion}</div>
-                <div class="text-xs text-gray-400">CPL</div>
+                <div class="text-xs text-gray-400">Ціна за лід</div>
               </div>
             </div>
           </div>
@@ -323,11 +328,21 @@ const keyMetrics = [
               </div>
               <div class="bg-white/5 border border-white/10 rounded-xl p-3">
                 <div class="text-xl font-bold text-white">{results.after.costPerConversion}</div>
-                <div class="text-xs text-gray-400">CPL</div>
+                <div class="text-xs text-gray-400">Ціна за лід</div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        {keyMetrics.map((metric) => (
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-5 text-center">
+            <div class="text-2xl md:text-3xl font-bold text-accent-400 mb-1">{metric.value}</div>
+            <div class="text-white font-medium mb-1">{metric.label}</div>
+            <div class="text-xs text-gray-400">{metric.description}</div>
+          </div>
+        ))}
       </div>
 
       <!-- Key Takeaways -->
@@ -356,7 +371,7 @@ const keyMetrics = [
             </div>
             <div>
               <h4 class="text-white font-medium mb-1">Якість важливіша за обсяг</h4>
-              <p class="text-gray-400 text-sm">Фокус на SQL дозволив зменшити CPL у 5+ разів.</p>
+              <p class="text-gray-400 text-sm">Фокус на SQL дозволив зменшити CPL у 7+ разів.</p>
             </div>
           </div>
 
@@ -375,8 +390,8 @@ const keyMetrics = [
               <span class="text-accent-400 font-bold">4</span>
             </div>
             <div>
-              <h4 class="text-white font-medium mb-1">tCPA працює лише з якісними даними</h4>
-              <p class="text-gray-400 text-sm">Після очищення сигналів автоматизація стала стабільною.</p>
+              <h4 class="text-white font-medium mb-1">Гібридні ставки дали контроль і масштаб</h4>
+              <p class="text-gray-400 text-sm">Комбінація Manual CPC та Maximize Conversions стабілізувала SQL і утримала CPL.</p>
             </div>
           </div>
         </div>
