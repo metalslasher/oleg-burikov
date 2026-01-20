@@ -55,7 +55,12 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   const frameAncestors = isDemoRoute ? "'self'" : "'none'";
 
-  const styleSrc = ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'].join(' ');
+  const styleSrc = [
+    "'self'",
+    "'unsafe-inline'",
+    'https://fonts.googleapis.com',
+    'https://www.googletagmanager.com',
+  ].join(' ');
   const fontSrc = ["'self'", 'data:', 'https://fonts.gstatic.com'].join(' ');
 
   const contentSecurityPolicy = [

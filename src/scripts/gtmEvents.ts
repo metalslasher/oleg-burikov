@@ -62,6 +62,9 @@ document.addEventListener('click', (event) => {
 
   const eventName = target.getAttribute('data-gtm-event');
   if (eventName) {
+    if (target.tagName === 'FORM') {
+      return;
+    }
     const payload: DataLayerEvent = {
       event_label: getLabel(target),
       event_location: getLocation(target),
