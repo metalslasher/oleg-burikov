@@ -4,7 +4,7 @@ import content from '../content/home-uk.json';
 const { cta } = content;
 ---
 
-<section id="contact" class="relative py-20 md:py-28 text-white overflow-hidden">
+<section id="contact" data-gtm-section="contact" class="relative py-20 md:py-28 text-white overflow-hidden">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     <div class="max-w-5xl mx-auto">
       <!-- Section Header -->
@@ -43,7 +43,7 @@ const { cta } = content;
             </h3>
           )}
 
-          <form id="contact-form" class="space-y-6" novalidate>
+          <form id="contact-form" data-gtm-event="lead_submit" class="space-y-6" novalidate>
             <!-- Name & Phone Row -->
             <div class="grid md:grid-cols-2 gap-6">
               <div>
@@ -165,6 +165,9 @@ const { cta } = content;
                 href="https://calendly.com/targetsy_agency/30min"
                 target="_blank"
                 rel="noopener noreferrer"
+                data-gtm-event="book_call"
+                data-gtm-label="calendly_30min"
+                data-gtm-location="contact_block"
                 class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/10 text-white font-semibold hover:bg-accent-500/20 hover:border-accent-400/60 transition-colors"
               >
                 <svg class="w-5 h-5 text-accent-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">

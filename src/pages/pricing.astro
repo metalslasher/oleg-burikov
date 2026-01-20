@@ -125,6 +125,10 @@ const oneTime = [
             <a 
               href="#contact" 
               data-plan={plan.name}
+              data-gtm-event="pricing_request"
+              data-gtm-plan={plan.name}
+              data-gtm-label="pricing_plan_select"
+              data-gtm-location="pricing_page"
               class={`plan-select-btn block w-full text-center py-3 rounded-xl font-semibold transition-all ${
                 plan.highlighted 
                   ? 'bg-gradient-to-r from-accent-500 to-primary-500 text-white hover:shadow-lg hover:shadow-accent-500/30' 

@@ -1,5 +1,19 @@
 ﻿const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
 
+const pushDataLayerEvent = (eventName, payload = {}) => {
+  if (typeof window === 'undefined') return;
+  const win = window as Window & { dataLayer?: Record<string, unknown>[] };
+  if (!win.dataLayer) {
+    win.dataLayer = [];
+  }
+  win.dataLayer.push({
+    event: eventName,
+    page_path: window.location.pathname,
+    page_title: document.title,
+    ...payload,
+  });
+};
+
 const storeUtmFromUrl = () => {
   if (typeof window === 'undefined') return;
   const params = new URLSearchParams(window.location.search);
@@ -166,6 +180,12 @@ export class FormValidator {
 
     // Show success message
     this.showMessage(this.successMessage, 'success');
+    pushDataLayerEvent('lead_submit', {
+      form_id: this.form.id || '',
+      lead_service: data.service || '',
+      lead_contact_method: data.contact_method || '',
+      lead_plan: selectedPlan || '',
+    });
     this.form.reset();
     if (selectedPlan) {
       sessionStorage.removeItem('selectedPlan');
@@ -229,3 +249,4 @@ if (typeof window !== 'undefined') {
     }
   });
 }
+
