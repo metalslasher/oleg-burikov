@@ -159,13 +159,13 @@ const faqStructuredData = {
           <div class="case-slider w-full">
             {caseSlides.map((caseItem, index) => (
               <article class={`case-slide ${index === 0 ? 'is-active' : ''}`} data-case-slide aria-hidden={index === 0 ? 'false' : 'true'}>
-                <div class="bg-gradient-to-br from-amber-500/15 to-orange-500/15 border border-amber-500/30 rounded-3xl p-8">
+                <div class="case-card bg-gradient-to-br from-amber-500/15 to-orange-500/15 border border-amber-500/30 rounded-3xl p-8">
                   <div class="text-xs uppercase tracking-wide text-amber-200/80">{caseItem.industry}</div>
                   <h2 class="text-2xl font-bold text-white mt-2 mb-3">{caseItem.client}</h2>
                   <p class="text-gray-400 text-sm leading-relaxed line-clamp-3">{caseItem.challenge}</p>
-                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
-                    {caseItem.results.slice(0, 3).map((result) => (
-                      <div class="bg-white/5 border border-white/10 rounded-xl p-3">
+                  <div class="grid grid-cols-2 gap-3 mt-6">
+                    {caseItem.results.slice(0, 2).map((result) => (
+                      <div class="case-metric bg-white/5 border border-white/10 rounded-xl p-3">
                         <div class="text-lg font-semibold text-white">{result.value}</div>
                         <div class="text-xs text-gray-400">{result.metric}</div>
                       </div>
@@ -282,48 +282,113 @@ const faqStructuredData = {
   document.addEventListener('DOMContentLoaded', () => {
     const slides = Array.from(document.querySelectorAll('[data-case-slide]'));
     if (slides.length <= 1) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
     let current = 0;
-    const show = (index) => {
-      slides.forEach((slide, i) => {
-        const isActive = i === index;
-        slide.classList.toggle('is-active', isActive);
-        slide.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+    const update = (index) => {
+      const total = slides.length;
+      slides.forEach((slide) => {
+        slide.classList.remove('is-active', 'is-prev', 'is-next', 'is-next-secondary');
+        slide.setAttribute('aria-hidden', 'true');
       });
+
+      const next = (index + 1) % total;
+      const prev = (index - 1 + total) % total;
+      const nextSecondary = (index + 2) % total;
+
+      slides[index].classList.add('is-active');
+      slides[index].setAttribute('aria-hidden', 'false');
+
+      if (total > 1) slides[next].classList.add('is-next');
+      if (total > 2) slides[prev].classList.add('is-prev');
+      if (total > 3) slides[nextSecondary].classList.add('is-next-secondary');
     };
 
     const advance = () => {
       current = (current + 1) % slides.length;
-      show(current);
+      update(current);
     };
+
+    update(0);
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     let timer = setInterval(advance, 6000);
     const slider = document.querySelector('.case-slider');
+    const stop = () => {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    };
+    const start = () => {
+      if (!timer) timer = setInterval(advance, 6000);
+    };
+
     if (slider) {
-      slider.addEventListener('mouseenter', () => clearInterval(timer));
-      slider.addEventListener('mouseleave', () => {
-        timer = setInterval(advance, 6000);
-      });
+      slider.addEventListener('mouseenter', stop);
+      slider.addEventListener('mouseleave', start);
+      slider.addEventListener('focusin', stop);
+      slider.addEventListener('focusout', start);
+      slider.addEventListener('touchstart', stop, { passive: true });
+      slider.addEventListener('touchend', start, { passive: true });
     }
   });
 </script>
 
 <style>
   .case-slider {
-    display: grid;
+    position: relative;
+    min-height: clamp(360px, 45vw, 440px);
+    overflow: visible;
   }
 
   .case-slide {
-    grid-area: 1 / 1;
+    position: absolute;
+    inset: 0;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.5s ease;
+    display: flex;
+    align-items: center;
+    transform: translateY(24px) scale(0.96);
+    transition: opacity 0.6s ease, transform 0.6s ease;
   }
 
   .case-slide.is-active {
     opacity: 1;
+    transform: translateY(0) scale(1);
+    z-index: 3;
     pointer-events: auto;
+  }
+
+  .case-slide.is-next {
+    opacity: 0.5;
+    transform: translateX(28px) translateY(18px) scale(0.96);
+    z-index: 2;
+  }
+
+  .case-slide.is-prev {
+    opacity: 0.25;
+    transform: translateX(-22px) translateY(24px) scale(0.94);
+    z-index: 1;
+  }
+
+  .case-slide.is-next-secondary {
+    opacity: 0.15;
+    transform: translateX(52px) translateY(32px) scale(0.92);
+    z-index: 0;
+  }
+
+  .case-card {
+    background-color: rgba(12, 20, 36, 0.96);
+  }
+
+  .case-slide.is-next .case-card,
+  .case-slide.is-prev .case-card,
+  .case-slide.is-next-secondary .case-card {
+    background-color: rgba(12, 20, 36, 0.9);
+  }
+
+  .case-slide.is-active .case-metric {
+    border-color: rgba(251, 191, 36, 0.45);
   }
 
   .line-clamp-3 {
@@ -331,6 +396,23 @@ const faqStructuredData = {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  @media (max-width: 640px) {
+    .case-slider {
+      min-height: 420px;
+    }
+
+    .case-slide.is-prev,
+    .case-slide.is-next-secondary {
+      opacity: 0;
+      transform: translateY(24px) scale(0.96);
+    }
+
+    .case-slide.is-next {
+      opacity: 0.35;
+      transform: translateX(16px) translateY(16px) scale(0.98);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
