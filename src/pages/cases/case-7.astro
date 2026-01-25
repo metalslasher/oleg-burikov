@@ -1,0 +1,394 @@
+﻿---
+import PageLayout from '../../layouts/PageLayout.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+
+const caseData = {
+  title: "Ювелірний інтернет-магазин в Україні",
+  industry: "E-commerce",
+  period: "Серпень 2025 — теперішній час",
+  budget: "Не розголошуємо",
+  market: "Україна",
+  service: "Google Ads + Meta Ads"
+};
+
+const results = {
+  google: {
+    before: {
+      roas: "0.29x",
+      approved: "50%"
+    },
+    after: {
+      roas: "8.46x",
+      approved: "100%"
+    }
+  },
+  meta: {
+    purchases: "536",
+    roas: "1.87x",
+    spend: "₴798 671",
+    reach: "749 078"
+  }
+};
+
+---
+
+<PageLayout
+  title="Кейс Google Ads та Meta Ads для ювелірного інтернет-магазину в Україні | Targetsy Agency"
+  description="Кейс Google Ads і Meta Ads для ювелірного магазину: ROAS 8.46x у Google, 1.87x у Meta та 100% покриття фіду."
+>
+  <!-- Hero Section -->
+  <section class="pt-8 pb-12 px-4">
+    <div class="max-w-5xl mx-auto">
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 text-sm text-gray-400 mb-8">
+        <a href="/cases" class="hover:text-accent-400 transition-colors">Кейси</a>
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        <span class="text-white">{caseData.title}</span>
+      </nav>
+
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+        ROAS <span class="text-accent-400">846%</span> за перший місяць для ювелірного інтернет-магазину в Україні
+      </h1>
+
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-6 mb-8">
+        <img
+          src="/images/cases/hochy_jewelry_site_hero.png"
+          alt="Hero-секція сайту ювелірного магазину"
+          class="rounded-xl w-full border border-white/10"
+          loading="lazy"
+        />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Challenge Section -->
+  <section class="py-12 px-4">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-4">
+        <h2 class="text-2xl font-bold text-white">Виклик</h2>
+        <div class="mt-2 h-1 w-12 rounded-full bg-gradient-to-r from-accent-400 to-transparent"></div>
+      </div>
+
+      <p class="text-gray-400 mb-6 leading-relaxed">
+        Це український ювелірний онлайн-бренд із широким асортиментом прикрас, де рішення про покупку залежить від довіри, візуалу й швидкості оформлення замовлення. Після аудиту з’ясували, що Google Ads і Meta Ads витрачали бюджет без стабільного потоку покупок. У Google алгоритм оптимізувався на перегляди сторінок, лише 50% товарів проходили в Merchant Center, а через відсутність Enhanced Conversions губилися дані. У Meta Ads більшість кампаній була оптимізована під кліки та взаємодії, аудиторії залишались обмеженими, ремаркетинг і торгові каталоги майже не використовувалися, а оголошення вели переважно на головну сторінку сайту. Додатково сайт мав бар’єри в оформленні, що знижувало конверсію навіть у теплій аудиторії. Потрібно було відновити коректні сигнали, розблокувати фід, синхронізувати Purchase-події для Google і Meta та прибрати проблеми у воронці, щоб обидва канали масштабували покупки.
+      </p>
+    </div>
+  </section>
+
+  <!-- Solution Section -->
+  <section class="py-12 px-4">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold text-white">Що зробили</h2>
+        <div class="mt-2 h-1 w-12 rounded-full bg-gradient-to-r from-accent-400 to-transparent"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
+          <div class="mb-4 text-2xl leading-none" aria-hidden="true">📡</div>
+          <h3 class="text-lg font-bold text-white mb-2">Enhanced Conversions</h3>
+          <p class="text-gray-400 text-sm">Повернули втрачені дані та підвищили точність атрибуції замовлень.</p>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
+          <div class="mb-4 text-2xl leading-none" aria-hidden="true">🗂️</div>
+          <h3 class="text-lg font-bold text-white mb-2">Фід на 100% товарів</h3>
+          <p class="text-gray-400 text-sm">Виправили помилки Merchant Center і розблокували весь асортимент.</p>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
+          <div class="mb-4 text-2xl leading-none" aria-hidden="true">🛠️</div>
+          <h3 class="text-lg font-bold text-white mb-2">CRO-задачі для сайту</h3>
+          <p class="text-gray-400 text-sm">Передали ТЗ з правками та усунули бар’єри покупки.</p>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
+          <div class="mb-4 text-2xl leading-none" aria-hidden="true">⚙️</div>
+          <h3 class="text-lg font-bold text-white mb-2">Розумні стратегії ставок</h3>
+          <p class="text-gray-400 text-sm">Перезапустили кампанії на tROAS з чистими сигналами.</p>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
+          <div class="mb-4 text-2xl leading-none" aria-hidden="true">🧩</div>
+          <h3 class="text-lg font-bold text-white mb-2">Сегментація товарів</h3>
+          <p class="text-gray-400 text-sm">Зібрали структуру за категоріями й маржинальністю.</p>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-accent-500/50 transition-colors">
+          <div class="mb-4 text-2xl leading-none" aria-hidden="true">📱</div>
+          <h3 class="text-lg font-bold text-white mb-2">Meta Ads під покупки</h3>
+          <p class="text-gray-400 text-sm">Розширили аудиторії, LAL і ремаркетинг, підключили каталог.</p>
+        </div>
+      </div>
+
+      <!-- Campaigns Section -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 mb-6">
+        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+          <span class="text-xl leading-none" aria-hidden="true">📣</span>
+          Рекламні кампанії
+        </h3>
+        <div class="space-y-6">
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+            <div class="text-xs uppercase tracking-wide text-accent-400 mb-3">Google Ads</div>
+            <div class="overflow-x-auto mb-4">
+              <img
+                src="/images/cases/hochy_jewelry_campaigns.png"
+                alt="Фрагмент рекламних кампаній Google Ads для ювелірного магазину"
+                class="rounded-xl w-full border border-white/10"
+                loading="lazy"
+              />
+            </div>
+            <div class="text-sm text-gray-400 leading-relaxed space-y-3">
+              <p>
+                Після технічної бази основний акцент зробили на пошукові кампанії з високим наміром
+                (обручки, сережки, подарунки), а також на Shopping та Performance Max із повним фідом.
+                Розділили категорії, щоб контролювати ROAS та швидко масштабувати те, що продає.
+              </p>
+              <ul class="grid md:grid-cols-3 gap-3 text-gray-300">
+                <li class="flex items-start gap-3">
+                  <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+                  <span>Пошук для транзакційних запитів і брендових інтересів.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+                  <span>Shopping/PMax з чистим фідом і групами за категоріями.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+                  <span>Ремаркетинг для повторного повернення до покупки.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+            <div class="text-xs uppercase tracking-wide text-accent-400 mb-3">Meta Ads</div>
+            <div class="overflow-x-auto mb-4">
+              <img
+                src="/images/cases/hochy_jewelry_meta_campaigns.png"
+                alt="Фрагмент рекламних кампаній Meta Ads для ювелірного магазину"
+                class="rounded-xl w-full border border-white/10"
+                loading="lazy"
+              />
+            </div>
+            <div class="text-sm text-gray-400 leading-relaxed space-y-3">
+              <p>
+                Meta Ads перевели на purchase-оптимізацію та побудували повну воронку: розширили аудиторії,
+                рознесли інтереси по окремих Ad Set, додали ремаркетинг і запустили каталожні оголошення.
+                Основні плейсменти — Instagram Feed і Stories, під які адаптували формати креативів.
+              </p>
+              <ul class="grid md:grid-cols-3 gap-3 text-gray-300">
+                <li class="flex items-start gap-3">
+                  <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+                  <span>ASC і каталоги з колекціями під категорії та цінові сегменти.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+                  <span>Аудиторії 30/60/180 днів, LAL на покупках і додаваннях у кошик.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent-400 flex-shrink-0"></span>
+                  <span>Глибокі URL на категорії + ремаркетинг на перегляд товару.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Creatives Section -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+          <span class="text-xl leading-none" aria-hidden="true">🎨</span>
+          Рекламні креативи
+        </h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          <img
+            src="/images/cases/hochy_jewelry_creo_1.png"
+            alt="Креатив з акцентом на стиль і колекції прикрас"
+            class="rounded-xl w-full border border-white/10 bg-white/5"
+            loading="lazy"
+          />
+          <img
+            src="/images/cases/hochy_jewelry_creo_2.png"
+            alt="Креатив із меседжем про обручки та гравіювання"
+            class="rounded-xl w-full border border-white/10 bg-white/5"
+            loading="lazy"
+          />
+          <img
+            src="/images/cases/hochy_jewelry_creo_3.png"
+            alt="Креатив про подарунки та швидку доставку"
+            class="rounded-xl w-full border border-white/10 bg-white/5"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="mt-6">
+          <img
+            src="/images/cases/hochy_jewelry_meta_creos.png"
+            alt="Приклади креативів Meta Ads для ювелірного магазину"
+            class="rounded-xl w-full border border-white/10"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results Section -->
+  <section class="py-12 px-4">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold text-white">Результати</h2>
+        <div class="mt-2 h-1 w-12 rounded-full bg-gradient-to-r from-accent-400 to-transparent"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 mb-8">
+        <div class="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+          <div class="p-4 bg-white/5 border-b border-white/10">
+            <span class="text-white font-medium flex items-center gap-2">
+              <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
+              </svg>
+              Google Ads: до оптимізації
+            </span>
+          </div>
+          <div class="p-6">
+            <img
+              src="/images/cases/hochy_jewelry_before.png"
+              alt="До оптимізації: слабкі сигнали для Google Ads"
+              class="rounded-xl w-full mb-4"
+              loading="lazy"
+            />
+            <div class="grid grid-cols-2 gap-4 text-center">
+              <div class="bg-white/5 border border-white/10 rounded-xl p-3">
+                <div class="text-xl font-bold text-white">{results.google.before.roas}</div>
+                <div class="text-xs text-gray-400">ROAS</div>
+              </div>
+              <div class="bg-white/5 border border-white/10 rounded-xl p-3">
+                <div class="text-xl font-bold text-white">{results.google.before.approved}</div>
+                <div class="text-xs text-gray-400">Товарів у фіді</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+          <div class="p-4 bg-white/5 border-b border-white/10">
+            <span class="text-white font-medium flex items-center gap-2">
+              <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+              </svg>
+              Google Ads: після оптимізації
+            </span>
+          </div>
+          <div class="p-6">
+            <img
+              src="/images/cases/hochy_jewelry_after.png"
+              alt="Після оптимізації: стабільні покупки та ROAS"
+              class="rounded-xl w-full mb-4"
+              loading="lazy"
+            />
+            <div class="grid grid-cols-2 gap-4 text-center">
+              <div class="bg-white/5 border border-white/10 rounded-xl p-3">
+                <div class="text-xl font-bold text-white">{results.google.after.roas}</div>
+                <div class="text-xs text-gray-400">ROAS</div>
+              </div>
+              <div class="bg-white/5 border border-white/10 rounded-xl p-3">
+                <div class="text-xl font-bold text-white">{results.google.after.approved}</div>
+                <div class="text-xs text-gray-400">Товарів у фіді</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white/5 border border-white/10 rounded-2xl overflow-hidden mb-8">
+        <div class="p-4 bg-white/5 border-b border-white/10">
+          <span class="text-white font-medium flex items-center gap-2">
+            <span class="text-xs uppercase tracking-wide text-accent-400">Meta Ads</span>
+            <span class="text-gray-400">підсумок</span>
+          </span>
+        </div>
+        <div class="p-6">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div class="bg-white/5 border border-white/10 rounded-xl p-3">
+              <div class="text-xl font-bold text-white">{results.meta.purchases}</div>
+              <div class="text-xs text-gray-400">Покупки</div>
+            </div>
+            <div class="bg-white/5 border border-white/10 rounded-xl p-3">
+              <div class="text-xl font-bold text-white">{results.meta.roas}</div>
+              <div class="text-xs text-gray-400">ROAS</div>
+            </div>
+            <div class="bg-white/5 border border-white/10 rounded-xl p-3">
+              <div class="text-xl font-bold text-white">{results.meta.spend}</div>
+              <div class="text-xs text-gray-400">Витрачено</div>
+            </div>
+            <div class="bg-white/5 border border-white/10 rounded-xl p-3">
+              <div class="text-xl font-bold text-white">{results.meta.reach}</div>
+              <div class="text-xs text-gray-400">Охоплення</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key Takeaways -->
+      <div class="bg-gradient-to-br from-accent-500/10 to-primary-500/10 border border-accent-500/20 rounded-2xl p-8">
+        <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-3">
+          <svg class="w-6 h-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+          </svg>
+          Ключові висновки
+        </h3>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="flex gap-4">
+            <div class="w-8 h-8 bg-accent-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <span class="text-accent-400 font-bold">1</span>
+            </div>
+            <div>
+              <h4 class="text-white font-medium mb-1">Технічна база визначає результат</h4>
+              <p class="text-gray-400 text-sm">Без коректного трекінгу та фіду реклама не масштабується.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="w-8 h-8 bg-accent-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <span class="text-accent-400 font-bold">2</span>
+            </div>
+            <div>
+              <h4 class="text-white font-medium mb-1">Оптимізація на покупку — ключ</h4>
+              <p class="text-gray-400 text-sm">Алгоритм швидше знаходить покупців, коли бачить чисті сигнали.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="w-8 h-8 bg-accent-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <span class="text-accent-400 font-bold">3</span>
+            </div>
+            <div>
+              <h4 class="text-white font-medium mb-1">Повний фід = повний ринок</h4>
+              <p class="text-gray-400 text-sm">100% товарів у Merchant Center дають ширше охоплення та продажі.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="w-8 h-8 bg-accent-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <span class="text-accent-400 font-bold">4</span>
+            </div>
+            <div>
+              <h4 class="text-white font-medium mb-1">Meta Ads підсилює попит</h4>
+              <p class="text-gray-400 text-sm">Каталожні формати й креативні тести повертають аудиторію, коли є чиста аналітика та сильний офер.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <ContactCTA />
+</PageLayout>

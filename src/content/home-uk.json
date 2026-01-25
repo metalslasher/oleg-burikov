@@ -274,6 +274,25 @@
           }
         ],
         "image": "case-embroidery.jpg"
+      },
+      {
+        "client": "Ювелірний магазин",
+        "industry": "E-commerce",
+        "challenge": "846% ROAS у перший місяць після технічних правок і переходу на оптимізацію покупок",
+        "solution": "Відновили трекінг, увімкнули Enhanced Conversions, виправили фід до 100% і перезапустили кампанії на tROAS.",
+        "results": [
+          {
+            "metric": "ROAS",
+            "value": "846%",
+            "description": "перший місяць"
+          },
+          {
+            "metric": "Фід",
+            "value": "100%",
+            "description": "товари допущені"
+          }
+        ],
+        "image": "case-jewelry.jpg"
       }
     ]
   },
