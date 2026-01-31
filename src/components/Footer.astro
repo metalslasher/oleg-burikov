@@ -70,25 +70,19 @@ const currentYear = new Date().getFullYear();
                 {footer.contact.phone}
               </a>
             </li>
+            {footer.messengers?.links?.map((link) => (
+              <li>
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-gray-300 hover:text-white transition-colors leading-relaxed"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
           </ul>
-          {footer.messengers?.links?.length ? (
-            <div>
-              <ul class="space-y-3">
-                {footer.messengers.links.map((link) => (
-                  <li>
-                    <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="text-gray-300 hover:text-white transition-colors leading-relaxed"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
         </div>
 
         <div class="flex flex-col items-center md:items-start space-y-4">
