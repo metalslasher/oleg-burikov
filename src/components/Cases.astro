@@ -134,11 +134,13 @@ const nonce = Astro.locals.cspNonce;
 </style>
 
 <script nonce={nonce}>
-  const carousel = document.querySelector('[data-cases-carousel]');
-  const track = carousel?.querySelector('[data-cases-track]');
-  const slides = track ? Array.from(track.querySelectorAll('[data-case-slide]')) : [];
+  (() => {
+    const carousel = document.querySelector('[data-cases-carousel]');
+    const track = carousel?.querySelector('[data-cases-track]');
+    const slides = track ? Array.from(track.querySelectorAll('[data-case-slide]')) : [];
 
-  if (carousel && track && slides.length > 0) {
+    if (!carousel || !track || slides.length === 0) return;
+
     let currentIndex = 0;
     let autoTimer = null;
     let scrollTimeout;
@@ -191,5 +193,5 @@ const nonce = Astro.locals.cspNonce;
     carousel.addEventListener('touchend', startAuto);
 
     startAuto();
-  }
+  })();
 </script>

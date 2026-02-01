@@ -1,7 +1,8 @@
----
+﻿---
 import content from '../content/home-uk.json';
 
 const { testimonials } = content;
+const nonce = Astro.locals.cspNonce;
 ---
 
 <section id="testimonials" class="py-20 md:py-28">
@@ -19,49 +20,194 @@ const { testimonials } = content;
       </p>
     </div>
 
-    <!-- Testimonials Masonry-style Grid -->
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
-      {testimonials.items.map((testimonial) => (
-        <article
-          class="group relative bg-white/5 border border-white/10 rounded-3xl p-8 hover:bg-white/10 hover:border-accent-500/50 transition-all duration-300 hover:-translate-y-2"
-        >
-          <!-- Quote Mark - Modern Style -->
-          <div class="absolute -top-4 -left-4 w-16 h-16 bg-gradient-to-br from-accent-500 to-primary-500 rounded-2xl flex items-center justify-center shadow-xl rotate-6 group-hover:rotate-12 transition-transform">
-            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-            </svg>
-          </div>
-
-          <!-- Quote Text -->
-          <div class="mt-8 mb-6">
-            <p class="text-gray-300 leading-relaxed text-base">
-              "{testimonial.quote}"
-            </p>
-          </div>
-
-          <!-- Author - Card Style -->
-          <div class="flex items-center gap-4 pt-6 border-t-2 border-white/10">
-            <!-- Avatar -->
-            <div class="w-12 h-12 bg-accent-500/20 rounded-full flex items-center justify-center border-2 border-accent-500/30">
-              <svg class="w-6 h-6 text-accent-400" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-              </svg>
-            </div>
-
-            <div class="flex-1 min-w-0">
-              <p class="font-bold text-white truncate">
-                {testimonial.author}
-              </p>
-              <p class="text-sm text-gray-400 truncate">
-                {testimonial.role}
-              </p>
-              <p class="text-sm text-accent-400 font-medium truncate">
-                {testimonial.company}
+    <!-- Testimonials Slider -->
+    <div class="testimonials-carousel max-w-7xl mx-auto" data-testimonials-carousel>
+      <div class="testimonials-track" data-testimonials-track>
+        {testimonials.items.map((testimonial) => (
+          <article
+            class="testimonial-slide group relative rounded-3xl p-8 bg-white/5 border border-white/10 backdrop-blur-sm overflow-hidden transition-all duration-300"
+            data-testimonial-slide
+          >
+            <!-- Quote Text -->
+            <div class="mt-2 mb-6">
+              <p class="testimonial-quote text-gray-200 leading-relaxed text-base">
+                {testimonial.quote}
               </p>
             </div>
-          </div>
-        </article>
-      ))}
+
+            <!-- Author -->
+            <div class="flex items-center gap-4 pt-6 border-t border-white/10">
+              <div class="w-12 h-12 bg-accent-500/20 rounded-full flex items-center justify-center border-2 border-accent-500/30">
+                <svg class="w-6 h-6 text-accent-400" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
+              </div>
+
+              <div class="flex-1 min-w-0">
+                <p class="font-bold text-white truncate">
+                  {testimonial.author}
+                </p>
+                <p class="text-sm text-gray-400 truncate">
+                  {testimonial.role}
+                </p>
+                <p class="text-sm text-accent-400 font-medium truncate">
+                  {testimonial.company}
+                </p>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  .testimonials-carousel {
+    position: relative;
+  }
+
+  .testimonials-track {
+    display: flex;
+    gap: 1.75rem;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .testimonials-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .testimonials-track {
+    scrollbar-width: none;
+  }
+
+  .testimonial-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+    box-shadow: 0 18px 45px -35px rgba(15, 23, 42, 0.8);
+  }
+
+  .testimonial-slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(249, 115, 22, 0.18), transparent 55%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+
+  .testimonial-slide:hover {
+    transform: translateY(-6px);
+    border-color: rgba(249, 115, 22, 0.5);
+    box-shadow: 0 22px 45px -35px rgba(15, 23, 42, 0.8);
+  }
+
+  .testimonial-slide:hover::before {
+    opacity: 1;
+  }
+
+  .testimonial-quote {
+    position: relative;
+    padding-left: 2.2rem;
+  }
+
+  .testimonial-quote::before {
+    content: '“';
+    position: absolute;
+    left: 0;
+    top: -0.45rem;
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: rgba(249, 115, 22, 0.9);
+  }
+
+  @media (min-width: 640px) {
+    .testimonial-slide {
+      flex-basis: calc((100% - 1.5rem) / 2);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .testimonial-slide {
+      flex-basis: calc((100% - 3rem) / 3);
+    }
+  }
+
+</style>
+
+<script nonce={nonce}>
+  (() => {
+    const carousel = document.querySelector('[data-testimonials-carousel]');
+    const track = carousel?.querySelector('[data-testimonials-track]');
+    const slides = track ? Array.from(track.querySelectorAll('[data-testimonial-slide]')) : [];
+
+    if (!carousel || !track || slides.length === 0) return;
+
+    let currentIndex = 0;
+    let autoTimer = null;
+    let scrollTimeout;
+
+    const goToSlide = (index) => {
+      const total = slides.length;
+      currentIndex = (index + total) % total;
+      const target = slides[currentIndex];
+      track.scrollTo({ left: target.offsetLeft, behavior: 'smooth' });
+    };
+
+    const startAuto = () => {
+      if (autoTimer) return;
+      autoTimer = setInterval(() => {
+        goToSlide(currentIndex + 1);
+      }, 6000);
+    };
+
+    const stopAuto = () => {
+      if (autoTimer) {
+        clearInterval(autoTimer);
+        autoTimer = null;
+      }
+    };
+
+    track.addEventListener('scroll', () => {
+      window.clearTimeout(scrollTimeout);
+      scrollTimeout = window.setTimeout(() => {
+        const trackScroll = track.scrollLeft;
+        let closestIndex = 0;
+        let closestDistance = Infinity;
+
+        slides.forEach((slide, index) => {
+          const distance = Math.abs(slide.offsetLeft - trackScroll);
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestIndex = index;
+          }
+        });
+
+        currentIndex = closestIndex;
+      }, 120);
+    });
+
+    carousel.addEventListener('mouseenter', stopAuto);
+    carousel.addEventListener('mouseleave', startAuto);
+    carousel.addEventListener('focusin', stopAuto);
+    carousel.addEventListener('focusout', startAuto);
+    carousel.addEventListener('touchstart', stopAuto, { passive: true });
+    carousel.addEventListener('touchend', startAuto);
+
+    requestAnimationFrame(() => {
+      startAuto();
+    });
+  })();
+</script>
+
+
+
+

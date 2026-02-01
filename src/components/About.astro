@@ -1,4 +1,4 @@
----
+﻿---
 import content from '../content/home-uk.json';
 
 const { about } = content;
@@ -7,80 +7,77 @@ const introParagraphs = about.intro
   .split('\n\n')
   .map((paragraph) => paragraph.trim())
   .filter(Boolean);
+
+const iconMap: Record<string, string> = {
+  experience:
+    '<path d="M12 3l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.6-4.8 2.6.9-5.4-3.9-3.8 5.4-.8L12 3z" />',
+  roi:
+    '<path d="M3 3v18h18" /><path d="M18 17l-5-5-4 4-5-5" />',
+  transparency:
+    '<path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6-10-6-10-6z" /><circle cx="12" cy="12" r="2.5" />',
+  individual:
+    '<path d="M12 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3z" /><path d="M6 21c0-3.3 2.7-6 6-6s6 2.7 6 6" />',
+};
 ---
 
 <section id="about" class="py-20 md:py-24">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-auto">
-      <div class="max-w-6xl mx-auto text-center">
-        <p class="text-fluid-sm font-semibold tracking-[0.16em] text-accent-400 uppercase mb-4">
-          Про агенцію
-        </p>
-        <h2 class="text-fluid-4xl font-bold text-white mb-5">
-          {about.title}
-        </h2>
-        {about.subtitle && (
-          <p class="text-fluid-lg text-gray-300 leading-relaxed max-w-3xl mx-auto mb-4">
-            {about.subtitle}
+    <div class="max-w-7xl mx-auto about-shell">
+      <div class="about-grid">
+        <div class="about-left text-center lg:text-left">
+          <p class="text-fluid-sm font-semibold tracking-[0.16em] text-accent-400 uppercase mb-4">
+            Про агенцію
           </p>
-        )}
-        {introParagraphs.length > 0 && (
-          <div class="grid lg:grid-cols-2 gap-6 md:gap-8 text-fluid-lg text-gray-300 leading-relaxed text-left">
-            {introParagraphs.map((paragraph) => (
-              <p class="m-0">{paragraph}</p>
-            ))}
+          <h2 class="text-fluid-4xl font-bold text-white mb-5">
+            {about.title}
+          </h2>
+          {about.subtitle && (
+            <p class="text-fluid-lg text-gray-300 leading-relaxed max-w-3xl mx-auto lg:mx-0 mb-4">
+              {about.subtitle}
+            </p>
+          )}
+          {introParagraphs.length > 0 && (
+            <div class="space-y-5 text-fluid-lg text-gray-300 leading-relaxed text-left">
+              {introParagraphs.map((paragraph) => (
+                <p class="m-0">{paragraph}</p>
+              ))}
+            </div>
+          )}
+
+          <div class="about-quote about-quote--left">
+            <span>{about.callout}</span>
           </div>
-        )}
-      </div>
+        </div>
 
-      <!-- Advantages -->
-      <div class="mt-12 md:mt-14">
-        <div class="grid md:grid-cols-2 gap-5 md:gap-6">
-          {about.advantages.map((advantage) => (
-            <div
-              class="relative rounded-2xl border border-white/10 bg-white/5 p-5 md:p-6 hover:bg-white/10 transition-all duration-200 hover:-translate-y-1"
-            >
-              <div
-                class="absolute inset-y-4 left-0 w-1 rounded-full bg-gradient-to-b from-accent-400 to-primary-400"
-              ></div>
-
-              <div class="pl-5 md:pl-6">
-                <div class="mb-2 flex items-center gap-2">
-                  <div
-                    class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-accent-500/20 text-accent-400"
-                  >
-                    <svg
-                      class="w-4 h-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  </div>
-                  <h3 class="text-base md:text-lg font-semibold text-white">
+        <!-- Advantages -->
+        <div class="about-advantages">
+          <div class="about-advantages__grid">
+            {about.advantages.map((advantage, index) => (
+              <div class="about-adv-card group" style={`--delay: ${index * 120}ms`}>
+                <div class="about-adv-icon">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <g set:html={iconMap[advantage.icon] || iconMap.experience} />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-base md:text-lg font-semibold text-white mb-1">
                     {advantage.title}
                   </h3>
+                  <p class="text-sm md:text-base text-gray-400 leading-relaxed">
+                    {advantage.description}
+                  </p>
                 </div>
-                <p class="text-sm md:text-base text-gray-400 leading-relaxed">
-                  {advantage.description}
-                </p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
       <!-- Stats -->
-      <div class="mt-12 md:mt-14">
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6" data-countup-group>
+      <div class="about-stats mt-12 md:mt-14" data-countup-group>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {about.stats.map((stat) => (
-            <div class="relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 p-5 md:p-6">
+            <div class="about-stat-card">
               <div class="relative z-10">
                 <div
                   class="text-3xl md:text-4xl font-black text-accent-400 mb-1"
@@ -92,7 +89,6 @@ const introParagraphs = about.intro
                   {stat.label}
                 </div>
               </div>
-              <div class="absolute -bottom-2 -right-2 w-20 h-20 bg-accent-500/10 rounded-full blur-2xl"></div>
             </div>
           ))}
         </div>
@@ -100,6 +96,198 @@ const introParagraphs = about.intro
     </div>
   </div>
 </section>
+
+<style>
+  .about-shell {
+    position: relative;
+    border-radius: 2.5rem;
+    padding: 2.5rem 1.5rem;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.45));
+    box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.08);
+  }
+
+  @media (min-width: 768px) {
+    .about-shell {
+      padding: 3rem 2.5rem;
+    }
+  }
+
+  .about-shell::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 55%);
+    pointer-events: none;
+  }
+
+  .about-grid {
+    position: relative;
+    display: grid;
+    gap: 2.5rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 1024px) {
+    .about-grid {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.35fr);
+      align-items: stretch;
+    }
+  }
+
+  .about-quote {
+    margin-top: 1.75rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 140px;
+    text-align: left;
+    position: relative;
+  }
+
+  @media (min-width: 1024px) {
+    .about-quote {
+      min-height: 160px;
+    }
+  }
+
+  .about-quote--left {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .about-quote span {
+    position: relative;
+    font-size: clamp(1.1rem, 1rem + 1vw, 1.6rem);
+    line-height: 1.5;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.96);
+    padding-left: 2.5rem;
+    max-width: 520px;
+  }
+
+  .about-quote span::before {
+    content: '“';
+    position: absolute;
+    left: 0;
+    top: -0.4rem;
+    font-size: 3.2rem;
+    color: rgba(249, 115, 22, 0.9);
+    font-weight: 800;
+  }
+
+  .about-quote span::after {
+    content: none;
+  }
+
+  .about-advantages {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .about-advantages {
+      height: 100%;
+    }
+  }
+
+  .about-advantages__grid {
+    position: relative;
+    display: grid;
+    gap: 1.5rem 1.25rem;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  @media (min-width: 640px) {
+    .about-advantages__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .about-adv-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.9rem;
+    align-items: flex-start;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    transition: none;
+    animation: about-rise 0.55s ease both;
+    animation-delay: var(--delay);
+  }
+  .about-adv-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 0.9rem;
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.18), rgba(249, 115, 22, 0.08));
+    color: #fdba74;
+    box-shadow: inset 0 0 0 1px rgba(249, 115, 22, 0.35);
+  }
+
+  .about-stats {
+    border-top: 1px solid rgba(148, 163, 184, 0.18);
+    padding-top: 2rem;
+  }
+
+  .about-stats .grid {
+    justify-items: center;
+  }
+
+  .about-stat-card {
+    padding: 0.5rem 0.25rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .about-callout {
+    animation: callout-float 5.5s ease-in-out infinite;
+  }
+
+  @keyframes callout-float {
+    0%,
+    100% {
+      transform: translateY(0);
+      box-shadow: 0 20px 45px -35px rgba(15, 23, 42, 0.75);
+    }
+    50% {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 55px -35px rgba(59, 130, 246, 0.35);
+    }
+  }
+
+  @keyframes about-rise {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .about-callout {
+      animation: none;
+    }
+
+    .about-adv-card {
+      animation: none;
+    }
+  }
+</style>
 
 <script nonce={nonce}>
   const counters = Array.from(document.querySelectorAll('[data-countup]'));
@@ -183,3 +371,16 @@ const introParagraphs = about.intro
     startAll();
   }
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
