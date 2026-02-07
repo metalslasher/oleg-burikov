@@ -2,6 +2,8 @@
 import PageLayout from '../../layouts/PageLayout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
 
+const nonce = Astro.locals.cspNonce;
+
 const meta = {
   title: 'B2B Google Ads: лідогенерація на основі даних та гіпотез',
   description:
@@ -10,6 +12,37 @@ const meta = {
   readTime: '12 хв читання',
   category: 'Google Ads',
   tags: ['Google Ads', 'B2B SaaS', 'Аналітика', 'Lead Gen']
+};
+
+const ogImage = '/images/og-image.jpg';
+const publishedDate = '2025-12-20';
+const siteUrl = Astro.site?.toString() || 'https://www.targetsy.agency';
+const pageUrl = new URL(Astro.url.pathname, siteUrl).toString();
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: meta.title,
+  description: meta.description,
+  image: [new URL(ogImage, siteUrl).toString()],
+  datePublished: publishedDate,
+  dateModified: publishedDate,
+  inLanguage: 'uk',
+  mainEntityOfPage: pageUrl,
+  author: {
+    '@type': 'Organization',
+    name: 'Targetsy Agency'
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Targetsy Agency',
+    logo: {
+      '@type': 'ImageObject',
+      url: new URL('/images/logo.png', siteUrl).toString()
+    }
+  },
+  keywords: meta.tags.join(', '),
+  articleSection: ['Google Ads', 'B2B', 'Lead Generation']
 };
 
 const toc = [
@@ -28,7 +61,13 @@ const toc = [
   description={meta.description}
   ogTitle={meta.title}
   ogDescription={meta.description}
+  ogImage={ogImage}
+  ogType="article"
+  publishedTime={publishedDate}
+  modifiedTime={publishedDate}
 >
+  <script type="application/ld+json" nonce={nonce} set:html={JSON.stringify(structuredData)} />
+
   <article class="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
     <!-- Hero -->
     <section class="pt-8 pb-12 px-4">

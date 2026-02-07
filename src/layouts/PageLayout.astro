@@ -10,9 +10,23 @@ interface Props {
   ogTitle?: string;
   ogDescription?: string;
   ogImage?: string;
+  ogType?: 'website' | 'article';
+  publishedTime?: string;
+  modifiedTime?: string;
+  noindex?: boolean;
 }
 
-const { title, description, ogTitle, ogDescription, ogImage } = Astro.props;
+const {
+  title,
+  description,
+  ogTitle,
+  ogDescription,
+  ogImage,
+  ogType,
+  publishedTime,
+  modifiedTime,
+  noindex,
+} = Astro.props;
 ---
 
 <BaseLayout 
@@ -21,6 +35,10 @@ const { title, description, ogTitle, ogDescription, ogImage } = Astro.props;
   ogTitle={ogTitle}
   ogDescription={ogDescription}
   ogImage={ogImage}
+  ogType={ogType}
+  publishedTime={publishedTime}
+  modifiedTime={modifiedTime}
+  noindex={noindex}
 >
   <Header />
   

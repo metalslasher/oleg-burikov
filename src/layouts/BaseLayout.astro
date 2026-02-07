@@ -8,12 +8,60 @@ interface Props {
   ogTitle?: string;
   ogDescription?: string;
   ogImage?: string;
+  ogType?: 'website' | 'article';
+  publishedTime?: string;
+  modifiedTime?: string;
+  noindex?: boolean;
 }
 
-const { title, description, ogTitle, ogDescription, ogImage } = Astro.props;
+const {
+  title,
+  description,
+  ogTitle,
+  ogDescription,
+  ogImage,
+  ogType,
+  publishedTime,
+  modifiedTime,
+  noindex = false,
+} = Astro.props;
 const siteUrl = Astro.site?.toString() || 'https://www.targetsy.agency';
 const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+const canonicalUrlString = canonicalURL.toString();
+const resolvedOgImage = new URL(ogImage || '/images/og-image.jpg', siteUrl).toString();
+const resolvedOgType =
+  ogType || (Astro.url.pathname.startsWith('/blog/') ? 'article' : 'website');
 const nonce = Astro.locals.cspNonce;
+
+const defaultSchemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Targetsy Agency',
+    url: siteUrl,
+    inLanguage: 'uk-UA',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Targetsy Agency',
+    url: siteUrl,
+    logo: new URL('/images/logo.png', siteUrl).toString(),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: title,
+    description,
+    url: canonicalUrlString,
+    inLanguage: 'uk-UA',
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'Targetsy Agency',
+      url: siteUrl,
+    },
+  },
+];
 ---
 
 <!doctype html>
@@ -29,33 +77,49 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" hreflang="uk-UA" href={canonicalUrlString} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrlString} />
     
     <!-- Primary Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
+    {noindex ? (
+      <meta name="robots" content="noindex, follow" />
+    ) : (
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    )}
     
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={resolvedOgType} />
+    <meta property="og:locale" content="uk_UA" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={ogTitle || title} />
     <meta property="og:description" content={ogDescription || description} />
-    {ogImage && <meta property="og:image" content={new URL(ogImage, siteUrl)} />}
+    <meta property="og:image" content={resolvedOgImage} />
+    {resolvedOgType === 'article' && publishedTime && (
+      <meta property="article:published_time" content={publishedTime} />
+    )}
+    {resolvedOgType === 'article' && modifiedTime && (
+      <meta property="article:modified_time" content={modifiedTime} />
+    )}
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={ogTitle || title} />
     <meta property="twitter:description" content={ogDescription || description} />
-    {ogImage && <meta property="twitter:image" content={new URL(ogImage, siteUrl)} />}
+    <meta property="twitter:image" content={resolvedOgImage} />
+    <meta name="twitter:site" content="@targetsy_agency" />
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.png" />
     
     <!-- Sitemap -->
-    <link rel="sitemap" href="/sitemap.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     
     <meta name="generator" content={Astro.generator} />
+    <script type="application/ld+json" nonce={nonce} set:html={JSON.stringify(defaultSchemas)} />
   </head>
   <body class="custom-scrollbar">
     <!-- Google Tag Manager (noscript) -->
