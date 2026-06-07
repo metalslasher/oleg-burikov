@@ -25,7 +25,7 @@ const {
   modifiedTime,
   noindex = false,
 } = Astro.props;
-const siteUrl = Astro.site?.toString() || 'https://www.targetsy.agency';
+const siteUrl = Astro.site?.toString() || 'https://www.oleg-burikov.com';
 const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 const canonicalUrlString = canonicalURL.toString();
 const resolvedOgImage = new URL(ogImage || '/images/og-image.jpg', siteUrl).toString();

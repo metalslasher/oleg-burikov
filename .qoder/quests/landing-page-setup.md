@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Create a modern, high-performance single-page landing site for Targetsy.agency – a digital advertising agency specializing in Google Ads, Meta Ads, analytics, and consulting. The landing page must effectively present services, demonstrate expertise through case studies, build trust via testimonials, and drive conversions through strategic calls-to-action.
+Create a modern, high-performance single-page landing site for www.oleg-burikov.com – a digital advertising agency specializing in Google Ads, Meta Ads, analytics, and consulting. The landing page must effectively present services, demonstrate expertise through case studies, build trust via testimonials, and drive conversions through strategic calls-to-action.
 
 ## Strategic Goals
 
@@ -1042,4 +1042,4 @@ Must include:
 - Migrate JSON content to CMS for non-technical editing
 - Implement webhook-based rebuilds on content changes
 
-This design provides a comprehensive strategic blueprint for building the Targetsy.agency landing page that balances performance, conversion optimization, and user experience while maintaining technical excellence and future scalability.
+This design provides a comprehensive strategic blueprint for building the www.oleg-burikov.com landing page that balances performance, conversion optimization, and user experience while maintaining technical excellence and future scalability.

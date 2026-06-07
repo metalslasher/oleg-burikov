@@ -5,7 +5,7 @@ import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://www.targetsy.agency',
+  site: 'https://www.oleg-burikov.com',
   integrations: [
     tailwind(),
     sitemap({

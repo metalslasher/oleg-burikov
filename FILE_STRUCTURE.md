@@ -3,7 +3,7 @@
 Нижче — структура проєкту з поясненням ключових папок і файлів.
 
 ```
-targetsy-agency/
+oleg-burikov/
   public/
     favicon.png
     robots.txt
