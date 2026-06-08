@@ -12,10 +12,12 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   const scriptSrc = [
     "'self'",
-    "'unsafe-inline'",
-    "'unsafe-eval'",
+    `'nonce-${nonce}'`,
+    ...(isDev ? ["'unsafe-inline'", "'unsafe-eval'"] : []),
     'https://www.googletagmanager.com',
     'https://www.google-analytics.com',
+    'https://www.googleadservices.com',
+    'https://googleads.g.doubleclick.net',
     'https://connect.facebook.net',
     'https://va.vercel-scripts.com',
     'https://www.clarity.ms',
@@ -31,6 +33,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     'https://www.google.com.ua',
     'https://region1.google-analytics.com',
     'https://region1.analytics.google.com',
+    'https://*.google-analytics.com',
     'https://stats.g.doubleclick.net',
     'https://www.googleadservices.com',
     'https://googleads.g.doubleclick.net',
@@ -44,6 +47,8 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const frameSrc = [
     "'self'",
     'https://www.googletagmanager.com',
+    'https://td.doubleclick.net',
+    'https://www.google.com',
     'https://www.facebook.com',
     'https://connect.facebook.net',
   ].join(' ');
@@ -61,15 +66,23 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const contentSecurityPolicy = [
     "default-src 'self'",
     `script-src ${scriptSrc}`,
+    `script-src-elem ${scriptSrc}`,
+    "script-src-attr 'none'",
     `style-src ${styleSrc}`,
+    `style-src-elem ${styleSrc}`,
+    "style-src-attr 'unsafe-inline'",
     "img-src 'self' data: https:",
     `font-src ${fontSrc}`,
     `connect-src ${connectSrc}`,
     `frame-src ${frameSrc}`,
+    `child-src ${frameSrc}`,
     "base-uri 'self'",
-    "form-action 'self' https://www.facebook.com",
+    "form-action 'self'",
     "object-src 'none'",
+    "worker-src 'self' blob:",
+    "manifest-src 'self'",
     `frame-ancestors ${frameAncestors}`,
+    ...(isDev ? [] : ['upgrade-insecure-requests']),
   ].join('; ');
 
   const response = await next();
@@ -78,6 +91,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('X-Frame-Options', isDemoRoute ? 'SAMEORIGIN' : 'DENY');
+  response.headers.set('X-Permitted-Cross-Domain-Policies', 'none');
   response.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
   response.headers.set(
     'Permissions-Policy',
