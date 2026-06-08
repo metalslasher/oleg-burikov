@@ -236,7 +236,6 @@ const seo = {
   const resultsContainer = document.getElementById('results-container');
   const auditResults = document.getElementById('audit-results');
   const errorMessage = document.getElementById('error-message');
-  const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwdJADWtJiV1dALQhdz_209hivO3uaRw-fB6yfeJCF4JfyaxTTo-6E5iggAKeagha3jfw/exec';
   const MAX_SCREENSHOT_MB = 6;
   const ALLOWED_IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
   const SITE_GOAL_LABELS = {
@@ -330,17 +329,17 @@ const seo = {
     return isValid;
   };
 
-  const sendLeadToSheets = (payload) => {
-    const params = new URLSearchParams(payload);
-    const url = `${SHEETS_URL}?${params.toString()}`;
-    const script = document.createElement('script');
-    script.src = url;
-    document.head.appendChild(script);
-    setTimeout(() => {
-      if (script.parentNode) {
-        script.parentNode.removeChild(script);
-      }
-    }, 3000);
+  const submitLead = async (payload) => {
+    const response = await fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      throw new Error(result.error || 'Не вдалося надіслати заявку.');
+    }
   };
 
   storeUtmFromUrl();
@@ -437,23 +436,26 @@ const seo = {
     const combinedMessage = details.join('\n');
     const utmValues = getUtmValues();
 
-    sendLeadToSheets({
-      name: nameValue,
-      phone: phoneValue,
-      contact_method: '',
-      service: 'Аудит сайту (скріншот)',
-      message: combinedMessage,
-      plan: '',
-      utm_source: utmValues.utm_source || '',
-      utm_medium: utmValues.utm_medium || '',
-      utm_campaign: utmValues.utm_campaign || '',
-      utm_term: utmValues.utm_term || '',
-      utm_content: utmValues.utm_content || '',
-    });
-
     loadingOverlay?.classList.remove('hidden');
 
     try {
+      await submitLead({
+        name: nameValue,
+        phone: phoneValue,
+        contact_method: '',
+        service: 'Аудит сайту (скріншот)',
+        message: combinedMessage,
+        plan: '',
+        form_id: 'audit-form',
+        source: window.location.pathname,
+        website_hp: String(formData.get('website_hp') || ''),
+        utm_source: utmValues.utm_source || '',
+        utm_medium: utmValues.utm_medium || '',
+        utm_campaign: utmValues.utm_campaign || '',
+        utm_term: utmValues.utm_term || '',
+        utm_content: utmValues.utm_content || '',
+      });
+
       const response = await fetch('/api/analyze', {
         method: 'POST',
         body: formData,

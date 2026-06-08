@@ -5,6 +5,7 @@ type FormField = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 type MessageType = 'success' | 'error';
 type UtmKey = (typeof UTM_KEYS)[number];
 type UtmValues = Partial<Record<UtmKey, string>>;
+type LeadSubmission = Record<string, string>;
 type LeadFormData = Record<string, string> & {
   name?: string;
   phone?: string;
@@ -53,17 +54,32 @@ const getUtmValues = (): UtmValues => {
   return utmValues;
 };
 
+const submitLead = async (payload: LeadSubmission) => {
+  const response = await fetch('/api/lead', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+
+  const result = (await response.json().catch(() => ({}))) as { error?: string };
+  if (!response.ok) {
+    throw new Error(result.error || '');
+  }
+};
+
 export class FormValidator {
   private form: HTMLFormElement;
   private successMessage: string;
+  private errorMessage: string;
 
-  constructor(formId: string, successMessage: string, _errorMessage: string) {
+  constructor(formId: string, successMessage: string, errorMessage: string) {
     const form = document.getElementById(formId);
     if (!(form instanceof HTMLFormElement)) {
       throw new Error(`Form with id "${formId}" not found`);
     }
     this.form = form;
     this.successMessage = successMessage;
+    this.errorMessage = errorMessage;
     this.init();
   }
 
@@ -164,55 +180,54 @@ export class FormValidator {
     const utmValues = getUtmValues();
     const selectedPlan = sessionStorage.getItem('selectedPlan') || '';
 
-    // Send to Google Sheets
-    const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwdJADWtJiV1dALQhdz_209hivO3uaRw-fB6yfeJCF4JfyaxTTo-6E5iggAKeagha3jfw/exec';
-
-    const params = new URLSearchParams({
+    const leadPayload: LeadSubmission = {
       name: data.name || '',
       phone: data.phone || '',
       contact_method: data.contact_method || '',
       service: data.service || 'Не вказано',
       message: data.message || 'Не вказано',
       plan: selectedPlan,
+      form_id: this.form.id || '',
+      source: window.location.pathname,
       utm_source: utmValues.utm_source || '',
       utm_medium: utmValues.utm_medium || '',
       utm_campaign: utmValues.utm_campaign || '',
       utm_term: utmValues.utm_term || '',
       utm_content: utmValues.utm_content || '',
-    });
+    };
 
-    const url = `${SHEETS_URL}?${params.toString()}`;
+    const submitBtn = this.form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    submitBtn?.setAttribute('disabled', 'true');
+    submitBtn?.classList.add('opacity-70', 'cursor-not-allowed');
 
-    // Create script tag to send data (bypasses CORS)
-    const script = document.createElement('script');
-    script.src = url;
-    document.head.appendChild(script);
+    try {
+      await submitLead(leadPayload);
 
-    // Clean up script tag after 3 seconds
-    setTimeout(() => {
-      if (script.parentNode) {
-        script.parentNode.removeChild(script);
+      // Show success message
+      this.showMessage(this.successMessage, 'success');
+      pushDataLayerEvent('lead_submit', {
+        form_id: this.form.id || '',
+        lead_service: data.service || '',
+        lead_contact_method: data.contact_method || '',
+        lead_plan: selectedPlan || '',
+      });
+      this.form.reset();
+      if (selectedPlan) {
+        sessionStorage.removeItem('selectedPlan');
       }
-    }, 3000);
 
-    // Show success message
-    this.showMessage(this.successMessage, 'success');
-    pushDataLayerEvent('lead_submit', {
-      form_id: this.form.id || '',
-      lead_service: data.service || '',
-      lead_contact_method: data.contact_method || '',
-      lead_plan: selectedPlan || '',
-    });
-    this.form.reset();
-    if (selectedPlan) {
-      sessionStorage.removeItem('selectedPlan');
+      // Remove validation classes
+      const inputs = this.form.querySelectorAll<FormField>('input, textarea, select');
+      inputs.forEach((input) => {
+        input.classList.remove('border-green-500', 'border-red-500');
+      });
+    } catch (error) {
+      console.error('Lead submission failed:', error);
+      this.showMessage(error instanceof Error && error.message ? error.message : this.errorMessage, 'error');
+    } finally {
+      submitBtn?.removeAttribute('disabled');
+      submitBtn?.classList.remove('opacity-70', 'cursor-not-allowed');
     }
-
-    // Remove validation classes
-    const inputs = this.form.querySelectorAll<FormField>('input, textarea, select');
-    inputs.forEach((input) => {
-      input.classList.remove('border-green-500', 'border-red-500');
-    });
   }
 
   showMessage(message: string, type: MessageType): void {

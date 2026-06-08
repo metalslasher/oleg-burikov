@@ -20,8 +20,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
     'https://va.vercel-scripts.com',
     'https://www.clarity.ms',
     'https://scripts.clarity.ms',
-    'https://script.google.com',
-    'https://script.googleusercontent.com',
   ].join(' ');
 
   const connectSrc = [
@@ -40,8 +38,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
     'https://*.clarity.ms',
     'https://www.facebook.com',
     'https://vitals.vercel-insights.com',
-    'https://script.google.com',
-    'https://script.googleusercontent.com',
     ...(isDev ? ['ws:', 'http://localhost:*'] : []),
   ].join(' ');
 
