@@ -133,7 +133,7 @@ const nonce = Astro.locals.cspNonce;
 
 </style>
 
-<script nonce={nonce}>
+<script is:inline nonce={nonce}>
   (() => {
     const carousel = document.querySelector('[data-cases-carousel]');
     const track = carousel?.querySelector('[data-cases-track]');

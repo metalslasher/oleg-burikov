@@ -128,7 +128,7 @@ const faqStructuredData = {
   title="Маркетинговий консалтинг і аудит реклами | Targetsy Agency"
   description="Консалтинг для бізнесу та інхаус‑команд: аудит кампаній, стратегія, оптимізація воронки, підтримка та навчання."
 >
-  <script type="application/ld+json" nonce={nonce} set:html={JSON.stringify(faqStructuredData)} />
+  <script is:inline type="application/ld+json" nonce={nonce} set:html={JSON.stringify(faqStructuredData)} />
   <!-- Hero -->
   <section class="pt-8 pb-16 px-4">
     <div class="max-w-7xl mx-auto">
@@ -284,7 +284,7 @@ const faqStructuredData = {
   <ContactCTA />
 </PageLayout>
 
-<script nonce={nonce}>
+<script is:inline nonce={nonce}>
   document.addEventListener('DOMContentLoaded', () => {
     const slides = Array.from(document.querySelectorAll('[data-case-slide]'));
     if (slides.length <= 1) return;

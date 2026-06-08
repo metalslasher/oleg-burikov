@@ -148,7 +148,7 @@ const INITIAL_CASES_COUNT = 6;
   <ContactCTA />
 </PageLayout>
 
-<script nonce={nonce} define:vars={{ INITIAL_CASES_COUNT, INITIAL_FILTERS_COUNT, totalCases: casesWithSlugs.length, totalFilters: extractedIndustries.length }}>
+<script is:inline nonce={nonce} define:vars={{ INITIAL_CASES_COUNT, INITIAL_FILTERS_COUNT, totalCases: casesWithSlugs.length, totalFilters: extractedIndustries.length }}>
   document.addEventListener('DOMContentLoaded', () => {
     const filterBtns = document.querySelectorAll('.filter-btn');
     const caseCards = document.querySelectorAll('.case-card');

@@ -175,7 +175,7 @@ const initialHeadline = typewriterHeadlines[0] || hero.headline;
   window.__HERO_HEADLINES__ = headlines;
 </script>
 
-<script nonce={nonce}>
+<script is:inline nonce={nonce}>
   // Animated metrics rotation
   document.addEventListener('DOMContentLoaded', () => {
     const metricElement = document.getElementById('animated-metric');

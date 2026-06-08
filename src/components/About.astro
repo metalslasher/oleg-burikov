@@ -289,7 +289,7 @@ const iconMap: Record<string, string> = {
   }
 </style>
 
-<script nonce={nonce}>
+<script is:inline nonce={nonce}>
   const counters = Array.from(document.querySelectorAll('[data-countup]'));
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 

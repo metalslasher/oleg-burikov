@@ -122,7 +122,7 @@ const categories = ['Усі теми', ...Array.from(new Set(blogPosts.map((post
   <!-- CTA -->
   <ContactCTA />
 
-  <script nonce={nonce}>
+  <script is:inline nonce={nonce}>
     const filterButtons = Array.from(document.querySelectorAll('[data-filter]'));
     const cards = Array.from(document.querySelectorAll('[data-category]'));
 

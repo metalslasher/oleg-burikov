@@ -57,7 +57,9 @@ const getContactType = (href: string) => {
 };
 
 document.addEventListener('click', (event) => {
-  const target = (event.target as HTMLElement | null)?.closest('a, button, [data-gtm-event]');
+  const target = event.target instanceof Element
+    ? event.target.closest<HTMLElement>('a, button, [data-gtm-event]')
+    : null;
   if (!target) return;
 
   const eventName = target.getAttribute('data-gtm-event');

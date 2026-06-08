@@ -151,7 +151,7 @@ const nonce = Astro.locals.cspNonce;
     </nav>
 </header>
 
-<script nonce={nonce}>
+<script is:inline nonce={nonce}>
   // Mobile menu toggle
   document.addEventListener('DOMContentLoaded', () => {
     const menuButton = document.getElementById('mobile-menu-button');

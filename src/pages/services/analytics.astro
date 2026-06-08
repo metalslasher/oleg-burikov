@@ -212,7 +212,7 @@ const deliverables = [
   <ContactCTA />
 </PageLayout>
 
-<script nonce={nonce}>
+<script is:inline nonce={nonce}>
   document.addEventListener('DOMContentLoaded', () => {
     const slides = Array.from(document.querySelectorAll('[data-case-slide]'));
     if (slides.length <= 1) return;

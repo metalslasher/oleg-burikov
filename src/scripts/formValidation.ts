@@ -1,8 +1,21 @@
-﻿const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'] as const;
 
-const pushDataLayerEvent = (eventName, payload = {}) => {
+type DataLayerPayload = Record<string, unknown>;
+type FormField = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+type MessageType = 'success' | 'error';
+type UtmKey = (typeof UTM_KEYS)[number];
+type UtmValues = Partial<Record<UtmKey, string>>;
+type LeadFormData = Record<string, string> & {
+  name?: string;
+  phone?: string;
+  contact_method?: string;
+  service?: string;
+  message?: string;
+};
+
+const pushDataLayerEvent = (eventName: string, payload: DataLayerPayload = {}) => {
   if (typeof window === 'undefined') return;
-  const win = window as Window & { dataLayer?: Record<string, unknown>[] };
+  const win = window as Window & { dataLayer?: DataLayerPayload[] };
   if (!win.dataLayer) {
     win.dataLayer = [];
   }
@@ -25,10 +38,10 @@ const storeUtmFromUrl = () => {
   });
 };
 
-const getUtmValues = () => {
+const getUtmValues = (): UtmValues => {
   if (typeof window === 'undefined') return {};
   const params = new URLSearchParams(window.location.search);
-  const utmValues = {};
+  const utmValues: UtmValues = {};
 
   UTM_KEYS.forEach((key) => {
     const value = params.get(key) || sessionStorage.getItem(key) || '';
@@ -41,33 +54,35 @@ const getUtmValues = () => {
 };
 
 export class FormValidator {
-  constructor(formId, successMessage, errorMessage) {
+  private form: HTMLFormElement;
+  private successMessage: string;
+
+  constructor(formId: string, successMessage: string, _errorMessage: string) {
     const form = document.getElementById(formId);
-    if (!form) {
+    if (!(form instanceof HTMLFormElement)) {
       throw new Error(`Form with id "${formId}" not found`);
     }
     this.form = form;
     this.successMessage = successMessage;
-    this.errorMessage = errorMessage;
     this.init();
   }
 
-  init() {
-    this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+  init(): void {
+    this.form.addEventListener('submit', (event) => this.handleSubmit(event));
 
     // Real-time validation on blur
-    const inputs = this.form.querySelectorAll('input, textarea, select');
+    const inputs = this.form.querySelectorAll<FormField>('input, textarea, select');
     inputs.forEach((input) => {
       input.addEventListener('blur', () => this.validateField(input));
     });
   }
 
-  validateEmail(email) {
+  validateEmail(email: string): boolean {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
   }
 
-  validatePhone(phone) {
+  validatePhone(phone: string): boolean {
     if (!phone) return false; // Phone is required now
     // Remove all non-digit characters except +
     const cleanPhone = phone.replace(/[^\d+]/g, '');
@@ -84,17 +99,19 @@ export class FormValidator {
     return withPlus.test(cleanPhone) || withoutPlus.test(cleanPhone) || shortFormat.test(cleanPhone);
   }
 
-  validateField(field) {
-    const errorElement = field.parentElement?.querySelector('.error-message');
+  validateField(field: FormField): boolean {
+    const errorElement = field.parentElement?.querySelector<HTMLElement>('.error-message');
+    const fieldType = field instanceof HTMLInputElement ? field.type : '';
+    const value = field.value.trim();
     let error = '';
 
-    if (field.required && !field.value.trim()) {
+    if (field.required && !value) {
       error = "Це поле є обов'язковим";
-    } else if (field.type === 'email' && field.value && !this.validateEmail(field.value)) {
+    } else if (fieldType === 'email' && field.value && !this.validateEmail(field.value)) {
       error = 'Введіть коректну email адресу';
-    } else if (field.type === 'tel' && !this.validatePhone(field.value)) {
+    } else if (fieldType === 'tel' && !this.validatePhone(field.value)) {
       error = 'Введіть коректний номер телефону';
-    } else if (field.name === 'name' && field.value.trim().length < 2) {
+    } else if (field.name === 'name' && value.length < 2) {
       error = "Ім'я має бути мінімум 2 символи";
     }
 
@@ -116,8 +133,8 @@ export class FormValidator {
     return true;
   }
 
-  validateForm() {
-    const inputs = this.form.querySelectorAll('input[required], textarea[required], select[required]');
+  validateForm(): { isValid: boolean } {
+    const inputs = this.form.querySelectorAll<FormField>('input[required], textarea[required], select[required]');
 
     let isValid = true;
     inputs.forEach((input) => {
@@ -129,8 +146,8 @@ export class FormValidator {
     return { isValid };
   }
 
-  async handleSubmit(e) {
-    e.preventDefault();
+  async handleSubmit(event: SubmitEvent): Promise<void> {
+    event.preventDefault();
 
     const validation = this.validateForm();
     if (!validation.isValid) {
@@ -139,7 +156,7 @@ export class FormValidator {
 
     // Get form data
     const formData = new FormData(this.form);
-    const data = {};
+    const data: LeadFormData = {};
     formData.forEach((value, key) => {
       data[key] = String(value);
     });
@@ -192,13 +209,13 @@ export class FormValidator {
     }
 
     // Remove validation classes
-    const inputs = this.form.querySelectorAll('input, textarea, select');
+    const inputs = this.form.querySelectorAll<FormField>('input, textarea, select');
     inputs.forEach((input) => {
       input.classList.remove('border-green-500', 'border-red-500');
     });
   }
 
-  showMessage(message, type) {
+  showMessage(message: string, type: MessageType): void {
     // Remove any existing message
     const existingMessage = this.form.querySelector('.form-message');
     if (existingMessage) {
@@ -215,7 +232,7 @@ export class FormValidator {
     messageDiv.textContent = message;
 
     // Find the submit button and insert message before it
-    const submitBtn = this.form.querySelector('button[type="submit"]');
+    const submitBtn = this.form.querySelector<HTMLButtonElement>('button[type="submit"]');
     if (submitBtn && submitBtn.parentElement) {
       submitBtn.parentElement.insertBefore(messageDiv, submitBtn);
     } else {
@@ -249,4 +266,3 @@ if (typeof window !== 'undefined') {
     }
   });
 }
-
