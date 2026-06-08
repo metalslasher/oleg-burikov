@@ -36,16 +36,6 @@
         ]
       },
       {
-        "label": "Інструменти",
-        "href": "/tools",
-        "children": [
-          {
-            "label": "Аудит сайту",
-            "href": "/tools/site-audit"
-          }
-        ]
-      },
-      {
         "label": "Кейси",
         "href": "/cases"
       },
@@ -514,10 +504,6 @@
         {
           "label": "Послуги",
           "href": "/services"
-        },
-        {
-          "label": "Інструменти",
-          "href": "/tools"
         },
         {
           "label": "Кейси",

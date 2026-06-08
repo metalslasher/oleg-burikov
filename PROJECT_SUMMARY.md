@@ -1,38 +1,35 @@
-# Project Summary — Targetsy Agency
+# Project Summary
 
-## Призначення проєкту
-Сайт агенції Targetsy для залучення лідів і презентації експертизи. Основна мета — конверсія відвідувачів у заявки через форму, демонстрацію кейсів і корисний контент.
+## Purpose
 
-## Ключові можливості
-- **Головна сторінка** з чітким позиціонуванням, CTA та блоками довіри.
-- **Сторінки послуг**: Google Ads, Meta Ads, веб-аналітика, консалтинг.
-- **Кейси**: структуровані кейси з метриками та результатами.
-- **Блог**: експертні статті для органічного трафіку.
-- **Прайсинг**: пакети та разові послуги.
-- **Інструменти**: аудит сайту як лід-магніт.
+This is the marketing website for `oleg-burikov`, currently transitioning from an agency-positioned site to a personal-brand site. The active technical goal is to keep the codebase clean, secure, and simple before larger content and positioning changes.
 
-## Основні користувацькі сценарії
-1. **Перша сесія → заявка**  
-   Відвідувач бачить УТП і залишає заявку через форму на головній/інших сторінках.
+## Current Website Areas
 
-2. **Перша сесія → кейс → заявка**  
-   Перехід у кейси, знайомство з результатами, після чого — CTA на консультацію.
+- Home page with hero, services, cases, testimonials, work process, and lead form.
+- Service pages for Google Ads, Meta Ads, analytics, consulting, and website development.
+- Case study pages.
+- Blog pages.
+- Pricing page.
+- Privacy page.
+- Server API for lead form submissions.
 
-3. **Лід‑магніт → заявка**  
-   Користувач проходить міні‑аудит сайту, отримує рекомендації та переходить до консультації.
+## Integrations
 
-## Інтеграції (високий рівень)
-- **GTM** для аналітики й рекламних тегів.
-- **Google Sheets** для збору лідів.
-- **OpenAI API** для генерації рекомендацій в аудиті сайту.
+- Vercel for hosting and deployments.
+- Google Tag Manager for analytics and advertising tags.
+- Vercel Speed Insights.
+- Google Apps Script or another webhook endpoint for lead storage, configured through `LEADS_WEBHOOK_URL`.
 
-## Дані й потоки
-- Дані з форм відправляються у Google Sheets.  
-- Аудит сайту викликає API `/api/analyze` та повертає текстові рекомендації.  
+## Data Flow
 
-## Нефункціональні вимоги
-- **SEO**: sitemap, robots, canonical URL, метадані.
-- **Продуктивність**: оптимізовані зображення, мінімізація CSS/JS.
-- **Безпека**: CSP та базові security‑headers.
+1. A visitor submits a contact form.
+2. Client code sends the payload to `/api/lead`.
+3. The API validates input, applies rate limiting, blocks honeypot submissions, and forwards accepted leads server-side.
+4. GTM events are pushed only after accepted form submissions.
 
-> Для технічних деталей, структури та інструкцій див. `README.md` і `FILE_STRUCTURE.md`.
+## Security Notes
+
+- CSP and common security headers are set in `src/middleware.ts`.
+- Lead webhook URLs are kept out of client-side code.
+- Deprecated tool routes and unused server dependencies are removed.
