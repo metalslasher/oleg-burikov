@@ -1,13 +1,12 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import tailwind from '@astrojs/tailwind';
 import vercel from '@astrojs/vercel';
+import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.oleg-burikov.com',
   integrations: [
-    tailwind(),
     sitemap({
       filter: (page) => !page.includes('/404'),
     }),
@@ -19,6 +18,7 @@ export default defineConfig({
     inlineStylesheets: 'auto',
   },
   vite: {
+    plugins: [tailwindcss()],
     build: {
       cssMinify: true,
     },
