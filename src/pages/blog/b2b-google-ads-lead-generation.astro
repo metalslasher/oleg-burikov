@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
+import { siteConfig } from '../../config/site';
 
 const nonce = Astro.locals.cspNonce;
 
@@ -16,7 +17,7 @@ const meta = {
 
 const ogImage = '/images/og-image.jpg';
 const publishedDate = '2025-12-20';
-const siteUrl = Astro.site?.toString() || 'https://www.oleg-burikov.com';
+const siteUrl = siteConfig.siteUrl;
 const pageUrl = new URL(Astro.url.pathname, siteUrl).toString();
 
 const structuredData = {
@@ -30,15 +31,16 @@ const structuredData = {
   inLanguage: 'uk',
   mainEntityOfPage: pageUrl,
   author: {
-    '@type': 'Organization',
-    name: 'Targetsy Agency'
+    '@type': 'Person',
+    name: siteConfig.personName
   },
   publisher: {
-    '@type': 'Organization',
-    name: 'Targetsy Agency',
+    '@type': 'ProfessionalService',
+    name: siteConfig.legalName,
+    alternateName: siteConfig.brandName,
     logo: {
       '@type': 'ImageObject',
-      url: new URL('/images/logo.png', siteUrl).toString()
+      url: new URL(siteConfig.logo.src, siteUrl).toString()
     }
   },
   keywords: meta.tags.join(', '),
@@ -57,7 +59,7 @@ const toc = [
 ---
 
 <PageLayout
-  title={`${meta.title} | Targetsy Agency`}
+  title={meta.title}
   description={meta.description}
   ogTitle={meta.title}
   ogDescription={meta.description}

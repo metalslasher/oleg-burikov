@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "Targetsy Agency - реклама в Google та Meta Ads для бізнесу",
-    "description": "Агенція performance-маркетингу. Налаштування та ведення Google Ads та Meta Ads. Збільшуємо ваші продажі через ефективну онлайн-рекламу. 5+ років досвіду, 100+ успішних проєктів.",
-    "ogTitle": "Targetsy Agency – більше клієнтів через ефективну рекламу",
-    "ogDescription": "Професійне налаштування Google Ads та Meta Ads. Отримайте безкоштовну консультацію.",
+    "title": "Oleg Burikov - performance marketing ?? ??????? ??? ???????",
+    "description": "Performance marketing, Google Ads, Meta Ads, ????????? ?? ????????? ????? ??? ???????.",
+    "ogTitle": "Oleg Burikov - performance marketing ?? ??????? ??? ???????",
+    "ogDescription": "Performance marketing, Google Ads, Meta Ads, ????????? ?? ????????? ????? ??? ???????.",
     "ogImage": "/images/og-image.jpg"
   },
   "header": {
-    "logo": "Targetsy",
+    "logo": "Oleg Burikov",
     "nav": [
       {
         "label": "Послуги",
@@ -49,8 +49,8 @@
       }
     ],
     "cta": "Замовити консультацію",
-    "phone": "+380686411696",
-    "email": "targetsy.agency@gmail.com"
+    "phone": "+380962290400",
+    "email": "oleg.burikov.adv@gmail.com"
   },
   "hero": {
     "headline": "Чому реклама не окупається?",
@@ -477,8 +477,8 @@
     "tagline": "Цілимося в результат",
     "contact": {
       "title": "Контакти",
-      "email": "targetsy.agency@gmail.com",
-      "phone": "+380686411696",
+      "email": "oleg.burikov.adv@gmail.com",
+      "phone": "+380 96 229 04 00",
       "address": "Україна, м. Київ"
     },
     "messengers": {
@@ -486,15 +486,15 @@
       "links": [
         {
           "label": "Telegram",
-          "url": "https://t.me/+380686411696"
+          "url": "https://t.me/metalslasher"
         },
         {
           "label": "Viber",
-          "url": "viber://chat?number=380686411696"
+          "url": "viber://chat?number=380962290400"
         },
         {
           "label": "WhatsApp",
-          "url": "https://wa.me/380686411696"
+          "url": "https://wa.me/380962290400"
         }
       ]
     },
@@ -532,22 +532,12 @@
       "title": "Ми в соцмережах",
       "links": [
         {
-          "platform": "Facebook",
-          "url": "https://www.facebook.com/profile.php?id=61586805778601",
-          "icon": "facebook"
-        },
-        {
-          "platform": "Instagram",
-          "url": "https://www.instagram.com/targetsy_agency/",
-          "icon": "instagram"
-        },
-        {
           "platform": "LinkedIn",
-          "url": "https://www.linkedin.com/company/targetsy-agency",
+          "url": "https://www.linkedin.com/in/oleg-burikov/",
           "icon": "linkedin"
         }
       ]
     },
-    "copyright": "© 2025 Targetsy Agency. Всі права захищено."
+    "copyright": "? 2026 Oleg Burikov. ??? ????? ????????."
   }
 }

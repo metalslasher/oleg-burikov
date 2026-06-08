@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
+import { siteConfig } from '../../config/site';
 
 const nonce = Astro.locals.cspNonce;
 
@@ -31,7 +32,7 @@ const categories = ['Усі теми', ...Array.from(new Set(blogPosts.map((post
 ---
 
 <PageLayout
-  title="Блог | Targetsy Agency"
+  title="Блог"
   description="Практичні кейси й гіди з маркетингу та аналітики."
 >
   <!-- Hero Section -->
@@ -41,7 +42,7 @@ const categories = ['Усі теми', ...Array.from(new Set(blogPosts.map((post
         База знань
       </span>
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-        Блог Targetsy Agency
+        Блог {siteConfig.brandName}
       </h1>
       <p class="text-xl text-gray-400 max-w-3xl mx-auto">
         Корисні статті, кейси та інсайти з digital-маркетингу від нашої команди експертів.

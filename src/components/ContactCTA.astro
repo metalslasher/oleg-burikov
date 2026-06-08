@@ -1,5 +1,6 @@
 ﻿---
 import content from '../content/home-uk.json';
+import { siteConfig } from '../config/site';
 
 const { cta } = content;
 ---
@@ -162,7 +163,7 @@ const { cta } = content;
                 Хочете швидше? Забронюйте 30-хвилинний дзвінок у зручний для вас час.
               </p>
               <a
-                href="https://calendly.com/targetsy_agency/30min"
+                href={siteConfig.contact.calendly}
                 target="_blank"
                 rel="noopener noreferrer"
                 data-gtm-event="book_call"

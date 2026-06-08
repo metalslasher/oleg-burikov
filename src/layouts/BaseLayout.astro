@@ -1,5 +1,6 @@
 ---
 import SpeedInsights from '@vercel/speed-insights/astro';
+import { siteConfig, sameAsLinks, withBrandTitle } from '../config/site';
 import '../styles/global.css';
 
 interface Props {
@@ -25,10 +26,12 @@ const {
   modifiedTime,
   noindex = false,
 } = Astro.props;
-const siteUrl = Astro.site?.toString() || 'https://www.oleg-burikov.com';
+const siteUrl = siteConfig.siteUrl;
 const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 const canonicalUrlString = canonicalURL.toString();
-const resolvedOgImage = new URL(ogImage || '/images/og-image.jpg', siteUrl).toString();
+const pageTitle = withBrandTitle(title);
+const resolvedOgTitle = ogTitle ? withBrandTitle(ogTitle) : pageTitle;
+const resolvedOgImage = new URL(ogImage || siteConfig.seo.defaultOgImage, siteUrl).toString();
 const resolvedOgType =
   ogType || (Astro.url.pathname.startsWith('/blog/') ? 'article' : 'website');
 const nonce = Astro.locals.cspNonce;
@@ -37,27 +40,45 @@ const defaultSchemas = [
   {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Targetsy Agency',
+    name: siteConfig.brandName,
     url: siteUrl,
-    inLanguage: 'uk-UA',
+    inLanguage: siteConfig.locale,
   },
   {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'Targetsy Agency',
+    '@type': 'Person',
+    name: siteConfig.personName,
+    alternateName: siteConfig.brandName,
     url: siteUrl,
-    logo: new URL('/images/logo.png', siteUrl).toString(),
+    email: siteConfig.contact.email,
+    telephone: siteConfig.contact.phone,
+    sameAs: sameAsLinks,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: siteConfig.legalName,
+    alternateName: siteConfig.brandName,
+    url: siteUrl,
+    logo: new URL(siteConfig.logo.src, siteUrl).toString(),
+    founder: {
+      '@type': 'Person',
+      name: siteConfig.personName,
+    },
+    email: siteConfig.contact.email,
+    telephone: siteConfig.contact.phone,
+    sameAs: sameAsLinks,
   },
   {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: title,
+    name: pageTitle,
     description,
     url: canonicalUrlString,
-    inLanguage: 'uk-UA',
+    inLanguage: siteConfig.locale,
     isPartOf: {
       '@type': 'WebSite',
-      name: 'Targetsy Agency',
+      name: siteConfig.brandName,
       url: siteUrl,
     },
   },
@@ -68,21 +89,21 @@ const defaultSchemas = [
 <html lang="uk">
   <head>
     <!-- Google Tag Manager -->
-    <script is:inline nonce={nonce}>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    <script is:inline nonce={nonce} define:vars={{ gtmId: siteConfig.tracking.gtmId }}>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KSZJGH2S');</script>
+})(window,document,'script','dataLayer',gtmId);</script>
     <!-- End Google Tag Manager -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="canonical" href={canonicalURL} />
-    <link rel="alternate" hreflang="uk-UA" href={canonicalUrlString} />
+    <link rel="alternate" hreflang={siteConfig.locale} href={canonicalUrlString} />
     <link rel="alternate" hreflang="x-default" href={canonicalUrlString} />
     
     <!-- Primary Meta Tags -->
-    <title>{title}</title>
-    <meta name="title" content={title} />
+    <title>{pageTitle}</title>
+    <meta name="title" content={pageTitle} />
     <meta name="description" content={description} />
     {noindex ? (
       <meta name="robots" content="noindex, follow" />
@@ -92,9 +113,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content={resolvedOgType} />
-    <meta property="og:locale" content="uk_UA" />
+    <meta property="og:locale" content={siteConfig.ogLocale} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={ogTitle || title} />
+    <meta property="og:title" content={resolvedOgTitle} />
     <meta property="og:description" content={ogDescription || description} />
     <meta property="og:image" content={resolvedOgImage} />
     {resolvedOgType === 'article' && publishedTime && (
@@ -107,10 +128,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalURL} />
-    <meta property="twitter:title" content={ogTitle || title} />
+    <meta property="twitter:title" content={resolvedOgTitle} />
     <meta property="twitter:description" content={ogDescription || description} />
     <meta property="twitter:image" content={resolvedOgImage} />
-    <meta name="twitter:site" content="@targetsy_agency" />
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.png" />
@@ -123,7 +143,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </head>
   <body class="custom-scrollbar">
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KSZJGH2S"
+    <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${siteConfig.tracking.gtmId}`}
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-accent-600 focus:text-white focus:px-4 focus:py-2 focus:rounded">

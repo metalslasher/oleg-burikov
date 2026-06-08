@@ -10,17 +10,15 @@ import Testimonials from '../components/Testimonials.astro';
 import WorkProcess from '../components/WorkProcess.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import Footer from '../components/Footer.astro';
-import content from '../content/home-uk.json';
-
-const { metadata } = content;
+import { siteConfig } from '../config/site';
 ---
 
 <BaseLayout
-  title={metadata.title}
-  description={metadata.description}
-  ogTitle={metadata.ogTitle}
-  ogDescription={metadata.ogDescription}
-  ogImage={metadata.ogImage}
+  title={siteConfig.seo.defaultTitle}
+  description={siteConfig.seo.defaultDescription}
+  ogTitle={siteConfig.seo.defaultTitle}
+  ogDescription={siteConfig.seo.defaultDescription}
+  ogImage={siteConfig.seo.defaultOgImage}
 >
   <Header />
   

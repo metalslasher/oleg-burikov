@@ -1,118 +1,105 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import { siteConfig } from '../config/site';
+
+const siteHost = new URL(siteConfig.siteUrl).hostname;
 ---
 
-<PageLayout 
-  title="Політика конфіденційності | Targetsy Agency"
-  description="Політика конфіденційності та захисту персональних даних Targetsy Agency."
+<PageLayout
+  title="Політика конфіденційності"
+  description={`Політика конфіденційності та обробки персональних даних сайту ${siteConfig.brandName}.`}
+  noindex={true}
 >
-  <section class="pt-8 pb-16 px-4">
-    <div class="max-w-4xl mx-auto">
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-8">
-        Політика конфіденційності
-      </h1>
-      
-      <div class="prose prose-invert prose-lg max-w-none">
-        <p class="text-gray-400 mb-8">
-          Остання редакція: 14 грудня 2025 року
-        </p>
+    <section class="relative overflow-hidden py-24 md:py-32 text-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-4xl">
+          <a href="/" class="mb-8 inline-flex items-center text-sm font-semibold text-accent-400 hover:text-accent-300">
+            Назад на головну
+          </a>
 
-        <div class="space-y-8 text-gray-300">
-          <section>
-            <h2 class="text-2xl font-bold text-white mb-4">1. Загальні положення</h2>
-            <p>
-              Ця Політика конфіденційності описує, як Targetsy Agency ("ми", "нас" або "наш") збирає, використовує та захищає інформацію, яку ви надаєте при використанні нашого веб-сайту www.oleg-burikov.com ("Сайт").
-            </p>
-            <p>
-              Використовуючи наш Сайт, ви погоджуєтесь з умовами цієї Політики конфіденційності.
-            </p>
-          </section>
-
-          <section>
-            <h2 class="text-2xl font-bold text-white mb-4">2. Яку інформацію ми збираємо</h2>
-            <p>Ми можемо збирати наступні типи інформації:</p>
-            <ul class="list-disc pl-6 space-y-2 mt-4">
-              <li><strong>Контактна інформація:</strong> ім'я, номер телефону, email, яку ви надаєте при заповненні форм на сайті</li>
-              <li><strong>Технічна інформація:</strong> IP-адреса, тип браузера, операційна система, дані про відвідування сайту</li>
-              <li><strong>Cookies:</strong> файли cookie для покращення функціональності сайту та аналітики</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 class="text-2xl font-bold text-white mb-4">3. Як ми використовуємо інформацію</h2>
-            <p>Зібрана інформація використовується для:</p>
-            <ul class="list-disc pl-6 space-y-2 mt-4">
-              <li>Зв'язку з вами щодо наших послуг</li>
-              <li>Надання запитуваних послуг</li>
-              <li>Покращення роботи сайту та користувацького досвіду</li>
-              <li>Аналізу відвідуваності та ефективності маркетингових кампаній</li>
-              <li>Виконання юридичних зобов'язань</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 class="text-2xl font-bold text-white mb-4">4. Захист даних</h2>
-            <p>
-              Ми вживаємо розумних заходів для захисту вашої персональної інформації від несанкціонованого доступу, зміни, розкриття або знищення. Однак жоден метод передачі даних через Інтернет не є 100% безпечним.
-            </p>
-          </section>
-
-          <section>
-            <h2 class="text-2xl font-bold text-white mb-4">5. Передача даних третім особам</h2>
-            <p>
-              Ми не продаємо та не передаємо вашу персональну інформацію третім особам, крім випадків:
-            </p>
-            <ul class="list-disc pl-6 space-y-2 mt-4">
-              <li>Коли це необхідно для надання послуг (наприклад, рекламні платформи Google та Meta)</li>
-              <li>Коли це вимагається законодавством</li>
-              <li>За вашою явною згодою</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 class="text-2xl font-bold text-white mb-4">6. Google Analytics та Facebook Pixel</h2>
-            <p>
-              Ми використовуємо Google Analytics 4 та Facebook Pixel для аналізу відвідуваності сайту та ефективності реклами. Ці сервіси можуть збирати анонімну інформацію про ваші відвідування.
-            </p>
-            <p class="mt-4">
-              Якщо ви не хочете, щоб ці інструменти збирали дані, вимкніть cookies у браузері або використовуйте режими підвищеної приватності чи блокувальники. Це може зменшити точність аналітики, але робота сайту залишиться коректною.
-            </p>
-          </section>
-
-          <section>
-            <h2 class="text-2xl font-bold text-white mb-4">7. Ваші права</h2>
-            <p>Ви маєте право:</p>
-            <ul class="list-disc pl-6 space-y-2 mt-4">
-              <li>Отримати інформацію про ваші персональні дані, які ми зберігаємо</li>
-              <li>Вимагати виправлення неточних даних</li>
-              <li>Вимагати видалення ваших персональних даних</li>
-              <li>Відкликати згоду на обробку даних</li>
-            </ul>
-            <p class="mt-4">
-              Для реалізації цих прав зв'яжіться з нами за адресою: 
-              <a href="mailto:targetsy.agency@gmail.com" class="text-accent-400 hover:text-accent-300">targetsy.agency@gmail.com</a>
-            </p>
-          </section>
-
-          <section>
-            <h2 class="text-2xl font-bold text-white mb-4">8. Зміни до Політики</h2>
-            <p>
-              Ми залишаємо за собою право оновлювати цю Політику конфіденційності. Зміни набувають чинності з моменту публікації на Сайті. Рекомендуємо періодично переглядати цю сторінку.
-            </p>
-          </section>
-
-          <section>
-            <h2 class="text-2xl font-bold text-white mb-4">9. Контакти</h2>
-            <p>
-              Якщо у вас є питання щодо цієї Політики конфіденційності, зв'яжіться з нами:
-            </p>
-            <ul class="mt-4 space-y-2">
-              <li>Email: <a href="mailto:targetsy.agency@gmail.com" class="text-accent-400 hover:text-accent-300">targetsy.agency@gmail.com</a></li>
-              <li>Телефон: <a href="tel:+380686411696" class="text-accent-400 hover:text-accent-300">+380686411696</a></li>
-            </ul>
-          </section>
+          <h1 class="mb-6 text-4xl font-bold leading-tight md:text-5xl">
+            Політика конфіденційності
+          </h1>
+          <p class="text-lg leading-relaxed text-gray-300">
+            Ця політика пояснює, як {siteConfig.legalName} обробляє персональні дані користувачів сайту {siteHost}.
+          </p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <section class="pb-20">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-4xl space-y-10 text-gray-300">
+          <div>
+            <h2 class="mb-4 text-2xl font-bold text-white">1. Хто обробляє дані</h2>
+            <p class="leading-relaxed">
+              Власник сайту та контролер даних: {siteConfig.legalName}. Бренд сайту: {siteConfig.brandName}, персональний бренд: {siteConfig.personName}.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="mb-4 text-2xl font-bold text-white">2. Які дані можуть збиратися</h2>
+            <p class="mb-3 leading-relaxed">
+              Якщо ви залишаєте заявку або зв'язуєтесь через форму, сайт може обробляти ім'я, номер телефону, спосіб зв'язку, послугу, повідомлення та технічні дані заявки.
+            </p>
+            <p class="leading-relaxed">
+              Також сайт може збирати технічну аналітику: переглянуті сторінки, джерела переходу, кліки по кнопках, події форм, параметри браузера та інші подібні дані.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="mb-4 text-2xl font-bold text-white">3. Для чого використовуються дані</h2>
+            <p class="leading-relaxed">
+              Дані використовуються для відповіді на заявки, комунікації з потенційними клієнтами, бронювання консультацій, покращення сайту, вимірювання ефективності реклами та захисту форм від спаму.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="mb-4 text-2xl font-bold text-white">4. Аналітика та трекінг</h2>
+            <p class="leading-relaxed">
+              На сайті використовується Google Tag Manager. Через нього можуть бути підключені Google Analytics 4, Microsoft Clarity, Meta Pixel або інші інструменти аналітики та реклами. Їхні налаштування керуються через GTM-контейнер, а не напряму в коді сайту.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="mb-4 text-2xl font-bold text-white">5. Передача даних третім сторонам</h2>
+            <p class="leading-relaxed">
+              Дані можуть передаватися сервісам, які допомагають обробляти заявки, вести аналітику, організовувати дзвінки або забезпечувати роботу сайту: Vercel, Google, Calendly, Microsoft, Meta та іншим технічним провайдерам у межах необхідного функціоналу.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="mb-4 text-2xl font-bold text-white">6. Зберігання та захист</h2>
+            <p class="leading-relaxed">
+              Дані зберігаються лише настільки довго, наскільки це потрібно для обробки звернення, комунікації, аналітики або виконання законних обов'язків. Для зменшення ризиків сайт використовує серверну обробку заявок, перевірку даних, rate limit і заголовки безпеки.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="mb-4 text-2xl font-bold text-white">7. Ваші права</h2>
+            <p class="leading-relaxed">
+              Ви можете звернутися із запитом щодо доступу, оновлення або видалення ваших персональних даних, якщо такі дані були передані через сайт.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="mb-4 text-2xl font-bold text-white">8. Контакти</h2>
+            <ul class="space-y-2 leading-relaxed">
+              <li>
+                Email:
+                <a href={`mailto:${siteConfig.contact.email}`} class="text-accent-400 hover:text-accent-300">
+                  {siteConfig.contact.email}
+                </a>
+              </li>
+              <li>
+                Телефон:
+                <a href={`tel:${siteConfig.contact.phone}`} class="text-accent-400 hover:text-accent-300">
+                  {siteConfig.contact.phoneDisplay}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 </PageLayout>

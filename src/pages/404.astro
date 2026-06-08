@@ -1,10 +1,11 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import { siteConfig } from '../config/site';
 ---
 
 <PageLayout
-  title="404 - Сторінку не знайдено | Targetsy Agency"
-  description="На жаль, сторінка, яку ви шукаєте, не існує. Поверніться на головну сторінку Targetsy."
+  title="404 - Сторінку не знайдено"
+  description={`На жаль, сторінка, яку ви шукаєте, не існує. Поверніться на головну сторінку ${siteConfig.brandName}.`}
   noindex={true}
 >
   <section class="min-h-[80vh] flex items-center justify-center px-4">

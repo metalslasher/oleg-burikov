@@ -1,5 +1,6 @@
 ﻿---
 import content from '../content/home-uk.json';
+import { siteConfig } from '../config/site';
 
 const { header } = content;
 const nonce = Astro.locals.cspNonce;
@@ -13,10 +14,10 @@ const nonce = Astro.locals.cspNonce;
     <div class="flex items-center justify-between h-16 sm:h-18">
         <!-- Logo -->
         <div class="flex-shrink-0">
-          <a href="/" class="flex items-center hover:opacity-90 transition-opacity" aria-label="Targetsy Agency">
+          <a href="/" class="flex items-center hover:opacity-90 transition-opacity" aria-label={siteConfig.brandName}>
             <img 
               src="/images/logo.png" 
-              alt="Targetsy Agency Logo" 
+              alt={siteConfig.logo.alt}
               width="240"
               height="82"
               class="h-8 sm:h-9 w-auto"
