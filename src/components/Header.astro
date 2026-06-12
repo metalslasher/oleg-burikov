@@ -4,189 +4,349 @@ import { siteConfig } from '../config/site';
 
 const { header } = content;
 const nonce = Astro.locals.cspNonce;
+const languages = [
+  { code: 'uk', label: 'UA', name: 'Українська', active: true },
+  { code: 'en', label: 'EN', name: 'English', active: false },
+];
 ---
 
-<header id="header" class="fixed top-0 left-0 right-0 z-50">
+<header id="header" class="site-header fixed top-0 left-0 right-0 z-50">
   <nav
-    class="header-shell bg-[#0F1419]/65 backdrop-blur-2xl border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.35)] px-4 sm:px-6 lg:px-8"
+    class="header-shell px-4 sm:px-6 lg:px-8"
     aria-label="Основна навігація"
   >
     <div class="flex items-center justify-between h-16 sm:h-18">
         <!-- Logo -->
         <div class="flex-shrink-0">
-          <a href="/" class="flex items-center gap-3 hover:opacity-90 transition-opacity" aria-label={siteConfig.brandName}>
-            <span class="flex h-9 w-9 items-center justify-center rounded-lg border border-accent-400/40 bg-accent-500/15 text-sm font-black text-white">
-              OB
-            </span>
-            <span class="leading-tight">
-              <span class="block text-base font-black text-white">{header.logo}</span>
-              <span class="block text-[11px] font-semibold uppercase tracking-[0.16em] text-accent-300">Performance</span>
-            </span>
+          <a href="/" class="brand-logo" aria-label={siteConfig.personName}>
+            <span class="brand-logo__name">{header.logo}</span>
           </a>
         </div>
 
         <!-- Desktop Navigation (Center) -->
         <div class="hidden lg:flex items-center space-x-8">
           {header.nav.map((item) => (
-            item.children ? (
-              <div class="relative group">
-                <a
-                  href={item.href}
-                  class="flex items-center gap-1 text-[15px] text-gray-300 hover:text-white font-medium transition-colors py-2"
-                  aria-haspopup="true"
-                >
-                  {item.label}
-                  <svg class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </a>
-                <div class="absolute left-0 mt-2 w-48 bg-[#161b22] border border-white/10 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-left z-50 overflow-hidden">
-                  <div class="py-1">
-                    {item.children.map((child) => (
-                      <a
-                        href={child.href}
-                        class="block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
-                      >
-                        {child.label}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <a
-                href={item.href}
-                class="text-[15px] text-gray-300 hover:text-white font-medium transition-colors"
-              >
-                {item.label}
-              </a>
-            )
+            <a
+              href={item.href}
+              class="text-[15px] text-gray-300 hover:text-white font-medium transition-colors"
+            >
+              {item.label}
+            </a>
           ))}
         </div>
 
-        <!-- Right Side Buttons (Desktop) -->
-        <div class="hidden lg:flex items-center">
-          <a
-            href="#contact"
-            data-gtm-event="cta_click"
-            data-gtm-label="header_consultation"
-            data-gtm-location="header_desktop"
-            class="inline-flex items-center gap-2 text-[15px] text-accent-500 hover:text-accent-400 font-medium transition-colors"
-          >
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-            </svg>
-            {header.cta}
-          </a>
-        </div>
+        <div class="header-right">
+          <!-- Right Side Buttons (Desktop / Tablet) -->
+          <div class="hidden md:flex items-center gap-3">
+            <a
+              href="#contact"
+              data-gtm-event="cta_click"
+              data-gtm-label="header_consultation"
+              data-gtm-location="header_desktop"
+              class="header-cta"
+            >
+              <span>{header.cta}</span>
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7m0 0H9m8 0v8" />
+              </svg>
+            </a>
 
-        <!-- Mobile Menu Button -->
-        <button
-          id="mobile-menu-button"
-          class="lg:hidden inline-flex items-center justify-center p-2 rounded-xl text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none"
-          aria-expanded="false"
-          aria-controls="mobile-menu"
-          aria-label="Відкрити меню"
-        >
-          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
+            <div class="language-switch" aria-label="Зміна мови сайту">
+              {languages.map((language) => (
+                <button
+                  type="button"
+                  class:list={['language-switch__item', language.active && 'is-active']}
+                  aria-pressed={language.active ? 'true' : 'false'}
+                  aria-label={language.name}
+                >
+                  {language.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button
+            id="mobile-menu-button"
+            class="lg:hidden inline-flex items-center justify-center p-2 rounded-xl text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+            aria-label="Відкрити меню"
+          >
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
       </div>
 
       <!-- Mobile Menu -->
       <div id="mobile-menu" class="hidden lg:hidden pb-4 border-t border-white/10 mt-2">
         <div class="flex flex-col space-y-2 pt-4">
           {header.nav.map((item) => (
-            item.children ? (
-              <div class="space-y-1 mobile-dropdown">
-                <div class="flex items-center gap-2">
-                  <a
-                    href={item.href}
-                    class="flex-1 text-gray-300 hover:text-white hover:bg-white/10 font-medium py-3 px-4 rounded-xl transition-all mobile-nav-link"
-                  >
-                    {item.label}
-                  </a>
-                  <button
-                    class="inline-flex items-center justify-center h-10 w-10 rounded-xl text-gray-300 hover:text-white hover:bg-white/10 transition-all mobile-dropdown-btn"
-                    aria-expanded="false"
-                    aria-label={`Розкрити підменю ${item.label}`}
-                  >
-                    <svg class="w-4 h-4 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                </div>
-                <div class="hidden pl-4 space-y-1 mobile-dropdown-content">
-                  {item.children.map((child) => (
-                    <a
-                      href={child.href}
-                      class="block text-gray-400 hover:text-white hover:bg-white/10 font-medium py-2.5 px-4 rounded-xl transition-all mobile-nav-link"
-                    >
-                      {child.label}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <a
-                href={item.href}
-                class="block text-gray-300 hover:text-white hover:bg-white/10 font-medium py-3 px-4 rounded-xl transition-all mobile-nav-link"
-              >
-                {item.label}
-              </a>
-            )
+            <a
+              href={item.href}
+              class="block text-gray-300 hover:text-white hover:bg-white/10 font-medium py-3 px-4 rounded-xl transition-all mobile-nav-link"
+            >
+              {item.label}
+            </a>
           ))}
-          <a
-            href="#contact"
-            data-gtm-event="cta_click"
-            data-gtm-label="header_consultation"
-            data-gtm-location="header_mobile"
-            class="bg-accent-500 text-white text-center px-6 py-3 rounded-full font-semibold hover:bg-accent-600 transition-all mobile-nav-link"
-          >
-            {header.cta}
-          </a>
+          <div class="mobile-menu-actions">
+            <a
+              href="#contact"
+              data-gtm-event="cta_click"
+              data-gtm-label="header_consultation"
+              data-gtm-location="header_mobile"
+              class="header-mobile-cta mobile-nav-link"
+            >
+              <span>{header.cta}</span>
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7m0 0H9m8 0v8" />
+              </svg>
+            </a>
+
+            <div class="language-switch language-switch--mobile" aria-label="Зміна мови сайту">
+              {languages.map((language) => (
+                <button
+                  type="button"
+                  class:list={['language-switch__item', language.active && 'is-active']}
+                  aria-pressed={language.active ? 'true' : 'false'}
+                  aria-label={language.name}
+                >
+                  {language.label}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </nav>
 </header>
 
+<style>
+  .site-header {
+    transition: transform 220ms ease;
+  }
+
+  .header-shell {
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    box-shadow: none;
+    transition:
+      background-color 220ms ease,
+      border-color 220ms ease,
+      box-shadow 220ms ease,
+      backdrop-filter 220ms ease;
+  }
+
+  .site-header.is-scrolled .header-shell,
+  .site-header.is-menu-open .header-shell {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    background: rgba(15, 20, 25, 0.65);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(32px);
+  }
+
+  .brand-logo {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    color: white;
+    transition:
+      color 180ms ease,
+      opacity 180ms ease;
+  }
+
+  .brand-logo:hover {
+    opacity: 0.92;
+  }
+
+  .header-right {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .brand-logo__name {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    color: currentColor;
+    font-size: clamp(1.18rem, 1.05rem + 0.45vw, 1.45rem);
+    font-weight: 950;
+    line-height: 1;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  .brand-logo__name::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -0.45rem;
+    left: 0;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgb(249 115 22), transparent 86%);
+    transform: scaleX(0.36);
+    transform-origin: left;
+    opacity: 0.9;
+    transition:
+      transform 220ms ease,
+      opacity 220ms ease;
+  }
+
+  .brand-logo:hover .brand-logo__name::after,
+  .site-header.is-scrolled .brand-logo__name::after,
+  .site-header.is-menu-open .brand-logo__name::after {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  .language-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+    min-height: 2.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.035);
+    padding: 0.2rem;
+  }
+
+  .language-switch__item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.15rem;
+    min-height: 1.95rem;
+    border-radius: 999px;
+    color: rgb(156 163 175);
+    font-size: 0.72rem;
+    font-weight: 850;
+    letter-spacing: 0.04em;
+    transition:
+      background-color 180ms ease,
+      color 180ms ease;
+  }
+
+  .language-switch__item:hover {
+    color: white;
+  }
+
+  .language-switch__item.is-active {
+    background: rgba(249, 115, 22, 0.18);
+    color: rgb(253 186 116);
+  }
+
+  .header-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-height: 2.55rem;
+    border: 1px solid rgba(249, 115, 22, 0.38);
+    border-radius: 999px;
+    background: rgba(249, 115, 22, 0.12);
+    padding: 0.55rem 0.9rem 0.55rem 1rem;
+    color: rgb(255 237 213);
+    font-size: 0.9rem;
+    font-weight: 820;
+    white-space: nowrap;
+    transition:
+      border-color 180ms ease,
+      background-color 180ms ease,
+      color 180ms ease;
+  }
+
+  .header-cta:hover {
+    border-color: rgba(249, 115, 22, 0.68);
+    background: rgba(249, 115, 22, 0.2);
+    color: white;
+  }
+
+  .header-mobile-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-width: 0;
+    min-height: 2.7rem;
+    border: 1px solid rgba(249, 115, 22, 0.38);
+    border-radius: 0.75rem;
+    background: rgba(249, 115, 22, 0.12);
+    padding: 0.8rem 0.85rem;
+    color: rgb(255 237 213);
+    font-size: clamp(0.82rem, 2.6vw, 0.95rem);
+    font-weight: 820;
+    text-align: center;
+    transition:
+      border-color 180ms ease,
+      background-color 180ms ease,
+      color 180ms ease;
+  }
+
+  .header-mobile-cta span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .header-mobile-cta:hover {
+    border-color: rgba(249, 115, 22, 0.68);
+    background: rgba(249, 115, 22, 0.2);
+    color: white;
+  }
+
+  .mobile-menu-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.25rem 0 0;
+  }
+
+  .language-switch--mobile {
+    width: fit-content;
+    margin: 0;
+    justify-self: end;
+  }
+
+  @supports not ((backdrop-filter: blur(1px))) {
+    .site-header.is-scrolled .header-shell,
+    .site-header.is-menu-open .header-shell {
+      background: rgba(15, 20, 25, 0.92);
+    }
+  }
+</style>
+
 <script is:inline nonce={nonce}>
-  // Mobile menu toggle
   document.addEventListener('DOMContentLoaded', () => {
+    const header = document.getElementById('header');
     const menuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
+
+    const updateHeaderState = () => {
+      header?.classList.toggle('is-scrolled', window.scrollY > 8);
+    };
+
+    updateHeaderState();
+    window.addEventListener('scroll', updateHeaderState, { passive: true });
 
     if (menuButton && mobileMenu) {
       menuButton.addEventListener('click', () => {
         const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
         menuButton.setAttribute('aria-expanded', (!isExpanded).toString());
         mobileMenu.classList.toggle('hidden');
+        header?.classList.toggle('is-menu-open', !isExpanded);
       });
 
-      // Mobile dropdown toggles
-      const dropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
-      dropdownBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const wrapper = btn.closest('.mobile-dropdown');
-          const content = wrapper?.querySelector('.mobile-dropdown-content');
-          const icon = btn.querySelector('svg');
-          const isExpanded = btn.getAttribute('aria-expanded') === 'true';
-          
-          if (content && icon) {
-            btn.setAttribute('aria-expanded', (!isExpanded).toString());
-            content.classList.toggle('hidden');
-            icon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
-          }
-        });
-      });
-
-      // Close mobile menu when clicking on nav links
       const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
       mobileNavLinks.forEach((link) => {
         link.addEventListener('click', () => {
           mobileMenu.classList.add('hidden');
           menuButton?.setAttribute('aria-expanded', 'false');
+          header?.classList.remove('is-menu-open');
         });
       });
     }
