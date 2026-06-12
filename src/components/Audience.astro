@@ -1,0 +1,119 @@
+---
+import content from '../content/home-uk.json';
+
+const { audience } = content;
+---
+
+<section id="audience" class="py-14 md:py-20">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+        <div>
+          <p class="mb-3 text-fluid-sm font-semibold uppercase tracking-[0.16em] text-accent-400">
+            Для кого
+          </p>
+          <h2 class="text-fluid-4xl font-bold leading-tight text-white">
+            {audience.title}
+          </h2>
+        </div>
+        <p class="text-fluid-lg leading-relaxed text-gray-400">
+          {audience.subtitle}
+        </p>
+      </div>
+
+      <div class="mt-8 grid gap-4 lg:grid-cols-2">
+        {audience.items.map((item, index) => {
+          const isExternal = item.href.startsWith('http');
+
+          return (
+            <article class="audience-card">
+              <div>
+                <span class="audience-card__label">{item.label}</span>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+
+              <a
+                href={item.href}
+                target={isExternal ? '_blank' : undefined}
+                rel={isExternal ? 'noopener noreferrer' : undefined}
+                data-gtm-event="cta_click"
+                data-gtm-label={index === 0 ? 'audience_business' : 'audience_team'}
+                data-gtm-location="home_audience"
+              >
+                {item.cta}
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </a>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .audience-card {
+    display: flex;
+    min-height: 15.5rem;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.65rem;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.03)),
+      rgba(15, 23, 42, 0.66);
+    padding: 1.35rem;
+  }
+
+  @media (min-width: 768px) {
+    .audience-card {
+      padding: 1.65rem;
+    }
+  }
+
+  .audience-card__label {
+    display: inline-flex;
+    margin-bottom: 1.1rem;
+    border-radius: 0.45rem;
+    background: rgba(249, 115, 22, 0.14);
+    padding: 0.35rem 0.65rem;
+    color: rgb(253 186 116);
+    font-size: 0.78rem;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .audience-card h3 {
+    color: white;
+    font-size: clamp(1.35rem, 1.15rem + 0.8vw, 2rem);
+    font-weight: 850;
+    line-height: 1.16;
+    text-wrap: balance;
+  }
+
+  .audience-card p {
+    margin-top: 1rem;
+    color: rgb(156 163 175);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .audience-card a {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgb(253 186 116);
+    font-weight: 800;
+    transition: color 180ms ease;
+  }
+
+  .audience-card a:hover {
+    color: white;
+  }
+</style>

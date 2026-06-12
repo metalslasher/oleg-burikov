@@ -34,6 +34,7 @@ const resolvedOgImage = new URL(ogImage || siteConfig.seo.defaultOgImage, siteUr
 const resolvedOgType =
   ogType || (Astro.url.pathname.startsWith('/blog/') ? 'article' : 'website');
 const nonce = Astro.locals.cspNonce;
+const shouldLoadVercelInsights = import.meta.env.PROD;
 
 const defaultSchemas = [
   {
@@ -158,13 +159,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       import '../scripts/gtmEvents.ts';
     </script>
     
-    <script
-      is:inline
-      defer
-      src="/_vercel/speed-insights/script.js"
-      data-sdkn="@vercel/speed-insights/astro"
-      data-sdkv="2.0.0"
-      data-route={Astro.url.pathname}
-    ></script>
+    {shouldLoadVercelInsights && (
+      <script
+        is:inline
+        defer
+        src="/_vercel/speed-insights/script.js"
+        data-sdkn="@vercel/speed-insights/astro"
+        data-sdkv="2.0.0"
+        data-route={Astro.url.pathname}
+      ></script>
+    )}
   </body>
 </html>

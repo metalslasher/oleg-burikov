@@ -5,60 +5,135 @@ const { services } = content;
 
 const iconMap: Record<string, string> = {
   google: '<circle cx="12" cy="12" r="7" /><circle cx="12" cy="12" r="3" />',
-  meta: '<circle cx="9" cy="8" r="3" /><path d="M3 20c0-3.2 2.9-5.8 6.5-5.8" /><circle cx="17" cy="9.5" r="2.5" /><path d="M14.5 20c.2-2.2 2.3-4 5-4" />',
   analytics: '<path d="M4 20h16" /><path d="M6 20v-6" /><path d="M12 20V6" /><path d="M18 20v-9" />',
+  funnel: '<path d="M3 5h18l-7 8v5l-4 2v-7L3 5z" />',
   consulting: '<path d="M9 18h6" /><path d="M10 21h4" /><path d="M12 3a6 6 0 0 0-3 11.2V17h6v-2.8A6 6 0 0 0 12 3z" />',
 };
 ---
 
 <section id="services" class="py-16 md:py-24">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Section Header -->
-    <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-      <p class="text-fluid-sm font-semibold tracking-[0.18em] text-accent-400 uppercase mb-3">
-        Послуги
-      </p>
-      <h2 class="text-fluid-4xl font-bold text-white mb-4">
-        {services.title}
-      </h2>
-      <p class="text-fluid-lg text-gray-400">
-        {services.subtitle}
-      </p>
-    </div>
-
-    <!-- Services Grid -->
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 max-w-7xl mx-auto">
-      {services.items.map((service) => (
-        <a
-          href={service.slug ? `/services/${service.slug}` : '/services'}
-          class="group block bg-white/5 border border-white/10 rounded-xl p-6 md:p-8 hover:border-accent-500/50 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-400"
-          aria-label={`Детальніше про ${service.title}`}
-        >
-          <!-- Icon -->
-          <div class="w-14 h-14 bg-accent-500/20 rounded-lg flex items-center justify-center mb-5 group-hover:bg-accent-500 group-hover:scale-110 transition-all duration-300">
-            <svg class="w-7 h-7 text-accent-400 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <g set:html={iconMap[service.icon] || iconMap.analytics} />
-            </svg>
-          </div>
-
-          <!-- Title -->
-          <h3 class="text-xl font-bold text-white mb-3">
-            {service.title}
-          </h3>
-
-          <!-- Description -->
-          <p class="text-gray-400 leading-relaxed">
-            {service.description}
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+        <div>
+          <p class="mb-3 text-fluid-sm font-semibold uppercase tracking-[0.16em] text-accent-400">
+            {services.sectionLabel}
           </p>
+          <h2 class="text-fluid-4xl font-bold leading-tight text-white">
+            {services.title}
+          </h2>
+        </div>
+        <p class="text-fluid-lg leading-relaxed text-gray-400">
+          {services.subtitle}
+        </p>
+      </div>
 
-          <div class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-accent-400 group-hover:text-accent-300 transition-colors">
-            Детальніше
-            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </div>
-        </a>
-      ))}
+      <div class="mt-10 grid gap-4 md:grid-cols-2">
+        {services.items.map((service, index) => (
+          <a
+            href={service.slug ? `/services/${service.slug}` : '/services'}
+            class="service-card group"
+            aria-label={`Детальніше про ${service.title}`}
+          >
+            <div class="service-card__top">
+              <div class="service-card__index">{String(index + 1).padStart(2, '0')}</div>
+              <div class="service-card__icon">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <g set:html={iconMap[service.icon] || iconMap.analytics} />
+                </svg>
+              </div>
+            </div>
+
+            <h3>{service.title}</h3>
+            <p>{service.description}</p>
+
+            {service.outcome && (
+              <div class="service-card__outcome">
+                <span>{service.outcome}</span>
+              </div>
+            )}
+          </a>
+        ))}
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  .service-card {
+    display: flex;
+    min-height: 17.5rem;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.65rem;
+    background: rgba(255, 255, 255, 0.045);
+    padding: 1.35rem;
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      background-color 180ms ease;
+  }
+
+  @media (min-width: 768px) {
+    .service-card {
+      padding: 1.6rem;
+    }
+  }
+
+  .service-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(249, 115, 22, 0.45);
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  .service-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+
+  .service-card__index {
+    color: rgba(255, 255, 255, 0.36);
+    font-size: 0.86rem;
+    font-weight: 850;
+  }
+
+  .service-card__icon {
+    display: inline-flex;
+    height: 2.75rem;
+    width: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.55rem;
+    background: rgba(249, 115, 22, 0.14);
+    color: rgb(253 186 116);
+  }
+
+  .service-card h3 {
+    color: white;
+    font-size: clamp(1.35rem, 1.15rem + 0.65vw, 1.9rem);
+    font-weight: 850;
+    line-height: 1.15;
+  }
+
+  .service-card p {
+    margin-top: 0.95rem;
+    color: rgb(156 163 175);
+    line-height: 1.65;
+  }
+
+  .service-card__outcome {
+    margin-top: auto;
+    padding-top: 1.6rem;
+  }
+
+  .service-card__outcome span {
+    display: inline-flex;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    padding-top: 0.9rem;
+    color: rgb(229 231 235);
+    font-size: 0.92rem;
+    font-weight: 780;
+  }
+</style>

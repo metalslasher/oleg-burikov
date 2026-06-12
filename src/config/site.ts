@@ -11,8 +11,8 @@ export const siteConfig = {
     shortLabel: 'Performance Marketing',
   },
   logo: {
-    src: '/images/logo.png',
-    alt: 'Oleg Burikov logo',
+    src: '/favicon.png',
+    alt: 'Oleg Burikov',
   },
   contact: {
     email: 'oleg.burikov.adv@gmail.com',
@@ -45,9 +45,9 @@ export const siteConfig = {
     },
   },
   seo: {
-    defaultTitle: 'Oleg Burikov - performance marketing та реклама для бізнесу',
+    defaultTitle: 'Олег Буріков - performance marketing спеціаліст',
     defaultDescription:
-      'Performance marketing, Google Ads, Meta Ads, аналітика та стратегія росту для бізнесу.',
+      'Performance marketing, Google Ads, Meta Ads, TikTok Ads, аналітика, трекінг і системне залучення клієнтів для бізнесу.',
     defaultOgImage: '/images/og-image.jpg',
   },
 } as const;

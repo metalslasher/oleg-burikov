@@ -2,67 +2,98 @@
 import content from '../content/home-uk.json';
 
 const { niches } = content;
-
-type NicheItem = {
-  title: string;
-  icon: string;
-  subtitle?: string;
-};
-
-const nicheItems = niches.items as NicheItem[];
-
-const iconMap: Record<string, string> = {
-  ecommerce: '<path d="M3 4h2l2.4 10.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L21 7H7" /><circle cx="10" cy="19" r="1.5" /><circle cx="17" cy="19" r="1.5" />',
-  local: '<path d="M12 21s6-6.5 6-11a6 6 0 1 0-12 0c0 4.5 6 11 6 11z" /><circle cx="12" cy="10" r="2.5" />',
-  realestate: '<path d="M3 11l9-7 9 7" /><path d="M5 10v10h14V10" /><path d="M9 20v-6h6v6" />',
-  education: '<path d="M12 4l9 4-9 4-9-4 9-4z" /><path d="M5 12v4c0 2.2 3.1 4 7 4s7-1.8 7-4v-4" />',
-  fintech: '<rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 10h18" /><path d="M7 15h3" />',
-  saas: '<rect x="3" y="4" width="18" height="6" rx="2" /><path d="M7 7h.01" /><rect x="3" y="14" width="18" height="6" rx="2" /><path d="M7 17h.01" />',
-  leadgen: '<path d="M3 4h18l-7 8v6l-4 2v-8L3 4z" />',
-  apparel: '<path d="M4 7l4-3 4 2 4-2 4 3-2 3-2-1v12H8V9l-2 1-2-3z" />',
-  jewelry: '<path d="M6 4h12l4 6-10 10L2 10l4-6z" />',
-  auto: '<circle cx="12" cy="12" r="7" /><path d="M5 12h14" /><path d="M12 12l3 5" /><path d="M12 12l-3 5" />',
-  medicine: '<circle cx="12" cy="12" r="7" /><path d="M12 9v6" /><path d="M9 12h6" />',
-  food: '<path d="M3 18h18" /><path d="M5 18a7 7 0 0 1 14 0" /><path d="M12 9V7" /><path d="M10 7h4" />',
-};
 ---
 
-<section id="niches" class="py-18 md:py-24">
+<section id="niches" class="py-16 md:py-24">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-3xl mx-auto mb-10 md:mb-14">
-      <p class="text-fluid-sm font-semibold tracking-[0.18em] text-accent-400 uppercase mb-3">
-        Ніші
-      </p>
-      <h2 class="text-fluid-4xl font-bold text-white mb-4">
-        {niches.title}
-      </h2>
-      {niches.subtitle && (
-        <p class="text-fluid-lg text-gray-400">
-          {niches.subtitle}
-        </p>
-      )}
-    </div>
-
-    <div class="max-w-7xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-      {nicheItems.map((item) => (
-        <div class="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 px-5 py-5 md:px-6 md:py-6 hover:border-accent-500/40 hover:bg-white/10 transition-all duration-300">
-          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-accent-500/20 text-accent-400 group-hover:bg-accent-500/30 transition-colors">
-            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <g set:html={iconMap[item.icon] || iconMap.ecommerce} />
-            </svg>
-          </div>
-          <div>
-            <div class="text-base md:text-lg font-semibold text-white">
-              {item.title}
-            </div>
-            {item.subtitle && (
-              <div class="text-sm text-gray-400">
-                {item.subtitle}
-              </div>
-            )}
-          </div>
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+        <div>
+          <p class="mb-3 text-fluid-sm font-semibold uppercase tracking-[0.16em] text-accent-400">
+            Контексти
+          </p>
+          <h2 class="text-fluid-4xl font-bold leading-tight text-white">
+            {niches.title}
+          </h2>
         </div>
-      ))}
+        {niches.subtitle && (
+          <p class="text-fluid-lg leading-relaxed text-gray-400">
+            {niches.subtitle}
+          </p>
+        )}
+      </div>
+
+      <div class="niche-groups">
+        {niches.groups.map((group) => (
+          <article class="niche-group">
+            <h3>{group.title}</h3>
+            <div>
+              {group.items.map((item) => (
+                <span>{item}</span>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  .niche-groups {
+    display: grid;
+    gap: 1px;
+    overflow: hidden;
+    margin-top: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.65rem;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  @media (min-width: 768px) {
+    .niche-groups {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1180px) {
+    .niche-groups {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .niche-group {
+    background: rgba(2, 6, 23, 0.58);
+    padding: 1.2rem;
+  }
+
+  @media (min-width: 768px) {
+    .niche-group {
+      min-height: 12.5rem;
+      padding: 1.35rem;
+    }
+  }
+
+  .niche-group h3 {
+    color: white;
+    font-size: 1.05rem;
+    font-weight: 820;
+  }
+
+  .niche-group div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.15rem;
+  }
+
+  .niche-group span {
+    display: inline-flex;
+    border-radius: 0.45rem;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 0.38rem 0.65rem;
+    color: rgb(209 213 219);
+    font-size: 0.88rem;
+    font-weight: 720;
+  }
+</style>

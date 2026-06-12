@@ -1,0 +1,181 @@
+---
+import content from '../content/home-uk.json';
+
+const { experience } = content;
+---
+
+<section id="experience" class="py-16 md:py-24">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+        <div>
+          <p class="mb-3 text-fluid-sm font-semibold uppercase tracking-[0.16em] text-accent-400">
+            Досвід
+          </p>
+          <h2 class="text-fluid-4xl font-bold leading-tight text-white">
+            {experience.title}
+          </h2>
+        </div>
+        <div>
+          <p class="text-fluid-lg leading-relaxed text-gray-300">
+            {experience.subtitle}
+          </p>
+          <p class="mt-4 text-base leading-relaxed text-gray-400">
+            {experience.summary}
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-10 grid gap-4 md:grid-cols-2">
+        {experience.groups.map((group) => (
+          <article class="experience-group">
+            <h3>{group.title}</h3>
+            <p>{group.description}</p>
+            <div class="experience-tags">
+              {group.tags.map((tag) => (
+                <span>{tag}</span>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="experience-path">
+        <div class="experience-path__intro">
+          <h3>Професійний шлях</h3>
+          <p>Коротко, щоб було видно контекст без перетворення головної на CV.</p>
+        </div>
+
+        <div class="experience-roles">
+          {experience.roles.map((role) => (
+            <article class="experience-role">
+              <div>
+                <h4>{role.title}</h4>
+                <p>{role.company}</p>
+              </div>
+              <span>{role.period}</span>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .experience-group {
+    min-height: 15.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.65rem;
+    background: rgba(255, 255, 255, 0.045);
+    padding: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .experience-group {
+      padding: 1.5rem;
+    }
+  }
+
+  .experience-group h3 {
+    color: white;
+    font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.75rem);
+    font-weight: 850;
+    line-height: 1.2;
+  }
+
+  .experience-group p {
+    margin-top: 0.9rem;
+    color: rgb(156 163 175);
+    line-height: 1.65;
+  }
+
+  .experience-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.35rem;
+  }
+
+  .experience-tags span {
+    display: inline-flex;
+    border-radius: 0.45rem;
+    background: rgba(249, 115, 22, 0.12);
+    padding: 0.35rem 0.6rem;
+    color: rgb(253 186 116);
+    font-size: 0.82rem;
+    font-weight: 760;
+  }
+
+  .experience-path {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.65rem;
+    background: rgba(2, 6, 23, 0.38);
+    padding: 1.25rem;
+  }
+
+  @media (min-width: 1024px) {
+    .experience-path {
+      grid-template-columns: 0.38fr 1fr;
+      align-items: start;
+      padding: 1.5rem;
+    }
+  }
+
+  .experience-path__intro h3 {
+    color: white;
+    font-size: 1.15rem;
+    font-weight: 820;
+  }
+
+  .experience-path__intro p {
+    margin-top: 0.45rem;
+    color: rgb(148 163 184);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .experience-roles {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .experience-role {
+    display: grid;
+    gap: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 0.85rem;
+  }
+
+  .experience-role:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  @media (min-width: 640px) {
+    .experience-role {
+      grid-template-columns: 1fr auto;
+      align-items: start;
+    }
+  }
+
+  .experience-role h4 {
+    color: white;
+    font-weight: 780;
+  }
+
+  .experience-role p {
+    margin-top: 0.18rem;
+    color: rgb(156 163 175);
+    font-size: 0.92rem;
+  }
+
+  .experience-role span {
+    color: rgb(253 186 116);
+    font-size: 0.9rem;
+    font-weight: 760;
+  }
+</style>

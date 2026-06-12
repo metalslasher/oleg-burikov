@@ -17,7 +17,7 @@ The technical base already supports the new brand through `src/config/site.ts`. 
 
 1. Homepage positioning
 
-   Rewrite hero, services intro, about block, process, CTA, and footer copy around Oleg's experience, services, and cases.
+   Initial homepage pass is done: hero, services intro, about block, experience block, niches, process, CTA, footer copy, header logo, and OG image now use Oleg's personal-brand positioning.
 
 2. Service pages
 
@@ -29,7 +29,7 @@ The technical base already supports the new brand through `src/config/site.ts`. 
 
 4. Testimonials
 
-   `src/content/home-uk.json` still contains testimonial quotes mentioning `Targetsy`. Decide whether to rewrite, replace, or temporarily hide those quotes during the content rebrand.
+   The old homepage testimonials were removed because they were not ready to use as real social proof. Add this section back later only with verified client quotes, names, permissions, and consistent attribution.
 
 5. Blog
 
@@ -57,6 +57,5 @@ The technical base already supports the new brand through `src/config/site.ts`. 
 
 ## Known Non-Technical Content Leftovers
 
-- Some testimonial quotes still mention `Targetsy`.
 - Some pages still read conceptually like an agency offer.
 - Blog content should be reviewed before being considered brand-final.

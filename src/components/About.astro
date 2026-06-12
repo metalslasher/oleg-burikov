@@ -1,8 +1,7 @@
-﻿---
+---
 import content from '../content/home-uk.json';
 
 const { about } = content;
-const nonce = Astro.locals.cspNonce;
 const introParagraphs = about.intro
   .split('\n\n')
   .map((paragraph) => paragraph.trim())
@@ -15,82 +14,62 @@ const iconMap: Record<string, string> = {
     '<path d="M3 3v18h18" /><path d="M18 17l-5-5-4 4-5-5" />',
   transparency:
     '<path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6-10-6-10-6z" /><circle cx="12" cy="12" r="2.5" />',
-  individual:
-    '<path d="M12 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3z" /><path d="M6 21c0-3.3 2.7-6 6-6s6 2.7 6 6" />',
+  system:
+    '<path d="M4 7h16" /><path d="M4 17h16" /><path d="M7 4v6" /><path d="M17 14v6" />',
 };
 ---
 
-<section id="about" class="py-20 md:py-24">
+<section id="about" class="py-16 md:py-24">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-auto about-shell">
-      <div class="about-grid">
-        <div class="about-left text-center lg:text-left">
-          <p class="text-fluid-sm font-semibold tracking-[0.16em] text-accent-400 uppercase mb-4">
-            Про агенцію
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+        <div class="about-copy">
+          <p class="mb-3 text-fluid-sm font-semibold uppercase tracking-[0.16em] text-accent-400">
+            {about.sectionLabel}
           </p>
-          <h2 class="text-fluid-4xl font-bold text-white mb-5">
+          <h2 class="text-fluid-4xl font-bold leading-tight text-white">
             {about.title}
           </h2>
+
           {about.subtitle && (
-            <p class="text-fluid-lg text-gray-300 leading-relaxed max-w-3xl mx-auto lg:mx-0 mb-4">
+            <p class="mt-5 text-fluid-lg leading-relaxed text-gray-300">
               {about.subtitle}
             </p>
           )}
-          {introParagraphs.length > 0 && (
-            <div class="space-y-5 text-fluid-lg text-gray-300 leading-relaxed text-left">
-              {introParagraphs.map((paragraph) => (
-                <p class="m-0">{paragraph}</p>
-              ))}
-            </div>
-          )}
 
-          <div class="about-quote about-quote--left">
-            <span>{about.callout}</span>
+          <div class="mt-6 space-y-5 text-base leading-relaxed text-gray-400 md:text-lg">
+            {introParagraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+
+          <div class="about-callout">
+            {about.callout}
           </div>
         </div>
 
-        <!-- Advantages -->
-        <div class="about-advantages">
-          <div class="about-advantages__grid">
-            {about.advantages.map((advantage, index) => (
-              <div class="about-adv-card group" style={`--delay: ${index * 120}ms`}>
-                <div class="about-adv-icon">
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="about-side">
+          <div class="about-signals">
+            {about.signals.map((signal) => (
+              <span>{signal}</span>
+            ))}
+          </div>
+
+          <div class="about-advantages">
+            {about.advantages.map((advantage) => (
+              <article class="about-advantage">
+                <div class="about-advantage__icon">
+                  <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                     <g set:html={iconMap[advantage.icon] || iconMap.experience} />
                   </svg>
                 </div>
                 <div>
-                  <h3 class="text-base md:text-lg font-semibold text-white mb-1">
-                    {advantage.title}
-                  </h3>
-                  <p class="text-sm md:text-base text-gray-400 leading-relaxed">
-                    {advantage.description}
-                  </p>
+                  <h3>{advantage.title}</h3>
+                  <p>{advantage.description}</p>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
-        </div>
-      </div>
-
-      <!-- Stats -->
-      <div class="about-stats mt-12 md:mt-14" data-countup-group>
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-          {about.stats.map((stat) => (
-            <div class="about-stat-card">
-              <div class="relative z-10">
-                <div
-                  class="text-3xl md:text-4xl font-black text-accent-400 mb-1"
-                  data-countup
-                >
-                  {stat.value}
-                </div>
-                <div class="text-xs md:text-sm text-gray-400 font-medium">
-                  {stat.label}
-                </div>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     </div>
@@ -98,289 +77,86 @@ const iconMap: Record<string, string> = {
 </section>
 
 <style>
-  .about-shell {
-    position: relative;
-    border-radius: 2.5rem;
-    padding: 2.5rem 1.5rem;
-    border: 1px solid rgba(148, 163, 184, 0.18);
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.45));
-    box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.08);
-  }
-
-  @media (min-width: 768px) {
-    .about-shell {
-      padding: 3rem 2.5rem;
-    }
-  }
-
-  .about-shell::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 55%);
-    pointer-events: none;
-  }
-
-  .about-grid {
-    position: relative;
-    display: grid;
-    gap: 2.5rem;
-    grid-template-columns: 1fr;
-  }
-
-  @media (min-width: 1024px) {
-    .about-grid {
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.35fr);
-      align-items: stretch;
-    }
-  }
-
-  .about-quote {
-    margin-top: 1.75rem;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    min-height: 140px;
-    text-align: left;
-    position: relative;
-  }
-
-  @media (min-width: 1024px) {
-    .about-quote {
-      min-height: 160px;
-    }
-  }
-
-  .about-quote--left {
-    justify-content: flex-start;
-    text-align: left;
-  }
-
-  .about-quote span {
-    position: relative;
-    font-size: clamp(1.1rem, 1rem + 1vw, 1.6rem);
-    line-height: 1.5;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.96);
-    padding-left: 2.5rem;
-    max-width: 520px;
-  }
-
-  .about-quote span::before {
-    content: '“';
-    position: absolute;
-    left: 0;
-    top: -0.4rem;
-    font-size: 3.2rem;
-    color: rgba(249, 115, 22, 0.9);
-    font-weight: 800;
-  }
-
-  .about-quote span::after {
-    content: none;
-  }
-
-  .about-advantages {
-    display: flex;
-    align-items: center;
-    width: 100%;
-  }
-
-  @media (min-width: 1024px) {
-    .about-advantages {
-      height: 100%;
-    }
-  }
-
-  .about-advantages__grid {
-    position: relative;
-    display: grid;
-    gap: 1.5rem 1.25rem;
-    grid-template-columns: 1fr;
-    width: 100%;
-  }
-
-  @media (min-width: 640px) {
-    .about-advantages__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  .about-adv-card {
-    position: relative;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0.9rem;
-    align-items: flex-start;
-    padding: 0;
-    border: 0;
-    border-radius: 0;
-    background: transparent;
-    box-shadow: none;
-    transition: none;
-    animation: about-rise 0.55s ease both;
-    animation-delay: var(--delay);
-  }
-  .about-adv-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.6rem;
-    height: 2.6rem;
-    border-radius: 0.9rem;
-    background: linear-gradient(135deg, rgba(249, 115, 22, 0.18), rgba(249, 115, 22, 0.08));
-    color: #fdba74;
-    box-shadow: inset 0 0 0 1px rgba(249, 115, 22, 0.35);
-  }
-
-  .about-stats {
-    border-top: 1px solid rgba(148, 163, 184, 0.18);
-    padding-top: 2rem;
-  }
-
-  .about-stats .grid {
-    justify-items: center;
-  }
-
-  .about-stat-card {
-    padding: 0.5rem 0.25rem;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .about-copy {
+    max-width: 700px;
   }
 
   .about-callout {
-    animation: callout-float 5.5s ease-in-out infinite;
+    margin-top: 2rem;
+    border-left: 3px solid rgb(249 115 22);
+    padding-left: 1.25rem;
+    color: white;
+    font-size: clamp(1.1rem, 1rem + 0.45vw, 1.35rem);
+    font-weight: 760;
+    line-height: 1.55;
   }
 
-  @keyframes callout-float {
-    0%,
-    100% {
-      transform: translateY(0);
-      box-shadow: 0 20px 45px -35px rgba(15, 23, 42, 0.75);
-    }
-    50% {
-      transform: translateY(-6px);
-      box-shadow: 0 30px 55px -35px rgba(59, 130, 246, 0.35);
+  .about-side {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .about-signals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.65rem;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 1rem;
+  }
+
+  .about-signals span {
+    display: inline-flex;
+    border-radius: 0.45rem;
+    background: rgba(2, 6, 23, 0.5);
+    padding: 0.45rem 0.7rem;
+    color: rgb(229 231 235);
+    font-size: 0.9rem;
+    font-weight: 760;
+  }
+
+  .about-advantages {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .about-advantage {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.95rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.65rem;
+    background: rgba(255, 255, 255, 0.045);
+    padding: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .about-advantage {
+      padding: 1.15rem;
     }
   }
 
-  @keyframes about-rise {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .about-advantage__icon {
+    display: inline-flex;
+    height: 2.55rem;
+    width: 2.55rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.55rem;
+    background: rgba(249, 115, 22, 0.13);
+    color: rgb(253 186 116);
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .about-callout {
-      animation: none;
-    }
+  .about-advantage h3 {
+    color: white;
+    font-size: 1.05rem;
+    font-weight: 820;
+  }
 
-    .about-adv-card {
-      animation: none;
-    }
+  .about-advantage p {
+    margin-top: 0.35rem;
+    color: rgb(156 163 175);
+    line-height: 1.6;
   }
 </style>
-
-<script is:inline nonce={nonce}>
-  const counters = Array.from(document.querySelectorAll('[data-countup]'));
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  const parseCounter = (rawValue) => {
-    const trimmed = rawValue.replace(/\s+/g, ' ').trim();
-    const ratioMatch = trimmed.match(/^(\d+)\s*\/\s*(\d+)$/);
-    if (ratioMatch) {
-      const target = Number.parseInt(ratioMatch[1], 10);
-      if (!Number.isFinite(target)) return null;
-      return { prefix: '', suffix: `/${ratioMatch[2]}`, target, decimals: 0, raw: rawValue };
-    }
-
-    const match = trimmed.match(/^([^0-9]*)(\d+(?:[.,]\d+)?)([^0-9]*)$/);
-    if (!match) return null;
-
-    const [, prefix, numberRaw, suffix] = match;
-    const normalized = numberRaw.replace(',', '.');
-    const target = Number.parseFloat(normalized);
-
-    if (!Number.isFinite(target)) return null;
-
-    const decimals = normalized.includes('.') ? normalized.split('.')[1].length : 0;
-    return { prefix, suffix, target, decimals, raw: rawValue };
-  };
-
-  const animateCounter = (element) => {
-    if (element.dataset.counted === 'true') return;
-
-    const rawValue = element.textContent?.trim() ?? '';
-    const data = parseCounter(rawValue);
-    if (!data) return;
-
-    element.dataset.counted = 'true';
-
-    if (prefersReduced) {
-      element.textContent = `${data.prefix}${data.target.toFixed(data.decimals)}${data.suffix}`;
-      return;
-    }
-
-    const duration = 1200;
-    const start = performance.now();
-
-    const step = (now) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = data.target * eased;
-      const value = data.decimals > 0 ? current.toFixed(data.decimals) : Math.round(current).toString();
-      element.textContent = `${data.prefix}${value}${data.suffix}`;
-
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      }
-    };
-
-    requestAnimationFrame(step);
-  };
-
-  const startAll = () => {
-    counters.forEach((counter) => animateCounter(counter));
-  };
-
-  if ('IntersectionObserver' in window && !prefersReduced) {
-    const group = document.querySelector('[data-countup-group]');
-    if (group) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            startAll();
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.35 });
-
-      observer.observe(group);
-    } else {
-      startAll();
-    }
-  } else {
-    startAll();
-  }
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
