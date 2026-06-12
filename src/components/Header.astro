@@ -68,7 +68,7 @@ const languages = [
           <!-- Mobile Menu Button -->
           <button
             id="mobile-menu-button"
-            class="lg:hidden inline-flex items-center justify-center p-2 rounded-xl text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none"
+            class="mobile-menu-toggle lg:hidden inline-flex items-center justify-center p-2 text-gray-300 hover:text-white focus:outline-none"
             aria-expanded="false"
             aria-controls="mobile-menu"
             aria-label="Відкрити меню"
@@ -81,7 +81,7 @@ const languages = [
       </div>
 
       <!-- Mobile Menu -->
-      <div id="mobile-menu" class="hidden lg:hidden pb-4 border-t border-white/10 mt-2">
+      <div id="mobile-menu" class="hidden lg:hidden pb-4 mt-2">
         <div class="flex flex-col space-y-2 pt-4">
           {header.nav.map((item) => (
             <a
@@ -130,7 +130,7 @@ const languages = [
 
   .header-shell {
     background: transparent;
-    border-bottom: 1px solid transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
     box-shadow: none;
     transition:
       background-color 220ms ease,
@@ -141,7 +141,7 @@ const languages = [
 
   .site-header.is-scrolled .header-shell,
   .site-header.is-menu-open .header-shell {
-    border-bottom-color: rgba(255, 255, 255, 0.1);
+    border-bottom-color: rgba(255, 255, 255, 0.16);
     background: rgba(15, 20, 25, 0.65);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
     backdrop-filter: blur(32px);
@@ -207,22 +207,23 @@ const languages = [
   .language-switch {
     display: inline-flex;
     align-items: center;
-    gap: 0.15rem;
-    min-height: 2.4rem;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.035);
-    padding: 0.2rem;
+    gap: 0.2rem;
+    height: 2.75rem;
+    min-height: 2.75rem;
+    border: 1px solid rgba(249, 115, 22, 0.34);
+    border-radius: 0.55rem;
+    background: rgba(249, 115, 22, 0.08);
+    padding: 0.24rem;
   }
 
   .language-switch__item {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 2.15rem;
-    min-height: 1.95rem;
-    border-radius: 999px;
-    color: rgb(156 163 175);
+    min-width: 2.1rem;
+    min-height: calc(2.75rem - 0.48rem - 2px);
+    border-radius: 0.38rem;
+    color: rgb(254 215 170);
     font-size: 0.72rem;
     font-weight: 850;
     letter-spacing: 0.04em;
@@ -232,70 +233,74 @@ const languages = [
   }
 
   .language-switch__item:hover {
+    background: rgba(249, 115, 22, 0.16);
     color: white;
   }
 
   .language-switch__item.is-active {
-    background: rgba(249, 115, 22, 0.18);
-    color: rgb(253 186 116);
+    background: rgb(249 115 22);
+    color: white;
   }
 
-  .header-cta {
+  .header-cta,
+  .header-mobile-cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.45rem;
-    min-height: 2.55rem;
-    border: 1px solid rgba(249, 115, 22, 0.38);
-    border-radius: 999px;
-    background: rgba(249, 115, 22, 0.12);
-    padding: 0.55rem 0.9rem 0.55rem 1rem;
-    color: rgb(255 237 213);
+    height: 2.75rem;
+    min-height: 2.75rem;
+    border: 1px solid rgb(249 115 22);
+    border-radius: 0.55rem;
+    background: rgb(249 115 22);
+    padding: 0 1rem;
+    color: white;
     font-size: 0.9rem;
     font-weight: 820;
     white-space: nowrap;
     transition:
       border-color 180ms ease,
       background-color 180ms ease,
-      color 180ms ease;
+      box-shadow 180ms ease,
+      color 180ms ease,
+      transform 180ms ease;
   }
 
-  .header-cta:hover {
-    border-color: rgba(249, 115, 22, 0.68);
-    background: rgba(249, 115, 22, 0.2);
+  .header-cta:hover,
+  .header-mobile-cta:hover {
+    border-color: rgb(251 146 60);
+    background: rgb(251 146 60);
+    box-shadow: 0 18px 36px -28px rgba(249, 115, 22, 0.9);
     color: white;
+    transform: translateY(-1px);
   }
 
-  .header-mobile-cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.45rem;
-    min-width: 0;
-    min-height: 2.7rem;
-    border: 1px solid rgba(249, 115, 22, 0.38);
-    border-radius: 0.75rem;
-    background: rgba(249, 115, 22, 0.12);
-    padding: 0.8rem 0.85rem;
-    color: rgb(255 237 213);
-    font-size: clamp(0.82rem, 2.6vw, 0.95rem);
-    font-weight: 820;
-    text-align: center;
+  .mobile-menu-toggle {
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0.55rem;
+    background: rgba(255, 255, 255, 0.04);
     transition:
       border-color 180ms ease,
       background-color 180ms ease,
       color 180ms ease;
   }
 
-  .header-mobile-cta span {
-    min-width: 0;
-    overflow-wrap: anywhere;
+  .mobile-menu-toggle:hover {
+    border-color: rgba(249, 115, 22, 0.42);
+    background: rgba(249, 115, 22, 0.12);
   }
 
-  .header-mobile-cta:hover {
-    border-color: rgba(249, 115, 22, 0.68);
-    background: rgba(249, 115, 22, 0.2);
-    color: white;
+  .header-mobile-cta {
+    min-width: 0;
+    padding: 0 0.85rem;
+    font-size: clamp(0.78rem, 2.45vw, 0.9rem);
+    text-align: center;
+  }
+
+  .header-mobile-cta span {
+    min-width: 0;
   }
 
   .mobile-menu-actions {
