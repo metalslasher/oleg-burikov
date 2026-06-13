@@ -5,30 +5,22 @@ const { services } = content;
 
 const iconMap: Record<string, string> = {
   google: '<circle cx="12" cy="12" r="7" /><circle cx="12" cy="12" r="3" />',
+  meta: '<path d="M4 15.5c1.2-5.1 3.2-7 5.1-7 1.4 0 2.4 1 3.5 2.7 1.1-1.7 2.3-2.7 3.8-2.7 2.1 0 3.6 1.9 3.6 4.2 0 2.2-1.2 3.8-2.9 3.8-1.4 0-2.5-.9-4.2-3.5-1.7 2.6-2.9 3.5-4.4 3.5-1.9 0-3.2-1.4-4.5-1z" />',
   analytics: '<path d="M4 20h16" /><path d="M6 20v-6" /><path d="M12 20V6" /><path d="M18 20v-9" />',
-  funnel: '<path d="M3 5h18l-7 8v5l-4 2v-7L3 5z" />',
   consulting: '<path d="M9 18h6" /><path d="M10 21h4" /><path d="M12 3a6 6 0 0 0-3 11.2V17h6v-2.8A6 6 0 0 0 12 3z" />',
+  website: '<rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 10h18" /><path d="M8 15h4" />',
+  creative: '<path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z" /><path d="M13.5 7.5l3 3" />',
 };
 ---
 
 <section id="services" class="py-16 md:py-24">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
-        <div>
-          <p class="mb-3 text-fluid-sm font-semibold uppercase tracking-[0.16em] text-accent-400">
-            {services.sectionLabel}
-          </p>
-          <h2 class="text-fluid-4xl font-bold leading-tight text-white">
-            {services.title}
-          </h2>
-        </div>
-        <p class="text-fluid-lg leading-relaxed text-gray-400">
-          {services.subtitle}
-        </p>
-      </div>
+      <h2 class="text-fluid-4xl font-bold leading-tight text-white">
+        {services.title}
+      </h2>
 
-      <div class="mt-10 grid gap-4 md:grid-cols-2">
+      <div class="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {services.items.map((service, index) => (
           <a
             href={service.slug ? `/services/${service.slug}` : '/services'}
@@ -46,12 +38,6 @@ const iconMap: Record<string, string> = {
 
             <h3>{service.title}</h3>
             <p>{service.description}</p>
-
-            {service.outcome && (
-              <div class="service-card__outcome">
-                <span>{service.outcome}</span>
-              </div>
-            )}
           </a>
         ))}
       </div>
@@ -62,7 +48,7 @@ const iconMap: Record<string, string> = {
 <style>
   .service-card {
     display: flex;
-    min-height: 17.5rem;
+    min-height: 15.5rem;
     flex-direction: column;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 0.65rem;
@@ -121,19 +107,5 @@ const iconMap: Record<string, string> = {
     margin-top: 0.95rem;
     color: rgb(156 163 175);
     line-height: 1.65;
-  }
-
-  .service-card__outcome {
-    margin-top: auto;
-    padding-top: 1.6rem;
-  }
-
-  .service-card__outcome span {
-    display: inline-flex;
-    border-top: 1px solid rgba(255, 255, 255, 0.14);
-    padding-top: 0.9rem;
-    color: rgb(229 231 235);
-    font-size: 0.92rem;
-    font-weight: 780;
   }
 </style>
