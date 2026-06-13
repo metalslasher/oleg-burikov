@@ -31,14 +31,14 @@
     "email": "oleg.burikov.adv@gmail.com"
   },
   "hero": {
-    "eyebrow": "Олег Буріков / Performance Marketing Specialist",
-    "headline": "Performance-маркетинг як керована система",
-    "subheadline": "Допомагаю бізнесам поєднати рекламу, аналітику, воронку і CRM, щоб розуміти якість лідів та масштабувати те, що справді працює.",
+    "eyebrow": "Спеціаліст з перформанс-маркетингу",
+    "headline": "Маркетинг, який приносить клієнтів і збільшує прибуток",
+    "subheadline": "Створюю креативи, налаштовую рекламу, будую воронки та сайти, підключаю аналітику і допомагаю бізнесам стабільно отримувати більше заявок і продажів.",
     "cta": "Обговорити проєкт",
-    "ctaSecondary": "Переглянути досвід",
-    "secondaryHref": "#experience",
+    "ctaSecondary": "Переглянути кейси",
+    "secondaryHref": "/cases",
     "professionalCta": "Для команд і роботодавців",
-    "portrait": "/images/oleg-burikov-portrait.jpg",
+    "portrait": "/images/oleg-burikov-hero-cutout.webp",
     "portraitAlt": "Фото Олега Бурікова",
     "photoCaption": "Google, Meta, TikTok Ads, аналітика, трекінг і growth-процеси.",
     "focusAreas": [
@@ -49,38 +49,22 @@
     ],
     "metrics": [
       {
-        "value": "6+",
-        "label": "років у performance marketing"
+        "value": "6+ років",
+        "label": "досвіду у digital marketing"
       },
       {
-        "value": "$100k+",
-        "label": "рекламних бюджетів на місяць"
+        "value": "100 000+ доларів",
+        "label": "рекламного бюджету в керуванні"
       },
       {
-        "value": "8+",
-        "label": "ніш і бізнес-моделей у досвіді"
+        "value": "100+ проєктів",
+        "label": "успішно реалізовано"
       }
-    ]
-  },
-  "audience": {
-    "title": "Сайт має працювати для двох сценаріїв",
-    "subtitle": "Основний фокус - бізнеси, яким потрібні заявки, продажі й зрозуміла аналітика. Другий сценарій - команди, яким потрібен performance спеціаліст із практичним досвідом.",
-    "items": [
-      {
-        "label": "Для бізнесу",
-        "title": "Коли треба привести рекламу, аналітику і воронку до однієї системи",
-        "description": "Підійде власникам, founders і marketing leads, які хочуть бачити, які кампанії справді дають клієнтів, де губиться якість лідів і що можна масштабувати.",
-        "cta": "Обговорити проєкт",
-        "href": "#contact"
-      },
-      {
-        "label": "Для команд",
-        "title": "Коли потрібен спеціаліст, який може зайти в growth або performance контур",
-        "description": "Підійде in-house командам, агенціям і роботодавцям, яким важливий досвід у paid acquisition, аналітиці, CRM, звітності та оптимізації воронок.",
-        "cta": "Переглянути LinkedIn",
-        "href": "https://www.linkedin.com/in/oleg-burikov/"
-      }
-    ]
+    ],
+    "headlineLines": [
+      "Маркетинг, який приносить клієнтів і"
+    ],
+    "headlineAccent": "збільшує прибуток"
   },
   "services": {
     "sectionLabel": "Що закриваю",
