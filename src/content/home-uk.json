@@ -109,55 +109,42 @@
     ]
   },
   "experience": {
-    "title": "Досвід, який ширший за один рекламний кабінет",
-    "subtitle": "Я працював із різними каналами, нішами й моделями монетизації - від affiliate та Amazon Ads до комплексного performance marketing для SaaS, eCommerce, нерухомості й сервісних бізнесів.",
-    "summary": "Це допомагає швидше відрізняти проблему каналу від проблеми оферу, посадкової сторінки, трекінгу, CRM або продажів.",
-    "groups": [
-      {
-        "title": "E-commerce і marketplaces",
-        "description": "Shopping, Performance Max, Meta Ads, Amazon PPC, каталоги, фіди, ремаркетинг і оптимізація під покупку.",
-        "tags": ["Google Ads", "Meta Ads", "Amazon Ads", "ROAS"]
-      },
-      {
-        "title": "Lead generation і сервісні бізнеси",
-        "description": "Real estate, automotive, healthcare, локальні послуги та service-based бізнеси, де важлива якість заявки.",
-        "tags": ["Lead quality", "CRM", "CPA", "Funnels"]
-      },
-      {
-        "title": "SaaS, FinTech і EdTech",
-        "description": "B2B/B2C продукти зі складнішим циклом рішення, де потрібні SQL/MQL, attribution і зрозумілий tracking.",
-        "tags": ["SQL", "Attribution", "GA4", "GTM"]
-      },
-      {
-        "title": "Affiliate, finance і CPA-моделі",
-        "description": "Кампанії, де результат оцінюється через CPA, ROI, unit economics і здатність масштабувати прибутковий трафік.",
-        "tags": ["Search", "CPA", "ROI", "Scaling"]
-      }
-    ],
+    "title": "Професійний шлях",
     "roles": [
       {
-        "title": "Performance Marketing Specialist",
-        "company": "SvitSoft",
-        "period": "2025 - зараз",
-        "description": "Google, Meta і TikTok Ads для real estate, automotive, healthcare, eCommerce та сервісних бізнесів."
+        "title": "Media Buyer",
+        "company": "DEVILS",
+        "logo": "/images/companies/devils-linkedin.jpg",
+        "period": "2019 - 2021",
+        "description": "Працював із платним трафіком для мобільних iGaming-продуктів на ринках Канади та Європи: запускав рекламу в Meta, тестував креативи, аудиторії й офери, знаходив зв'язки, які стабільно приводили цільові дії."
+      },
+      {
+        "title": "PPC Specialist",
+        "company": "Best Seller Hunter",
+        "logo": "/images/companies/best-seller-hunter-linkedin.jpg",
+        "period": "2021 - 2022",
+        "description": "Вів рекламу на Amazon для eCommerce-товарів на ринку США: підбирав пошукові запити, будував зрозумілу структуру кампаній, тестував товарні групи й допомагав збільшувати видимість та продажі без зайвих витрат."
+      },
+      {
+        "title": "PPC Specialist",
+        "company": "Admitad",
+        "logo": "/images/companies/admitad-linkedin.jpg",
+        "period": "2022 - 2024",
+        "description": "Просував фінансові та банківські продукти через Google Search: працював із попитом людей, які вже шукають рішення, будував кампанії під заявки та масштабував канали, де трафік приносив прогнозований результат."
       },
       {
         "title": "Performance Marketing Specialist",
         "company": "Fortunatos",
+        "logo": "/images/companies/fortunatos-linkedin.jpg",
         "period": "2024 - 2025",
-        "description": "Мультиканальні кампанії для SaaS, eCommerce, EdTech, нерухомості та локальних послуг."
+        "description": "Працював із Google Ads та Meta Ads для SaaS, eCommerce, EdTech, нерухомості й локальних сервісів: запускав кампанії, покращував посадкові сторінки, тестував креативи та допомагав підвищувати якість заявок."
       },
       {
-        "title": "PPC Specialist",
-        "company": "Admitad / Finance affiliate",
-        "period": "2022 - 2024",
-        "description": "Google Search у фінансовій ніші: банківські продукти, CPA, ROI і affiliate-трекінг."
-      },
-      {
-        "title": "PPC / Media Buyer",
-        "company": "Amazon Ads та CPA-проєкти",
-        "period": "2019 - 2021",
-        "description": "Amazon PPC для eCommerce у США та Meta Ads для affiliate-продуктів із CPA-моделлю."
+        "title": "Performance Marketing Specialist",
+        "company": "SvitSoft",
+        "logo": "/images/companies/svitsoft-linkedin.jpg",
+        "period": "2025 - зараз",
+        "description": "Веду повний цикл залучення клієнтів у Google, Meta та TikTok Ads для нерухомості, авто, медицини, eCommerce і сервісних бізнесів: від стратегії та запуску до оптимізації, звітності й рішень для масштабування."
       }
     ]
   },

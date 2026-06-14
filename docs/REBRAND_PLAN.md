@@ -9,6 +9,7 @@ The technical base already supports the new brand through `src/config/site.ts`. 
 ## Principles
 
 - Write from Oleg's perspective, not from an anonymous agency voice.
+- Use `docs/OLEG_BURIKOV_PROFILE.md` as the source of truth for Oleg's experience, positioning, niches, and content claims.
 - Keep tracking accuracy intact, especially GTM events, form submissions, CTA clicks, messenger clicks, and Calendly clicks.
 - Keep contact, legal, Calendly, social, SEO, and tracking constants centralized in `src/config/site.ts`.
 - Do not rewrite working technical infrastructure unless it directly supports the rebrand.

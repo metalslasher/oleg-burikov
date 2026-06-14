@@ -4,56 +4,41 @@ import content from '../content/home-uk.json';
 const { experience } = content;
 ---
 
-<section id="experience" class="py-16 md:py-24">
+<section id="experience" class="scroll-mt-24 py-16 md:scroll-mt-28 md:py-24">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <div class="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
-        <div>
-          <p class="mb-3 text-fluid-sm font-semibold uppercase tracking-[0.16em] text-accent-400">
-            Досвід
-          </p>
-          <h2 class="text-fluid-4xl font-bold leading-tight text-white">
-            {experience.title}
-          </h2>
-        </div>
-        <div>
-          <p class="text-fluid-lg leading-relaxed text-gray-300">
-            {experience.subtitle}
-          </p>
-          <p class="mt-4 text-base leading-relaxed text-gray-400">
-            {experience.summary}
-          </p>
-        </div>
+      <div class="experience-heading">
+        <p class="mb-3 text-fluid-sm font-semibold uppercase tracking-[0.16em] text-accent-400">
+          Досвід
+        </p>
+        <h2 class="text-fluid-4xl font-bold leading-tight text-white">
+          {experience.title}
+        </h2>
       </div>
 
-      <div class="mt-10 grid gap-4 md:grid-cols-2">
-        {experience.groups.map((group) => (
-          <article class="experience-group">
-            <h3>{group.title}</h3>
-            <p>{group.description}</p>
-            <div class="experience-tags">
-              {group.tags.map((tag) => (
-                <span>{tag}</span>
-              ))}
-            </div>
-          </article>
-        ))}
-      </div>
-
-      <div class="experience-path">
-        <div class="experience-path__intro">
-          <h3>Професійний шлях</h3>
-          <p>Коротко, щоб було видно контекст без перетворення головної на CV.</p>
-        </div>
-
+      <div class="experience-timeline" aria-label="Професійний шлях Олега Бурікова">
         <div class="experience-roles">
-          {experience.roles.map((role) => (
-            <article class="experience-role">
-              <div>
-                <h4>{role.title}</h4>
-                <p>{role.company}</p>
+          {experience.roles.map((role, index) => (
+            <article class:list={['experience-role', index % 2 === 0 ? 'is-left' : 'is-right']}>
+              <div class="experience-role__marker" aria-hidden="true"></div>
+
+              <div class="experience-card">
+                <div class="experience-card__top">
+                  <div class="experience-role__logo">
+                    <img src={role.logo} alt={`${role.company} logo`} loading="lazy" decoding="async" />
+                  </div>
+
+                  <div class="experience-role__meta">
+                    <span>{role.period}</span>
+                    <span>{role.company}</span>
+                  </div>
+                </div>
+
+                <div class="experience-role__content">
+                  <h3>{role.title}</h3>
+                  <p>{role.description}</p>
+                </div>
               </div>
-              <span>{role.period}</span>
             </article>
           ))}
         </div>
@@ -63,119 +48,251 @@ const { experience } = content;
 </section>
 
 <style>
-  .experience-group {
-    min-height: 15.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 0.65rem;
-    background: rgba(255, 255, 255, 0.045);
-    padding: 1.25rem;
+  .experience-heading {
+    margin-inline: auto;
+    max-width: 46rem;
+    text-align: center;
   }
 
-  @media (min-width: 768px) {
-    .experience-group {
-      padding: 1.5rem;
-    }
+  .experience-timeline {
+    position: relative;
+    margin-top: clamp(2rem, 5vw, 4rem);
   }
 
-  .experience-group h3 {
-    color: white;
-    font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.75rem);
-    font-weight: 850;
-    line-height: 1.2;
-  }
-
-  .experience-group p {
-    margin-top: 0.9rem;
-    color: rgb(156 163 175);
-    line-height: 1.65;
-  }
-
-  .experience-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1.35rem;
-  }
-
-  .experience-tags span {
-    display: inline-flex;
-    border-radius: 0.45rem;
-    background: rgba(249, 115, 22, 0.12);
-    padding: 0.35rem 0.6rem;
-    color: rgb(253 186 116);
-    font-size: 0.82rem;
-    font-weight: 760;
-  }
-
-  .experience-path {
-    display: grid;
-    gap: 1.25rem;
-    margin-top: 1.25rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 0.65rem;
-    background: rgba(2, 6, 23, 0.38);
-    padding: 1.25rem;
-  }
-
-  @media (min-width: 1024px) {
-    .experience-path {
-      grid-template-columns: 0.38fr 1fr;
-      align-items: start;
-      padding: 1.5rem;
-    }
-  }
-
-  .experience-path__intro h3 {
-    color: white;
-    font-size: 1.15rem;
-    font-weight: 820;
-  }
-
-  .experience-path__intro p {
-    margin-top: 0.45rem;
-    color: rgb(148 163 184);
-    font-size: 0.95rem;
-    line-height: 1.55;
-  }
-
-  .experience-roles {
-    display: grid;
-    gap: 0.75rem;
+  .experience-timeline::before {
+    content: "";
+    position: absolute;
+    top: 0.75rem;
+    bottom: 0.75rem;
+    left: 1.05rem;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(249, 115, 22, 0.56) 12%,
+      rgba(255, 255, 255, 0.14) 50%,
+      rgba(249, 115, 22, 0.42) 88%,
+      transparent
+    );
   }
 
   .experience-role {
+    position: relative;
     display: grid;
-    gap: 0.75rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    padding-top: 0.85rem;
+    grid-template-columns: 2.1rem 1fr;
+    gap: 0.95rem;
+    align-items: start;
   }
 
-  .experience-role:first-child {
-    border-top: 0;
-    padding-top: 0;
+  .experience-role + .experience-role {
+    margin-top: 1rem;
   }
 
-  @media (min-width: 640px) {
-    .experience-role {
-      grid-template-columns: 1fr auto;
-      align-items: start;
-    }
+  .experience-role__marker {
+    position: relative;
+    z-index: 1;
+    width: 0.9rem;
+    height: 0.9rem;
+    margin: 2.05rem auto 0;
+    border: 2px solid rgb(249, 115, 22);
+    border-radius: 999px;
+    background: rgb(2, 6, 23);
+    box-shadow:
+      0 0 0 0.45rem rgba(249, 115, 22, 0.1),
+      0 0 28px rgba(249, 115, 22, 0.26);
   }
 
-  .experience-role h4 {
+  .experience-card {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.018)),
+      rgba(2, 6, 23, 0.58);
+    padding: 1rem;
+    box-shadow: 0 24px 90px rgba(0, 0, 0, 0.2);
+  }
+
+  .experience-card__top {
+    display: flex;
+    gap: 0.9rem;
+    align-items: center;
+  }
+
+  .experience-role__logo {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 3.8rem;
+    height: 3.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 0.65rem;
+    background: rgba(255, 255, 255, 0.96);
+    overflow: hidden;
+  }
+
+  .experience-role__logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .experience-role__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem 0.7rem;
+    align-items: center;
+    color: rgb(253 186 116);
+    font-size: 0.82rem;
+    font-weight: 790;
+    letter-spacing: 0.02em;
+    min-width: 0;
+  }
+
+  .experience-role__meta span + span {
+    color: rgb(203 213 225);
+  }
+
+  .experience-role__meta span + span::before {
+    content: "";
+    display: inline-block;
+    width: 0.32rem;
+    height: 0.32rem;
+    margin-right: 0.55rem;
+    border-radius: 999px;
+    background: rgba(249, 115, 22, 0.72);
+    vertical-align: 0.08rem;
+  }
+
+  .experience-role h3 {
+    margin-top: 0.85rem;
     color: white;
-    font-weight: 780;
+    font-size: clamp(1.05rem, 0.98rem + 0.25vw, 1.28rem);
+    font-weight: 840;
+    line-height: 1.2;
   }
 
   .experience-role p {
-    margin-top: 0.18rem;
+    margin-top: 0.55rem;
     color: rgb(156 163 175);
-    font-size: 0.92rem;
+    font-size: 0.95rem;
+    line-height: 1.62;
   }
 
-  .experience-role span {
-    color: rgb(253 186 116);
-    font-size: 0.9rem;
-    font-weight: 760;
+  @media (min-width: 1024px) {
+    .experience-timeline {
+      width: 100%;
+      max-width: 100%;
+      margin-inline: auto;
+    }
+
+    .experience-timeline::before {
+      left: 50%;
+      top: 1.2rem;
+      bottom: 1.2rem;
+      transform: translateX(-50%);
+    }
+
+    .experience-role {
+      grid-template-columns: minmax(0, 1fr) 4.5rem minmax(0, 1fr);
+      align-items: center;
+    }
+
+    .experience-role + .experience-role {
+      margin-top: -0.35rem;
+    }
+
+    .experience-role__marker {
+      grid-column: 2;
+      grid-row: 1;
+      width: 1rem;
+      height: 1rem;
+      margin: 0 auto;
+    }
+
+    .experience-card {
+      padding: 1.25rem;
+      transition:
+        border-color 180ms ease,
+        background-color 180ms ease,
+        transform 180ms ease;
+    }
+
+    .experience-role.is-left .experience-card {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .experience-role.is-right .experience-card {
+      grid-column: 3;
+      grid-row: 1;
+    }
+
+    .experience-role.is-left .experience-card::after,
+    .experience-role.is-right .experience-card::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 2.15rem;
+      height: 1px;
+      background: linear-gradient(to right, rgba(249, 115, 22, 0.38), rgba(255, 255, 255, 0.08));
+    }
+
+    .experience-role.is-left .experience-card::after {
+      left: 100%;
+    }
+
+    .experience-role.is-right .experience-card::before {
+      right: 100%;
+      transform: rotate(180deg);
+    }
+
+    .experience-role:hover .experience-card {
+      border-color: rgba(249, 115, 22, 0.28);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.02)),
+        rgba(2, 6, 23, 0.7);
+    }
+
+    .experience-role__logo {
+      width: 4.25rem;
+      height: 4.25rem;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .experience-role {
+      align-items: start;
+      grid-template-columns: 1.65rem 1fr;
+      gap: 0.75rem;
+    }
+
+    .experience-role__marker {
+      margin-top: 1.6rem;
+    }
+
+    .experience-card {
+      padding: 0.95rem;
+    }
+
+    .experience-card__top {
+      gap: 0.75rem;
+    }
+
+    .experience-role__logo {
+      width: 3.35rem;
+      height: 3.35rem;
+      border-radius: 0.58rem;
+    }
+
+    .experience-role h3 {
+      font-size: 1rem;
+    }
+
+    .experience-role p {
+      font-size: 0.9rem;
+    }
   }
 </style>
