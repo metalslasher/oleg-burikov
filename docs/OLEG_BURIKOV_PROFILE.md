@@ -70,7 +70,7 @@ Performance Marketing Specialist, Full-time
 Aug 2025 - Present  
 Kyiv, Ukraine, Remote
 
-Робота з end-to-end paid acquisition стратегіями в Google Ads, Meta Ads і TikTok Ads для клієнтів у Real Estate, Automotive, Healthcare, eCommerce та service-based industries.
+Робота з end-to-end paid acquisition стратегіями в Google Ads, Meta Ads і TikTok Ads для клієнтів у Real Estate, Automotive, Healthcare, eCommerce та local businesses на ринку Європи.
 
 Основні задачі:
 
@@ -91,7 +91,7 @@ Performance Marketing Specialist, Full-time
 Apr 2024 - Jul 2025  
 Kyiv, Ukraine, Remote
 
-Робота з multi-channel acquisition campaigns у Google Ads і Meta Ads для SaaS, Real Estate, eCommerce, EdTech і local service industries.
+Робота з multi-channel acquisition campaigns у Google Ads і Meta Ads для SaaS, Real Estate, eCommerce, EdTech і local businesses на ринках США, Канади та Європи.
 
 Основні задачі:
 
@@ -108,7 +108,7 @@ PPC Specialist, Self-employed
 Jan 2022 - Mar 2024  
 Kyiv, Ukraine, Remote
 
-Performance-driven Google Ads campaigns у фінансовому секторі: просування банківських продуктів через affiliate partnerships з українськими фінансовими установами.
+Performance-driven Google Ads campaigns у фінансовому секторі: просування банківських продуктів на ринках України та Казахстану.
 
 Основні задачі:
 

@@ -10,7 +10,6 @@ type LeadFormData = Record<string, string> & {
   name?: string;
   phone?: string;
   contact_method?: string;
-  service?: string;
   message?: string;
 };
 
@@ -184,7 +183,7 @@ export class FormValidator {
       name: data.name || '',
       phone: data.phone || '',
       contact_method: data.contact_method || '',
-      service: data.service || 'Не вказано',
+      service: 'Загальне звернення',
       message: data.message || 'Не вказано',
       plan: selectedPlan,
       form_id: this.form.id || '',
@@ -207,7 +206,7 @@ export class FormValidator {
       this.showMessage(this.successMessage, 'success');
       pushDataLayerEvent('lead_submit', {
         form_id: this.form.id || '',
-        lead_service: data.service || '',
+        lead_service: 'general_contact',
         lead_contact_method: data.contact_method || '',
         lead_plan: selectedPlan || '',
       });
@@ -272,8 +271,8 @@ if (typeof window !== 'undefined') {
       if (document.getElementById('contact-form')) {
         new FormValidator(
           'contact-form',
-          "Дякуємо! Ми отримали вашу заявку. Ми зв'яжемося з вами протягом 1 робочого дня.",
-          "Сталася помилка. Спробуйте ще раз або зв'яжіться з нами напряму."
+          "Дякую! Я отримав ваше повідомлення і зв'яжуся з вами протягом 1 робочого дня.",
+          "Сталася помилка. Спробуйте ще раз або напишіть мені напряму."
         );
       }
     } catch (error) {

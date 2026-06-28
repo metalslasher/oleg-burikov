@@ -1,6 +1,5 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
-import ContactCTA from '../../components/ContactCTA.astro';
 import { siteConfig } from '../../config/site';
 
 const nonce = Astro.locals.cspNonce;
@@ -120,8 +119,6 @@ const categories = ['Усі теми', ...Array.from(new Set(blogPosts.map((post
     </div>
   </section>
 
-  <!-- CTA -->
-  <ContactCTA />
 
   <script is:inline nonce={nonce}>
     const filterButtons = Array.from(document.querySelectorAll('[data-filter]'));

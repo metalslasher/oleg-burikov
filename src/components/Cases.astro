@@ -206,7 +206,7 @@ const loopedCases = [0, 1, 2].flatMap((setIndex) =>
   .case-card {
     display: flex;
     flex: 0 0 min(85vw, 25.5rem);
-    min-height: 20rem;
+    min-height: 18.25rem;
     flex-direction: column;
     border: 1px solid rgb(255 255 255 / 0.11);
     border-radius: 0.65rem;
@@ -227,7 +227,7 @@ const loopedCases = [0, 1, 2].flatMap((setIndex) =>
 
     .case-card {
       flex-basis: clamp(23rem, 31vw, 28rem);
-      min-height: 21.5rem;
+      min-height: 19.25rem;
       padding: 1.35rem;
     }
   }
@@ -265,10 +265,14 @@ const loopedCases = [0, 1, 2].flatMap((setIndex) =>
   }
 
   .case-card h3 {
+    max-width: 100%;
+    overflow: hidden;
     color: white;
     font-size: clamp(1.3rem, 1.12rem + 0.55vw, 1.72rem);
     font-weight: 850;
     line-height: 1.14;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .case-card__results {
@@ -324,7 +328,7 @@ const loopedCases = [0, 1, 2].flatMap((setIndex) =>
 
   @media (max-width: 639px) {
     .case-card {
-      min-height: 19.5rem;
+      min-height: 18.25rem;
     }
   }
 </style>
