@@ -37,6 +37,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     'https://stats.g.doubleclick.net',
     'https://www.googleadservices.com',
     'https://googleads.g.doubleclick.net',
+    'https://ad.doubleclick.net',
     'https://www.clarity.ms',
     'https://*.clarity.ms',
     'https://www.facebook.com',

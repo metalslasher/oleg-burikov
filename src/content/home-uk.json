@@ -1,11 +1,4 @@
 {
-  "metadata": {
-    "title": "Олег Буріков - performance marketing, Google Ads, Meta Ads",
-    "description": "Performance marketing спеціаліст із 6+ роками досвіду. Google Ads, Meta Ads, TikTok Ads, аналітика, трекінг, CRM, воронки та paid acquisition системи.",
-    "ogTitle": "Олег Буріков - performance marketing спеціаліст",
-    "ogDescription": "Допомагаю бізнесам будувати керовану систему залучення клієнтів через рекламу, аналітику, CRM і оптимізацію воронки.",
-    "ogImage": "/images/og-image.jpg"
-  },
   "header": {
     "logo": "Oleg Burikov",
     "nav": [
@@ -22,9 +15,7 @@
         "href": "/blog"
       }
     ],
-    "cta": "Обговорити співпрацю",
-    "phone": "+380962290400",
-    "email": "oleg.burikov.adv@gmail.com"
+    "cta": "Обговорити співпрацю"
   },
   "hero": {
     "eyebrow": "Спеціаліст з перформанс-маркетингу",
@@ -33,16 +24,8 @@
     "cta": "Зв'язатися зі мною",
     "ctaSecondary": "Переглянути кейси",
     "secondaryHref": "/cases",
-    "professionalCta": "Для команд і роботодавців",
     "portrait": "/images/oleg-burikov-hero-cutout.webp",
     "portraitAlt": "Фото Олега Бурікова",
-    "photoCaption": "Google, Meta, TikTok Ads, аналітика, трекінг і growth-процеси.",
-    "focusAreas": [
-      "Google Ads",
-      "Meta Ads",
-      "TikTok Ads",
-      "GA4 / GTM / CRM"
-    ],
     "metrics": [
       {
         "value": "6+ років",
@@ -191,9 +174,6 @@
     ]
   },
   "cases": {
-    "title": "Приклади задач із практики",
-    "subtitle": "Показую кейси як робочі приклади задач: де була проблема, що змінилося в рекламі чи трекінгу і який результат це дало.",
-    "featuredCount": 4,
     "items": [
       {
         "client": "EDI & API платформа",
