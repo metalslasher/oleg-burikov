@@ -45,9 +45,9 @@ export const siteConfig = {
     },
   },
   seo: {
-    defaultTitle: 'Олег Буріков - performance marketing спеціаліст',
+    defaultTitle: 'Олег Буріков - спеціаліст з перформанс-маркетингу',
     defaultDescription:
-      'Performance marketing, Google Ads, Meta Ads, TikTok Ads, аналітика, трекінг і системне залучення клієнтів для бізнесу.',
+      'Допомагаю бізнесам запускати й масштабувати рекламу в Google Ads, Meta Ads і TikTok Ads: стратегія, аналітика, сайти, креативи та оптимізація результатів.',
     defaultOgImage: '/images/og-image.jpg',
   },
 } as const;
@@ -57,14 +57,15 @@ type SocialIcon = 'facebook' | 'instagram' | 'linkedin';
 export const absoluteUrl = (path = '/') => new URL(path, siteConfig.siteUrl).toString();
 
 export const withBrandTitle = (title: string) => {
-  const brandSuffix = ` | ${siteConfig.brandName}`;
-  const cleanTitle = title.endsWith(brandSuffix)
-    ? title.slice(0, -brandSuffix.length).trim()
-    : title.trim();
+  const personSuffix = ` | ${siteConfig.personName}`;
+  const cleanTitle = title
+    .replace(new RegExp(`\\s\\|\\s${siteConfig.brandName}$`), '')
+    .replace(new RegExp(`\\s\\|\\s${siteConfig.personName}$`), '')
+    .trim();
 
-  return cleanTitle.includes(siteConfig.brandName)
+  return cleanTitle.includes(siteConfig.brandName) || cleanTitle.includes(siteConfig.personName)
     ? cleanTitle
-    : `${cleanTitle} | ${siteConfig.brandName}`;
+    : `${cleanTitle}${personSuffix}`;
 };
 
 export const messengerLinks = [
