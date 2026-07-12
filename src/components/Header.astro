@@ -3,7 +3,6 @@ import content from '../content/home-uk.json';
 import { siteConfig } from '../config/site';
 
 const { header } = content;
-const nonce = Astro.locals.cspNonce;
 const isHomePage = Astro.url.pathname === '/';
 const resolveNavHref = (href: string) => isHomePage && href.startsWith('/#') ? href.slice(1) : href;
 const languages = [
@@ -302,38 +301,3 @@ const languages = [
     }
   }
 </style>
-
-<script is:inline nonce={nonce}>
-  document.addEventListener('DOMContentLoaded', () => {
-    const header = document.getElementById('header');
-    const menuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    const updateHeaderState = () => {
-      header?.classList.toggle('is-scrolled', window.scrollY > 8);
-    };
-
-    updateHeaderState();
-    window.addEventListener('scroll', updateHeaderState, { passive: true });
-
-    if (menuButton && mobileMenu) {
-      menuButton.addEventListener('click', () => {
-        const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
-        menuButton.setAttribute('aria-expanded', (!isExpanded).toString());
-        mobileMenu.classList.toggle('hidden');
-        header?.classList.toggle('is-menu-open', !isExpanded);
-      });
-
-      const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-      mobileNavLinks.forEach((link) => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.add('hidden');
-          menuButton?.setAttribute('aria-expanded', 'false');
-          header?.classList.remove('is-menu-open');
-        });
-      });
-    }
-  });
-</script>
-
-

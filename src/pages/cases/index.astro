@@ -2,8 +2,6 @@
 import PageLayout from '../../layouts/PageLayout.astro';
 import content from '../../content/home-uk.json';
 
-const nonce = Astro.locals.cspNonce;
-
 const cases = content.cases.items;
 
 // Generate slugs for cases
@@ -135,114 +133,6 @@ const INITIAL_CASES_COUNT = 6;
   </section>
 
 </PageLayout>
-
-<script is:inline nonce={nonce} define:vars={{ INITIAL_CASES_COUNT, INITIAL_FILTERS_COUNT, totalCases: casesWithSlugs.length, totalFilters: extractedIndustries.length }}>
-  document.addEventListener('DOMContentLoaded', () => {
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const caseCards = document.querySelectorAll('.case-card');
-    const loadMoreBtn = document.getElementById('load-more-cases');
-    const loadMoreText = document.getElementById('load-more-text');
-    const showMoreFiltersBtn = document.getElementById('show-more-filters');
-    const filtersToggleText = document.getElementById('filters-toggle-text');
-    
-    let visibleCasesCount = INITIAL_CASES_COUNT;
-    let filtersExpanded = false;
-    let currentFilter = 'all';
-    
-    // Filter functionality
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Update active button
-        filterBtns.forEach(b => {
-          b.classList.remove('bg-accent-500', 'text-white');
-          b.classList.add('bg-white/5', 'border', 'border-white/10', 'text-gray-300');
-        });
-        btn.classList.remove('bg-white/5', 'border', 'border-white/10', 'text-gray-300');
-        btn.classList.add('bg-accent-500', 'text-white');
-        
-        currentFilter = btn.getAttribute('data-filter');
-        
-        // Filter cards
-        caseCards.forEach(card => {
-          const industry = card.getAttribute('data-industry');
-          const index = parseInt(card.getAttribute('data-index'));
-          const isHiddenCase = card.classList.contains('hidden-case');
-          
-          if (currentFilter === 'all' || industry === currentFilter) {
-            if (!isHiddenCase || index < visibleCasesCount) {
-              card.style.display = 'block';
-            }
-          } else {
-            card.style.display = 'none';
-          }
-        });
-        
-        updateLoadMoreButton();
-      });
-    });
-    
-    // Load more cases
-    if (loadMoreBtn) {
-      loadMoreBtn.addEventListener('click', () => {
-        const hiddenCards = document.querySelectorAll('.case-card.hidden-case');
-        let shown = 0;
-        
-        hiddenCards.forEach(card => {
-          if (shown < 6) {
-            const industry = card.getAttribute('data-industry');
-            if (currentFilter === 'all' || industry === currentFilter) {
-              card.classList.remove('hidden-case', 'hidden');
-              card.style.display = 'block';
-              shown++;
-            }
-          }
-        });
-        
-        visibleCasesCount += 6;
-        updateLoadMoreButton();
-      });
-    }
-    
-    function updateLoadMoreButton() {
-      if (!loadMoreBtn) return;
-      
-      const remainingHidden = document.querySelectorAll('.case-card.hidden-case').length;
-      
-      if (remainingHidden === 0) {
-        loadMoreBtn.style.display = 'none';
-      } else {
-        loadMoreBtn.style.display = 'inline-flex';
-        loadMoreText.textContent = `Показати ще (${remainingHidden})`;
-      }
-    }
-    
-    // Show more filters
-    if (showMoreFiltersBtn) {
-      showMoreFiltersBtn.addEventListener('click', () => {
-        const hiddenFilters = document.querySelectorAll('.filter-btn.hidden-filter');
-        
-        if (!filtersExpanded) {
-          hiddenFilters.forEach(f => {
-            f.classList.remove('hidden');
-          });
-          filtersToggleText.textContent = 'Сховати';
-          showMoreFiltersBtn.querySelector('svg').style.transform = 'rotate(45deg)';
-          filtersExpanded = true;
-        } else {
-          hiddenFilters.forEach(f => {
-            f.classList.add('hidden');
-          });
-          filtersToggleText.textContent = `Ще ${totalFilters - INITIAL_FILTERS_COUNT + 1}`;
-          showMoreFiltersBtn.querySelector('svg').style.transform = 'rotate(0deg)';
-          filtersExpanded = false;
-        }
-      });
-    }
-    
-    // Initial state
-    updateLoadMoreButton();
-  });
-</script>
 
 <style>
   .line-clamp-2 {
