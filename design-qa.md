@@ -3,12 +3,12 @@
 - Source visual truth: `docs/qa/cases-controls-reference.png`
 - Implementation screenshot: `docs/qa/cases-controls-implementation.png`
 - Side-by-side comparison: `docs/qa/cases-controls-comparison.png`
-- Viewport: 390 x 844 CSS pixels
-- State: mobile, first case selected, reduced motion enabled for stable capture
+- Viewports verified: 390 x 900, 1024 x 900, and 1440 x 900 CSS pixels
+- State: first case selected; mobile focused capture plus responsive interaction checks
 
 ## Full-view comparison evidence
 
-The implementation was checked in the homepage context at 390 px. The controls remain inside the content width, sit directly below the case carousel, and introduce no page-level horizontal overflow.
+The implementation was checked in the homepage context on mobile, tablet, and desktop. The controls remain inside the content width, sit directly below the case carousel, and introduce no page-level horizontal overflow.
 
 ## Focused comparison evidence
 
@@ -30,14 +30,17 @@ No actionable P0, P1, or P2 differences remain.
 
 - Next button: `01 -> 02`.
 - Previous button: `02 -> 01`.
-- Existing loop and autoplay behavior preserved.
+- Autoplay advances exactly one card every 3.5 seconds on mobile, tablet, and desktop.
+- Manual navigation advances exactly one card and restarts autoplay.
+- Full loop verified: `01 -> 02 -> 03 -> 04 -> 05 -> 06 -> 07 -> 01`.
 - Runtime exceptions: none.
 - Page horizontal overflow: none.
-- Desktop controls remain hidden.
+- Controls remain visible and consistent across mobile, tablet, and desktop.
 
 ## Comparison history
 
-- Initial implementation passed the focused comparison; no corrective iteration was required.
+- Initial mobile implementation matched the reference.
+- Second iteration replaced continuous pixel-based movement with discrete card-by-card navigation and extended the same controls to tablet and desktop.
 
 ## Follow-up polish
 

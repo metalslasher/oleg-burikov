@@ -100,6 +100,8 @@ const loopedCases = [0, 1, 2].flatMap((setIndex) =>
 
 <script is:inline nonce={nonce}>
   (() => {
+  const AUTOPLAY_DELAY = 3500;
+
   const initCaseCarousel = () => {
     if (document.querySelector('[data-case-carousel][data-carousel-ready="true"]')) return;
 
@@ -116,112 +118,113 @@ const loopedCases = [0, 1, 2].flatMap((setIndex) =>
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const originalCount = cards.length / 3;
     let loopWidth = 0;
-    let autoTimer = 0;
-    let isPaused = false;
-    let pauseTimer = 0;
-    let lastTimestamp = Date.now();
+    let currentIndex = 0;
+    let autoplayTimer = 0;
+    let scrollTimer = 0;
+    let resumeTimer = 0;
 
     const cardStep = () => {
       if (cards.length < 2) return 0;
       return cards[1].offsetLeft - cards[0].offsetLeft;
     };
 
-    const updateCounter = () => {
+    const setScrollInstantly = (left) => {
+      viewport.style.scrollBehavior = 'auto';
+      viewport.scrollLeft = left;
+      viewport.getBoundingClientRect();
+      viewport.style.removeProperty('scroll-behavior');
+    };
+
+    const updateCounter = (index) => {
+      currentIndex = ((index % originalCount) + originalCount) % originalCount;
+      currentLabel.textContent = String(currentIndex + 1).padStart(2, '0');
+    };
+
+    const syncCurrentIndex = () => {
       const stepWidth = cardStep();
       if (!loopWidth || !stepWidth) return;
 
       const positionInLoop = ((viewport.scrollLeft % loopWidth) + loopWidth) % loopWidth;
-      const currentIndex = Math.round(positionInLoop / stepWidth) % originalCount;
-      currentLabel.textContent = String(currentIndex + 1).padStart(2, '0');
+      updateCounter(Math.round(positionInLoop / stepWidth));
     };
 
     const measure = () => {
       loopWidth = track.scrollWidth / 3;
-      if (loopWidth > 0 && viewport.scrollLeft < 1) {
-        viewport.scrollLeft = loopWidth;
-      }
-      updateCounter();
+      const stepWidth = cardStep();
+      if (!loopWidth || !stepWidth) return;
+      setScrollInstantly(loopWidth + currentIndex * stepWidth);
+      updateCounter(currentIndex);
     };
 
-    const normalizeScroll = () => {
+    const normalizePosition = () => {
       if (!loopWidth) return;
 
       if (viewport.scrollLeft >= loopWidth * 2) {
-        viewport.scrollLeft -= loopWidth;
+        setScrollInstantly(viewport.scrollLeft - loopWidth);
+      } else if (viewport.scrollLeft < loopWidth - 1) {
+        setScrollInstantly(viewport.scrollLeft + loopWidth);
       }
 
-      if (viewport.scrollLeft <= 0) {
-        viewport.scrollLeft += loopWidth;
-      }
-
-      updateCounter();
+      syncCurrentIndex();
     };
 
-    const step = () => {
-      const timestamp = Date.now();
-      const delta = timestamp - lastTimestamp;
-      lastTimestamp = timestamp;
-
-      if (!isPaused && !document.hidden && !reducedMotion.matches) {
-        viewport.scrollLeft += delta * 0.035;
-        normalizeScroll();
-      }
+    const syncFromScroll = () => {
+      syncCurrentIndex();
+      window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(normalizePosition, 180);
     };
 
-    const pauseTemporarily = (duration = 1600) => {
-      isPaused = true;
-      window.clearTimeout(pauseTimer);
-      pauseTimer = window.setTimeout(() => {
-        isPaused = false;
-      }, duration);
+    const stopAutoplay = () => {
+      window.clearInterval(autoplayTimer);
+      window.clearTimeout(resumeTimer);
     };
 
-    const moveByCard = (direction) => {
+    const moveByCard = (direction, restartAutoplay = true) => {
       const stepWidth = cardStep();
       if (!stepWidth) return;
 
-      pauseTemporarily(2400);
       viewport.scrollBy({
         left: stepWidth * direction,
         behavior: reducedMotion.matches ? 'auto' : 'smooth',
       });
+
+      if (restartAutoplay) startAutoplay();
+    };
+
+    const startAutoplay = () => {
+      stopAutoplay();
+      if (reducedMotion.matches || document.hidden) return;
+      autoplayTimer = window.setInterval(() => moveByCard(1, false), AUTOPLAY_DELAY);
+    };
+
+    const resumeAutoplayLater = () => {
+      stopAutoplay();
+      resumeTimer = window.setTimeout(startAutoplay, 1800);
     };
 
     measure();
-    autoTimer = window.setInterval(step, 16);
+    startAutoplay();
 
-    viewport.addEventListener('scroll', normalizeScroll, { passive: true });
+    viewport.addEventListener('scroll', syncFromScroll, { passive: true });
     window.addEventListener('resize', measure);
     previousButton.addEventListener('click', () => moveByCard(-1));
     nextButton.addEventListener('click', () => moveByCard(1));
 
-    carousel.addEventListener('focusin', () => {
-      isPaused = true;
+    carousel.addEventListener('focusin', stopAutoplay);
+    carousel.addEventListener('focusout', startAutoplay);
+    carousel.addEventListener('mouseenter', stopAutoplay);
+    carousel.addEventListener('mouseleave', startAutoplay);
+    carousel.addEventListener('wheel', resumeAutoplayLater, { passive: true });
+    carousel.addEventListener('pointerdown', stopAutoplay, { passive: true });
+    carousel.addEventListener('pointerup', startAutoplay, { passive: true });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopAutoplay();
+      else startAutoplay();
     });
-
-    carousel.addEventListener('focusout', () => {
-      isPaused = false;
-    });
-
-    carousel.addEventListener('wheel', () => {
-      pauseTemporarily();
-    }, { passive: true });
-
-    carousel.addEventListener('pointerdown', () => {
-      pauseTemporarily();
-    });
-
-    carousel.addEventListener('touchstart', () => {
-      pauseTemporarily();
-    }, { passive: true });
-
-    carousel.addEventListener('touchend', () => {
-      pauseTemporarily();
-    }, { passive: true });
 
     window.addEventListener('pagehide', () => {
-      window.clearTimeout(pauseTimer);
-      window.clearInterval(autoTimer);
+      stopAutoplay();
+      window.clearTimeout(scrollTimer);
     });
 
     carousel.setAttribute('data-carousel-ready', 'true');
@@ -244,6 +247,8 @@ const loopedCases = [0, 1, 2].flatMap((setIndex) =>
   .case-carousel__viewport {
     overflow-x: auto;
     overscroll-behavior-x: contain;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
     scrollbar-width: none;
   }
 
@@ -252,7 +257,51 @@ const loopedCases = [0, 1, 2].flatMap((setIndex) =>
   }
 
   .case-carousel__controls {
-    display: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+
+  .case-carousel__counter {
+    display: flex;
+    gap: 0.35rem;
+    color: rgb(148 163 184);
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+  }
+
+  .case-carousel__counter span:first-child {
+    color: rgb(251 146 60);
+  }
+
+  .case-carousel__arrows {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .case-carousel__arrow {
+    display: inline-flex;
+    width: 2.75rem;
+    height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    border-radius: 0.55rem;
+    background: #121b2d;
+    color: white;
+  }
+
+  .case-carousel__arrow:hover,
+  .case-carousel__arrow:focus-visible {
+    border-color: rgba(249, 115, 22, 0.65);
+    color: rgb(251 146 60);
+  }
+
+  .case-carousel__arrow svg {
+    width: 1.15rem;
+    height: 1.15rem;
   }
 
   .case-carousel__track {
@@ -273,6 +322,8 @@ const loopedCases = [0, 1, 2].flatMap((setIndex) =>
       linear-gradient(145deg, rgb(255 255 255 / 0.075), rgb(255 255 255 / 0.025)),
       rgb(2 6 23 / 0.36);
     padding: 1.1rem;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
     transition:
       transform 180ms ease,
       border-color 180ms ease,
@@ -389,52 +440,11 @@ const loopedCases = [0, 1, 2].flatMap((setIndex) =>
     .case-card {
       min-height: 18.25rem;
     }
+  }
 
-    .case-carousel__controls {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 1rem;
-    }
-
-    .case-carousel__counter {
-      display: flex;
-      gap: 0.35rem;
-      color: rgb(148 163 184);
-      font-size: 0.8rem;
-      font-variant-numeric: tabular-nums;
-      font-weight: 700;
-    }
-
-    .case-carousel__counter span:first-child {
-      color: rgb(251 146 60);
-    }
-
-    .case-carousel__arrows {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .case-carousel__arrow {
-      display: inline-flex;
-      width: 2.75rem;
-      height: 2.75rem;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(148, 163, 184, 0.22);
-      border-radius: 0.55rem;
-      background: #121b2d;
-      color: white;
-    }
-
-    .case-carousel__arrow:active {
-      border-color: rgba(249, 115, 22, 0.65);
-      color: rgb(251 146 60);
-    }
-
-    .case-carousel__arrow svg {
-      width: 1.15rem;
-      height: 1.15rem;
+  @media (prefers-reduced-motion: reduce) {
+    .case-carousel__viewport {
+      scroll-behavior: auto;
     }
   }
 </style>
