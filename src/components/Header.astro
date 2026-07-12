@@ -4,6 +4,8 @@ import { siteConfig } from '../config/site';
 
 const { header } = content;
 const nonce = Astro.locals.cspNonce;
+const isHomePage = Astro.url.pathname === '/';
+const resolveNavHref = (href: string) => isHomePage && href.startsWith('/#') ? href.slice(1) : href;
 const languages = [
   { code: 'uk', label: 'UA', name: 'Українська', active: true },
   { code: 'en', label: 'EN', name: 'English', active: false },
@@ -27,7 +29,7 @@ const languages = [
         <div class="hidden lg:flex items-center space-x-8">
           {header.nav.map((item) => (
             <a
-              href={item.href}
+              href={resolveNavHref(item.href)}
               class="text-[15px] text-gray-300 hover:text-white font-medium transition-colors"
             >
               {item.label}
@@ -85,7 +87,7 @@ const languages = [
         <div class="flex flex-col space-y-2 pt-4">
           {header.nav.map((item) => (
             <a
-              href={item.href}
+              href={resolveNavHref(item.href)}
               class="block text-gray-300 hover:text-white hover:bg-white/10 font-medium py-3 px-4 rounded-xl transition-all mobile-nav-link"
             >
               {item.label}

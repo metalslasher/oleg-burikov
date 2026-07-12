@@ -18,11 +18,7 @@ const { services } = content;
 
       <div class="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {services.items.map((service, index) => (
-          <a
-            href={service.slug ? `/services/${service.slug}` : '/services'}
-            class="service-card group"
-            aria-label={`Детальніше про ${service.title}`}
-          >
+          <article class="service-card">
             <div class="service-card__top">
               <div class="service-card__index">{String(index + 1).padStart(2, '0')}</div>
               <div class="service-card__icon">
@@ -32,7 +28,7 @@ const { services } = content;
 
             <h3>{service.title}</h3>
             <p>{service.description}</p>
-          </a>
+          </article>
         ))}
       </div>
     </div>
