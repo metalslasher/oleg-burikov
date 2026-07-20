@@ -1,10 +1,10 @@
-# Rebrand Plan
+# Personal Brand Content Plan
 
-## Goal
+## Current Status
 
-Move the site from agency positioning to a personal-brand site for Oleg Burikov.
+The site has been moved from the old agency-style positioning to Oleg Burikov's personal brand.
 
-The technical base already supports the new brand through `src/config/site.ts`. The next work should focus on copy, page positioning, and visual/content consistency.
+The technical base supports the current brand through `src/config/site.ts`. The public structure is now focused on the homepage, case studies, blog articles, contact popup, privacy policy, and lead endpoint.
 
 ## Principles
 
@@ -14,49 +14,58 @@ The technical base already supports the new brand through `src/config/site.ts`. 
 - Keep contact, legal, Calendly, social, SEO, and tracking constants centralized in `src/config/site.ts`.
 - Do not rewrite working technical infrastructure unless it directly supports the rebrand.
 
-## Recommended Order
+## Completed
 
-1. Homepage positioning
+- Repository and Vercel project were renamed to the new brand context.
+- Brand, contact, tracking, Calendly, and SEO constants were centralized in `src/config/site.ts`.
+- Lead submission was moved to a server-side `/api/lead` endpoint.
+- CSP and security headers were tightened while preserving GTM-based tracking.
+- The old tools/audit page was removed.
+- Dedicated service pages and service-price pages were removed.
+- Homepage copy now uses personal-brand positioning.
+- Header, footer, favicon, hero, services, niches, experience, cases carousel, contact popup, and SEO metadata were updated for Oleg Burikov.
+- Cases and blog pages were rewritten to avoid agency/team voice.
 
-   Initial homepage pass is done: hero, services intro, about block, experience block, niches, process, CTA, footer copy, header logo, and OG image now use Oleg's personal-brand positioning.
+## Current Site Structure
 
-2. Service pages
+- `/` - homepage with hero, services, niches, experience, cases, and CTA.
+- `/cases` - case index.
+- `/cases/case-*` - individual case studies.
+- `/blog` - blog index.
+- `/blog/*` - individual articles.
+- `/privacy` - privacy policy.
+- `/api/lead` - lead endpoint.
 
-   Convert service pages from "agency provides" language to "I help / I set up / I manage" language while keeping the commercial offer clear.
+## Recommended Next Content Work
 
-3. Cases
+1. Cooperation formats
 
-   Reframe cases as Oleg's work and experience. Keep metrics, but check every claim for accuracy and consistency.
+   Add a compact homepage section explaining how a potential client or team can start working with Oleg: audit, launch/relaunch, or ongoing acquisition work.
 
-4. Testimonials
+2. System positioning
 
-   The old homepage testimonials were removed because they were not ready to use as real social proof. Add this section back later only with verified client quotes, names, permissions, and consistent attribution.
+   Strengthen the idea that Oleg works not only with ad accounts, but with the full acquisition system: ads, site, funnel, analytics, creatives, lead quality, and optimization.
 
-5. Blog
+3. FAQ
 
-   Blog pages currently contain useful technical content, but some files have old text and encoding history. Review copy, headings, author schema, and visible brand language before treating the blog as final.
+   Add a short FAQ section to support conversion and organic search: audit vs launch, existing campaigns, analytics setup, work with internal teams, and what is needed to start.
 
-6. SEO and schema
+4. SEO content
 
-   Confirm page titles, descriptions, structured data, Open Graph text, and privacy/legal wording after the copy rewrite.
+   Continue growing the blog and case library around high-intent topics such as Google Ads for eCommerce, Meta Ads for real estate, analytics setup, advertising audit, and lead quality.
 
-7. Visual pass
+5. Verified social proof
 
-   Check logo, OG image, favicon, screenshots, and any remaining agency-style visual signals.
+   Add testimonials or client logos only when they are real, approved, and safe to publish.
 
-8. Final QA
+## QA Checklist
 
-   Run:
+Run before shipping larger changes:
 
-   ```bash
-   npx astro check --no-color
-   npm run build
-   npm audit --audit-level=low
-   ```
+```bash
+npx astro check --no-color
+npm run build
+npm audit --audit-level=low
+```
 
-   Then smoke-test the live domain for homepage, privacy, 404, forms, Calendly, messenger links, and tracking events.
-
-## Known Non-Technical Content Leftovers
-
-- Some pages still read conceptually like an agency offer.
-- Blog content should be reviewed before being considered brand-final.
+Smoke-test the live domain for homepage, cases, blog, privacy, 404, contact popup, lead submission, Calendly, messenger links, and GTM events.

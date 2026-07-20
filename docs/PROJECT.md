@@ -4,7 +4,7 @@
 
 This repository contains the Astro marketing website for the personal brand `Oleg Burikov`.
 
-The site is still partly written from the old agency positioning, but the technical base has already been cleaned up for a safer personal-brand rewrite.
+The site is currently positioned as Oleg Burikov's personal-brand website for performance marketing, paid acquisition, analytics, websites, creatives, cases, and blog content.
 
 ## Stack
 
@@ -28,6 +28,16 @@ src/
   styles/global.css
   middleware.ts      Security headers and CSP
 ```
+
+Current public routes:
+
+- `/` - homepage;
+- `/cases` and `/cases/case-*` - case studies;
+- `/blog` and individual blog articles;
+- `/privacy` - privacy policy;
+- `/api/lead` - server-side lead endpoint.
+
+Dedicated service landing pages were removed. The header "Services" link points to the homepage services section (`/#services`).
 
 ## Brand And Site Constants
 
