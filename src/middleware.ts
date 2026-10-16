@@ -7,13 +7,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const nonce = typeof btoa === 'function' ? btoa(raw) : Buffer.from(raw, 'binary').toString('base64');
   context.locals.cspNonce = nonce;
   const isDev = import.meta.env.DEV;
-  const pathname = new URL(context.request.url).pathname;
-  const isDemoRoute = pathname.startsWith('/demos/');
 
   const scriptSrc = [
     "'self'",
-    `'nonce-${nonce}'`,
-    ...(isDev ? ["'unsafe-inline'", "'unsafe-eval'"] : []),
+    // Dev server injects its own inline scripts; a nonce would make the browser ignore 'unsafe-inline'.
+    ...(isDev ? ["'unsafe-inline'", "'unsafe-eval'"] : [`'nonce-${nonce}'`]),
     'https://www.googletagmanager.com',
     'https://www.google-analytics.com',
     'https://www.googleadservices.com',
@@ -54,8 +52,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
     'https://connect.facebook.net',
   ].join(' ');
 
-  const frameAncestors = isDemoRoute ? "'self'" : "'none'";
-
   const styleSrc = [
     "'self'",
     "'unsafe-inline'",
@@ -82,7 +78,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     "object-src 'none'",
     "worker-src 'self' blob:",
     "manifest-src 'self'",
-    `frame-ancestors ${frameAncestors}`,
+    "frame-ancestors 'none'",
     ...(isDev ? [] : ['upgrade-insecure-requests']),
   ].join('; ');
 
@@ -91,7 +87,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   response.headers.set('Content-Security-Policy', contentSecurityPolicy);
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
   response.headers.set('X-Content-Type-Options', 'nosniff');
-  response.headers.set('X-Frame-Options', isDemoRoute ? 'SAMEORIGIN' : 'DENY');
+  response.headers.set('X-Frame-Options', 'DENY');
   response.headers.set('X-Permitted-Cross-Domain-Policies', 'none');
   response.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
   response.headers.set(

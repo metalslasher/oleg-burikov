@@ -1,74 +1,128 @@
-﻿---
-import content from '../content/home-uk.json';
-import { siteConfig } from '../config/site';
-import SocialLinks from './SocialLinks.astro';
+---
+import { navigation, siteConfig, contactLinks } from '../config/site';
+import Icon from './Icon.astro';
 
-const { footer } = content;
-const currentYear = new Date().getFullYear();
-const isHomePage = Astro.url.pathname === '/';
-const resolveNavHref = (href: string) => isHomePage && href.startsWith('/#') ? href.slice(1) : href;
+const isHome = Astro.url.pathname === '/';
+const resolveHref = (href: string) => (isHome && href.startsWith('/#') ? href.slice(1) : href);
+const year = new Date().getFullYear();
 ---
 
-<footer class="py-16 md:py-20">
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-auto">
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12 text-center md:text-left">
-        <div class="flex flex-col items-center md:items-start space-y-6">
-          <div>
-            <h3 class="text-xl md:text-2xl font-bold text-white mb-2">{siteConfig.brandName}</h3>
-            <p class="text-sm font-medium text-accent-400 uppercase tracking-wider">{siteConfig.positioning.shortLabel}</p>
-          </div>
-          <SocialLinks location="footer" />
-        </div>
-
-        <div class="flex flex-col items-center md:items-start space-y-4">
-          <h4 class="text-xl md:text-2xl font-bold text-white">{footer.menu.title}</h4>
-          <ul class="space-y-3">
-            {footer.menu.links.map((link) => (
-              <li>
-                <a href={resolveNavHref(link.href)} class="text-gray-300 hover:text-white transition-colors leading-relaxed">
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div class="flex flex-col items-center md:items-start space-y-4">
-          <h4 class="text-xl md:text-2xl font-bold text-white">{footer.contact.title}</h4>
-          <ul class="space-y-3">
-            <li>
-              <a href={`mailto:${siteConfig.contact.email}`} class="text-gray-300 hover:text-white transition-colors leading-relaxed">
-                {siteConfig.contact.email}
-              </a>
-            </li>
-            <li>
-              <a href={`tel:${siteConfig.contact.phone}`} class="text-gray-300 hover:text-white transition-colors leading-relaxed">
-                {siteConfig.contact.phoneDisplay}
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="flex flex-col items-center md:items-start space-y-4">
-          <h4 class="text-xl md:text-2xl font-bold text-white">{footer.legal.title}</h4>
-          <ul class="space-y-2">
-            {footer.legal.links.map((link) => (
-              <li>
-                <a href={link.href} class="text-gray-300 hover:text-white transition-colors leading-relaxed">
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="/" class="footer__name">{siteConfig.personName}</a>
+        <p>Performance-маркетинг для бізнесів, яким потрібні клієнти, а не кліки. Google, Meta, TikTok Ads, аналітика та воронки.</p>
       </div>
 
-      <div class="text-center pt-8 border-t border-white/10">
-        <p class="text-gray-400 text-sm">
-          © {currentYear} {siteConfig.brandName}. Всі права захищені.
-        </p>
+      <div>
+        <p class="footer__title">Навігація</p>
+        <ul>
+          <li><a href="/">Головна</a></li>
+          {navigation.map((item) => <li><a href={resolveHref(item.href)}>{item.label}</a></li>)}
+        </ul>
       </div>
+
+      <div>
+        <p class="footer__title">Контакти</p>
+        <ul>
+          {contactLinks.map((link) => (
+            <li>
+              <a
+                href={link.url}
+                target={link.external ? '_blank' : undefined}
+                rel={link.external ? 'noopener noreferrer' : undefined}
+                data-gtm-event={link.event}
+                data-gtm-label={link.label.toLowerCase()}
+                data-gtm-location="footer"
+              >
+                <Icon name={link.icon} size={16} />
+                {link.icon === 'email' ? siteConfig.contact.email : link.label}
+              </a>
+            </li>
+          ))}
+          <li>
+            <a href={`tel:${siteConfig.contact.phone}`} data-gtm-location="footer">{siteConfig.contact.phoneDisplay}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>© {year} {siteConfig.legalName}</p>
+      <a href="/privacy">Політика конфіденційності</a>
     </div>
   </div>
 </footer>
+
+<style>
+  .footer {
+    padding-block: 4rem 2rem;
+    border-top: 1px solid var(--line);
+    color: var(--color-muted);
+    font-size: 0.93rem;
+  }
+
+  .footer__grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 760px) {
+    .footer__grid {
+      grid-template-columns: 1.6fr 1fr 1fr;
+    }
+  }
+
+  .footer__name {
+    color: var(--color-paper);
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .footer__brand p {
+    max-width: 24rem;
+    margin-top: 0.9rem;
+  }
+
+  .footer__title {
+    margin-bottom: 0.9rem;
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  ul {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  ul a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 200ms ease;
+    overflow-wrap: anywhere;
+  }
+
+  ul a:hover,
+  .footer__bottom a:hover {
+    color: var(--color-paper);
+  }
+
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: 3.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    color: var(--color-faint);
+    font-size: 0.84rem;
+  }
+</style>

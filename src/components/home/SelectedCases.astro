@@ -1,0 +1,282 @@
+---
+import { cases, featuredCaseSlugs } from '../../data/cases';
+import { emphasize } from '../../lib/text';
+import Icon from '../Icon.astro';
+
+const featured = featuredCaseSlugs
+  .map((slug) => cases.find((item) => item.slug === slug))
+  .filter((item): item is (typeof cases)[number] => Boolean(item));
+const [lead, ...rest] = featured;
+---
+
+<section id="cases" class="section" aria-labelledby="cases-title" data-gtm-section="home_cases">
+  <div class="wrap">
+    <div class="section-head section-head--split">
+      <div>
+        <p class="kicker"><b>03</b> Кейси</p>
+        <h2 id="cases-title" class="h2" style="margin-top:1rem">Цифри зі звітів, а <em>не з презентацій</em></h2>
+      </div>
+      <p class="lead">
+        Кожен кейс — зі скріншотами з рекламних кабінетів: що було, що я зробив і що змінилося. Назви клієнтів приховані
+        через NDA.
+      </p>
+    </div>
+
+    <a href={`/cases/${lead.slug}`} class="lead-case" data-reveal>
+      <div class="lead-case__body">
+        <div class="lead-case__meta">
+          <span class="chip">{lead.niche}</span>
+          {lead.channels.map((channel) => <span class="chip chip--mono">{channel}</span>)}
+          <span class="chip chip--mono">{lead.market}</span>
+        </div>
+        <h3 class="lead-case__title" set:html={emphasize(lead.headline)} />
+        <p class="lead-case__summary">{lead.summary}</p>
+        <span class="link-arrow">Читати кейс <Icon name="arrow-right" size={16} /></span>
+      </div>
+
+      <div class="lead-case__chart" aria-hidden="true">
+        <div class="bars">
+          <div class="bar bar--before">
+            <span class="bar__value">$1 130</span>
+            <span class="bar__fill" style="--h:100%"></span>
+            <span class="bar__label">CPL, лист.</span>
+          </div>
+          <div class="bar bar--after">
+            <span class="bar__value">$144</span>
+            <span class="bar__fill" style="--h:12.7%"></span>
+            <span class="bar__label">CPL, груд.</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <ul class="case-rows">
+      {rest.map((item, index) => (
+        <li data-reveal style={`--reveal-i:${index}`}>
+          <a href={`/cases/${item.slug}`} class="case-row">
+            <span class="case-row__niche">{item.niche} · {item.channels.join(' + ')}</span>
+            <span class="case-row__title" set:html={emphasize(item.headline)} />
+            <span class="case-row__metrics">
+              {item.highlights.map((metric) => (
+                <span>
+                  <b class="num">{metric.value}</b>
+                  <small>{metric.label}</small>
+                </span>
+              ))}
+            </span>
+            <span class="case-row__arrow"><Icon name="arrow-up-right" size={20} /></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="cases-more">
+      <a href="/cases" class="btn btn--ghost" data-gtm-event="cta_click" data-gtm-label="all_cases" data-gtm-location="home_cases">
+        Усі кейси ({cases.length})
+        <Icon name="arrow-right" />
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .lead-case {
+    display: grid;
+    gap: 2rem;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border: 1px solid var(--line-strong);
+    border-radius: calc(var(--radius) * 1.4);
+    background:
+      radial-gradient(ellipse 50% 80% at 100% 100%, rgb(255 90 31 / 0.14), transparent 70%),
+      var(--color-ink-2);
+    transition: border-color 300ms ease;
+  }
+
+  .lead-case:hover {
+    border-color: var(--color-signal);
+  }
+
+  @media (min-width: 900px) {
+    .lead-case {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      align-items: center;
+    }
+  }
+
+  .lead-case__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .lead-case__title {
+    margin-top: 1.25rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.7rem, 1.2rem + 2.2vw, 2.9rem);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.08;
+  }
+
+  .lead-case__title :global(em),
+  .case-row__title :global(em) {
+    color: var(--color-signal);
+    font-style: normal;
+  }
+
+  .lead-case__summary {
+    max-width: 34rem;
+    margin: 1rem 0 1.5rem;
+    color: var(--color-muted);
+  }
+
+  .bars {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 7rem));
+    justify-content: center;
+    gap: 2.5rem;
+    align-items: end;
+    height: 16rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--line-strong);
+    background-image: linear-gradient(to top, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+    background-size: 100% 25%;
+  }
+
+  .bar {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100%;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .bar__value {
+    font-family: var(--font-display);
+    font-size: clamp(0.95rem, 0.8rem + 0.6vw, 1.25rem);
+    font-weight: 600;
+    align-self: end;
+  }
+
+  .bar__fill {
+    align-self: end;
+    height: var(--h);
+    border-radius: 6px 6px 0 0;
+    background: rgb(255 255 255 / 0.12);
+    transform-origin: bottom;
+    transition: transform 1.2s var(--ease-out);
+  }
+
+  .bar--after .bar__fill {
+    background: var(--color-signal);
+  }
+
+
+  .bar--after .bar__value {
+    color: var(--color-signal);
+  }
+
+
+  .js .lead-case:not(.is-visible) .bar__fill {
+    transform: scaleY(0);
+  }
+
+  .bar__label {
+    order: 3;
+    margin-bottom: -2.2rem;
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+  }
+
+  .lead-case__chart {
+    padding-bottom: 2rem;
+  }
+
+  .case-rows {
+    margin-top: 1rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .case-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem 1.5rem;
+    align-items: center;
+    padding: 1.5rem 0.25rem;
+    border-bottom: 1px solid var(--line);
+    transition: background-color 250ms ease, padding 300ms var(--ease-out);
+  }
+
+  .case-row:hover {
+    padding-inline: 1rem;
+    background: var(--color-ink-2);
+  }
+
+  .case-row__niche {
+    grid-column: 1 / -1;
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .case-row__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 0.95rem + 0.8vw, 1.55rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .case-row__metrics {
+    display: none;
+    gap: 2rem;
+  }
+
+  .case-row__metrics span {
+    display: grid;
+    min-width: 6rem;
+  }
+
+  .case-row__metrics b {
+    font-size: 1.5rem;
+    line-height: 1.1;
+  }
+
+  .case-row__metrics small {
+    color: var(--color-faint);
+    font-size: 0.78rem;
+  }
+
+  .case-row__arrow {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    transition: background-color 250ms ease, border-color 250ms ease, transform 300ms var(--ease-out);
+  }
+
+  .case-row:hover .case-row__arrow {
+    border-color: var(--color-signal);
+    background: var(--color-signal);
+    transform: rotate(45deg);
+  }
+
+  @media (min-width: 860px) {
+    .case-row {
+      grid-template-columns: minmax(0, 1fr) auto auto;
+    }
+
+    .case-row__metrics {
+      display: flex;
+    }
+  }
+
+  .cases-more {
+    margin-top: 2.5rem;
+  }
+</style>

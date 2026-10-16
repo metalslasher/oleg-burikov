@@ -1,0 +1,712 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactCta from '../../components/ContactCta.astro';
+import Icon from '../../components/Icon.astro';
+import Shot from '../../components/Shot.astro';
+import { cases, getCase } from '../../data/cases';
+import { emphasize, plain, pad2 } from '../../lib/text';
+import { absoluteUrl, siteConfig } from '../../config/site';
+
+const study = getCase(Astro.params.slug || '');
+if (!study) {
+  return Astro.rewrite('/404');
+}
+
+const index = cases.indexOf(study);
+const next = cases[(index + 1) % cases.length];
+const { results } = study;
+
+const facts = [
+  { label: 'Ніша', value: study.niche },
+  { label: 'Ринок', value: study.market },
+  { label: 'Канали', value: study.channels.join(' + ') },
+  { label: 'Період', value: study.period },
+  { label: 'Бюджет', value: study.budget },
+];
+
+const schema = [
+  {
+    '@type': 'Article',
+    headline: plain(study.headline),
+    description: study.seo.description,
+    image: absoluteUrl(study.cover.src),
+    author: { '@id': `${siteConfig.siteUrl}/#person` },
+    inLanguage: siteConfig.locale,
+    mainEntityOfPage: absoluteUrl(`/cases/${study.slug}`),
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Головна', item: absoluteUrl('/') },
+      { '@type': 'ListItem', position: 2, name: 'Кейси', item: absoluteUrl('/cases') },
+      { '@type': 'ListItem', position: 3, name: study.client },
+    ],
+  },
+];
+---
+
+<BaseLayout title={study.seo.title} description={study.seo.description} ogImage={study.cover.src} ogType="article" schema={schema}>
+  <article class="case">
+    <header class="case-hero">
+      <div class="wrap">
+        <a href="/cases" class="back"><Icon name="arrow-left" size={16} /> Усі кейси</a>
+        <div class="case-hero__chips">
+          <span class="chip">{study.niche}</span>
+          {study.channels.map((channel) => <span class="chip chip--mono">{channel}</span>)}
+          <span class="chip chip--mono">Кейс {pad2(index + 1)} / {pad2(cases.length)}</span>
+        </div>
+        <h1 class="case-hero__title display" set:html={emphasize(study.headline)} />
+        <p class="case-hero__summary lead">{study.summary}</p>
+
+        <dl class="kpis">
+          {study.kpis.map((kpi, i) => (
+            <div class="kpi" data-reveal style={`--reveal-i:${i}`}>
+              <dt>{kpi.label}</dt>
+              <dd class="num" data-count>{kpi.value}</dd>
+              {kpi.note && <dd class="kpi__note">{kpi.note}</dd>}
+            </div>
+          ))}
+        </dl>
+      </div>
+    </header>
+
+    <div class="wrap">
+      <Shot image={study.cover} browser eager caption={`Сайт клієнта · ${study.client}`} />
+    </div>
+
+    <div class="wrap case-body">
+      <aside class="case-aside">
+        <div class="case-aside__inner">
+          <p class="case-aside__title">Паспорт проєкту</p>
+          <dl class="facts">
+            {facts.map((fact) => (
+              <div>
+                <dt>{fact.label}</dt>
+                <dd>{fact.value}</dd>
+              </div>
+            ))}
+          </dl>
+          <a href="#contact" class="btn btn--primary case-aside__cta" data-gtm-event="cta_click" data-gtm-label="case_sidebar" data-gtm-location={`case_${study.slug}`}>
+            Хочу так само
+            <Icon name="arrow-up-right" />
+          </a>
+        </div>
+      </aside>
+
+      <div class="case-content">
+        <section class="block" aria-labelledby="ctx">
+          <p class="kicker"><b>01</b> Контекст і задача</p>
+          <h2 id="ctx" class="block__title">З чим прийшов клієнт</h2>
+          {study.context.map((paragraph) => <p class="prose-p">{paragraph}</p>)}
+        </section>
+
+        <section class="block" aria-labelledby="actions">
+          <p class="kicker"><b>02</b> Рішення</p>
+          <h2 id="actions" class="block__title">Що я зробив</h2>
+          <ol class="actions">
+            {study.actions.map((action, i) => (
+              <li data-reveal style={`--reveal-i:${i % 2}`}>
+                <span class="actions__num">{pad2(i + 1)}</span>
+                <h3>{action.title}</h3>
+                <p>{action.text}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section class="block" aria-labelledby="campaigns">
+          <p class="kicker"><b>03</b> Кампанії</p>
+          <h2 id="campaigns" class="block__title">Структура в кабінеті</h2>
+          {study.campaigns.map((campaign) => (
+            <div class="campaign">
+              {campaign.title && <h3 class="campaign__title">{campaign.title}</h3>}
+              <Shot image={campaign.image} zoom />
+              {campaign.text && <p class="prose-p">{campaign.text}</p>}
+              <ul class="bullets">
+                {campaign.bullets.map((bullet) => <li>{bullet}</li>)}
+              </ul>
+            </div>
+          ))}
+
+          {study.creatives && (
+            <div class="campaign">
+              <h3 class="campaign__title">Креативи</h3>
+              <div class:list={['creatives', `creatives--${study.creatives.layout}`]}>
+                {study.creatives.items.map((creative) => (
+                  <div class:list={[creative.width / creative.height > 1.8 && 'creatives__wide']}>
+                    <Shot image={creative} zoom />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </section>
+
+        <section class="block" aria-labelledby="results">
+          <p class="kicker"><b>04</b> Результати</p>
+          <h2 id="results" class="block__title">Що змінилось у цифрах</h2>
+
+          {results.comparison && (
+            <div class="compare">
+              {[results.comparison.before, results.comparison.after].map((side, i) => (
+                <figure class:list={['compare__side', i === 1 && 'is-after']}>
+                  <figcaption class="compare__label">
+                    <span>{i === 0 ? 'До' : 'Після'}</span>
+                    {side.label}
+                  </figcaption>
+                  <Shot image={side.image} zoom />
+                  <div class="compare__stats">
+                    {side.stats.map((stat) => (
+                      <div>
+                        <b class="num">{stat.value}</b>
+                        <small>{stat.label}</small>
+                      </div>
+                    ))}
+                  </div>
+                </figure>
+              ))}
+            </div>
+          )}
+
+          {results.report && (
+            <div class="campaign">
+              <p class="report-label">{results.report.label}</p>
+              <Shot image={results.report.image} zoom />
+            </div>
+          )}
+
+          {results.stats && (
+            <div class="campaign">
+              {results.stats.title && <p class="report-label">{results.stats.title}</p>}
+              <dl class="stats">
+                {results.stats.items.map((stat) => (
+                  <div>
+                    <dd class="num">{stat.value}</dd>
+                    <dt>{stat.label}</dt>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          )}
+
+          {results.note && <p class="note">{results.note}</p>}
+        </section>
+
+        <section class="block" aria-labelledby="takeaways">
+          <p class="kicker"><b>05</b> Висновки</p>
+          <h2 id="takeaways" class="block__title">Що з цього варто забрати</h2>
+          <div class="takeaways">
+            {study.takeaways.map((item) => (
+              <div class="takeaway" data-reveal>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            ))}
+          </div>
+
+          {study.related && (
+            <a href={study.related.href} class="related">
+              <span class="related__kicker">Стаття в блозі</span>
+              <span class="related__title">{study.related.label}</span>
+              <Icon name="arrow-up-right" size={20} />
+            </a>
+          )}
+        </section>
+      </div>
+    </div>
+
+    <nav class="wrap next" aria-label="Наступний кейс">
+      <a href={`/cases/${next.slug}`} class="next__link">
+        <span class="next__kicker">Наступний кейс · {next.niche}</span>
+        <span class="next__title" set:html={emphasize(next.headline)} />
+        <span class="next__arrow"><Icon name="arrow-right" size={22} /></span>
+      </a>
+    </nav>
+  </article>
+
+  <ContactCta location={`case_${study.slug}`} title="Схожа задача? *Розберемо ваші цифри*" />
+</BaseLayout>
+
+<style>
+  .case-hero {
+    padding-top: calc(var(--header-h) + clamp(2rem, 5vw, 3.5rem));
+    padding-bottom: 2.5rem;
+  }
+
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .back:hover {
+    color: var(--color-paper);
+  }
+
+  .case-hero__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 2rem;
+  }
+
+  .case-hero__title {
+    max-width: 20ch;
+    margin-top: 1.25rem;
+    font-size: clamp(2.1rem, 1.2rem + 4vw, 4.4rem);
+  }
+
+  .case-hero__title :global(em),
+  .next__title :global(em) {
+    color: var(--color-signal);
+    font-style: normal;
+  }
+
+  .case-hero__summary {
+    max-width: 42rem;
+    margin-top: 1.25rem;
+  }
+
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    margin-top: 2.5rem;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--line);
+  }
+
+  @media (min-width: 860px) {
+    .kpis {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .kpi {
+    padding: 1.25rem 1.35rem;
+    background: var(--color-ink-2);
+  }
+
+  .kpi dt {
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .kpi .num {
+    margin-top: 0.4rem;
+    font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
+    line-height: 1.05;
+  }
+
+  .kpi:first-child .num {
+    color: var(--color-signal);
+  }
+
+  .kpi__note {
+    margin-top: 0.35rem;
+    color: var(--color-muted);
+    font-size: 0.84rem;
+  }
+
+  .case-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+    margin-top: clamp(3rem, 6vw, 5rem);
+  }
+
+  @media (min-width: 1000px) {
+    .case-body {
+      grid-template-columns: 17rem minmax(0, 1fr);
+      gap: 4rem;
+    }
+  }
+
+  .case-aside__inner {
+    position: sticky;
+    top: calc(var(--header-h) + 1.5rem);
+    padding: 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--color-ink-2);
+  }
+
+  .case-aside__title {
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .facts {
+    display: grid;
+    gap: 0.9rem;
+    margin-top: 1.1rem;
+  }
+
+  .facts dt {
+    color: var(--color-faint);
+    font-size: 0.78rem;
+  }
+
+  .facts dd {
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .case-aside__cta {
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+
+  .block + .block {
+    margin-top: clamp(3.5rem, 7vw, 5.5rem);
+  }
+
+  .block__title {
+    margin: 0.9rem 0 1.5rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+
+  .prose-p {
+    max-width: 46rem;
+    color: #cfccc5;
+    font-size: 1.04rem;
+    line-height: 1.75;
+  }
+
+  .prose-p + .prose-p {
+    margin-top: 1rem;
+  }
+
+  .actions {
+    display: grid;
+    gap: 1px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--line);
+  }
+
+  @media (min-width: 700px) {
+    .actions {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .actions li {
+    padding: 1.4rem;
+    background: var(--color-ink-2);
+  }
+
+  .actions__num {
+    color: var(--color-signal);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .actions h3 {
+    margin-top: 0.6rem;
+    font-size: 1.08rem;
+    font-weight: 800;
+  }
+
+  .actions p {
+    margin-top: 0.4rem;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+
+  .campaign + .campaign,
+  .compare + .campaign {
+    margin-top: 2.5rem;
+  }
+
+  .campaign .prose-p {
+    margin-top: 1.25rem;
+  }
+
+  .campaign__title,
+  .report-label {
+    margin-bottom: 1rem;
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .bullets {
+    display: grid;
+    gap: 0.6rem;
+    margin-top: 1.25rem;
+  }
+
+  .bullets li {
+    position: relative;
+    padding-left: 1.4rem;
+    color: #cfccc5;
+  }
+
+  .bullets li::before {
+    content: "";
+    position: absolute;
+    top: 0.7em;
+    left: 0;
+    width: 0.6rem;
+    height: 2px;
+    background: var(--color-signal);
+  }
+
+  .creatives {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+  }
+
+  @media (min-width: 600px) {
+    .creatives--square {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .creatives__wide {
+    grid-column: 1 / -1;
+  }
+
+  .creatives--portrait {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 14rem));
+  }
+
+  .compare {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 760px) {
+    .compare {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .compare__side {
+    padding: 1.1rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--color-ink-2);
+  }
+
+  .compare__side.is-after {
+    border-color: rgb(61 220 151 / 0.35);
+  }
+
+  .compare__label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+    color: var(--color-muted);
+    font-size: 0.86rem;
+  }
+
+  .compare__label span {
+    padding: 0.2rem 0.55rem;
+    border-radius: 6px;
+    background: rgb(255 255 255 / 0.08);
+    color: var(--color-paper);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+  }
+
+  .is-after .compare__label span {
+    background: rgb(61 220 151 / 0.16);
+    color: var(--color-up);
+  }
+
+  .compare__stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .compare__stats b {
+    display: block;
+    font-size: 1.7rem;
+    line-height: 1.1;
+  }
+
+  .is-after .compare__stats b {
+    color: var(--color-up);
+  }
+
+  .compare__stats small {
+    color: var(--color-faint);
+    font-size: 0.8rem;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--line);
+  }
+
+  @media (min-width: 760px) {
+    .stats {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .stats div {
+    padding: 1.25rem;
+    background: var(--color-ink-2);
+  }
+
+  .stats dd {
+    font-size: clamp(1.3rem, 1rem + 0.9vw, 1.85rem);
+    white-space: nowrap;
+    line-height: 1.1;
+  }
+
+  .stats dt {
+    margin-top: 0.3rem;
+    color: var(--color-faint);
+    font-size: 0.84rem;
+  }
+
+  .note {
+    margin-top: 1.5rem;
+    padding: 1.1rem 1.25rem;
+    border-left: 3px solid var(--color-up);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    background: rgb(61 220 151 / 0.06);
+    color: #d9f5e8;
+  }
+
+  .takeaways {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 700px) {
+    .takeaways {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .takeaway {
+    padding: 1.4rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .takeaway h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+  }
+
+  .takeaway p {
+    margin-top: 0.45rem;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+
+  .related {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.3rem 1rem;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding: 1.4rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    transition: border-color 250ms ease;
+  }
+
+  .related:hover {
+    border-color: var(--color-signal);
+  }
+
+  .related__kicker {
+    grid-column: 1;
+    color: var(--color-signal);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+  }
+
+  .related__title {
+    grid-column: 1;
+    font-weight: 800;
+  }
+
+  .related svg {
+    grid-row: 1 / 3;
+    grid-column: 2;
+  }
+
+  .next {
+    margin-top: clamp(4rem, 8vw, 6rem);
+  }
+
+  .next__link {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.6rem 1.5rem;
+    align-items: center;
+    padding-block: 2rem;
+    border-block: 1px solid var(--line);
+  }
+
+  .next__kicker {
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    text-transform: uppercase;
+  }
+
+  .next__title {
+    grid-column: 1;
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 1rem + 1.8vw, 2.4rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .next__arrow {
+    grid-row: 1 / 3;
+    grid-column: 2;
+    display: grid;
+    width: 3.5rem;
+    height: 3.5rem;
+    place-items: center;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    transition: background-color 250ms ease, border-color 250ms ease, transform 300ms var(--ease-out);
+  }
+
+  .next__link:hover .next__arrow {
+    border-color: var(--color-signal);
+    background: var(--color-signal);
+    transform: translateX(6px);
+  }
+</style>

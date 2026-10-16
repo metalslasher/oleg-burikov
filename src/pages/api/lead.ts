@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { detectContact } from '../../lib/contact';
 
 export const runtime = 'nodejs';
 
@@ -111,11 +112,6 @@ const checkRateLimit = (clientId: string) => {
   return { isLimited: false, retryAfter: 0 };
 };
 
-const validatePhone = (phone: string) => {
-  const cleanPhone = phone.replace(/[^\d+]/g, '');
-  return /^\+380\d{9}$/.test(cleanPhone) || /^380\d{9}$/.test(cleanPhone) || /^0\d{9}$/.test(cleanPhone);
-};
-
 const getWebhookUrl = () =>
   import.meta.env.LEADS_WEBHOOK_URL ||
   import.meta.env.LEAD_WEBHOOK_URL ||
@@ -206,7 +202,8 @@ export const POST: APIRoute = async ({ request }) => {
 
   const lead: Record<LeadField, string> = {
     name: getString(payload, 'name', 80),
-    phone: getString(payload, 'phone', 32),
+    // Kept as `phone` for the webhook columns; holds a phone, Telegram handle or email.
+    phone: getString(payload, 'contact', 120) || getString(payload, 'phone', 120),
     contact_method: getString(payload, 'contact_method', 40),
     service: getString(payload, 'service', 120) || 'Не вказано',
     message: getString(payload, 'message', 1200) || 'Не вказано',
@@ -223,9 +220,11 @@ export const POST: APIRoute = async ({ request }) => {
   if (lead.name.length < 2) {
     return jsonResponse({ error: 'Вкажіть коректне ім’я.' }, 400);
   }
-  if (!validatePhone(lead.phone)) {
-    return jsonResponse({ error: 'Вкажіть коректний номер телефону.' }, 400);
+  const contactKind = detectContact(lead.phone);
+  if (!contactKind) {
+    return jsonResponse({ error: 'Вкажіть телефон, Telegram або email для зв’язку.' }, 400);
   }
+  lead.contact_method = lead.contact_method || contactKind;
 
   try {
     await forwardLead(lead);

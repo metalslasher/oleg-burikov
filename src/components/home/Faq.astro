@@ -1,0 +1,91 @@
+---
+import { faq } from '../../data/profile';
+import Icon from '../Icon.astro';
+---
+
+<section id="faq" class="section" aria-labelledby="faq-title">
+  <div class="wrap faq">
+    <div>
+      <p class="kicker"><b>06</b> FAQ</p>
+      <h2 id="faq-title" class="h2" style="margin-top:1rem">Часті <em>питання</em></h2>
+      <p class="lead" style="margin-top:1.25rem">Не знайшли відповідь? Напишіть — відповім особисто.</p>
+    </div>
+
+    <div class="faq__list">
+      {faq.map((item, index) => (
+        <details class="faq__item" open={index === 0} data-reveal style={`--reveal-i:${index % 3}`}>
+          <summary>
+            <span>{item.q}</span>
+            <span class="faq__icon"><Icon name="plus" size={18} /></span>
+          </summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 960px) {
+    .faq {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: 4rem;
+    }
+  }
+
+  .faq__list {
+    border-top: 1px solid var(--line);
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--line);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.35rem 0;
+    font-size: clamp(1.02rem, 0.95rem + 0.3vw, 1.15rem);
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary:hover {
+    color: var(--color-signal-soft);
+  }
+
+  .faq__icon {
+    display: grid;
+    flex: none;
+    width: 2.25rem;
+    height: 2.25rem;
+    place-items: center;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    transition: transform 300ms var(--ease-out), background-color 300ms ease, border-color 300ms ease;
+  }
+
+  .faq__item[open] .faq__icon {
+    border-color: var(--color-signal);
+    background: var(--color-signal);
+    transform: rotate(45deg);
+  }
+
+  .faq__item p {
+    max-width: 44rem;
+    padding: 0 3rem 1.5rem 0;
+    color: var(--color-muted);
+  }
+</style>

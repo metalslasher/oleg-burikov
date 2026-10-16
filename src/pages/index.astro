@@ -1,30 +1,35 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
-import Hero from '../components/Hero.astro';
-import Services from '../components/Services.astro';
-import Experience from '../components/Experience.astro';
-import Niches from '../components/Niches.astro';
-import Cases from '../components/Cases.astro';
-import Footer from '../components/Footer.astro';
+import Hero from '../components/home/Hero.astro';
+import Marquee from '../components/home/Marquee.astro';
+import Services from '../components/home/Services.astro';
+import Process from '../components/home/Process.astro';
+import SelectedCases from '../components/home/SelectedCases.astro';
+import Formats from '../components/home/Formats.astro';
+import Experience from '../components/home/Experience.astro';
+import Faq from '../components/home/Faq.astro';
+import ContactCta from '../components/ContactCta.astro';
 import { siteConfig } from '../config/site';
+import { faq } from '../data/profile';
+
+const faqSchema = {
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
 ---
 
-<BaseLayout
-  title={siteConfig.seo.defaultTitle}
-  description={siteConfig.seo.defaultDescription}
-  ogTitle={siteConfig.seo.defaultTitle}
-  ogDescription={siteConfig.seo.defaultDescription}
-  ogImage={siteConfig.seo.defaultOgImage}
->
-  <Header />
-  
-  <main id="main" class="bg-[linear-gradient(135deg,#020617_0%,#0f172a_58%,#111827_100%)] pt-[80px] sm:pt-0">
-    <Hero />
-    <Services />
-    <Niches />
-    <Experience />
-    <Cases />
-    <Footer />
-  </main>
+<BaseLayout title={siteConfig.seo.defaultTitle} description={siteConfig.seo.defaultDescription} ogType="profile" schema={[faqSchema]}>
+  <Hero />
+  <Marquee />
+  <Services />
+  <Process />
+  <SelectedCases />
+  <Formats />
+  <Experience />
+  <Faq />
+  <ContactCta location="home_final" />
 </BaseLayout>

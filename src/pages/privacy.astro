@@ -1,105 +1,112 @@
 ---
-import PageLayout from '../layouts/PageLayout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../config/site';
 
-const siteHost = new URL(siteConfig.siteUrl).hostname;
+const host = new URL(siteConfig.siteUrl).hostname;
+const sections = [
+  {
+    title: 'Хто обробляє дані',
+    body: [`Власник сайту та контролер даних — ${siteConfig.legalName} (персональний бренд «${siteConfig.personName}»).`],
+  },
+  {
+    title: 'Які дані збираються',
+    body: [
+      'Якщо ви залишаєте заявку, сайт обробляє ім’я, контакт для зв’язку (телефон, Telegram або email), тип запиту, повідомлення, сторінку, з якої надіслано форму, та UTM-мітки.',
+      'Також збирається технічна аналітика: переглянуті сторінки, джерела переходу, кліки по кнопках, події форм і параметри браузера.',
+    ],
+  },
+  {
+    title: 'Для чого використовуються дані',
+    body: ['Щоб відповісти на заявку, домовитися про співпрацю або дзвінок, покращувати сайт, вимірювати ефективність реклами та захищати форми від спаму.'],
+  },
+  {
+    title: 'Аналітика і трекінг',
+    body: ['Сайт використовує Google Tag Manager, через який можуть бути підключені Google Analytics 4, Microsoft Clarity, Meta Pixel та інші інструменти аналітики й реклами.'],
+  },
+  {
+    title: 'Передача даних третім сторонам',
+    body: ['Дані можуть оброблятися сервісами, які забезпечують роботу сайту й комунікацію: Vercel, Google, Calendly, Microsoft, Meta — лише в межах потрібного функціоналу. Дані не продаються.'],
+  },
+  {
+    title: 'Зберігання та захист',
+    body: ['Дані зберігаються стільки, скільки потрібно для обробки звернення та комунікації. Заявки обробляються на сервері з перевіркою даних, обмеженням частоти запитів і заголовками безпеки.'],
+  },
+  {
+    title: 'Ваші права',
+    body: ['Ви можете попросити доступ до своїх даних, їх виправлення або видалення, написавши на email нижче.'],
+  },
+];
 ---
 
-<PageLayout
-  title="Політика конфіденційності"
-  description={`Політика конфіденційності та обробки персональних даних сайту ${siteConfig.brandName}.`}
-  noindex={true}
->
-    <section class="relative overflow-hidden py-24 md:py-32 text-white">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mx-auto max-w-4xl">
-          <a href="/" class="mb-8 inline-flex items-center text-sm font-semibold text-accent-400 hover:text-accent-300">
-            Назад на головну
-          </a>
+<BaseLayout title="Політика конфіденційності" description={`Як сайт ${host} обробляє персональні дані та аналітику.`} noindex>
+  <article class="wrap legal">
+    <p class="kicker"><b>§</b> Документ</p>
+    <h1 class="h2">Політика конфіденційності</h1>
+    <p class="lead">Коротко і по суті: які дані збирає сайт {host} і навіщо.</p>
 
-          <h1 class="mb-6 text-4xl font-bold leading-tight md:text-5xl">
-            Політика конфіденційності
-          </h1>
-          <p class="text-lg leading-relaxed text-gray-300">
-            Ця політика пояснює, як {siteConfig.legalName} обробляє персональні дані користувачів сайту {siteHost}.
-          </p>
-        </div>
-      </div>
-    </section>
+    <ol class="legal__list">
+      {sections.map((section) => (
+        <li>
+          <h2>{section.title}</h2>
+          {section.body.map((paragraph) => <p>{paragraph}</p>)}
+        </li>
+      ))}
+      <li>
+        <h2>Контакти</h2>
+        <p>
+          Email: <a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a><br />
+          Телефон: <a href={`tel:${siteConfig.contact.phone}`}>{siteConfig.contact.phoneDisplay}</a>
+        </p>
+      </li>
+    </ol>
+  </article>
+</BaseLayout>
 
-    <section class="pb-20">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mx-auto max-w-4xl space-y-10 text-gray-300">
-          <div>
-            <h2 class="mb-4 text-2xl font-bold text-white">1. Хто обробляє дані</h2>
-            <p class="leading-relaxed">
-              Власник сайту та контролер даних: {siteConfig.legalName}. Бренд сайту: {siteConfig.brandName}, персональний бренд: {siteConfig.personName}.
-            </p>
-          </div>
+<style>
+  .legal {
+    max-width: calc(46rem + var(--gutter) * 2);
+    padding-top: calc(var(--header-h) + clamp(2.5rem, 6vw, 4rem));
+    padding-bottom: 5rem;
+  }
 
-          <div>
-            <h2 class="mb-4 text-2xl font-bold text-white">2. Які дані можуть збиратися</h2>
-            <p class="mb-3 leading-relaxed">
-              Якщо ви залишаєте заявку або зв'язуєтесь через форму, сайт може обробляти ім'я, номер телефону, спосіб зв'язку, послугу, повідомлення та технічні дані заявки.
-            </p>
-            <p class="leading-relaxed">
-              Також сайт може збирати технічну аналітику: переглянуті сторінки, джерела переходу, кліки по кнопках, події форм, параметри браузера та інші подібні дані.
-            </p>
-          </div>
+  .legal .h2 {
+    margin-top: 1.25rem;
+  }
 
-          <div>
-            <h2 class="mb-4 text-2xl font-bold text-white">3. Для чого використовуються дані</h2>
-            <p class="leading-relaxed">
-              Дані використовуються для відповіді на заявки, комунікації з потенційними клієнтами, бронювання консультацій, покращення сайту, вимірювання ефективності реклами та захисту форм від спаму.
-            </p>
-          </div>
+  .legal .lead {
+    margin-top: 1rem;
+  }
 
-          <div>
-            <h2 class="mb-4 text-2xl font-bold text-white">4. Аналітика та трекінг</h2>
-            <p class="leading-relaxed">
-              На сайті використовується Google Tag Manager. Через нього можуть бути підключені Google Analytics 4, Microsoft Clarity, Meta Pixel або інші інструменти аналітики та реклами. Їхні налаштування керуються через GTM-контейнер, а не напряму в коді сайту.
-            </p>
-          </div>
+  .legal__list {
+    display: grid;
+    gap: 2rem;
+    margin-top: 3rem;
+    counter-reset: legal;
+  }
 
-          <div>
-            <h2 class="mb-4 text-2xl font-bold text-white">5. Передача даних третім сторонам</h2>
-            <p class="leading-relaxed">
-              Дані можуть передаватися сервісам, які допомагають обробляти заявки, вести аналітику, організовувати дзвінки або забезпечувати роботу сайту: Vercel, Google, Calendly, Microsoft, Meta та іншим технічним провайдерам у межах необхідного функціоналу.
-            </p>
-          </div>
+  .legal__list li {
+    counter-increment: legal;
+  }
 
-          <div>
-            <h2 class="mb-4 text-2xl font-bold text-white">6. Зберігання та захист</h2>
-            <p class="leading-relaxed">
-              Дані зберігаються лише настільки довго, наскільки це потрібно для обробки звернення, комунікації, аналітики або виконання законних обов'язків. Для зменшення ризиків сайт використовує серверну обробку заявок, перевірку даних, rate limit і заголовки безпеки.
-            </p>
-          </div>
+  .legal__list h2 {
+    font-size: 1.15rem;
+    font-weight: 800;
+  }
 
-          <div>
-            <h2 class="mb-4 text-2xl font-bold text-white">7. Ваші права</h2>
-            <p class="leading-relaxed">
-              Ви можете звернутися із запитом щодо доступу, оновлення або видалення ваших персональних даних, якщо такі дані були передані через сайт.
-            </p>
-          </div>
+  .legal__list h2::before {
+    content: counter(legal, decimal-leading-zero) " ";
+    color: var(--color-signal);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
 
-          <div>
-            <h2 class="mb-4 text-2xl font-bold text-white">8. Контакти</h2>
-            <ul class="space-y-2 leading-relaxed">
-              <li>
-                Email:
-                <a href={`mailto:${siteConfig.contact.email}`} class="text-accent-400 hover:text-accent-300">
-                  {siteConfig.contact.email}
-                </a>
-              </li>
-              <li>
-                Телефон:
-                <a href={`tel:${siteConfig.contact.phone}`} class="text-accent-400 hover:text-accent-300">
-                  {siteConfig.contact.phoneDisplay}
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-</PageLayout>
+  .legal__list p {
+    margin-top: 0.5rem;
+    color: var(--color-muted);
+  }
+
+  .legal__list a {
+    color: var(--color-paper);
+    text-decoration: underline;
+  }
+</style>

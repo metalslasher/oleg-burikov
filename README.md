@@ -1,10 +1,10 @@
-# Oleg Burikov Website
+# Oleg Burikov — personal website
 
-Personal-brand marketing website for Oleg Burikov, built with Astro and deployed on Vercel.
+Personal-brand site of Oleg Burikov, Performance Marketing Manager. Astro 7 on Vercel.
 
-## Quick Start
+## Quick start
 
-Required runtime: Node.js `>=22.12.0`.
+Node.js `22.x`.
 
 ```bash
 npm install
@@ -13,35 +13,26 @@ npm run dev
 
 Local URL: `http://localhost:4321`.
 
-## Common Commands
+## Commands
 
 ```bash
-npm run build
-npx astro check --no-color
-npm audit --audit-level=low
+npm run check     # astro type check
+npm run build     # production build (Vercel output)
+npm run quality   # check + build
 ```
 
 ## Environment
 
-Create `.env` locally and configure the same variable in Vercel:
-
 ```bash
-LEADS_WEBHOOK_URL=
+LEADS_WEBHOOK_URL=   # server-side only, used by /api/lead
 ```
 
-`LEADS_WEBHOOK_URL` is used only by `/api/lead` for server-side lead forwarding. Do not expose it in client code and do not commit `.env`.
+## Docs
 
-## Key Files
-
-- `src/config/site.ts` - brand, domain, contacts, Calendly, tracking IDs, SEO defaults.
-- `src/content/home-uk.json` - home page content plus navigation data.
-- `src/pages/api/lead.ts` - server-side lead endpoint, validation, rate limit, webhook forwarding.
-- `src/middleware.ts` - CSP and security headers.
-- `docs/PROJECT.md` - current technical project notes.
-- `docs/REBRAND_PLAN.md` - personal-brand rewrite plan.
+- `docs/PROJECT.md` — structure, how to add cases and posts, tracking, security notes.
+- `docs/OLEG_BURIKOV_PROFILE.md` — source of truth for experience and claims.
+- `docs/COMPETITOR_ANALYSIS.md` — market research behind the structure.
 
 ## Deployment
 
-- Vercel project: `oleg-burikov`
-- Production domain: `https://www.oleg-burikov.com/`
-- Build command: `npm run build`
+Vercel project `oleg-burikov`, domain `https://www.oleg-burikov.com/`, build command `npm run build`.

@@ -1,0 +1,145 @@
+---
+import { siteConfig } from '../config/site';
+import Icon from './Icon.astro';
+
+interface Props {
+  title?: string;
+  text?: string;
+  location: string;
+}
+
+const {
+  title = 'Розкажіть про задачу — *запропоную план*',
+  text = 'Опишіть продукт, канали й поточні цифри. Відповім протягом робочого дня з першими гіпотезами або питаннями. Без зобов’язань.',
+  location,
+} = Astro.props;
+const [before, accent] = title.split('*');
+---
+
+<section class="cta-block section" aria-labelledby={`cta-${location}`}>
+  <div class="wrap">
+    <div class="cta-card" data-reveal>
+      <div class="cta-card__glow" aria-hidden="true"></div>
+      <p class="kicker"><b>●</b> Відкритий до нових проєктів</p>
+      <h2 class="h2" id={`cta-${location}`}>
+        {before}{accent && <em>{accent}</em>}
+      </h2>
+      <p class="lead cta-card__text">{text}</p>
+
+      <div class="cta-card__actions">
+        <a href="#contact" class="btn btn--primary" data-gtm-event="cta_click" data-gtm-label="cta_form" data-gtm-location={location}>
+          Залишити заявку
+          <Icon name="arrow-up-right" />
+        </a>
+        <a
+          href={siteConfig.contact.calendly}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn--ghost"
+          data-gtm-event="book_call"
+          data-gtm-label="calendly"
+          data-gtm-location={location}
+        >
+          <Icon name="calendar" />
+          Забронювати 30 хв дзвінок
+        </a>
+      </div>
+
+      <div class="cta-card__direct">
+        <span>Або напишіть напряму:</span>
+        <a href={siteConfig.contact.telegram} target="_blank" rel="noopener noreferrer" data-gtm-event="messenger_click" data-gtm-label="telegram" data-gtm-location={location}>
+          <Icon name="telegram" size={16} /> Telegram
+        </a>
+        <a href={`mailto:${siteConfig.contact.email}`} data-gtm-event="contact_click" data-gtm-label="email" data-gtm-location={location}>
+          <Icon name="email" size={16} /> {siteConfig.contact.email}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: clamp(2rem, 6vw, 4.5rem);
+    border: 1px solid var(--line-strong);
+    border-radius: calc(var(--radius) * 1.6);
+    background: var(--color-ink-2);
+  }
+
+  .cta-card__glow {
+    position: absolute;
+    z-index: -1;
+    right: -12%;
+    bottom: -60%;
+    width: 70%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgb(255 90 31 / 0.35), transparent 65%);
+  }
+
+  .cta-card .kicker b {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .cta-card .kicker::before {
+    display: none;
+  }
+
+  .cta-card h2 {
+    max-width: 18ch;
+    margin-top: 1.25rem;
+  }
+
+  .cta-card__text {
+    max-width: 38rem;
+    margin-top: 1.25rem;
+  }
+
+  .cta-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .cta-card__direct {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1.25rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    color: var(--color-faint);
+    font-size: 0.9rem;
+  }
+
+  .cta-card__direct a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-paper);
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  .cta-card__direct a:hover {
+    color: var(--color-signal-soft);
+  }
+
+  @media (max-width: 520px) {
+    .cta-card__actions .btn {
+      width: 100%;
+      white-space: normal;
+    }
+  }
+
+  @keyframes pulse {
+    50% {
+      opacity: 0.35;
+    }
+  }
+</style>

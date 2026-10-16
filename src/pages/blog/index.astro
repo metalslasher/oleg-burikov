@@ -1,113 +1,139 @@
 ---
-import PageLayout from '../../layouts/PageLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactCta from '../../components/ContactCta.astro';
+import Icon from '../../components/Icon.astro';
+import { getPosts, readingTime, formatDate } from '../../lib/blog';
 
-const blogPosts = [
-  {
-    slug: 'saas-google-ads-click-fraud',
-    title: 'Склікування в Google Ads: як я захистив SaaS‑кампанію в США',
-    excerpt:
-      'Кейс про склікування (click fraud): аномальний CTR і CPC, поведінковий аналіз, ClickCease, скарги до Google та корекція стратегії ставок.',
-    date: '21 грудня 2025',
-    category: 'Google Ads',
-    readTime: '11 хв',
-    tags: ['Google Ads', 'Аналітика', 'B2B SaaS']
-  },
-  {
-    slug: 'b2b-google-ads-lead-generation',
-    title: 'B2B Google Ads: лідогенерація на основі даних та гіпотез',
-    excerpt:
-      'Практичний гайд з B2B PPC: гіпотези, ключові слова, лендінги, аналітика та кваліфікація лідів для SaaS.',
-    date: '20 грудня 2025',
-    category: 'Google Ads',
-    readTime: '12 хв',
-    tags: ['Google Ads', 'Аналітика', 'B2B SaaS']
-  }
-];
-
-const categories = ['Усі теми', ...Array.from(new Set(blogPosts.map((post) => post.category)))];
+const posts = await getPosts();
 ---
 
-<PageLayout
-  title="Блог"
-  description="Практичні статті про Google Ads, Meta Ads, аналітику, трекінг, лідогенерацію, оптимізацію реклами та performance marketing."
+<BaseLayout
+  title="Блог про performance-маркетинг"
+  description="Практичні статті про Google Ads, Meta Ads, аналітику, трекінг і B2B-лідогенерацію — з реальних проєктів, без води."
 >
-  <!-- Hero Section -->
-  <section class="pt-8 pb-16 px-4">
-    <div class="max-w-7xl mx-auto text-center">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white">
-        Блог
-      </h1>
+  <section class="page-head">
+    <div class="wrap">
+      <p class="kicker"><b>{String(posts.length).padStart(2, '0')}</b> Блог</p>
+      <h1 class="display page-head__title">Нотатки з <em>рекламних кабінетів</em></h1>
+      <p class="lead page-head__lead">
+        Розбираю реальні ситуації з проєктів: що пішло не так, як я це знайшов і що спрацювало. Без загальних порад з
+        інтернету.
+      </p>
     </div>
   </section>
 
-  <!-- Categories Filter -->
-  <section class="pb-8 px-4">
-    <div class="max-w-7xl mx-auto">
-      <div class="flex flex-wrap justify-center gap-3">
-        {categories.map((category, index) => (
-          <button
-            type="button"
-            data-blog-filter={category}
-            class={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-              index === 0
-                ? 'bg-accent-500 text-white'
-                : 'bg-white/5 text-gray-300 hover:bg-white/10 border border-white/10'
-            }`}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
-    </div>
+  <section class="wrap posts" aria-label="Статті">
+    {posts.map((post, index) => (
+      <a href={`/blog/${post.id}`} class="post" data-reveal style={`--reveal-i:${index}`}>
+        <div class="post__meta">
+          <time datetime={post.data.published.toISOString()}>{formatDate(post.data.published)}</time>
+          <span aria-hidden="true">·</span>
+          <span>{readingTime(post.body)} хв читання</span>
+        </div>
+        <h2 class="post__title">{post.data.title}</h2>
+        <p class="post__excerpt">{post.data.excerpt}</p>
+        <div class="post__foot">
+          <ul class="post__tags">
+            {post.data.tags.map((tag) => <li class="chip chip--mono">{tag}</li>)}
+          </ul>
+          <span class="post__arrow"><Icon name="arrow-up-right" size={20} /></span>
+        </div>
+      </a>
+    ))}
   </section>
 
-  <!-- Blog Posts Grid -->
-  <section class="py-12 px-4">
-    <div class="max-w-7xl mx-auto">
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {blogPosts.map((post) => (
-          <a
-            href={`/blog/${post.slug}`}
-            data-blog-category={post.category}
-            class="group block bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-accent-500/50 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-400"
-          >
-            <div class="p-6">
-              <div class="flex items-center justify-between mb-4">
-                <div class="flex flex-wrap gap-2">
-                  <span class="px-3 py-1 bg-accent-500/20 text-accent-400 text-xs font-semibold rounded-full">
-                    {post.category}
-                  </span>
-                </div>
-                <svg class="w-5 h-5 text-gray-500 group-hover:text-accent-400 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </div>
+  <ContactCta location="blog_index" />
+</BaseLayout>
 
-              <div class="flex items-center gap-4 text-sm text-gray-400 mb-2">
-                <span>{post.date}</span>
-                <span aria-hidden="true">•</span>
-                <span>{post.readTime} читання</span>
-              </div>
+<style>
+  .page-head {
+    padding-top: calc(var(--header-h) + clamp(2.5rem, 6vw, 4.5rem));
+    padding-bottom: 3rem;
+  }
 
-              <h2 class="text-xl font-bold text-white mb-3 group-hover:text-accent-400 transition-colors">
-                {post.title}
-              </h2>
+  .page-head__title {
+    max-width: 15ch;
+    margin-top: 1.25rem;
+    font-size: clamp(2.3rem, 1.3rem + 4.5vw, 4.8rem);
+  }
 
-              <p class="text-gray-300 mb-5 line-clamp-3">
-                {post.excerpt}
-              </p>
+  .page-head__lead {
+    max-width: 40rem;
+    margin-top: 1.25rem;
+  }
 
-              <span class="inline-flex items-center gap-2 text-accent-400 font-medium group-hover:text-accent-300 transition-colors">
-                Читати статтю
-                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </span>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
+  .posts {
+    display: grid;
+    border-top: 1px solid var(--line);
+  }
 
-</PageLayout>
+  .post {
+    display: grid;
+    gap: 0.9rem;
+    padding: clamp(1.75rem, 4vw, 2.75rem) 0;
+    border-bottom: 1px solid var(--line);
+    transition: padding 300ms var(--ease-out), background-color 300ms ease;
+  }
+
+  .post:hover {
+    padding-inline: clamp(1rem, 3vw, 2rem);
+    background: var(--color-ink-2);
+  }
+
+  .post__meta {
+    display: flex;
+    gap: 0.5rem;
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+  }
+
+  .post__title {
+    max-width: 24ch;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    transition: color 250ms ease;
+  }
+
+  .post:hover .post__title {
+    color: var(--color-signal-soft);
+  }
+
+  .post__excerpt {
+    max-width: 44rem;
+    color: var(--color-muted);
+  }
+
+  .post__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .post__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .post__arrow {
+    display: grid;
+    flex: none;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    transition: all 300ms var(--ease-out);
+  }
+
+  .post:hover .post__arrow {
+    border-color: var(--color-signal);
+    background: var(--color-signal);
+    transform: rotate(45deg);
+  }
+</style>

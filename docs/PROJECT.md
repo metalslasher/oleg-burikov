@@ -1,106 +1,78 @@
 # Project Notes
 
-## Purpose
-
-This repository contains the Astro marketing website for the personal brand `Oleg Burikov`.
-
-The site is currently positioned as Oleg Burikov's personal-brand website for performance marketing, paid acquisition, analytics, websites, creatives, cases, and blog content.
+Personal-brand site for Oleg Burikov (Performance Marketing Manager). Two audiences: businesses looking for paid
+acquisition help, and teams/employers hiring a performance marketer. Ukrainian only.
 
 ## Stack
 
-- Astro 6
-- TypeScript
-- Tailwind CSS 4 through `@tailwindcss/vite`
-- Vercel adapter
-- Vercel Speed Insights
-- Google Tag Manager for analytics and advertising tags
+- Astro 7 (`output: 'server'`, Vercel adapter) — SSR so every response gets a CSP nonce.
+- Tailwind CSS 4 via `@tailwindcss/vite` (design tokens in `src/styles/global.css` `@theme`); components use scoped CSS.
+- Self-hosted variable fonts from `@fontsource-variable/*`: Unbounded (display), Manrope (body), JetBrains Mono (data labels).
+- Google Tag Manager (GA4, Clarity, Meta Pixel live inside GTM), Vercel Speed Insights.
 
-## Current Structure
+## Where things live
 
 ```text
 src/
-  components/        Reusable Astro UI sections and shared layout pieces
-  config/site.ts     Brand, contacts, tracking, Calendly, SEO defaults
-  content/home-uk.json
-  layouts/           BaseLayout and PageLayout
-  pages/             Astro routes and API routes
-  scripts/           Browser scripts for forms, GTM events, smooth scroll
-  styles/global.css
-  middleware.ts      Security headers and CSP
+  config/site.ts        brand, contacts, navigation, GTM id, SEO defaults
+  data/cases.ts         all case studies (typed). Numbers match screenshots in public/images/cases
+  data/profile.ts       services, process, formats, experience, skills, FAQ
+  content/blog/*.md     blog posts (content collection, schema in src/content.config.ts)
+  components/           Header, Footer, ContactModal, ContactCta, Shot, Icon
+  components/home/      homepage sections
+  pages/cases/[slug]    one template for every case
+  pages/blog/[slug]     one template for every post
+  pages/about.astro     CV page; "Зберегти резюме в PDF" uses a print stylesheet
+  pages/api/lead.ts     lead endpoint → LEADS_WEBHOOK_URL
+  scripts/              site.ts (header, reveal, count-up), contactModal.ts, gtmEvents.ts
+  lib/                  text helpers, contact detection (shared by form + API), blog helpers
+  middleware.ts         CSP (nonce) and security headers
 ```
 
-Current public routes:
+## Common edits
 
-- `/` - homepage;
-- `/cases` and `/cases/case-*` - case studies;
-- `/blog` and individual blog articles;
-- `/privacy` - privacy policy;
-- `/api/lead` - server-side lead endpoint.
-
-Dedicated service landing pages were removed. The header "Services" link points to the homepage services section (`/#services`).
-
-## Brand And Site Constants
-
-Use `src/config/site.ts` for:
-
-- production URL;
-- brand and personal names;
-- legal name;
-- email and phone;
-- Telegram, Viber, WhatsApp, LinkedIn;
-- Calendly URL;
-- GTM ID and tracking metadata;
-- default SEO title, description, and OG image.
-
-Avoid adding hardcoded brand/contact/tracking constants in components or pages.
+- **Add a case:** append an object to `cases` in `src/data/cases.ts`, put `.webp` images in `public/images/cases/`.
+  `*text*` in `headline` renders as an orange accent. Add the slug to `featuredCaseSlugs` to show it on the homepage.
+- **Add a blog post:** create `src/content/blog/<slug>.md` with the frontmatter used by existing posts.
+  `relatedCase` links the post to a case. `## headings` build the table of contents.
+- **Change contacts / CTA links:** `src/config/site.ts`.
+- **OG image:** `public/images/og-oleg-burikov.jpg` (1200×630). Rename the file when replacing it so social networks refetch.
+- **Images:** convert to WebP (max ~1600–1800 px wide) before adding; always pass `width`/`height`.
 
 ## Leads
 
-Lead forms submit to `/api/lead`.
-
-Flow:
-
-1. Browser form validates and sends JSON to `/api/lead`.
-2. The API validates fields server-side.
-3. The API applies rate limiting and honeypot protection.
-4. Accepted leads are forwarded to `LEADS_WEBHOOK_URL`.
-5. GTM form-success events are pushed after accepted submissions.
-
-The webhook URL must stay server-side only.
+The contact modal opens from any link to `#contact` (or `[data-contact-open]`). `data-contact-service` on the
+trigger preselects the request type. The browser posts JSON to `/api/lead`; the API validates, rate-limits,
+checks the honeypot and forwards to `LEADS_WEBHOOK_URL` as query params. The `phone` param holds whatever contact
+the visitor left (phone, Telegram or email) to keep the existing sheet columns; `contact_method` says which.
 
 ## Tracking
 
-The site loads GTM container `GTM-KSZJGH2S`.
+Keep `data-gtm-event` / `data-gtm-label` / `data-gtm-location` on CTAs. Events pushed to `dataLayer`:
+`cta_click`, `lead_submit`, `messenger_click`, `social_click`, `contact_click`, `book_call`.
 
-GA4, Microsoft Clarity, and Meta Pixel are expected to be managed through GTM. Do not add those tags directly to the code unless the tracking plan changes.
+## Security
 
-When changing forms, buttons, Calendly links, or CTA markup, preserve existing `data-gtm-*` attributes unless there is a clear tracking reason to change them.
+- CSP is nonce-based in production. Astro must not inline page scripts (they would have no nonce), so
+  `assetsInlineLimit: 0` is set in `astro.config.mjs` — keep it.
+- In dev the CSP uses `'unsafe-inline'` instead of a nonce because Vite injects its own inline scripts.
 
-## Security Baseline
+## URLs
 
-Security headers and CSP live in `src/middleware.ts`.
+Old `/cases/case-N` URLs 301-redirect to descriptive slugs (generated from `legacySlug` in `astro.config.mjs`).
+Case and blog pages are listed in the sitemap via `customPages`.
 
-Current direction:
-
-- keep inline scripts nonce-based;
-- avoid exposing webhook URLs in client code;
-- keep third-party domains scoped to services actually used by the site;
-- run `npx astro check --no-color`, `npm run build`, and `npm audit --audit-level=low` before shipping larger changes.
-
-## Deployment
-
-The project is deployed on Vercel:
-
-- project: `oleg-burikov`;
-- production domain: `https://www.oleg-burikov.com/`;
-- build command: `npm run build`.
-
-GitHub push to `main` may trigger Vercel automatically, but production can also be deployed manually with:
+## QA before shipping
 
 ```bash
-vercel deploy --prod --yes
+npm run quality
+npm audit --audit-level=low
 ```
 
-## Documentation Rule
+Then check on a phone width (375 px): no horizontal scroll, the contact form, case filters and the blog table.
 
-Keep documentation small and current. Prefer updating this file and `docs/REBRAND_PLAN.md` instead of adding one-off summary or quest files.
+## Ideas for next iterations
+
+- Real testimonials or client logos — only approved ones.
+- An English version for international employers (needs i18n routing).
+- More blog posts on high-intent topics: Meta Ads for real estate, Merchant Center feed fixes, offline conversions.

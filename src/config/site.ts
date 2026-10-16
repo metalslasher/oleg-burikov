@@ -2,14 +2,13 @@ export const siteConfig = {
   siteUrl: 'https://www.oleg-burikov.com',
   brandName: 'Oleg Burikov',
   personName: 'Олег Буріков',
+  personNameEn: 'Oleg Burikov',
+  jobTitle: 'Performance Marketing Manager',
   legalName: 'ФОП Буріков Олег Вікторович',
   locale: 'uk-UA',
   ogLocale: 'uk_UA',
   language: 'uk',
-  country: 'UA',
-  positioning: {
-    shortLabel: 'Performance Marketing',
-  },
+  city: 'Київ',
   logo: {
     src: '/favicon.png',
     alt: 'Oleg Burikov',
@@ -18,98 +17,55 @@ export const siteConfig = {
     email: 'oleg.burikov.adv@gmail.com',
     phone: '+380962290400',
     phoneDisplay: '+380 96 229 04 00',
-    phoneDigits: '380962290400',
     telegram: 'https://t.me/metalslasher',
+    telegramHandle: '@metalslasher',
     viber: 'viber://chat?number=380962290400',
-    whatsapp: 'https://wa.me/380962290400',
     calendly: 'https://calendly.com/oleg-burikov-adv/30min',
   },
   social: {
     linkedin: 'https://www.linkedin.com/in/oleg-burikov/',
-    facebook: '',
-    instagram: '',
   },
   tracking: {
+    // GA4, Microsoft Clarity and Meta Pixel are managed inside this GTM container.
     gtmId: 'GTM-KSZJGH2S',
-    metaPixel: {
-      id: '',
-      managedBy: 'gtm',
-    },
-    clarity: {
-      id: '',
-      managedBy: 'gtm',
-    },
-    ga4: {
-      id: '',
-      managedBy: 'gtm',
-    },
   },
   seo: {
-    defaultTitle: 'Олег Буріков - спеціаліст з перформанс-маркетингу',
+    defaultTitle: 'Олег Буріков — Performance Marketing Manager',
     defaultDescription:
-      'Допомагаю бізнесам запускати й масштабувати рекламу в Google Ads, Meta Ads і TikTok Ads: стратегія, аналітика, сайти, креативи та оптимізація результатів.',
-    defaultOgImage: '/images/og-image.jpg',
+      'Performance-маркетолог з 6+ роками досвіду: Google Ads, Meta Ads, TikTok Ads, аналітика і воронки. Будую систему залучення, яка приносить заявки та продажі, а не кліки.',
+    defaultOgImage: '/images/og-oleg-burikov.jpg',
   },
 } as const;
 
-type SocialIcon = 'facebook' | 'instagram' | 'linkedin';
+export const navigation = [
+  { label: 'Послуги', href: '/#services' },
+  { label: 'Кейси', href: '/cases' },
+  { label: 'Про мене', href: '/about' },
+  { label: 'Блог', href: '/blog' },
+];
 
 export const absoluteUrl = (path = '/') => new URL(path, siteConfig.siteUrl).toString();
 
-export const withBrandTitle = (title: string) => {
-  const personSuffix = ` | ${siteConfig.personName}`;
-  const cleanTitle = title
-    .replace(new RegExp(`\\s\\|\\s${siteConfig.brandName}$`), '')
-    .replace(new RegExp(`\\s\\|\\s${siteConfig.personName}$`), '')
-    .trim();
+export const withBrandTitle = (title: string) =>
+  title.includes(siteConfig.personName) || title.includes(siteConfig.brandName)
+    ? title
+    : `${title} | ${siteConfig.personName}`;
 
-  return cleanTitle.includes(siteConfig.brandName) || cleanTitle.includes(siteConfig.personName)
-    ? cleanTitle
-    : `${cleanTitle}${personSuffix}`;
-};
+export type ContactIcon = 'telegram' | 'viber' | 'linkedin' | 'email' | 'calendar';
 
-export const messengerLinks = [
-  {
-    label: 'Telegram',
-    url: siteConfig.contact.telegram,
-  },
-  {
-    label: 'Viber',
-    url: siteConfig.contact.viber,
-  },
-  {
-    label: 'WhatsApp',
-    url: siteConfig.contact.whatsapp,
-  },
-].filter((link) => link.url);
-
-type SocialLink = {
-  platform: string;
+export type ContactLink = {
+  label: string;
   url: string;
-  icon: SocialIcon;
+  icon: ContactIcon;
+  event: 'messenger_click' | 'social_click' | 'contact_click' | 'book_call';
+  external: boolean;
 };
 
-const allSocialLinks: SocialLink[] = [
-  {
-    platform: 'LinkedIn',
-    url: siteConfig.social.linkedin,
-    icon: 'linkedin',
-  },
-  {
-    platform: 'Facebook',
-    url: siteConfig.social.facebook,
-    icon: 'facebook',
-  },
-  {
-    platform: 'Instagram',
-    url: siteConfig.social.instagram,
-    icon: 'instagram',
-  },
+export const contactLinks: ContactLink[] = [
+  { label: 'Telegram', url: siteConfig.contact.telegram, icon: 'telegram', event: 'messenger_click', external: true },
+  { label: 'LinkedIn', url: siteConfig.social.linkedin, icon: 'linkedin', event: 'social_click', external: true },
+  { label: 'Email', url: `mailto:${siteConfig.contact.email}`, icon: 'email', event: 'contact_click', external: false },
+  { label: 'Viber', url: siteConfig.contact.viber, icon: 'viber', event: 'messenger_click', external: true },
 ];
 
-export const socialLinks = allSocialLinks.filter((link) => link.url);
-
-export const sameAsLinks = [
-  siteConfig.social.linkedin,
-  siteConfig.contact.telegram,
-].filter((url) => url);
+export const sameAsLinks = [siteConfig.social.linkedin, siteConfig.contact.telegram];

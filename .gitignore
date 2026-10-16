@@ -3,8 +3,11 @@ dist/
 .astro/
 .vercel/
 .env
+.env.*
+!.env.example
 .DS_Store
 *.log
 .vscode/
 .idea/
 .codex/
+.claude/

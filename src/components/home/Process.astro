@@ -1,0 +1,123 @@
+---
+import { process } from '../../data/profile';
+---
+
+<section class="section process" aria-labelledby="process-title">
+  <div class="wrap">
+    <div class="section-head section-head--split">
+      <div>
+        <p class="kicker"><b>02</b> Підхід</p>
+        <h2 id="process-title" class="h2" style="margin-top:1rem">Система, а не набір <em>кампаній</em></h2>
+      </div>
+      <p class="lead">
+        Більшість проблем з рекламою — не в рекламі. Вони в даних, на які вчаться алгоритми, у воронці та в звітах, які не
+        показують ціну клієнта. Тому я працюю в такому порядку.
+      </p>
+    </div>
+
+    <ol class="steps">
+      {process.map((item, index) => (
+        <li class="step" data-reveal style={`--reveal-i:${index}`}>
+          <div class="step__head">
+            <span class="step__num">{item.step}</span>
+            <span class="step__line" aria-hidden="true"></span>
+          </div>
+          <h3 class="step__title">{item.title}</h3>
+          <p class="step__text">{item.text}</p>
+          <p class="step__metric">{item.metric}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .steps {
+    display: grid;
+    gap: 2.25rem;
+    counter-reset: step;
+  }
+
+  @media (min-width: 760px) {
+    .steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1080px) {
+    .steps {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+  }
+
+  .step__head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .step__num {
+    display: grid;
+    flex: none;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    transition: background-color 300ms ease, border-color 300ms ease, color 300ms ease;
+  }
+
+  .step:hover .step__num {
+    border-color: var(--color-signal);
+    background: var(--color-signal);
+    color: #fff;
+  }
+
+  .step__line {
+    position: relative;
+    flex: 1;
+    height: 1px;
+    background: var(--line-strong);
+    overflow: hidden;
+  }
+
+  .step__line::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, var(--color-signal), transparent);
+    transform: translateX(-100%);
+    animation: signal 3.2s ease-in-out infinite;
+    animation-delay: calc(var(--reveal-i) * 0.8s);
+  }
+
+  @keyframes signal {
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  .step__title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .step__text {
+    margin-top: 0.7rem;
+    color: var(--color-muted);
+    font-size: 0.97rem;
+  }
+
+  .step__metric {
+    margin-top: 1rem;
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+  }
+</style>

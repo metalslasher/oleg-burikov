@@ -1,0 +1,112 @@
+---
+import type { Picture } from '../data/cases';
+
+interface Props {
+  image: Picture;
+  /** Wraps the image in a minimal browser window frame. */
+  browser?: boolean;
+  /** Links the image to its full-size file. */
+  zoom?: boolean;
+  eager?: boolean;
+  caption?: string;
+}
+
+const { image, browser = false, zoom = false, eager = false, caption } = Astro.props;
+const Wrapper = zoom ? 'a' : 'div';
+const wrapperProps = zoom
+  ? { href: image.src, target: '_blank', rel: 'noopener', 'aria-label': `${image.alt} — відкрити в повному розмірі` }
+  : {};
+---
+
+<figure class:list={['shot', browser && 'shot--browser']}>
+  {browser && (
+    <div class="shot__bar" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </div>
+  )}
+  <Wrapper class:list={['shot__frame', zoom && 'shot__frame--zoom']} {...wrapperProps}>
+    <img
+      src={image.src}
+      alt={image.alt}
+      width={image.width}
+      height={image.height}
+      loading={eager ? 'eager' : 'lazy'}
+      decoding="async"
+      fetchpriority={eager ? 'high' : undefined}
+    />
+  </Wrapper>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  .shot {
+    margin: 0;
+  }
+
+  .shot__frame {
+    display: block;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: #fff;
+  }
+
+  .shot__frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .shot__frame--zoom {
+    cursor: zoom-in;
+    transition: border-color 250ms ease, transform 400ms var(--ease-out);
+  }
+
+  .shot__frame--zoom:hover {
+    border-color: var(--color-signal);
+  }
+
+  .shot--browser {
+    overflow: hidden;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    box-shadow: 0 40px 100px -40px rgb(0 0 0 / 0.8);
+  }
+
+  .shot--browser .shot__frame {
+    border: 0;
+    border-radius: 0;
+  }
+
+  .shot__bar {
+    display: flex;
+    gap: 0.4rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .shot__bar span {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 50%;
+    background: rgb(255 255 255 / 0.14);
+  }
+
+  .shot__bar span:first-child {
+    background: var(--color-signal);
+  }
+
+  figcaption {
+    margin-top: 0.75rem;
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+  }
+
+  .shot--browser figcaption {
+    margin: 0;
+    padding: 0.7rem 1rem;
+    border-top: 1px solid var(--line);
+  }
+</style>

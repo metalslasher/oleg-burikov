@@ -1,0 +1,610 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactCta from '../components/ContactCta.astro';
+import Icon from '../components/Icon.astro';
+import { siteConfig } from '../config/site';
+import { roles, skillGroups, certifications, education, teamOffer, proofStats, niches } from '../data/profile';
+
+const principles = [
+  {
+    title: 'Спочатку дані, потім реклама',
+    text: 'Якщо трекінг зламаний, алгоритми оптимізуються на шум. Тому перший тиждень на проєкті я майже завжди витрачаю на події, конверсії та зв’язок з CRM.',
+  },
+  {
+    title: 'Метрика — гроші, а не кліки',
+    text: 'CTR і CPC — допоміжні цифри. Я рахую CPL, CPA, ROAS і, коли є дані, ціну реального клієнта та окупність.',
+  },
+  {
+    title: 'Тести замість думок',
+    text: 'Креативи, аудиторії, лендінги й офери — гіпотези. Швидко перевіряю, залишаю те, що працює, і чесно кажу, що не спрацювало.',
+  },
+  {
+    title: 'Прозорість для бізнесу',
+    text: 'Регулярні звіти людською мовою: що зроблено, що змінилось і що робимо далі. Доступи до кабінетів завжди у клієнта.',
+  },
+];
+
+const profileSchema = {
+  '@type': 'ProfilePage',
+  mainEntity: { '@id': `${siteConfig.siteUrl}/#person` },
+  name: `Про мене — ${siteConfig.personName}`,
+};
+---
+
+<BaseLayout
+  title="Про мене і досвід"
+  description="Олег Буріков — Performance Marketing Manager з 6+ роками досвіду: SvitSoft, Fortunatos, Admitad, Best Seller Hunter. Google, Meta, TikTok, Amazon Ads, GA4, GTM, CRO."
+  ogType="profile"
+  schema={[profileSchema]}
+>
+  <section class="intro">
+    <div class="wrap intro__grid">
+      <div>
+        <p class="kicker"><b>CV</b> Про мене</p>
+        <h1 class="display intro__title">Олег Буріков</h1>
+        <p class="intro__role">{siteConfig.jobTitle}</p>
+        <div class="intro__text">
+          <p>
+            Я прийшов у маркетинг у 2019 році як media buyer: запускав Meta Ads для мобільних застосунків за CPA-моделлю, де
+            кожна помилка одразу видна в прибутку. Ця школа досі визначає мій підхід — рахувати гроші, а не кліки.
+          </p>
+          <p>
+            Далі були Amazon Ads для товарів у США, Google Search для банківських продуктів, B2B SaaS, нерухомість,
+            eCommerce і локальні бізнеси на ринках США, Канади та Європи. Сьогодні я працюю з усією системою залучення:
+            стратегія, рекламні кабінети, трекінг, CRM, лендінги та звітність.
+          </p>
+          <p>
+            Технічна освіта з комп’ютерної інженерії допомагає говорити однією мовою з розробниками, налаштовувати аналітику
+            самостійно й автоматизувати рутину за допомогою AI.
+          </p>
+        </div>
+        <div class="intro__actions no-print">
+          <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer" class="btn btn--primary" data-gtm-event="social_click" data-gtm-label="linkedin" data-gtm-location="about_intro">
+            <Icon name="linkedin" /> LinkedIn
+          </a>
+          <button type="button" class="btn btn--ghost" data-print data-gtm-event="cta_click" data-gtm-label="cv_pdf" data-gtm-location="about_intro">
+            <Icon name="download" /> Зберегти резюме в PDF
+          </button>
+        </div>
+      </div>
+
+      <aside class="card intro__card">
+        <img src="/images/oleg-burikov-hero-cutout.webp" alt="Олег Буріков" width="1189" height="1058" class="intro__photo" fetchpriority="high" />
+        <dl class="intro__facts">
+          {teamOffer.facts.map((fact) => (
+            <div>
+              <dt>{fact.label}</dt>
+              <dd>{fact.value}</dd>
+            </div>
+          ))}
+          <div>
+            <dt>Email</dt>
+            <dd><a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a></dd>
+          </div>
+          <div>
+            <dt>Telegram</dt>
+            <dd><a href={siteConfig.contact.telegram} target="_blank" rel="noopener noreferrer">{siteConfig.contact.telegramHandle}</a></dd>
+          </div>
+        </dl>
+      </aside>
+    </div>
+
+    <div class="wrap">
+      <dl class="stats">
+        {proofStats.map((stat) => (
+          <div>
+            <dd class="num">{stat.value} <span>{stat.suffix}</span></dd>
+            <dt>{stat.label}</dt>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section cv" aria-labelledby="cv-experience">
+    <div class="wrap cv__grid">
+      <h2 id="cv-experience" class="cv__heading">Досвід</h2>
+      <ol class="roles">
+        {roles.map((role) => (
+          <li class="role" data-reveal>
+            <div class="role__head">
+              <img src={role.logo} alt="" width="48" height="48" loading="lazy" />
+              <div>
+                <h3>{role.role}</h3>
+                <p class="role__company">{role.company} · {role.location}</p>
+              </div>
+              <span class="role__period">{role.period}</span>
+            </div>
+            <p class="role__summary">{role.summary}</p>
+            <ul class="role__points">
+              {role.points.map((point) => <li>{point}</li>)}
+            </ul>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section cv" aria-labelledby="cv-skills">
+    <div class="wrap cv__grid">
+      <h2 id="cv-skills" class="cv__heading">Навички</h2>
+      <div class="skills">
+        {skillGroups.map((group) => (
+          <div class="skills__group">
+            <h3>{group.title}</h3>
+            <ul>
+              {group.items.map((item) => <li class="chip">{item}</li>)}
+            </ul>
+          </div>
+        ))}
+        <div class="skills__group">
+          <h3>Ніші</h3>
+          <ul>
+            {niches.map((item) => <li class="chip">{item}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cv" aria-labelledby="cv-edu">
+    <div class="wrap cv__grid">
+      <h2 id="cv-edu" class="cv__heading">Освіта і сертифікати</h2>
+      <div class="edu">
+        <div class="edu__main">
+          <p class="edu__years">{education.years}</p>
+          <h3>{education.school}</h3>
+          <p>{education.degree}</p>
+        </div>
+        <ul class="certs">
+          {certifications.map((cert) => (
+            <li>
+              <span>{cert.title}</span>
+              <small>{cert.issuer} · {cert.year}</small>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cv no-print" aria-labelledby="cv-principles">
+    <div class="wrap cv__grid">
+      <h2 id="cv-principles" class="cv__heading">Як я працюю</h2>
+      <div class="principles">
+        {principles.map((item, index) => (
+          <div class="principle" data-reveal style={`--reveal-i:${index % 2}`}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="no-print">
+    <ContactCta
+      location="about"
+      title="Обговоримо роль або *проєкт*?"
+      text="Відкритий до full-time ролі Performance / Growth Marketing Manager і до проєктної роботи з бізнесами. Напишіть, і я відповім протягом робочого дня."
+    />
+  </div>
+</BaseLayout>
+
+<script>
+  document.querySelector('[data-print]')?.addEventListener('click', () => window.print());
+</script>
+
+<style>
+  .intro {
+    padding-top: calc(var(--header-h) + clamp(2.5rem, 6vw, 4.5rem));
+  }
+
+  .intro__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 960px) {
+    .intro__grid {
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+      gap: 4rem;
+      align-items: start;
+    }
+  }
+
+  .intro__title {
+    margin-top: 1.25rem;
+    font-size: clamp(2.5rem, 1.5rem + 4.5vw, 5rem);
+  }
+
+  .intro__role {
+    margin-top: 0.75rem;
+    color: var(--color-signal);
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+  }
+
+  .intro__text {
+    display: grid;
+    gap: 1rem;
+    max-width: 40rem;
+    margin-top: 2rem;
+    color: #d6d3cc;
+    font-size: 1.06rem;
+    line-height: 1.75;
+  }
+
+  .intro__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .intro__card {
+    overflow: hidden;
+  }
+
+  .intro__photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: center 20%;
+    background:
+      radial-gradient(circle at 50% 60%, rgb(255 90 31 / 0.35), transparent 65%),
+      var(--color-surface);
+  }
+
+  .intro__facts {
+    display: grid;
+    gap: 0.85rem;
+    padding: 1.5rem;
+  }
+
+  .intro__facts dt {
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+  }
+
+  .intro__facts dd {
+    font-weight: 700;
+    overflow-wrap: anywhere;
+  }
+
+  .intro__facts a:hover {
+    color: var(--color-signal-soft);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--line);
+  }
+
+  @media (min-width: 860px) {
+    .stats {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .stats div {
+    padding: 1.4rem;
+    background: var(--color-ink-2);
+  }
+
+  .stats dd {
+    font-size: 2rem;
+    line-height: 1.1;
+  }
+
+  .stats dd span {
+    color: var(--color-signal);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0;
+  }
+
+  .stats dt {
+    margin-top: 0.4rem;
+    color: var(--color-muted);
+    font-size: 0.86rem;
+  }
+
+  .cv {
+    padding-block: clamp(3rem, 6vw, 5rem);
+    border-top: 1px solid var(--line);
+  }
+
+  .cv + .cv {
+    margin-top: 0;
+  }
+
+  .cv__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+
+  @media (min-width: 960px) {
+    .cv__grid {
+      grid-template-columns: 16rem minmax(0, 1fr);
+      gap: 4rem;
+    }
+  }
+
+  .cv__heading {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .roles {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .role__head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem 1rem;
+    align-items: center;
+  }
+
+  @media (min-width: 640px) {
+    .role__head {
+      grid-template-columns: auto 1fr auto;
+    }
+  }
+
+  .role__head img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 10px;
+    background: #fff;
+  }
+
+  .role h3 {
+    font-size: 1.15rem;
+    font-weight: 800;
+  }
+
+  .role__company {
+    color: var(--color-muted);
+    font-size: 0.92rem;
+  }
+
+  .role__period {
+    grid-column: 1 / -1;
+    color: var(--color-signal);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+
+  @media (min-width: 640px) {
+    .role__period {
+      grid-column: auto;
+    }
+  }
+
+  .role__summary {
+    margin-top: 1rem;
+    color: #d6d3cc;
+  }
+
+  .role__points {
+    display: grid;
+    gap: 0.45rem;
+    margin-top: 0.75rem;
+  }
+
+  .role__points li {
+    position: relative;
+    padding-left: 1.3rem;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+
+  .role__points li::before {
+    content: "";
+    position: absolute;
+    top: 0.7em;
+    left: 0;
+    width: 0.55rem;
+    height: 2px;
+    background: var(--color-signal);
+  }
+
+  .skills {
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 700px) {
+    .skills {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .skills__group h3 {
+    margin-bottom: 0.9rem;
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .skills__group ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .edu {
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 760px) {
+    .edu {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .edu__years {
+    color: var(--color-signal);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+
+  .edu__main h3 {
+    margin-top: 0.5rem;
+    font-size: 1.15rem;
+    font-weight: 800;
+    line-height: 1.35;
+  }
+
+  .edu__main p:last-child {
+    margin-top: 0.3rem;
+    color: var(--color-muted);
+  }
+
+  .certs {
+    display: grid;
+    border-top: 1px solid var(--line);
+  }
+
+  .certs li {
+    display: grid;
+    gap: 0.15rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .certs span {
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .certs small {
+    color: var(--color-faint);
+    font-size: 0.82rem;
+  }
+
+  .principles {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 700px) {
+    .principles {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .principle {
+    padding: 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--color-ink-2);
+  }
+
+  .principle span {
+    color: var(--color-signal);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .principle h3 {
+    margin-top: 0.6rem;
+    font-size: 1.1rem;
+    font-weight: 800;
+  }
+
+  .principle p {
+    margin-top: 0.5rem;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+
+  /* Print / "Save as PDF" renders a clean one-column CV */
+  @media print {
+    :global(body) {
+      background: #fff !important;
+      color: #111 !important;
+      font-size: 11pt;
+    }
+
+    :global(header.header),
+    :global(footer.footer),
+    :global(.skip-link),
+    :global(dialog),
+    .no-print {
+      display: none !important;
+    }
+
+    :global(*) {
+      color: #111 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    .intro {
+      padding-top: 0;
+    }
+
+    .intro__grid,
+    .cv__grid {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .intro__photo {
+      display: none;
+    }
+
+    .intro__card,
+    .stats,
+    .stats div {
+      border-color: #ccc !important;
+    }
+
+    .intro__title {
+      font-size: 26pt;
+    }
+
+    .cv {
+      padding-block: 1rem;
+      border-color: #ccc;
+      break-inside: auto;
+    }
+
+    .role {
+      break-inside: avoid;
+    }
+
+    .chip {
+      border-color: #bbb;
+    }
+
+    .role__period,
+    .intro__role,
+    .edu__years {
+      color: #b53a0c !important;
+    }
+  }
+</style>

@@ -1,0 +1,450 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactCta from '../../components/ContactCta.astro';
+import Icon from '../../components/Icon.astro';
+import { readingTime, formatDate } from '../../lib/blog';
+import { getCase } from '../../data/cases';
+import { emphasize } from '../../lib/text';
+import { absoluteUrl, siteConfig } from '../../config/site';
+
+const post = await getEntry('blog', Astro.params.slug || '');
+if (!post || post.data.draft) {
+  return Astro.rewrite('/404');
+}
+
+const { Content, headings } = await render(post);
+const toc = headings.filter((heading) => heading.depth === 2);
+const { data } = post;
+const relatedCase = data.relatedCase ? getCase(data.relatedCase) : undefined;
+const ogImage = data.cover || siteConfig.seo.defaultOgImage;
+
+const schema = [
+  {
+    '@type': 'BlogPosting',
+    headline: data.title,
+    description: data.description,
+    image: absoluteUrl(ogImage),
+    datePublished: data.published.toISOString(),
+    dateModified: (data.updated || data.published).toISOString(),
+    inLanguage: siteConfig.locale,
+    author: { '@id': `${siteConfig.siteUrl}/#person` },
+    publisher: { '@id': `${siteConfig.siteUrl}/#person` },
+    mainEntityOfPage: absoluteUrl(`/blog/${post.id}`),
+    keywords: data.tags.join(', '),
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Головна', item: absoluteUrl('/') },
+      { '@type': 'ListItem', position: 2, name: 'Блог', item: absoluteUrl('/blog') },
+      { '@type': 'ListItem', position: 3, name: data.title },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  ogImage={ogImage}
+  ogType="article"
+  publishedTime={data.published.toISOString()}
+  modifiedTime={(data.updated || data.published).toISOString()}
+  schema={schema}
+>
+  <div class="progress" aria-hidden="true" data-progress></div>
+
+  <article class="article">
+    <header class="wrap article__head">
+      <a href="/blog" class="back"><Icon name="arrow-left" size={16} /> Блог</a>
+      <div class="article__meta">
+        <time datetime={data.published.toISOString()}>{formatDate(data.published)}</time>
+        <span aria-hidden="true">·</span>
+        <span>{readingTime(post.body)} хв читання</span>
+        {data.tags.map((tag) => <span class="chip chip--mono">{tag}</span>)}
+      </div>
+      <h1 class="article__title display">{data.title}</h1>
+      <p class="lead article__lead">{data.excerpt}</p>
+    </header>
+
+    <div class:list={['wrap article__layout', toc.length > 2 && 'has-toc']}>
+      {toc.length > 2 && (
+        <aside class="toc" aria-label="Зміст статті">
+          <div class="toc__inner">
+            <p class="toc__title">Зміст</p>
+            <ol>
+              {toc.map((heading) => (
+                <li><a href={`#${heading.slug}`}>{heading.text}</a></li>
+              ))}
+            </ol>
+          </div>
+        </aside>
+      )}
+
+      <div class="prose">
+        <Content />
+
+        <footer class="author">
+          <img src="/images/oleg-burikov-hero-cutout.webp" alt="" width="72" height="64" loading="lazy" />
+          <div>
+            <p class="author__name">{siteConfig.personName}</p>
+            <p class="author__bio">
+              {siteConfig.jobTitle}. 6+ років у Google, Meta і TikTok Ads, аналітиці та воронках для B2B SaaS, eCommerce,
+              нерухомості й FinTech.
+            </p>
+            <a href="/about" class="link-arrow">Більше про мене <Icon name="arrow-right" size={16} /></a>
+          </div>
+        </footer>
+
+        {relatedCase && (
+          <a href={`/cases/${relatedCase.slug}`} class="related-case">
+            <span class="related-case__kicker">Кейс із цього проєкту</span>
+            <span class="related-case__title" set:html={emphasize(relatedCase.headline)} />
+            <Icon name="arrow-up-right" size={22} />
+          </a>
+        )}
+      </div>
+    </div>
+  </article>
+
+  <ContactCta location={`blog_${post.id}`} title="Схожа проблема в кабінеті? *Подивлюся*" />
+</BaseLayout>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-progress]');
+  const article = document.querySelector<HTMLElement>('.prose');
+  if (bar && article) {
+    const update = () => {
+      const rect = article.getBoundingClientRect();
+      const total = rect.height - window.innerHeight;
+      const progress = Math.min(Math.max(-rect.top / (total || 1), 0), 1);
+      bar.style.transform = `scaleX(${progress})`;
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+  }
+</script>
+
+<style>
+  .progress {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 60;
+    height: 3px;
+    background: var(--color-signal);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .article__head {
+    max-width: calc(52rem + var(--gutter) * 2);
+    padding-top: calc(var(--header-h) + clamp(2rem, 5vw, 3.5rem));
+    padding-bottom: 2.5rem;
+  }
+
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .back:hover {
+    color: var(--color-paper);
+  }
+
+  .article__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .article__title {
+    margin-top: 1.25rem;
+    font-size: clamp(2rem, 1.2rem + 3.4vw, 3.6rem);
+  }
+
+  .article__lead {
+    margin-top: 1.25rem;
+  }
+
+  .article__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  @media (min-width: 1080px) {
+    .article__layout.has-toc {
+      grid-template-columns: 15rem minmax(0, 46rem);
+      justify-content: center;
+      gap: 4rem;
+    }
+  }
+
+  .toc {
+    display: none;
+  }
+
+  @media (min-width: 1080px) {
+    .toc {
+      display: block;
+    }
+  }
+
+  .toc__inner {
+    position: sticky;
+    top: calc(var(--header-h) + 1.5rem);
+  }
+
+  .toc__title {
+    margin-bottom: 1rem;
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .toc ol {
+    display: grid;
+    gap: 0.6rem;
+    border-left: 1px solid var(--line);
+  }
+
+  .toc a {
+    display: block;
+    margin-left: -1px;
+    padding-left: 1rem;
+    border-left: 1px solid transparent;
+    color: var(--color-muted);
+    font-size: 0.88rem;
+    line-height: 1.4;
+    transition: color 200ms ease, border-color 200ms ease;
+  }
+
+  .toc a:hover {
+    border-color: var(--color-signal);
+    color: var(--color-paper);
+  }
+
+  /* Article typography */
+  .prose {
+    width: 100%;
+    min-width: 0;
+    max-width: 46rem;
+    margin-inline: auto;
+    color: #d6d3cc;
+    font-size: 1.07rem;
+    line-height: 1.8;
+  }
+
+  .prose > :global(* + *) {
+    margin-top: 1.25rem;
+  }
+
+  .prose :global(h2) {
+    margin-top: 3.25rem;
+    color: var(--color-paper);
+    font-family: var(--font-display);
+    font-size: clamp(1.45rem, 1.15rem + 1.2vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    scroll-margin-top: calc(var(--header-h) + 1.5rem);
+  }
+
+  .prose :global(h3) {
+    margin-top: 2rem;
+    color: var(--color-paper);
+    font-size: 1.2rem;
+    font-weight: 800;
+  }
+
+  .prose :global(strong) {
+    color: var(--color-paper);
+  }
+
+  .prose :global(a) {
+    color: var(--color-signal-soft);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    display: grid;
+    gap: 0.5rem;
+    padding-left: 1.25rem;
+  }
+
+  .prose :global(ul) {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .prose :global(ul > li) {
+    position: relative;
+    padding-left: 1.4rem;
+  }
+
+  .prose :global(ul > li::before) {
+    content: "";
+    position: absolute;
+    top: 0.85em;
+    left: 0;
+    width: 0.6rem;
+    height: 2px;
+    background: var(--color-signal);
+  }
+
+  .prose :global(ol) {
+    list-style: decimal;
+  }
+
+  .prose :global(ol > li::marker) {
+    color: var(--color-signal);
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+
+  .prose :global(blockquote) {
+    padding: 1.1rem 1.4rem;
+    border-left: 3px solid var(--color-signal);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    background: rgb(255 90 31 / 0.07);
+    color: var(--color-paper);
+    font-weight: 600;
+  }
+
+  .prose :global(figure) {
+    margin-block: 2rem;
+  }
+
+  .prose :global(figure img) {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: #fff;
+  }
+
+  .prose :global(figcaption) {
+    margin-top: 0.6rem;
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    line-height: 1.5;
+  }
+
+  .prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  .prose :global(th),
+  .prose :global(td) {
+    padding: 0.75rem 0.75rem 0.75rem 0;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .prose :global(th) {
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .prose :global(td:last-child) {
+    color: var(--color-paper);
+    font-weight: 700;
+  }
+
+  .author {
+    display: flex;
+    gap: 1.25rem;
+    margin-top: 4rem !important;
+    padding: 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--color-ink-2);
+  }
+
+  .author img {
+    flex: none;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    background: var(--color-surface-2);
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .author__name {
+    color: var(--color-paper);
+    font-weight: 800;
+  }
+
+  .author__bio {
+    margin: 0.3rem 0 0.75rem;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .related-case {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.4rem 1rem;
+    align-items: center;
+    padding: 1.5rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    color: var(--color-paper);
+    text-decoration: none !important;
+    transition: border-color 250ms ease;
+  }
+
+  .related-case:hover {
+    border-color: var(--color-signal);
+  }
+
+  .related-case__kicker {
+    color: var(--color-signal);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+  }
+
+  .related-case__title {
+    grid-column: 1;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .related-case__title :global(em) {
+    color: var(--color-signal);
+    font-style: normal;
+  }
+
+  .related-case svg {
+    grid-row: 1 / 3;
+    grid-column: 2;
+  }
+</style>

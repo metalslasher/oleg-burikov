@@ -1,0 +1,157 @@
+---
+import { services } from '../../data/profile';
+import { pad2 } from '../../lib/text';
+---
+
+<section id="services" class="section" aria-labelledby="services-title" data-gtm-section="home_services">
+  <div class="wrap">
+    <div class="section-head section-head--split">
+      <div>
+        <p class="kicker"><b>01</b> Послуги</p>
+        <h2 id="services-title" class="h2" style="margin-top:1rem">Беру на себе все, що між <em>бюджетом</em> і продажем</h2>
+      </div>
+      <p class="lead">
+        Можна почати з однієї задачі — аудиту чи запуску Google Ads. Але найкращий результат дає, коли реклама, аналітика і
+        сайт працюють як одна система.
+      </p>
+    </div>
+
+    <div class="bento">
+      {services.map((service, index) => (
+        <article class:list={['svc', (index === 0 || index === 3) && 'svc--wide']} data-reveal style={`--reveal-i:${index % 3}`}>
+          <div class="svc__top">
+            <span class="svc__index">{pad2(index + 1)}</span>
+            <h3 class="svc__title">{service.title}</h3>
+          </div>
+          <p class="svc__task">{service.task}</p>
+          <p class="svc__text">{service.text}</p>
+          <ul class="svc__tags">
+            {service.tags.map((tag) => <li class="chip chip--mono">{tag}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .bento {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 720px) {
+    .bento {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1080px) {
+    .bento {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    /* Rhythm: 4+2 / 2+4 / 3+3 */
+    .svc:nth-child(1),
+    .svc:nth-child(4) {
+      grid-column: span 4;
+    }
+
+    .svc:nth-child(2),
+    .svc:nth-child(3) {
+      grid-column: span 2;
+    }
+
+    .svc:nth-child(5),
+    .svc:nth-child(6) {
+      grid-column: span 3;
+    }
+  }
+
+  .svc {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    min-height: 100%;
+    padding: clamp(1.4rem, 2.5vw, 2rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--color-ink-2);
+    overflow: hidden;
+    transition: border-color 300ms ease, background-color 300ms ease;
+  }
+
+  .svc::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(500px circle at 100% 0%, rgb(255 90 31 / 0.12), transparent 50%);
+    opacity: 0;
+    transition: opacity 400ms ease;
+    pointer-events: none;
+  }
+
+  .svc:hover {
+    border-color: rgb(255 90 31 / 0.45);
+  }
+
+  .svc:hover::before {
+    opacity: 1;
+  }
+
+  .svc--wide {
+    background:
+      linear-gradient(160deg, rgb(255 255 255 / 0.03), transparent 40%),
+      var(--color-ink-2);
+  }
+
+  .svc__top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .svc__index {
+    order: 2;
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .svc__title {
+    color: var(--color-signal);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .svc__task {
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 1.05rem + 0.9vw, 1.75rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .svc--wide .svc__task {
+    font-size: clamp(1.45rem, 1.1rem + 1.3vw, 2.2rem);
+    max-width: 18ch;
+  }
+
+  .svc__text {
+    color: var(--color-muted);
+    font-size: 0.97rem;
+  }
+
+  .svc__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+</style>
