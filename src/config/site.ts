@@ -30,9 +30,9 @@ export const siteConfig = {
     gtmId: 'GTM-KSZJGH2S',
   },
   seo: {
-    defaultTitle: 'Олег Буріков — performance-маркетолог: реклама, сайти й аналітика під ключ',
+    defaultTitle: 'Олег Буріков — performance-маркетолог: реклама під ключ',
     defaultDescription:
-      'Performance-маркетолог з 6+ роками досвіду. Маркетинг під ключ: стратегія, лендінги й сайти, креативи, реклама в Google Ads, Meta Ads і TikTok Ads, аналітика GA4. Кейси з реальними цифрами.',
+      'Performance-маркетолог з 6+ роками досвіду: стратегія, сайти, креативи, реклама в Google, Meta і TikTok та аналітика під ключ. Кейси з реальними цифрами.',
     defaultOgImage: '/images/og-oleg-burikov.jpg',
   },
 } as const;
@@ -46,10 +46,14 @@ export const navigation = [
 
 export const absoluteUrl = (path = '/') => new URL(path, siteConfig.siteUrl).toString();
 
-export const withBrandTitle = (title: string) =>
-  title.includes(siteConfig.personName) || title.includes(siteConfig.brandName)
-    ? title
-    : `${title} | ${siteConfig.personName}`;
+// Google shows ~60 characters of a title, so the name suffix is added only when it still fits.
+const TITLE_LIMIT = 62;
+
+export const withBrandTitle = (title: string) => {
+  if (title.includes(siteConfig.personName) || title.includes(siteConfig.brandName)) return title;
+  const branded = `${title} | ${siteConfig.personName}`;
+  return branded.length <= TITLE_LIMIT ? branded : title;
+};
 
 export type ContactIcon = 'telegram' | 'viber' | 'linkedin' | 'email' | 'calendar';
 

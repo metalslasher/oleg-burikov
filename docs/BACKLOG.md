@@ -23,11 +23,11 @@ Status: [ ] todo · [~] in progress · [x] done · [?] waiting for Oleg
 - [x] Stats: no duplication with subheadline; simpler labels ("в управлінні", not "сукупному"); no niche explanation
 
 ## P1 — Copy pass (whole site)
-- [~] Fewer anglicisms/jargon (homepage, services, cases done; blog articles still use some professional terms) (TOF/MOF/BOF, PMax, tROAS, UGC, CRO, message match…) — plain Ukrainian for owners & recruiters
+- [x] Fewer anglicisms/jargon (homepage, services, cases, blog)
 - [x] Services subtitle: "аудиту чи запуску реклами" (not only Google Ads)
 - [x] Services reflect turnkey positioning (sites + SEO basics, creatives, strategy)
 - [x] Experience section — stronger, less "simple"
-- [~] Proofread cases and blog (cases done, blog next): simple but professional
+- [x] Proofread cases and blog
 
 ## P1 — Bugs / polish
 - [x] Contact modal: center the direct links row
@@ -35,7 +35,7 @@ Status: [ ] todo · [~] in progress · [x] done · [?] waiting for Oleg
 - [x] Jewelry case: Meta creatives collage belongs to the Meta Ads campaign block, not creatives
 - [x] Lightbox gallery (prev/next, keyboard, swipe, counter, close) instead of opening images in a new tab
 - [x] About: divider right under the stats block — fix spacing
-- [~] Full responsive pass (375/1440 checked; 768 next) (375 / 768 / 1280 / 1440) on every page
+- [x] Full responsive pass (375 / 768 / 1440)
 
 ## P2 — "Wow" animations (keep them cheap and reduced-motion safe)
 - [x] Section headings: word-by-word mask reveal
@@ -48,7 +48,7 @@ Status: [ ] todo · [~] in progress · [x] done · [?] waiting for Oleg
 - [x] Schema: Person + ProfessionalService (areaServed, services), Service, FAQ, Breadcrumbs on all inner pages
 - [x] Separate service landing pages (decided: 4 pages) (Google Ads, Meta/TikTok Ads, analytics, sites) for search traffic
 - [x] Internal linking: services ↔ cases ↔ blog
-- [~] Font preload done; sitemap lastmod, alt audit, heading hierarchy — next
+- [x] Font preload, sitemap lastmod for posts, alt/H1/heading audit, title ≤62 / description ≤160 chars
 - [ ] Remove/rename leftovers that confuse future work (stale docs, unused data)
 
 ## Later / ideas
@@ -57,4 +57,4 @@ Status: [ ] todo · [~] in progress · [x] done · [?] waiting for Oleg
 
 ## Next iteration
 - Replace placeholder projects in src/data/projects.ts with Oleg's real GitHub projects
-- Blog copy pass (less jargon), more articles for service pages
+- [x] 3 new articles linked to service pages (Merchant Center feed, Google Ads budget, real estate in Meta)

@@ -27,7 +27,7 @@ export const servicePages: ServicePage[] = [
     seo: {
       title: 'Налаштування і ведення Google Ads під ключ',
       description:
-        'Налаштування та ведення контекстної реклами Google Ads: пошук, торгові кампанії, Performance Max, YouTube. Кейси з ROAS 8,46 і зниженням ціни ліда в 7,8 раза. Безкоштовна консультація.',
+        'Налаштування і ведення Google Ads: пошук, торгові кампанії, Performance Max, YouTube. Кейси з ROAS 8,46 і ціною ліда, зниженою в 7,8 раза.',
     },
     h1: 'Налаштування і ведення *Google Ads*',
     lead: 'Контекстна реклама Google приводить людей у момент, коли вони вже шукають ваш товар чи послугу. Моя задача — щоб ці гроші поверталися заявками й продажами: правильна структура, точні ключові слова, чистий каталог товарів і аналітика, на якій навчаються ставки.',
@@ -58,7 +58,7 @@ export const servicePages: ServicePage[] = [
     ],
     tools: ['Google Ads', 'Merchant Center', 'GA4', 'Google Tag Manager', 'Looker Studio', 'Keyword Planner'],
     caseSlugs: ['b2b-saas-google-ads', 'jewelry-ecommerce-google-meta-ads', 'flower-delivery-google-ads', 'fintech-lending-google-ads'],
-    blogSlugs: ['saas-google-ads-click-fraud', 'b2b-google-ads-lead-generation'],
+    blogSlugs: ['google-ads-budget-ecommerce', 'google-merchant-center-feed', 'saas-google-ads-click-fraud', 'b2b-google-ads-lead-generation'],
     faq: [
       {
         q: 'Скільки коштує реклама в Google Ads?',
@@ -83,9 +83,9 @@ export const servicePages: ServicePage[] = [
     name: 'Meta і TikTok Ads',
     queries: ['таргетована реклама facebook instagram', 'налаштування таргетованої реклами', 'таргетолог', 'реклама в tiktok', 'реклама в інстаграм для бізнесу'],
     seo: {
-      title: 'Таргетована реклама в Facebook, Instagram і TikTok',
+      title: 'Таргетована реклама Facebook, Instagram, TikTok',
       description:
-        'Налаштування і ведення таргетованої реклами в Facebook, Instagram і TikTok: креативи, аудиторії, лід-форми, каталоги товарів. 865 заявок для ЖК по $13,75, 804 покупки по ₴197.',
+        'Таргетована реклама в Facebook, Instagram і TikTok: креативи, аудиторії, лід-форми, каталоги. 865 заявок для ЖК по $13,75, 804 покупки по ₴197.',
     },
     h1: 'Таргетована реклама в *Facebook, Instagram* і TikTok',
     lead: 'Соцмережі — найшвидший спосіб показати продукт людям, які ще не шукають його, але готові купити. Я налаштовую рекламу в Meta Ads і TikTok Ads так, щоб кожен етап мав свою задачу: познайомити, переконати і повернути тих, хто вже цікавився.',
@@ -116,6 +116,7 @@ export const servicePages: ServicePage[] = [
     ],
     tools: ['Meta Ads Manager', 'TikTok Ads Manager', 'Meta Pixel', 'Conversions API', 'Figma', 'Canva'],
     caseSlugs: ['real-estate-kyiv-meta-ads', 'embroidery-ecommerce-meta-ads', 'snacks-ecommerce-meta-ads', 'jewelry-ecommerce-google-meta-ads'],
+    blogSlugs: ['meta-ads-real-estate'],
     faq: [
       {
         q: 'Що краще: Google Ads чи реклама в соцмережах?',
@@ -140,9 +141,9 @@ export const servicePages: ServicePage[] = [
     name: 'Аналітика',
     queries: ['налаштування ga4', 'налаштування google tag manager', 'наскрізна аналітика', 'веб-аналітика для бізнесу', 'налаштування конверсій google ads'],
     seo: {
-      title: 'Налаштування аналітики GA4 і Google Tag Manager',
+      title: 'Налаштування аналітики GA4 і Tag Manager',
       description:
-        'Налаштування веб-аналітики: GA4, Google Tag Manager, конверсії Google Ads і Meta, відстеження дзвінків, зв’язок з CRM і дашборди Looker Studio. Бачите ціну клієнта з кожного каналу.',
+        'Налаштування GA4 і Google Tag Manager, конверсій Google Ads і Meta, дзвінків, CRM і дашбордів Looker Studio. Бачите ціну клієнта з кожного каналу.',
     },
     h1: 'Налаштування аналітики: *GA4, Tag Manager*, CRM',
     lead: 'Без правильної аналітики реклама працює наосліп: рекламні системи вчаться на випадкових діях, а ви не знаєте, який канал приносить гроші. Я налаштовую відстеження так, щоб було видно шлях від реклами до продажу — і щоб алгоритми оптимізувались на реальні заявки.',
@@ -173,7 +174,7 @@ export const servicePages: ServicePage[] = [
     ],
     tools: ['GA4', 'Google Tag Manager', 'Looker Studio', 'Microsoft Clarity', 'Search Console', 'CRM', 'AppsFlyer', 'Amplitude'],
     caseSlugs: ['jewelry-ecommerce-google-meta-ads', 'b2b-saas-google-ads'],
-    blogSlugs: ['b2b-google-ads-lead-generation'],
+    blogSlugs: ['b2b-google-ads-lead-generation', 'google-merchant-center-feed'],
     faq: [
       {
         q: 'Навіщо GA4, якщо є статистика в рекламних кабінетах?',
@@ -194,9 +195,9 @@ export const servicePages: ServicePage[] = [
     name: 'Сайти і лендінги',
     queries: ['створення лендінгу', 'лендінг під ключ', 'розробка сайту під рекламу', 'створення сайту для бізнесу', 'оптимізація конверсії сайту'],
     seo: {
-      title: 'Створення лендінгів і сайтів під рекламу — під ключ',
+      title: 'Створення лендінгів і сайтів під рекламу',
       description:
-        'Створення лендінгів і сайтів, які перетворюють рекламний трафік на заявки: структура, тексти, дизайн, швидкість, базове SEO й аналітика. Від маркетолога, який сам запускає рекламу.',
+        'Лендінги й сайти, які перетворюють рекламу на заявки: структура, тексти, дизайн, швидкість, базове SEO й аналітика — від маркетолога, що запускає рекламу.',
     },
     h1: 'Лендінги й сайти, які *продають*',
     lead: 'Навіть найкраща реклама не врятує сайт, на якому незрозуміла пропозиція або незручна форма. Я роблю лендінги й сайти з позиції маркетолога: спершу — що має зробити відвідувач, потім — дизайн і код. Сайт одразу готовий до реклами, аналітики й пошуку.',

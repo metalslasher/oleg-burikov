@@ -6,6 +6,8 @@ const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(),
+    /** Shorter title for search results when the headline is long. */
+    seoTitle: z.string().optional(),
     description: z.string(),
     excerpt: z.string(),
     published: z.coerce.date(),
