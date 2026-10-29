@@ -1,7 +1,6 @@
 // Oleg's own digital projects built from scratch.
-// TODO(Oleg): the entries below are PLACEHOLDERS to preview the layout. Replace them with real projects
-// from GitHub and set `placeholder: false` (or delete the flag). While any entry is a placeholder,
-// the section is hidden on the production deployment (see showProjects below).
+// TODO(Oleg): the entries below are PLACEHOLDERS to preview the layout. They are shown live on purpose
+// (Oleg's decision, 2026-10-29); replace them with real projects from GitHub and drop the flag.
 
 export type Project = {
   title: string;
@@ -44,7 +43,4 @@ export const projects: Project[] = [
   },
 ];
 
-const isProduction = typeof process !== 'undefined' && process.env?.VERCEL_ENV === 'production';
-
-/** Placeholder projects are visible locally and on preview deployments only. */
-export const showProjects = projects.length > 0 && !(isProduction && projects.some((project) => project.placeholder));
+export const showProjects = projects.length > 0;

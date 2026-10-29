@@ -11,7 +11,7 @@ Status: [ ] todo · [~] in progress · [x] done · [?] waiting for Oleg
 - [x] Languages: English B2 / professional working proficiency
 - [x] Team block: "Відкритий до пропозицій" (decided)
 - [x] DEVILS wording: neutral (decided: no "iGaming")
-- [x] Own projects section with PLACEHOLDER data (Oleg will send real projects from GitHub next iteration; mostly development, maybe analytics). Hidden on production until real data.
+- [x] Own projects section with PLACEHOLDER data (Oleg will send real projects from GitHub next iteration; mostly development, maybe analytics). Shown live with placeholder data (Oleg decided); replace later.
 - [x] Update docs/OLEG_BURIKOV_PROFILE.md to match LinkedIn
 
 ## P1 — Hero & header
