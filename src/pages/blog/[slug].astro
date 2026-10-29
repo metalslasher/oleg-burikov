@@ -1,9 +1,10 @@
 ---
 import { getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ogImage as shareImage } from '../../lib/og';
 import ContactCta from '../../components/ContactCta.astro';
 import Icon from '../../components/Icon.astro';
-import { readingTime, formatDate } from '../../lib/blog';
+import { readingTime, formatDate, getPosts } from '../../lib/blog';
 import { getCase } from '../../data/cases';
 import { emphasize } from '../../lib/text';
 import { absoluteUrl, siteConfig } from '../../config/site';
@@ -17,7 +18,15 @@ const { Content, headings } = await render(post);
 const toc = headings.filter((heading) => heading.depth === 2);
 const { data } = post;
 const relatedCase = data.relatedCase ? getCase(data.relatedCase) : undefined;
-const ogImage = data.cover || siteConfig.seo.defaultOgImage;
+
+// "Read also": other posts ranked by shared tags, newest first on ties.
+const morePosts = (await getPosts())
+  .filter((item) => item.id !== post.id)
+  .map((item) => ({ item, score: item.data.tags.filter((tag) => data.tags.includes(tag)).length }))
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 2)
+  .map(({ item }) => item);
+const ogImage = shareImage(`blog-${post.id}`);
 
 const schema = [
   {
@@ -86,7 +95,7 @@ const schema = [
         <Content />
 
         <footer class="author">
-          <img src="/images/oleg-burikov-hero-cutout.webp" alt="" width="72" height="64" loading="lazy" />
+          <img src="/images/oleg-burikov-hero-cutout-480.webp" alt="" width="72" height="64" loading="lazy" />
           <div>
             <p class="author__name">{siteConfig.personName}</p>
             <p class="author__bio">
@@ -103,6 +112,18 @@ const schema = [
             <span class="related-case__title" set:html={emphasize(relatedCase.headline)} />
             <Icon name="arrow-up-right" size={22} />
           </a>
+        )}
+
+        {morePosts.length > 0 && (
+          <nav class="more" aria-label="Читайте також">
+            <p class="more__title">Читайте також</p>
+            {morePosts.map((item) => (
+              <a href={`/blog/${item.id}`} class="more__link">
+                <span>{item.data.title}</span>
+                <Icon name="arrow-right" size={18} />
+              </a>
+            ))}
+          </nav>
         )}
       </div>
     </div>
@@ -446,5 +467,42 @@ const schema = [
   .related-case svg {
     grid-row: 1 / 3;
     grid-column: 2;
+  }
+
+  .more {
+    margin-top: 3rem !important;
+    border-top: 1px solid var(--line);
+  }
+
+  .more__title {
+    padding-top: 1.5rem;
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .more__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--color-paper) !important;
+    font-weight: 700;
+    line-height: 1.4;
+    text-decoration: none !important;
+    transition: color 200ms ease, padding 300ms var(--ease-out);
+  }
+
+  .more__link:hover {
+    padding-left: 0.5rem;
+    color: var(--color-signal-soft) !important;
+  }
+
+  .more__link :global(svg) {
+    flex: none;
   }
 </style>

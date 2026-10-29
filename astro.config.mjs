@@ -51,7 +51,8 @@ export default defineConfig({
   adapter: vercel(),
   compressHTML: true,
   build: {
-    inlineStylesheets: 'auto',
+    // Site CSS is small (~55 KB raw, ~10 KB gzipped); inlining removes render-blocking requests.
+    inlineStylesheets: 'always',
   },
   vite: {
     plugins: [tailwindcss()],

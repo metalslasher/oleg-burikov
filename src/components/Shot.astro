@@ -13,6 +13,8 @@ interface Props {
 
 const { image, browser = false, zoom = false, eager = false, caption } = Astro.props;
 const Wrapper = zoom ? 'a' : 'div';
+// Large screenshots have an 800px variant (<name>-800.webp) for phones.
+const srcset = image.width > 900 ? `${image.src.replace(/.webp$/, '-800.webp')} 800w, ${image.src} ${image.width}w` : undefined;
 const wrapperProps = zoom
   ? { href: image.src, 'data-lightbox': '', 'aria-label': `${image.alt} — збільшити` }
   : {};
@@ -27,6 +29,8 @@ const wrapperProps = zoom
   <Wrapper class:list={['shot__frame', zoom && 'shot__frame--zoom']} {...wrapperProps}>
     <img
       src={image.src}
+      srcset={srcset}
+      sizes={srcset ? '(max-width: 900px) 100vw, 900px' : undefined}
       alt={image.alt}
       width={image.width}
       height={image.height}

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ogImage } from '../../lib/og';
 import ContactCta from '../../components/ContactCta.astro';
 import Icon from '../../components/Icon.astro';
 import Shot from '../../components/Shot.astro';
@@ -52,7 +53,7 @@ const schema = [
 ];
 ---
 
-<BaseLayout title={study.seo.title} description={study.seo.description} ogImage={study.cover.src} ogType="article" schema={schema}>
+<BaseLayout title={study.seo.title} description={study.seo.description} ogImage={ogImage(`case-${study.slug}`)} ogType="article" schema={schema}>
   <article class="case">
     <header class="case-hero">
       <div class="wrap">

@@ -23,7 +23,7 @@ export const initLightbox = () => {
   const items: Item[] = triggers.map((el) => {
     const img = el instanceof HTMLImageElement ? el : el.querySelector('img');
     return {
-      src: el instanceof HTMLAnchorElement ? el.href : (img?.currentSrc || img?.src || ''),
+      src: el instanceof HTMLAnchorElement ? el.href : img?.getAttribute('src') || '',
       alt: img?.alt || '',
     };
   });

@@ -12,9 +12,11 @@
     "preview": "astro preview",
     "check": "astro check",
     "quality": "npm run check && npm run build",
-    "astro": "astro"
+    "astro": "astro",
+    "og": "node tools/og.mjs"
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
     "@astrojs/vercel": "^11.0.3",
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
@@ -26,6 +28,10 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@fontsource/manrope": "^5.3.0",
+    "@fontsource/unbounded": "^5.3.0",
+    "opentype.js": "^2.0.0",
     "typescript": "^5.9.3"
   },
   "overrides": {

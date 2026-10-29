@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ogImage } from '../../lib/og';
 import ContactCta from '../../components/ContactCta.astro';
 import Icon from '../../components/Icon.astro';
 import { getServicePage, servicePages } from '../../data/services';
@@ -52,7 +53,7 @@ const schema = [
 ];
 ---
 
-<BaseLayout title={page.seo.title} description={page.seo.description} schema={schema}>
+<BaseLayout title={page.seo.title} description={page.seo.description} ogImage={ogImage(`service-${page.slug}`)} schema={schema}>
   <section class="svc-hero">
     <div class="svc-hero__glow" aria-hidden="true"></div>
     <div class="wrap">

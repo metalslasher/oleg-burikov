@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ogImage } from '../../lib/og';
 import ContactCta from '../../components/ContactCta.astro';
 import Icon from '../../components/Icon.astro';
 import { getPosts, readingTime, formatDate } from '../../lib/blog';
@@ -8,6 +9,7 @@ const posts = await getPosts();
 ---
 
 <BaseLayout
+  ogImage={ogImage('blog')}
   title="Блог про performance-маркетинг"
   description="Практичні статті про Google Ads, Meta Ads, аналітику, трекінг і B2B-лідогенерацію — з реальних проєктів, без води."
 >

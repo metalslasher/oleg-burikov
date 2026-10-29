@@ -47,6 +47,8 @@ const initial = heroKpis.slice(0, 3);
       <img
         class="hero__photo"
         src="/images/oleg-burikov-hero-cutout.webp"
+        srcset="/images/oleg-burikov-hero-cutout-480.webp 480w, /images/oleg-burikov-hero-cutout-760.webp 760w, /images/oleg-burikov-hero-cutout.webp 1189w"
+        sizes="(max-width: 960px) min(92vw, 33rem), 33rem"
         alt="Олег Буріков, performance-маркетолог"
         width="1189"
         height="1058"
@@ -259,7 +261,7 @@ const initial = heroKpis.slice(0, 3);
   .kpi__label {
     color: var(--color-faint);
     font-family: var(--font-mono);
-    font-size: 0.64rem;
+    font-size: 0.72rem;
     letter-spacing: 0.03em;
     text-transform: uppercase;
   }

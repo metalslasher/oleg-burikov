@@ -51,12 +51,12 @@ relatedCase: 'b2b-saas-google-ads'
 | Конверсії | 2–4% | 0 |
 
 <figure>
-  <img src="/images/blog/saas-click-fraud/cleo_keywords_fraud.webp" alt="Ключові слова Google Ads з аномально високим CTR і низьким CPC" width="1275" height="575" loading="lazy" />
+  <img src="/images/blog/saas-click-fraud/cleo_keywords_fraud.webp" srcset="/images/blog/saas-click-fraud/cleo_keywords_fraud-800.webp 800w, /images/blog/saas-click-fraud/cleo_keywords_fraud.webp 1280w" sizes="(max-width: 800px) 100vw, 46rem" alt="Ключові слова Google Ads з аномально високим CTR і низьким CPC" width="1275" height="575" loading="lazy" />
   <figcaption>Ключові слова: підозріло високий CTR при дуже низькій ціні кліка.</figcaption>
 </figure>
 
 <figure>
-  <img src="/images/blog/saas-click-fraud/cleo_keywords_volume.webp" alt="Keyword Planner: 10–40 пошуків на місяць проти 150+ кліків" width="1275" height="240" loading="lazy" />
+  <img src="/images/blog/saas-click-fraud/cleo_keywords_volume.webp" srcset="/images/blog/saas-click-fraud/cleo_keywords_volume-800.webp 800w, /images/blog/saas-click-fraud/cleo_keywords_volume.webp 1280w" sizes="(max-width: 800px) 100vw, 46rem" alt="Keyword Planner: 10–40 пошуків на місяць проти 150+ кліків" width="1275" height="240" loading="lazy" />
   <figcaption>Обсяг пошуку за Keyword Planner у рази менший за кількість кліків.</figcaption>
 </figure>
 
@@ -83,7 +83,7 @@ relatedCase: 'b2b-saas-google-ads'
 Обмеження теж є: динамічні IP, VPN і дата-центри інколи проходять фільтри. Без регулярного перегляду звітів можна або пропустити фрод, або заблокувати реальних клієнтів.
 
 <figure>
-  <img src="/images/blog/saas-click-fraud/cleo_clickcease.webp" alt="ClickCease: заблоковані кліки та збережений бюджет" width="1275" height="413" loading="lazy" />
+  <img src="/images/blog/saas-click-fraud/cleo_clickcease.webp" srcset="/images/blog/saas-click-fraud/cleo_clickcease-800.webp 800w, /images/blog/saas-click-fraud/cleo_clickcease.webp 1280w" sizes="(max-width: 800px) 100vw, 46rem" alt="ClickCease: заблоковані кліки та збережений бюджет" width="1275" height="413" loading="lazy" />
   <figcaption>ClickCease: заблоковані кліки і збережений бюджет.</figcaption>
 </figure>
 
@@ -101,7 +101,7 @@ relatedCase: 'b2b-saas-google-ads'
 Важливо знати: Google повертає кошти кредитами на акаунт, сума залежить від підтвердженого обсягу невалідних кліків і часто буває частковою.
 
 <figure>
-  <img src="/images/blog/saas-click-fraud/cleo_googleads_refund.webp" alt="Відповідь підтримки Google Ads про невалідні кліки та компенсацію" width="1016" height="738" loading="lazy" />
+  <img src="/images/blog/saas-click-fraud/cleo_googleads_refund.webp" srcset="/images/blog/saas-click-fraud/cleo_googleads_refund-800.webp 800w, /images/blog/saas-click-fraud/cleo_googleads_refund.webp 1280w" sizes="(max-width: 800px) 100vw, 46rem" alt="Відповідь підтримки Google Ads про невалідні кліки та компенсацію" width="1016" height="738" loading="lazy" />
   <figcaption>Відповідь підтримки Google Ads щодо невалідних кліків.</figcaption>
 </figure>
 

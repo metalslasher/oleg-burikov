@@ -14,7 +14,7 @@
   --color-surface-2: #1b1f26;
   --color-paper: #f2efe8;
   --color-muted: #a3a3ab;
-  --color-faint: #6c6d75;
+  --color-faint: #8b8c95;
   --color-signal: #ff5a1f;
   --color-signal-soft: #ff8a5c;
   --color-up: #3ddc97;
@@ -54,7 +54,7 @@
 
   ::selection {
     background: var(--color-signal);
-    color: #fff;
+    color: var(--color-ink);
   }
 
   :focus-visible {
@@ -209,9 +209,10 @@
     transform: translate(2px, -2px);
   }
 
+  /* Dark text on orange: 6.3:1 contrast (white would be 3.1:1) */
   .btn--primary {
     background: var(--color-signal);
-    color: #fff;
+    color: var(--color-ink);
   }
 
   .btn--primary:hover {

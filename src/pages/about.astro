@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { ogImage } from '../lib/og';
 import ContactCta from '../components/ContactCta.astro';
 import Icon from '../components/Icon.astro';
 import { siteConfig } from '../config/site';
@@ -32,6 +33,7 @@ const profileSchema = {
 ---
 
 <BaseLayout
+  ogImage={ogImage('about')}
   title="Резюме Performance Marketing Manager"
   description="Резюме Олега Бурікова, Performance Marketing Manager з 6+ роками досвіду: SvitSoft, Fortunatos, Admitad. Google, Meta, TikTok і Amazon Ads, GA4, сайти."
   ogType="profile"
@@ -74,7 +76,7 @@ const profileSchema = {
       </div>
 
       <aside class="card intro__card">
-        <img src="/images/oleg-burikov-hero-cutout.webp" alt="Олег Буріков" width="1189" height="1058" class="intro__photo" fetchpriority="high" />
+        <img src="/images/oleg-burikov-hero-cutout.webp" srcset="/images/oleg-burikov-hero-cutout-480.webp 480w, /images/oleg-burikov-hero-cutout-760.webp 760w, /images/oleg-burikov-hero-cutout.webp 1189w" sizes="(max-width: 960px) 92vw, 26rem" alt="Олег Буріков" width="1189" height="1058" class="intro__photo" fetchpriority="high" />
         <dl class="intro__facts">
           {teamOffer.facts.map((fact) => (
             <div>
