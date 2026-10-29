@@ -313,6 +313,26 @@
     }
   }
 
+  /* Words created by splitWords() in scripts/site.ts */
+  .split-word {
+    display: inline-block;
+    overflow: hidden;
+    padding-bottom: 0.1em;
+    margin-bottom: -0.1em;
+    vertical-align: top;
+  }
+
+  .split-word > span {
+    display: inline-block;
+    transform: translateY(105%);
+    transition: transform 800ms var(--ease-out);
+    transition-delay: calc(var(--wi, 0) * 55ms);
+  }
+
+  .is-in .split-word > span {
+    transform: none;
+  }
+
   /* Subtle measuring-grid backdrop */
   .grid-bg {
     background-image:

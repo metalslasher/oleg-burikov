@@ -7,13 +7,20 @@ const featured = featuredCaseSlugs
   .map((slug) => cases.find((item) => item.slug === slug))
   .filter((item): item is (typeof cases)[number] => Boolean(item));
 const [lead, ...rest] = featured;
+
+interface Props {
+  /** Section number shown in the kicker, e.g. "03". */
+  num: string;
+}
+
+const { num } = Astro.props;
 ---
 
 <section id="cases" class="section" aria-labelledby="cases-title" data-gtm-section="home_cases">
   <div class="wrap">
     <div class="section-head section-head--split">
       <div>
-        <p class="kicker"><b>03</b> Кейси</p>
+        <p class="kicker"><b>{num}</b> Кейси</p>
         <h2 id="cases-title" class="h2" style="margin-top:1rem">Цифри зі звітів, а <em>не з презентацій</em></h2>
       </div>
       <p class="lead">

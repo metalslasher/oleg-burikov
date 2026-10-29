@@ -16,6 +16,13 @@ const index = cases.indexOf(study);
 const next = cases[(index + 1) % cases.length];
 const { results } = study;
 
+// Channel → service page, for internal links from the case sidebar.
+const serviceByChannel: Record<string, { href: string; label: string }> = {
+  'Google Ads': { href: '/services/google-ads', label: 'Налаштування Google Ads' },
+  'Meta Ads': { href: '/services/meta-tiktok-ads', label: 'Таргетована реклама' },
+};
+const relatedServices = study.channels.map((channel) => serviceByChannel[channel]).filter(Boolean);
+
 const facts = [
   { label: 'Ніша', value: study.niche },
   { label: 'Ринок', value: study.market },
@@ -86,6 +93,14 @@ const schema = [
               </div>
             ))}
           </dl>
+          {relatedServices.length > 0 && (
+            <div class="case-aside__services">
+              <p class="case-aside__title">Послуги</p>
+              {relatedServices.map((service) => (
+                <a href={service.href}>{service.label} <Icon name="arrow-right" size={14} /></a>
+              ))}
+            </div>
+          )}
           <a href="#contact" class="btn btn--primary case-aside__cta" data-gtm-event="cta_click" data-gtm-label="case_sidebar" data-gtm-location={`case_${study.slug}`}>
             Хочу так само
             <Icon name="arrow-up-right" />
@@ -122,6 +137,9 @@ const schema = [
               {campaign.title && <h3 class="campaign__title">{campaign.title}</h3>}
               <Shot image={campaign.image} zoom />
               {campaign.text && <p class="prose-p">{campaign.text}</p>}
+              {campaign.gallery?.map((picture) => (
+                <div class="campaign__extra"><Shot image={picture} zoom /></div>
+              ))}
               <ul class="bullets">
                 {campaign.bullets.map((bullet) => <li>{bullet}</li>)}
               </ul>
@@ -363,6 +381,26 @@ const schema = [
     line-height: 1.35;
   }
 
+  .case-aside__services {
+    display: grid;
+    gap: 0.45rem;
+    margin-top: 1.4rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .case-aside__services a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.92rem;
+    font-weight: 700;
+  }
+
+  .case-aside__services a:hover {
+    color: var(--color-signal-soft);
+  }
+
   .case-aside__cta {
     width: 100%;
     margin-top: 1.5rem;
@@ -488,7 +526,18 @@ const schema = [
   }
 
   .creatives--portrait {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 14rem));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 44rem;
+  }
+
+  @media (max-width: 599px) {
+    .creatives--square {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .campaign__extra {
+    margin-top: 1.25rem;
   }
 
   .compare {

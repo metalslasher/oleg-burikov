@@ -1,17 +1,24 @@
 ---
 import { process } from '../../data/profile';
+
+interface Props {
+  /** Section number shown in the kicker, e.g. "03". */
+  num: string;
+}
+
+const { num } = Astro.props;
 ---
 
 <section class="section process" aria-labelledby="process-title">
   <div class="wrap">
     <div class="section-head section-head--split">
       <div>
-        <p class="kicker"><b>02</b> Підхід</p>
+        <p class="kicker"><b>{num}</b> Підхід</p>
         <h2 id="process-title" class="h2" style="margin-top:1rem">Система, а не набір <em>кампаній</em></h2>
       </div>
       <p class="lead">
-        Більшість проблем з рекламою — не в рекламі. Вони в даних, на які вчаться алгоритми, у воронці та в звітах, які не
-        показують ціну клієнта. Тому я працюю в такому порядку.
+        Часто проблема не в самій рекламі, а в сайті, аналітиці чи пропозиції. Тому я працюю по черзі: спершу розбираюся в
+        бізнесі, потім готую все необхідне — і лише тоді запускаю й масштабую.
       </p>
     </div>
 
@@ -86,19 +93,24 @@ import { process } from '../../data/profile';
   }
 
   .step__line::after {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, transparent, var(--color-signal), transparent);
-    transform: translateX(-100%);
-    animation: signal 3.2s ease-in-out infinite;
-    animation-delay: calc(var(--reveal-i) * 0.8s);
+    background: linear-gradient(90deg, var(--color-signal), rgb(255 90 31 / 0.2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 900ms var(--ease-out);
+    transition-delay: calc(300ms + var(--reveal-i) * 350ms);
   }
 
-  @keyframes signal {
-    to {
-      transform: translateX(100%);
-    }
+  .step.is-visible .step__line::after {
+    transform: scaleX(1);
+  }
+
+  .step.is-visible .step__num {
+    border-color: rgb(255 90 31 / 0.6);
+    color: var(--color-paper);
+    transition-delay: calc(var(--reveal-i) * 350ms);
   }
 
   .step__title {

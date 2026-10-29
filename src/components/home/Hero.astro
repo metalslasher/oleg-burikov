@@ -1,7 +1,12 @@
 ---
 import { proofStats } from '../../data/profile';
+import { heroKpis } from '../../data/cases';
 import { siteConfig } from '../../config/site';
 import Icon from '../Icon.astro';
+
+const headline = ['Маркетинг,', 'який', 'приводить', 'клієнтів', 'і'];
+const accent = ['збільшує', 'прибуток'];
+const initial = heroKpis.slice(0, 3);
 ---
 
 <section class="hero" aria-labelledby="hero-title">
@@ -10,19 +15,19 @@ import Icon from '../Icon.astro';
 
   <div class="wrap hero__inner">
     <div class="hero__copy">
-      <p class="hero__status">
-        <span class="hero__dot" aria-hidden="true"></span>
-        {siteConfig.jobTitle}<span class="hero__loc"> · Київ / remote</span>
-      </p>
+      <p class="kicker hero__kicker">{siteConfig.jobTitle}</p>
 
-      <h1 id="hero-title" class="hero__title display">
-        <span class="hero__line">Реклама, що приносить</span>
-        <span class="hero__line"><em>клієнтів</em>, а не кліки</span>
+      <h1 id="hero-title" class="hero__title display" aria-label={`${headline.join(' ')} ${accent.join(' ')}`}>
+        {[...headline, ...accent].map((word, index) => (
+          <span class="hero__word" aria-hidden="true" style={`--w:${index}`}>
+            <span class:list={[index >= headline.length && 'is-accent']}>{word}</span>
+          </span>
+        ))}
       </h1>
 
       <p class="hero__lead lead">
-        Я Олег Буріков. 6+ років будую системи залучення під ключ: Google, Meta і TikTok Ads, аналітика, воронка та
-        звітність, у якій видно ціну клієнта — а не лише ціну кліка.
+        Допомагаю запускати й масштабувати бізнес під ключ: від стратегії та сайту до креативів, реклами в Google, Meta і
+        TikTok та аналітики, яка показує реальний результат.
       </p>
 
       <div class="hero__actions">
@@ -36,13 +41,12 @@ import Icon from '../Icon.astro';
       </div>
 
       <a href="/about" class="hero__hire" data-gtm-event="cta_click" data-gtm-label="hero_hire" data-gtm-location="home_hero">
-        Шукаєте performance-маркетолога в команду? <span>Резюме і досвід</span>
+        Шукаєте маркетолога в команду? <span>Резюме і досвід</span>
         <Icon name="arrow-right" size={16} />
       </a>
     </div>
 
-    <div class="hero__visual">
-      <div class="hero__ring" aria-hidden="true"></div>
+    <div class="hero__visual" data-hero-kpis data-pool={JSON.stringify(heroKpis)}>
       <img
         class="hero__photo"
         src="/images/oleg-burikov-hero-cutout.webp"
@@ -53,23 +57,13 @@ import Icon from '../Icon.astro';
         decoding="async"
       />
 
-      <a href="/cases/b2b-saas-google-ads" class="kpi kpi--a" aria-label="Кейс B2B SaaS: CPL знизився з $1 130 до $144">
-        <span class="kpi__label">CPL · B2B SaaS, США</span>
-        <span class="kpi__value"><s>$1 130</s> $144</span>
-        <span class="kpi__delta up">▼ 87%</span>
-      </a>
-      <a href="/cases/jewelry-ecommerce-google-meta-ads" class="kpi kpi--b" aria-label="Кейс ювелірного магазину: ROAS 8,46">
-        <span class="kpi__label">ROAS · eCommerce</span>
-        <span class="kpi__value">8,46</span>
-        <svg class="kpi__spark" viewBox="0 0 120 32" aria-hidden="true">
-          <polyline points="0,28 18,26 34,27 50,20 66,22 82,12 98,9 120,3" />
-        </svg>
-      </a>
-      <a href="/cases/real-estate-kyiv-meta-ads" class="kpi kpi--c" aria-label="Кейс нерухомості: 865 лідів">
-        <span class="kpi__label">Ліди · нерухомість</span>
-        <span class="kpi__value">865</span>
-        <span class="kpi__delta">по $13,75</span>
-      </a>
+      {initial.map((kpi, index) => (
+        <a href={`/cases/${kpi.slug}`} class={`kpi kpi--${index}`} data-kpi-slot={index}>
+          <span class="kpi__label">{kpi.label}</span>
+          <span class="kpi__value">{kpi.from && <s>{kpi.from}</s>}{kpi.value}</span>
+          <span class:list={['kpi__note', kpi.positive && 'up']}>{kpi.note}</span>
+        </a>
+      ))}
     </div>
   </div>
 
@@ -87,6 +81,11 @@ import Icon from '../Icon.astro';
     </dl>
   </div>
 </section>
+
+<script>
+  import { initHeroKpis } from '../../scripts/heroKpis';
+  initHeroKpis();
+</script>
 
 <style>
   .hero {
@@ -128,66 +127,45 @@ import Icon from '../Icon.astro';
     }
   }
 
-  .hero__status {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.4rem 0.85rem 0.4rem 0.7rem;
-    border: 1px solid var(--line-strong);
-    border-radius: 999px;
-    color: var(--color-muted);
-    font-family: var(--font-mono);
-    font-size: 0.74rem;
-    letter-spacing: 0.02em;
-  }
-
-  .hero__dot {
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
-    background: var(--color-up);
-    box-shadow: 0 0 0 0 rgb(61 220 151 / 0.6);
-    animation: live 2.2s infinite;
-  }
-
-  @keyframes live {
-    70% {
-      box-shadow: 0 0 0 8px rgb(61 220 151 / 0);
-    }
-    100% {
-      box-shadow: 0 0 0 0 rgb(61 220 151 / 0);
-    }
-  }
-
-  @media (max-width: 420px) {
-    .hero__loc {
-      display: none;
-    }
+  .hero__kicker b {
+    display: none;
   }
 
   .hero__title {
     margin-top: 1.5rem;
-    font-size: clamp(2.35rem, 1.2rem + 5.2vw, 5.1rem);
-    line-height: 1.02;
+    font-size: clamp(2.2rem, 1.2rem + 3.6vw, 3.9rem);
+    line-height: 1.06;
   }
 
-  .hero__line {
-    display: block;
+  /* Word-by-word reveal: each word slides up from behind a mask */
+  .hero__word {
+    display: inline-block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+    vertical-align: top;
   }
 
-  .js .hero__line {
-    animation: rise 900ms var(--ease-out) both;
+  .hero__word {
+    margin-right: 0.24em;
   }
 
-  .js .hero__line:nth-child(2) {
-    animation-delay: 120ms;
+  .hero__word > span {
+    display: inline-block;
   }
 
-  @keyframes rise {
+  .is-accent {
+    color: var(--color-signal);
+  }
+
+  .js .hero__word > span {
+    animation: word-up 900ms var(--ease-out) both;
+    animation-delay: calc(120ms + var(--w) * 70ms);
+  }
+
+  @keyframes word-up {
     from {
-      opacity: 0;
-      transform: translateY(0.4em);
-      filter: blur(6px);
+      transform: translateY(105%);
     }
   }
 
@@ -242,36 +220,6 @@ import Icon from '../Icon.astro';
     aspect-ratio: 1189 / 1058;
   }
 
-  .hero__ring {
-    position: absolute;
-    left: 50%;
-    top: 52%;
-    width: 78%;
-    aspect-ratio: 1;
-    border: 1px dashed rgb(255 255 255 / 0.14);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    animation: spin 60s linear infinite;
-  }
-
-  .hero__ring::after {
-    content: "";
-    position: absolute;
-    top: 12%;
-    right: 9%;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: var(--color-signal);
-    box-shadow: 0 0 18px var(--color-signal);
-  }
-
-  @keyframes spin {
-    to {
-      transform: translate(-50%, -50%) rotate(360deg);
-    }
-  }
-
   .hero__photo {
     position: relative;
     width: 100%;
@@ -284,19 +232,36 @@ import Icon from '../Icon.astro';
     position: absolute;
     display: grid;
     gap: 0.15rem;
-    min-width: 9.5rem;
-    padding: 0.75rem 0.9rem;
+    min-width: 10rem;
+    padding: 0.75rem 0.95rem;
     border: 1px solid var(--line-strong);
     border-radius: 12px;
     background: rgb(16 18 22 / 0.92);
-
     box-shadow: 0 20px 50px rgb(0 0 0 / 0.45);
     animation: float 7s ease-in-out infinite;
-    transition: border-color 200ms ease;
+    transition:
+      border-color 200ms ease,
+      opacity 450ms ease,
+      filter 450ms ease,
+      translate 450ms var(--ease-out);
   }
 
   .kpi:hover {
     border-color: var(--color-signal);
+  }
+
+  /* Card is being swapped by heroKpis.ts */
+  .kpi.is-leaving {
+    opacity: 0;
+    filter: blur(4px);
+    translate: 0 -10px;
+  }
+
+  .kpi.is-entering {
+    opacity: 0;
+    filter: blur(4px);
+    translate: 0 10px;
+    transition: none;
   }
 
   .kpi__label {
@@ -313,61 +278,39 @@ import Icon from '../Icon.astro';
     font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.15;
+    white-space: nowrap;
   }
 
-  .kpi__value s {
-    margin-right: 0.3rem;
+  .kpi__value :global(s) {
+    margin-right: 0.35rem;
     color: var(--color-faint);
     font-size: 0.8rem;
     text-decoration-color: var(--color-signal);
   }
 
-  .kpi__delta {
+  .kpi__note {
     color: var(--color-muted);
     font-family: var(--font-mono);
     font-size: 0.72rem;
   }
 
-  .kpi__delta.up {
+  .kpi__note.up {
     color: var(--color-up);
   }
 
-  .kpi__spark {
-    width: 100%;
-    height: 1.4rem;
-    margin-top: 0.2rem;
-  }
-
-  .kpi__spark polyline {
-    fill: none;
-    stroke: var(--color-up);
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-dasharray: 160;
-    stroke-dashoffset: 160;
-    animation: draw 1.6s 600ms var(--ease-out) forwards;
-  }
-
-  @keyframes draw {
-    to {
-      stroke-dashoffset: 0;
-    }
-  }
-
-  .kpi--a {
+  .kpi--0 {
     top: 14%;
     left: -4%;
   }
 
-  .kpi--b {
-    top: 42%;
+  .kpi--1 {
+    top: 44%;
     right: -4%;
     animation-delay: -2.5s;
   }
 
-  .kpi--c {
-    bottom: 10%;
+  .kpi--2 {
+    bottom: 8%;
     left: 2%;
     animation-delay: -4.5s;
   }
@@ -388,15 +331,15 @@ import Icon from '../Icon.astro';
       font-size: 1.05rem;
     }
 
-    .kpi--a {
+    .kpi--0 {
       left: 0;
     }
 
-    .kpi--b {
+    .kpi--1 {
       right: 0;
     }
 
-    .kpi--c {
+    .kpi--2 {
       display: none;
     }
 
@@ -429,6 +372,7 @@ import Icon from '../Icon.astro';
 
   .proof__value {
     display: flex;
+    flex-wrap: wrap;
     align-items: baseline;
     gap: 0.4rem;
   }
@@ -447,7 +391,7 @@ import Icon from '../Icon.astro';
   .proof__label {
     max-width: 15rem;
     color: var(--color-muted);
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     line-height: 1.45;
   }
 </style>

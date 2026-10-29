@@ -8,9 +8,16 @@ import SelectedCases from '../components/home/SelectedCases.astro';
 import Formats from '../components/home/Formats.astro';
 import Experience from '../components/home/Experience.astro';
 import Faq from '../components/home/Faq.astro';
+import Projects from '../components/home/Projects.astro';
+import { showProjects } from '../data/projects';
+import { pad2 } from '../lib/text';
 import ContactCta from '../components/ContactCta.astro';
 import { siteConfig } from '../config/site';
 import { faq } from '../data/profile';
+
+// Section numbers stay sequential when optional sections are hidden.
+const sections = ['services', 'process', 'cases', ...(showProjects ? ['projects'] : []), 'formats', 'experience', 'faq'];
+const n = (id: string) => pad2(sections.indexOf(id) + 1);
 
 const faqSchema = {
   '@type': 'FAQPage',
@@ -25,11 +32,12 @@ const faqSchema = {
 <BaseLayout title={siteConfig.seo.defaultTitle} description={siteConfig.seo.defaultDescription} ogType="profile" schema={[faqSchema]}>
   <Hero />
   <Marquee />
-  <Services />
-  <Process />
-  <SelectedCases />
-  <Formats />
-  <Experience />
-  <Faq />
+  <Services num={n('services')} />
+  <Process num={n('process')} />
+  <SelectedCases num={n('cases')} />
+  <Projects num={n('projects')} />
+  <Formats num={n('formats')} />
+  <Experience num={n('experience')} />
+  <Faq num={n('faq')} />
   <ContactCta location="home_final" />
 </BaseLayout>

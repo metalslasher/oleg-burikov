@@ -1,0 +1,215 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactCta from '../../components/ContactCta.astro';
+import Icon from '../../components/Icon.astro';
+import { services, businessFormats } from '../../data/profile';
+import { pad2 } from '../../lib/text';
+import { absoluteUrl } from '../../config/site';
+
+const schema = [
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Головна', item: absoluteUrl('/') },
+      { '@type': 'ListItem', position: 2, name: 'Послуги', item: absoluteUrl('/services') },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Послуги з маркетингу під ключ: реклама, сайти, аналітика"
+  description="Маркетинг під ключ від performance-маркетолога: стратегія, налаштування Google Ads, таргетована реклама Facebook, Instagram і TikTok, створення лендінгів, аналітика GA4 і креативи."
+  schema={schema}
+>
+  <section class="page-head">
+    <div class="wrap">
+      <p class="kicker"><b>{pad2(services.length)}</b> Послуги</p>
+      <h1 class="display page-head__title">Маркетинг <em>під ключ</em> — або окрема задача</h1>
+      <p class="lead page-head__lead">
+        Можу взяти весь шлях клієнта — від стратегії й сайту до реклами та аналітики. Або підключитися до вашої команди
+        на конкретний етап.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap list" aria-label="Список послуг">
+    {services.map((service, index) => {
+      const Tag = service.href ? 'a' : 'div';
+      return (
+        <Tag href={service.href} class:list={['row', service.href && 'row--link']} data-reveal style={`--reveal-i:${index % 2}`}>
+          <span class="row__num">{pad2(index + 1)}</span>
+          <div class="row__main">
+            <h2 class="row__title">{service.title}</h2>
+            <p class="row__task">{service.task}</p>
+          </div>
+          <p class="row__text">{service.text}</p>
+          {service.href ? (
+            <span class="row__arrow"><Icon name="arrow-up-right" size={20} /></span>
+          ) : <span />}
+        </Tag>
+      );
+    })}
+  </section>
+
+  <section class="section wrap" aria-labelledby="formats-title">
+    <h2 id="formats-title" class="h2">Формати <em>співпраці</em></h2>
+    <div class="formats">
+      {businessFormats.map((format) => (
+        <div class="format">
+          <div class="format__head">
+            <h3>{format.title}</h3>
+            <span class="chip chip--mono">{format.duration}</span>
+          </div>
+          <p>{format.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <ContactCta location="services_index" />
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding-top: calc(var(--header-h) + clamp(2.5rem, 6vw, 4.5rem));
+    padding-bottom: 2.5rem;
+  }
+
+  .page-head__title {
+    max-width: 17ch;
+    margin-top: 1.25rem;
+    font-size: clamp(2.2rem, 1.3rem + 4vw, 4.4rem);
+  }
+
+  .page-head__title em {
+    color: var(--color-signal);
+    font-style: normal;
+  }
+
+  .page-head__lead {
+    max-width: 40rem;
+    margin-top: 1.25rem;
+  }
+
+  .list {
+    border-top: 1px solid var(--line);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.75rem 1.5rem;
+    align-items: start;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid var(--line);
+    transition: background-color 250ms ease, padding 300ms var(--ease-out);
+  }
+
+  .row__text {
+    grid-column: 2 / -1;
+    color: var(--color-muted);
+  }
+
+  @media (min-width: 900px) {
+    .row {
+      grid-template-columns: 3rem minmax(0, 0.9fr) minmax(0, 1.1fr) 3rem;
+      align-items: center;
+    }
+
+    .row__text {
+      grid-column: auto;
+    }
+  }
+
+  .row--link:hover {
+    padding-inline: 1rem;
+    background: var(--color-ink-2);
+  }
+
+  .row__num {
+    color: var(--color-signal);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    padding-top: 0.35rem;
+  }
+
+  .row__title {
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .row__task {
+    margin-top: 0.4rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 1rem + 0.9vw, 1.6rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .row__arrow {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    transition: all 300ms var(--ease-out);
+  }
+
+  .row--link:hover .row__arrow {
+    border-color: var(--color-signal);
+    background: var(--color-signal);
+    transform: rotate(45deg);
+  }
+
+  @media (max-width: 899px) {
+    .row__arrow {
+      grid-row: 1;
+      grid-column: 3;
+    }
+  }
+
+  .formats {
+    display: grid;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  @media (min-width: 760px) {
+    .formats {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .format {
+    padding: 1.6rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--color-ink-2);
+  }
+
+  .format__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .format h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  .format p {
+    margin-top: 0.7rem;
+    color: var(--color-muted);
+  }
+</style>

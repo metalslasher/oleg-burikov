@@ -3,7 +3,11 @@ import { siteConfig, sameAsLinks, withBrandTitle, absoluteUrl } from '../config/
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ContactModal from '../components/ContactModal.astro';
+import Lightbox from '../components/Lightbox.astro';
 import '../styles/global.css';
+import { servicePages } from '../data/services';
+import displayFont from '@fontsource-variable/unbounded/files/unbounded-cyrillic-wght-normal.woff2?url';
+import bodyFont from '@fontsource-variable/manrope/files/manrope-cyrillic-wght-normal.woff2?url';
 
 interface Props {
   title: string;
@@ -45,7 +49,9 @@ const person = {
   email: siteConfig.contact.email,
   address: { '@type': 'PostalAddress', addressLocality: 'Kyiv', addressCountry: 'UA' },
   alumniOf: { '@type': 'CollegeOrUniversity', name: 'Taras Shevchenko National University of Kyiv' },
-  knowsAbout: ['Performance marketing', 'Google Ads', 'Meta Ads', 'TikTok Ads', 'Web analytics', 'Conversion rate optimization'],
+  knowsAbout: ['Performance marketing', 'Google Ads', 'Meta Ads', 'TikTok Ads', 'Amazon Ads', 'Google Analytics 4', 'Google Tag Manager', 'Landing page development', 'Conversion rate optimization'],
+  worksFor: { '@type': 'Organization', name: 'SvitSoft' },
+  knowsLanguage: ['uk', 'en'],
   sameAs: sameAsLinks,
 };
 
@@ -60,6 +66,26 @@ const jsonLd = {
       url: siteConfig.siteUrl,
       inLanguage: siteConfig.locale,
       publisher: { '@id': `${siteConfig.siteUrl}/#person` },
+    },
+    {
+      '@type': 'ProfessionalService',
+      '@id': `${siteConfig.siteUrl}/#service`,
+      name: `${siteConfig.personName} — performance-маркетинг`,
+      url: siteConfig.siteUrl,
+      image: absoluteUrl(siteConfig.seo.defaultOgImage),
+      founder: { '@id': `${siteConfig.siteUrl}/#person` },
+      email: siteConfig.contact.email,
+      telephone: siteConfig.contact.phone,
+      address: { '@type': 'PostalAddress', addressLocality: 'Kyiv', addressCountry: 'UA' },
+      areaServed: ['UA', 'Europe', 'US', 'CA'],
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Послуги',
+        itemListElement: servicePages.map((page) => ({
+          '@type': 'Offer',
+          itemOffered: { '@type': 'Service', name: page.seo.title, url: absoluteUrl(`/services/${page.slug}`) },
+        })),
+      },
     },
     ...schema,
   ],
@@ -81,6 +107,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="uk" href={canonical} />
+    <link rel="alternate" hreflang="x-default" href={canonical} />
+    <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
     <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
     <meta name="theme-color" content="#0a0b0d" />
     <meta name="author" content={siteConfig.personName} />
@@ -114,6 +144,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </main>
     <Footer />
     <ContactModal />
+    <Lightbox />
 
     <script>
       import '../scripts/site.ts';

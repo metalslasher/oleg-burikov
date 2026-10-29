@@ -12,10 +12,7 @@ const isActive = (href: string) => !href.includes('#') && path.startsWith(href);
   <div class="header__bar wrap">
     <a href="/" class="logo" aria-label={`${siteConfig.personName} — на головну`}>
       <span class="logo__mark" aria-hidden="true">OB</span>
-      <span class="logo__text">
-        <span class="logo__name">{siteConfig.personName}</span>
-        <span class="logo__role">Performance Marketing</span>
-      </span>
+      <span class="logo__name">{siteConfig.personName}</span>
     </a>
 
     <nav class="nav" aria-label="Основна навігація">
@@ -127,22 +124,10 @@ const isActive = (href: string) => !href.includes('#') && path.startsWith(href);
     transform: rotate(-8deg) scale(1.05);
   }
 
-  .logo__text {
-    display: grid;
-    line-height: 1.15;
-  }
-
   .logo__name {
+    font-size: 1.02rem;
     font-weight: 800;
-    font-size: 0.98rem;
-  }
-
-  .logo__role {
-    color: var(--color-faint);
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    letter-spacing: -0.01em;
   }
 
   .nav {
@@ -277,9 +262,4 @@ const isActive = (href: string) => !href.includes('#') && path.startsWith(href);
     }
   }
 
-  @media (max-width: 380px) {
-    .logo__role {
-      display: none;
-    }
-  }
 </style>

@@ -98,5 +98,69 @@ const initReveal = () => {
   countItems.forEach((item) => observer.observe(item));
 };
 
+/* Cursor spotlight on cards marked with [data-spotlight] (pointer devices only) */
+const initSpotlight = () => {
+  if (!window.matchMedia('(hover: hover)').matches) return;
+  document.querySelectorAll<HTMLElement>('[data-spotlight]').forEach((card) => {
+    card.addEventListener('pointermove', (event) => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--mx', `${event.clientX - rect.left}px`);
+      card.style.setProperty('--my', `${event.clientY - rect.top}px`);
+    });
+  });
+};
+
+/* Section headings: split into words that slide up from a mask when scrolled into view */
+const splitWords = (heading: HTMLElement) => {
+  const words: HTMLElement[] = [];
+  const wrap = (content: Node) => {
+    const outer = document.createElement('span');
+    outer.className = 'split-word';
+    const inner = document.createElement('span');
+    inner.append(content);
+    outer.append(inner);
+    words.push(outer);
+    return outer;
+  };
+
+  Array.from(heading.childNodes).forEach((node) => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const parts = (node.textContent || '').split(/(\s+)/);
+      const fragment = document.createDocumentFragment();
+      parts.forEach((part) => {
+        if (!part) return;
+        fragment.append(/^\s+$/.test(part) ? document.createTextNode(' ') : wrap(document.createTextNode(part)));
+      });
+      node.replaceWith(fragment);
+    } else if (node instanceof HTMLElement) {
+      node.replaceWith(wrap(node.cloneNode(true)));
+    }
+  });
+
+  words.forEach((word, index) => word.style.setProperty('--wi', String(index)));
+  heading.classList.add('is-split');
+};
+
+const initHeadings = () => {
+  if (reducedMotion || !('IntersectionObserver' in window)) return;
+  const headings = document.querySelectorAll<HTMLElement>('.h2:not([data-no-split])');
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        observer.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.3 },
+  );
+  headings.forEach((heading) => {
+    splitWords(heading);
+    observer.observe(heading);
+  });
+};
+
 initHeader();
 initReveal();
+initSpotlight();
+initHeadings();

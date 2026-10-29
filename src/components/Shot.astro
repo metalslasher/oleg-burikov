@@ -14,7 +14,7 @@ interface Props {
 const { image, browser = false, zoom = false, eager = false, caption } = Astro.props;
 const Wrapper = zoom ? 'a' : 'div';
 const wrapperProps = zoom
-  ? { href: image.src, target: '_blank', rel: 'noopener', 'aria-label': `${image.alt} — відкрити в повному розмірі` }
+  ? { href: image.src, 'data-lightbox': '', 'aria-label': `${image.alt} — збільшити` }
   : {};
 ---
 

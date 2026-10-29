@@ -30,15 +30,15 @@ export const siteConfig = {
     gtmId: 'GTM-KSZJGH2S',
   },
   seo: {
-    defaultTitle: 'Олег Буріков — Performance Marketing Manager',
+    defaultTitle: 'Олег Буріков — performance-маркетолог: реклама, сайти й аналітика під ключ',
     defaultDescription:
-      'Performance-маркетолог з 6+ роками досвіду: Google Ads, Meta Ads, TikTok Ads, аналітика і воронки. Будую систему залучення, яка приносить заявки та продажі, а не кліки.',
+      'Performance-маркетолог з 6+ роками досвіду. Маркетинг під ключ: стратегія, лендінги й сайти, креативи, реклама в Google Ads, Meta Ads і TikTok Ads, аналітика GA4. Кейси з реальними цифрами.',
     defaultOgImage: '/images/og-oleg-burikov.jpg',
   },
 } as const;
 
 export const navigation = [
-  { label: 'Послуги', href: '/#services' },
+  { label: 'Послуги', href: '/services' },
   { label: 'Кейси', href: '/cases' },
   { label: 'Про мене', href: '/about' },
   { label: 'Блог', href: '/blog' },

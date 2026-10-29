@@ -1,18 +1,25 @@
 ---
 import { roles, niches } from '../../data/profile';
 import Icon from '../Icon.astro';
+
+interface Props {
+  /** Section number shown in the kicker, e.g. "03". */
+  num: string;
+}
+
+const { num } = Astro.props;
 ---
 
 <section id="experience" class="section" aria-labelledby="experience-title">
   <div class="wrap">
     <div class="section-head section-head--split">
       <div>
-        <p class="kicker"><b>05</b> Досвід</p>
-        <h2 id="experience-title" class="h2" style="margin-top:1rem">Від media buying до <em>growth-систем</em></h2>
+        <p class="kicker"><b>{num}</b> Досвід</p>
+        <h2 id="experience-title" class="h2" style="margin-top:1rem">Від медіабаїнгу до <em>систем росту</em></h2>
       </div>
       <p class="lead">
-        Агенції, in-house команди й affiliate: США, Канада, Європа, Україна. Кожна роль додала окремий шар — від креативних
-        тестів і Amazon до B2B-аналітики та роботи з CRM.
+        Шість років і п’ять компаній: агенції, продуктові команди й партнерські програми на ринках України, Європи, США та
+        Канади. Кожна роль додала свій шар — від тестів креативів і Amazon до B2B-аналітики та роботи з CRM.
       </p>
     </div>
 
@@ -31,6 +38,12 @@ import Icon from '../Icon.astro';
           <ul class="timeline__tags">
             {role.tags.slice(0, 3).map((tag) => <li class="chip chip--mono">{tag}</li>)}
           </ul>
+          <details class="timeline__more">
+            <summary>Що робив <Icon name="plus" size={14} /></summary>
+            <ul>
+              {role.points.map((point) => <li>{point}</li>)}
+            </ul>
+          </details>
         </li>
       ))}
     </ol>
@@ -114,6 +127,81 @@ import Icon from '../Icon.astro';
   @media (min-width: 900px) {
     .timeline__tags {
       justify-content: flex-end;
+    }
+  }
+
+  .timeline__more {
+    grid-column: 1 / -1;
+  }
+
+  @media (min-width: 900px) {
+    .timeline__more {
+      grid-column: 2 / -1;
+    }
+  }
+
+  .timeline__more summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-muted);
+    font-size: 0.86rem;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .timeline__more summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .timeline__more summary:hover {
+    color: var(--color-paper);
+  }
+
+  .timeline__more summary :global(svg) {
+    transition: transform 250ms var(--ease-out);
+  }
+
+  .timeline__more[open] summary :global(svg) {
+    transform: rotate(45deg);
+  }
+
+  .timeline__more ul {
+    display: grid;
+    gap: 0.45rem;
+    margin-top: 0.85rem;
+    animation: more-in 400ms var(--ease-out);
+  }
+
+  @media (min-width: 900px) {
+    .timeline__more ul {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 2rem;
+    }
+  }
+
+  .timeline__more li {
+    position: relative;
+    padding-left: 1.2rem;
+    color: var(--color-muted);
+    font-size: 0.92rem;
+  }
+
+  .timeline__more li::before {
+    content: "";
+    position: absolute;
+    top: 0.7em;
+    left: 0;
+    width: 0.5rem;
+    height: 2px;
+    background: var(--color-signal);
+  }
+
+  @keyframes more-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
     }
   }
 

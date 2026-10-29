@@ -5,6 +5,7 @@ import vercel from '@astrojs/vercel';
 import tailwindcss from '@tailwindcss/vite';
 import { siteConfig } from './src/config/site.ts';
 import { cases } from './src/data/cases.ts';
+import { servicePages } from './src/data/services.ts';
 
 // Old numeric case URLs keep working after the move to descriptive slugs.
 const legacyCaseRedirects = Object.fromEntries(
@@ -22,7 +23,6 @@ export default defineConfig({
   trailingSlash: 'never',
   redirects: {
     ...legacyCaseRedirects,
-    '/services': { status: 301, destination: '/#services' },
   },
   integrations: [
     sitemap({
@@ -30,6 +30,7 @@ export default defineConfig({
       customPages: [
         ...cases.map((item) => `${siteConfig.siteUrl}/cases/${item.slug}`),
         ...blogSlugs.map((slug) => `${siteConfig.siteUrl}/blog/${slug}`),
+        ...servicePages.map((page) => `${siteConfig.siteUrl}/services/${page.slug}`),
       ],
     }),
   ],

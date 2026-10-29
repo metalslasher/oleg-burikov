@@ -1,12 +1,19 @@
 ---
 import { faq } from '../../data/profile';
 import Icon from '../Icon.astro';
+
+interface Props {
+  /** Section number shown in the kicker, e.g. "03". */
+  num: string;
+}
+
+const { num } = Astro.props;
 ---
 
 <section id="faq" class="section" aria-labelledby="faq-title">
   <div class="wrap faq">
     <div>
-      <p class="kicker"><b>06</b> FAQ</p>
+      <p class="kicker"><b>{num}</b> Питання</p>
       <h2 id="faq-title" class="h2" style="margin-top:1rem">Часті <em>питання</em></h2>
       <p class="lead" style="margin-top:1.25rem">Не знайшли відповідь? Напишіть — відповім особисто.</p>
     </div>

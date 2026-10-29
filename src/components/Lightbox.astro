@@ -1,0 +1,153 @@
+---
+import Icon from './Icon.astro';
+---
+
+<dialog class="lightbox" aria-label="Перегляд зображення" data-lightbox-dialog>
+  <div class="lightbox__top">
+    <p class="lightbox__counter" data-lb-counter aria-live="polite"></p>
+    <button type="button" class="lightbox__btn" data-lb-close aria-label="Закрити">
+      <Icon name="close" size={20} />
+    </button>
+  </div>
+
+  <figure class="lightbox__stage" data-lb-stage>
+    <img data-lb-image alt="" decoding="async" />
+    <figcaption data-lb-caption></figcaption>
+  </figure>
+
+  <button type="button" class="lightbox__btn lightbox__nav lightbox__nav--prev" data-lb-prev aria-label="Попереднє зображення">
+    <Icon name="arrow-left" size={20} />
+  </button>
+  <button type="button" class="lightbox__btn lightbox__nav lightbox__nav--next" data-lb-next aria-label="Наступне зображення">
+    <Icon name="arrow-right" size={20} />
+  </button>
+</dialog>
+
+<script>
+  import { initLightbox } from '../scripts/lightbox';
+  initLightbox();
+</script>
+
+<style>
+  .lightbox {
+    width: 100vw;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: rgb(5 6 8 / 0.97);
+    color: var(--color-paper);
+    overflow: hidden;
+  }
+
+  .lightbox::backdrop {
+    background: transparent;
+  }
+
+  .lightbox[open] {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    animation: lb-in 250ms ease;
+  }
+
+  .lightbox__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem clamp(0.9rem, 3vw, 1.5rem);
+  }
+
+  .lightbox__counter {
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+  }
+
+  .lightbox__stage {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    place-items: center;
+    gap: 0.9rem;
+    min-height: 0;
+    margin: 0;
+    padding: 0 clamp(0.75rem, 6vw, 5.5rem) 1.5rem;
+    touch-action: pan-y;
+  }
+
+  .lightbox__stage img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: var(--radius-sm);
+    background: #fff;
+    object-fit: contain;
+    box-shadow: 0 30px 80px rgb(0 0 0 / 0.6);
+    transition: opacity 200ms ease, transform 250ms var(--ease-out);
+  }
+
+  .lightbox__stage img.is-loading {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  .lightbox__stage figcaption {
+    max-width: 50rem;
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  .lightbox__btn {
+    display: grid;
+    width: 2.9rem;
+    height: 2.9rem;
+    place-items: center;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: rgb(16 18 22 / 0.85);
+    color: var(--color-paper);
+    transition: border-color 200ms ease, background-color 200ms ease;
+  }
+
+  .lightbox__btn:hover {
+    border-color: var(--color-signal);
+    background: var(--color-signal);
+  }
+
+  .lightbox__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .lightbox__nav--prev {
+    left: clamp(0.5rem, 2vw, 1.5rem);
+  }
+
+  .lightbox__nav--next {
+    right: clamp(0.5rem, 2vw, 1.5rem);
+  }
+
+  .lightbox__nav[hidden] {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .lightbox__nav {
+      top: auto;
+      bottom: 1rem;
+      transform: none;
+    }
+
+    .lightbox__stage {
+      padding-bottom: 5rem;
+    }
+  }
+
+  @keyframes lb-in {
+    from {
+      opacity: 0;
+    }
+  }
+</style>

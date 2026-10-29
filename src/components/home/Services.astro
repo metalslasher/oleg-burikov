@@ -1,24 +1,32 @@
 ---
 import { services } from '../../data/profile';
 import { pad2 } from '../../lib/text';
+import Icon from '../Icon.astro';
+
+interface Props {
+  /** Section number shown in the kicker, e.g. "03". */
+  num: string;
+}
+
+const { num } = Astro.props;
 ---
 
 <section id="services" class="section" aria-labelledby="services-title" data-gtm-section="home_services">
   <div class="wrap">
     <div class="section-head section-head--split">
       <div>
-        <p class="kicker"><b>01</b> Послуги</p>
+        <p class="kicker"><b>{num}</b> Послуги</p>
         <h2 id="services-title" class="h2" style="margin-top:1rem">Беру на себе все, що між <em>бюджетом</em> і продажем</h2>
       </div>
       <p class="lead">
-        Можна почати з однієї задачі — аудиту чи запуску Google Ads. Але найкращий результат дає, коли реклама, аналітика і
-        сайт працюють як одна система.
+        Можна почати з однієї задачі — аудиту чи запуску реклами. Але найкращий результат дає, коли стратегія, сайт,
+        креативи, реклама й аналітика працюють як одна система — і за неї відповідає одна людина.
       </p>
     </div>
 
     <div class="bento">
       {services.map((service, index) => (
-        <article class:list={['svc', (index === 0 || index === 3) && 'svc--wide']} data-reveal style={`--reveal-i:${index % 3}`}>
+        <article class:list={['svc', (index === 0 || index === 3) && 'svc--wide']} data-reveal data-spotlight style={`--reveal-i:${index % 3}`}>
           <div class="svc__top">
             <span class="svc__index">{pad2(index + 1)}</span>
             <h3 class="svc__title">{service.title}</h3>
@@ -28,6 +36,11 @@ import { pad2 } from '../../lib/text';
           <ul class="svc__tags">
             {service.tags.map((tag) => <li class="chip chip--mono">{tag}</li>)}
           </ul>
+          {service.href && (
+            <a href={service.href} class="svc__link">
+              Детальніше про {service.title} <Icon name="arrow-right" size={16} />
+            </a>
+          )}
         </article>
       ))}
     </div>
@@ -86,7 +99,7 @@ import { pad2 } from '../../lib/text';
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(500px circle at 100% 0%, rgb(255 90 31 / 0.12), transparent 50%);
+    background: radial-gradient(420px circle at var(--mx, 100%) var(--my, 0%), rgb(255 90 31 / 0.14), transparent 55%);
     opacity: 0;
     transition: opacity 400ms ease;
     pointer-events: none;
@@ -145,6 +158,22 @@ import { pad2 } from '../../lib/text';
   .svc__text {
     color: var(--color-muted);
     font-size: 0.97rem;
+  }
+
+  .svc__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    width: fit-content;
+    margin-top: 0.25rem;
+    font-size: 0.92rem;
+    font-weight: 700;
+    transition: color 200ms ease, gap 200ms ease;
+  }
+
+  .svc__link:hover {
+    gap: 0.65rem;
+    color: var(--color-signal-soft);
   }
 
   .svc__tags {

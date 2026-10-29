@@ -3,20 +3,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactCta from '../components/ContactCta.astro';
 import Icon from '../components/Icon.astro';
 import { siteConfig } from '../config/site';
-import { roles, skillGroups, certifications, education, teamOffer, proofStats, niches } from '../data/profile';
+import { roles, skillGroups, certifications, education, teamOffer, proofStats, niches, languages, verifiedSkills } from '../data/profile';
 
 const principles = [
   {
     title: 'Спочатку дані, потім реклама',
-    text: 'Якщо трекінг зламаний, алгоритми оптимізуються на шум. Тому перший тиждень на проєкті я майже завжди витрачаю на події, конверсії та зв’язок з CRM.',
+    text: 'Якщо аналітика зламана, рекламні системи вчаться на шумі. Тому перший тиждень на проєкті я майже завжди витрачаю на налаштування подій, конверсій і зв’язку з CRM.',
   },
   {
-    title: 'Метрика — гроші, а не кліки',
-    text: 'CTR і CPC — допоміжні цифри. Я рахую CPL, CPA, ROAS і, коли є дані, ціну реального клієнта та окупність.',
+    title: 'Головна метрика — прибуток',
+    text: 'Охоплення й переходи — допоміжні цифри. Я дивлюся на ціну заявки, ціну клієнта й окупність реклами — те, що бачить власник бізнесу.',
   },
   {
     title: 'Тести замість думок',
-    text: 'Креативи, аудиторії, лендінги й офери — гіпотези. Швидко перевіряю, залишаю те, що працює, і чесно кажу, що не спрацювало.',
+    text: 'Креативи, аудиторії, лендінги й пропозиції — це гіпотези. Швидко перевіряю, залишаю те, що працює, і чесно кажу, що не спрацювало.',
   },
   {
     title: 'Прозорість для бізнесу',
@@ -32,8 +32,8 @@ const profileSchema = {
 ---
 
 <BaseLayout
-  title="Про мене і досвід"
-  description="Олег Буріков — Performance Marketing Manager з 6+ роками досвіду: SvitSoft, Fortunatos, Admitad, Best Seller Hunter. Google, Meta, TikTok, Amazon Ads, GA4, GTM, CRO."
+  title="Резюме Performance Marketing Manager"
+  description="Олег Буріков — Performance Marketing Manager з 6+ роками досвіду. Резюме: SvitSoft, Fortunatos, Admitad, Best Seller Hunter, DEVILS. Google Ads, Meta Ads, TikTok Ads, Amazon Ads, GA4, аналітика і сайти."
   ogType="profile"
   schema={[profileSchema]}
 >
@@ -45,17 +45,19 @@ const profileSchema = {
         <p class="intro__role">{siteConfig.jobTitle}</p>
         <div class="intro__text">
           <p>
-            Я прийшов у маркетинг у 2019 році як media buyer: запускав Meta Ads для мобільних застосунків за CPA-моделлю, де
-            кожна помилка одразу видна в прибутку. Ця школа досі визначає мій підхід — рахувати гроші, а не кліки.
+            Performance-маркетолог з 6+ роками досвіду. Будую, веду й аналізую платне залучення клієнтів для B2B і B2C — від
+            першої гіпотези до стабільного потоку заявок і продажів. У сукупності керую рекламними бюджетами понад 00 000
+            на місяць.
           </p>
           <p>
-            Далі були Amazon Ads для товарів у США, Google Search для банківських продуктів, B2B SaaS, нерухомість,
-            eCommerce і локальні бізнеси на ринках США, Канади та Європи. Сьогодні я працюю з усією системою залучення:
-            стратегія, рекламні кабінети, трекінг, CRM, лендінги та звітність.
+            Працював з нерухомістю, автобізнесом, інтернет-магазинами, SaaS, фінтехом, медициною, освітою, локальними
+            послугами й мобільними застосунками. Основні платформи — Google Ads і Meta Ads, плюс практичний досвід у TikTok
+            Ads і Amazon Ads.
           </p>
           <p>
-            Технічна освіта з комп’ютерної інженерії допомагає говорити однією мовою з розробниками, налаштовувати аналітику
-            самостійно й автоматизувати рутину за допомогою AI.
+            Окрім реклами, сам роблю креативи, лендінги й сайти, налаштовую аналітику в GA4, Looker Studio і Microsoft Clarity
+            та автоматизую рутину за допомогою AI. Тому можу закрити задачу залучення повністю: трафік, аналітику, зручність
+            сайту й конверсію. Технічна освіта з комп’ютерної інженерії допомагає говорити однією мовою з розробниками.
           </p>
         </div>
         <div class="intro__actions no-print">
@@ -138,6 +140,12 @@ const profileSchema = {
           </div>
         ))}
         <div class="skills__group">
+          <h3>Підтверджено тестами LinkedIn</h3>
+          <ul>
+            {verifiedSkills.map((item) => <li class="chip chip--verified"><Icon name="check" size={14} />{item}</li>)}
+          </ul>
+        </div>
+        <div class="skills__group">
           <h3>Ніші</h3>
           <ul>
             {niches.map((item) => <li class="chip">{item}</li>)}
@@ -155,6 +163,10 @@ const profileSchema = {
           <p class="edu__years">{education.years}</p>
           <h3>{education.school}</h3>
           <p>{education.degree}</p>
+          <p class="edu__label">Мови</p>
+          <ul class="langs">
+            {languages.map((lang) => <li><b>{lang.name}</b> — {lang.level}</li>)}
+          </ul>
         </div>
         <ul class="certs">
           {certifications.map((cert) => (
@@ -199,6 +211,7 @@ const profileSchema = {
 <style>
   .intro {
     padding-top: calc(var(--header-h) + clamp(2.5rem, 6vw, 4.5rem));
+    padding-bottom: clamp(3.5rem, 7vw, 5.5rem);
   }
 
   .intro__grid {
@@ -476,9 +489,37 @@ const profileSchema = {
     line-height: 1.35;
   }
 
-  .edu__main p:last-child {
+  .edu__main h3 + p {
     margin-top: 0.3rem;
     color: var(--color-muted);
+  }
+
+  .edu__label {
+    margin-top: 1.75rem;
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .langs {
+    display: grid;
+    gap: 0.35rem;
+    margin-top: 0.6rem;
+    color: var(--color-muted);
+  }
+
+  .langs b {
+    color: var(--color-paper);
+  }
+
+  .chip--verified {
+    border-color: rgb(61 220 151 / 0.4);
+  }
+
+  .chip--verified :global(svg) {
+    color: var(--color-up);
   }
 
   .certs {

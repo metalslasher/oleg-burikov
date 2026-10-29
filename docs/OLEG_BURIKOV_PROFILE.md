@@ -1,6 +1,6 @@
 # Профіль і позиціонування Олега Бурікова
 
-Дата фіксації: 2026-06-13
+Дата фіксації: 2026-06-13, оновлено 2026-10-29 за LinkedIn (LinkedIn — головне джерело правди).
 
 Цей документ є внутрішнім джерелом правди для подальшої роботи над сайтом `oleg-burikov.com`. Його не потрібно публікувати як сторінку. Він потрібен, щоб під час редагування головної, сторінок послуг, кейсів, SEO і блогу не втрачати контекст про досвід, позиціонування і сильні сторони Олега.
 
@@ -66,7 +66,7 @@
 
 ### SvitSoft
 
-Performance Marketing Specialist, Full-time  
+Performance Marketing Manager, Full-time  
 Aug 2025 - Present  
 Kyiv, Ukraine, Remote
 
@@ -87,7 +87,7 @@ Kyiv, Ukraine, Remote
 
 ### Fortunatos - In-House Marketing Agency
 
-Performance Marketing Specialist, Full-time  
+Performance Marketing Manager, Full-time  
 Apr 2024 - Jul 2025  
 Kyiv, Ukraine, Remote
 
@@ -108,7 +108,7 @@ PPC Specialist, Self-employed
 Jan 2022 - Mar 2024  
 Kyiv, Ukraine, Remote
 
-Performance-driven Google Ads campaigns у фінансовому секторі: просування банківських продуктів на ринках України та Казахстану.
+Google Search для українських банківських продуктів через партнерські програми Admitad (оплата за результат). Казахстан на сайті не згадувати.
 
 Основні задачі:
 
@@ -143,6 +143,8 @@ Sep 2019 - Mar 2021
 Kyiv, Ukraine, Remote
 
 Paid acquisition для iGaming affiliate products з CPA-моделлю, переважно через Meta Ads, на ринках Canada і Europe.
+
+На сайті описувати нейтрально: «мобільні оффери за CPA-моделлю», без слова iGaming (рішення Олега, 2026-10-29).
 
 Основні задачі:
 
@@ -272,3 +274,12 @@ Sep 2017 - Sep 2021
 - Чи потрібно згадувати сертифікації, якщо частина з них уже могла втратити актуальність.
 - Чи можна використовувати конкретні цифри performance у публічних кейсах.
 - Чи немає конфіденційної інформації про клієнтів, бюджети, CRM або рекламні кабінети.
+
+## Актуальний статус (2026-10-29)
+
+- Djinni: пасивний пошук, full-time remote, від $4000. Не розглядає gambling, adult, dating, gamedev, crypto.
+- На сайті: «Відкритий до пропозицій».
+- 60+ проєктів (підтверджено Олегом).
+- Англійська: B2 (LinkedIn — professional working proficiency).
+- LinkedIn Skill Assessments пройдені: Google Ads, Google Analytics, HTML, CSS, JavaScript.
+- Власні digital-проєкти: деталі Олег надішле окремо (GitHub); на сайті поки заготовка в src/data/projects.ts.
