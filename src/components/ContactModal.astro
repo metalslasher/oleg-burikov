@@ -2,6 +2,8 @@
 import { siteConfig } from '../config/site';
 import Icon from './Icon.astro';
 
+import { CONTACT_METHODS as contactMethods } from '../lib/contact';
+
 const requestTypes = ['Реклама під ключ', 'Аудит', 'Вакансія / робота в команді', 'Інше'];
 ---
 
@@ -35,10 +37,22 @@ const requestTypes = ['Реклама під ключ', 'Аудит', 'Вака�
             <p class="form__error" data-error-for="name" aria-live="polite"></p>
           </div>
           <div class="form__field">
-            <label for="lead-contact">Телефон, Telegram або email <span aria-hidden="true">*</span></label>
-            <input id="lead-contact" name="contact" type="text" autocomplete="tel" required maxlength="120" placeholder="+380… / @username / mail@" />
-            <p class="form__error" data-error-for="contact" aria-live="polite"></p>
+            <label for="lead-phone">Телефон <span aria-hidden="true">*</span></label>
+            <input id="lead-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="24" placeholder="+380 __ ___ __ __" />
+            <p class="form__error" data-error-for="phone" aria-live="polite"></p>
           </div>
+        </div>
+
+        <div class="form__field">
+          <label for="lead-method">Як зручніше зв’язатися? <span aria-hidden="true">*</span></label>
+          <div class="form__select">
+            <select id="lead-method" name="contact_method" required>
+              <option value="" disabled selected>Оберіть спосіб зв’язку</option>
+              {contactMethods.map((method) => <option value={method}>{method}</option>)}
+            </select>
+            <Icon name="arrow-down" size={16} />
+          </div>
+          <p class="form__error" data-error-for="contact_method" aria-live="polite"></p>
         </div>
 
         <div class="form__field">
@@ -66,22 +80,19 @@ const requestTypes = ['Реклама під ключ', 'Аудит', 'Вака�
     <div class="modal__success" data-success-view hidden>
       <div class="modal__success-icon"><Icon name="check" size={28} /></div>
       <h2 class="modal__title">Дякую, заявку отримав</h2>
-      <p class="lead">Зв’яжуся з вами протягом робочого дня. Якщо питання термінове — напишіть у Telegram.</p>
-      <a
-        href={siteConfig.contact.telegram}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn btn--ghost"
-        data-gtm-event="messenger_click"
-        data-gtm-label="telegram"
-        data-gtm-location="contact_modal_success"
-      >
-        <Icon name="telegram" />
-        {siteConfig.contact.telegramHandle}
-      </a>
+      <p class="lead">Зв’яжуся з вами протягом робочого дня обраним способом.</p>
+      <p class="modal__success-note">Якщо питання термінове — напишіть мені напряму:</p>
+      <div class="modal__success-links">
+        <a href={siteConfig.contact.telegram} target="_blank" rel="noopener noreferrer" class="btn btn--primary" data-gtm-event="messenger_click" data-gtm-label="telegram" data-gtm-location="contact_modal_success">
+          <Icon name="telegram" /> Telegram
+        </a>
+        <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer" class="btn btn--ghost" data-gtm-event="social_click" data-gtm-label="linkedin" data-gtm-location="contact_modal_success">
+          <Icon name="linkedin" /> LinkedIn
+        </a>
+      </div>
     </div>
 
-    <div class="modal__direct">
+    <div class="modal__direct" data-direct-links>
       <a href={siteConfig.contact.telegram} target="_blank" rel="noopener noreferrer" data-gtm-event="messenger_click" data-gtm-label="telegram" data-gtm-location="contact_modal">
         <Icon name="telegram" size={16} /> Telegram
       </a>
@@ -91,8 +102,8 @@ const requestTypes = ['Реклама під ключ', 'Аудит', 'Вака�
       <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer" data-gtm-event="social_click" data-gtm-label="linkedin" data-gtm-location="contact_modal">
         <Icon name="linkedin" size={16} /> LinkedIn
       </a>
-      <a href={`mailto:${siteConfig.contact.email}`} data-gtm-event="contact_click" data-gtm-label="email" data-gtm-location="contact_modal">
-        <Icon name="email" size={16} /> Email
+      <a href={siteConfig.contact.viber} data-gtm-event="messenger_click" data-gtm-label="viber" data-gtm-location="contact_modal">
+        <Icon name="viber" size={16} /> Viber
       </a>
     </div>
   </div>
@@ -337,13 +348,76 @@ const requestTypes = ['Реклама під ключ', 'Аудит', 'Вака�
 
   .modal__success {
     display: grid;
-    justify-items: start;
+    justify-items: center;
+    text-align: center;
     gap: 1rem;
     padding-block: 1rem;
   }
 
   .modal__success[hidden] {
     display: none;
+  }
+
+  .modal__success .modal__title {
+    padding-right: 0;
+  }
+
+  .modal__success-note {
+    margin-top: 0.5rem;
+    color: var(--color-faint);
+    font-size: 0.9rem;
+  }
+
+  .modal__success-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+
+  .form__select {
+    position: relative;
+  }
+
+  .form__select select {
+    width: 100%;
+    min-height: 3.1rem;
+    padding: 0.85rem 2.75rem 0.85rem 1rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-ink);
+    color: var(--color-paper);
+    font-size: 1rem;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .form__select select:invalid {
+    color: var(--color-faint);
+  }
+
+  .form__select select option {
+    background: var(--color-ink-2);
+    color: var(--color-paper);
+  }
+
+  .form__select select:focus {
+    border-color: var(--color-signal);
+    box-shadow: 0 0 0 3px rgb(255 90 31 / 0.18);
+    outline: none;
+  }
+
+  .form__select select[aria-invalid='true'] {
+    border-color: #ff6b6b;
+  }
+
+  .form__select :global(svg) {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    color: var(--color-muted);
+    transform: translateY(-50%);
+    pointer-events: none;
   }
 
   .modal__success-icon {
@@ -365,6 +439,10 @@ const requestTypes = ['Реклама під ключ', 'Аудит', 'Вака�
     padding-top: 1.25rem;
     border-top: 1px solid var(--line);
     font-size: 0.88rem;
+  }
+
+  .modal__direct[hidden] {
+    display: none;
   }
 
   .modal__direct a {

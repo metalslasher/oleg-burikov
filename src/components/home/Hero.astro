@@ -1,7 +1,6 @@
 ---
 import { proofStats } from '../../data/profile';
 import { heroKpis } from '../../data/cases';
-import { siteConfig } from '../../config/site';
 import Icon from '../Icon.astro';
 
 const headline = ['Маркетинг,', 'який', 'приводить', 'клієнтів', 'і'];
@@ -15,8 +14,6 @@ const initial = heroKpis.slice(0, 3);
 
   <div class="wrap hero__inner">
     <div class="hero__copy">
-      <p class="kicker hero__kicker">{siteConfig.jobTitle}</p>
-
       <h1 id="hero-title" class="hero__title display" aria-label={`${headline.join(' ')} ${accent.join(' ')}`}>
         {[...headline, ...accent].map((word, index) => (
           <span class="hero__word" aria-hidden="true" style={`--w:${index}`}>
@@ -122,18 +119,13 @@ const initial = heroKpis.slice(0, 3);
 
   @media (min-width: 960px) {
     .hero__inner {
-      grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
       gap: 2rem;
     }
   }
 
-  .hero__kicker b {
-    display: none;
-  }
-
   .hero__title {
-    margin-top: 1.5rem;
-    font-size: clamp(2.2rem, 1.2rem + 3.6vw, 3.9rem);
+    font-size: clamp(2.1rem, 1.1rem + 2.8vw, 3.2rem);
     line-height: 1.06;
   }
 
@@ -215,7 +207,7 @@ const initial = heroKpis.slice(0, 3);
   /* Portrait composition */
   .hero__visual {
     position: relative;
-    width: min(100%, 30rem);
+    width: min(100%, 33rem);
     margin-inline: auto;
     aspect-ratio: 1189 / 1058;
   }

@@ -11,7 +11,7 @@ Status: [ ] todo · [~] in progress · [x] done · [?] waiting for Oleg
 - [x] Languages: English B2 / professional working proficiency
 - [x] Team block: "Відкритий до пропозицій" (decided)
 - [x] DEVILS wording: neutral (decided: no "iGaming")
-- [x] Own projects section with PLACEHOLDER data (Oleg will send real projects from GitHub next iteration; mostly development, maybe analytics). Shown live with placeholder data (Oleg decided); replace later.
+- [x] Own projects section — removed on 2026-10-29 (Oleg: no strong projects yet; maybe much later)
 - [x] Update docs/OLEG_BURIKOV_PROFILE.md to match LinkedIn
 
 ## P1 — Hero & header
@@ -56,5 +56,12 @@ Status: [ ] todo · [~] in progress · [x] done · [?] waiting for Oleg
 - Real testimonials (LinkedIn recommendations?) — only approved
 
 ## Next iteration
-- Replace placeholder projects in src/data/projects.ts with Oleg's real GitHub projects
 - [x] 3 new articles linked to service pages (Merchant Center feed, Google Ads budget, real estate in Meta)
+
+## Iteration 3 (2026-10-29)
+- [x] Remove own projects block
+- [x] Hero: no kicker, more compact/balanced headline
+- [x] Lead form: name + phone (required) + contact method dropdown (Telegram/Viber/Дзвінок), no email
+- [x] Thank-you view: no divider row; "Напишіть напряму" Telegram + LinkedIn centered
+- [x] Djinni link (footer, about, team block, schema)
+- [x] Global double-check of design and copy

@@ -43,8 +43,8 @@ src/
 
 The contact modal opens from any link to `#contact` (or `[data-contact-open]`). `data-contact-service` on the
 trigger preselects the request type. The browser posts JSON to `/api/lead`; the API validates, rate-limits,
-checks the honeypot and forwards to `LEADS_WEBHOOK_URL` as query params. The `phone` param holds whatever contact
-the visitor left (phone, Telegram or email) to keep the existing sheet columns; `contact_method` says which.
+checks the honeypot and forwards to `LEADS_WEBHOOK_URL` as query params. Fields: name, phone (required, 9–15 digits),
+contact_method (Telegram / Viber / Дзвінок, see `src/lib/contact.ts`), request type and message.
 
 ## Tracking
 

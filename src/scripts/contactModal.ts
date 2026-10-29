@@ -1,4 +1,4 @@
-import { detectContact } from '../lib/contact';
+import { isContactMethod, isValidPhone } from '../lib/contact';
 import { pushEvent } from './gtmEvents';
 
 const OPEN_SELECTOR = 'a[href="#contact"], a[href="/#contact"], [data-contact-open]';
@@ -39,6 +39,7 @@ const initLeadForm = (dialog: HTMLDialogElement) => {
   const status = dialog.querySelector<HTMLElement>('[data-form-status]');
   const submit = dialog.querySelector<HTMLButtonElement>('[data-submit]');
   const submitLabel = dialog.querySelector<HTMLElement>('[data-submit-label]');
+  const directLinks = dialog.querySelector<HTMLElement>('[data-direct-links]');
   if (!form || !formView || !successView || !status || !submit || !submitLabel) return;
 
   const setError = (name: string, message: string) => {
@@ -51,38 +52,37 @@ const initLeadForm = (dialog: HTMLDialogElement) => {
   const validate = () => {
     const data = new FormData(form);
     const name = String(data.get('name') || '').trim();
-    const contact = String(data.get('contact') || '').trim();
-    const nameError = name.length < 2 ? 'Вкажіть ім’я (мінімум 2 символи)' : '';
-    const contactError = !contact
-      ? 'Залиште контакт для відповіді'
-      : detectContact(contact)
-        ? ''
-        : 'Вкажіть телефон, @username у Telegram або email';
-    setError('name', nameError);
-    setError('contact', contactError);
-    return !nameError && !contactError;
+    const phone = String(data.get('phone') || '').trim();
+    const method = String(data.get('contact_method') || '');
+    const errors = {
+      name: name.length < 2 ? 'Вкажіть ім’я (мінімум 2 символи)' : '',
+      phone: !phone ? 'Вкажіть номер телефону' : isValidPhone(phone) ? '' : 'Перевірте номер: наприклад, +380 96 123 45 67',
+      contact_method: isContactMethod(method) ? '' : 'Оберіть, як з вами зв’язатися',
+    };
+    Object.entries(errors).forEach(([field, message]) => setError(field, message));
+    return Object.values(errors).every((message) => !message);
   };
 
-  ['name', 'contact'].forEach((name) => {
+  ['name', 'phone'].forEach((name) => {
     const input = form.elements.namedItem(name) as HTMLInputElement | null;
     input?.addEventListener('blur', () => input.value && validate());
   });
+  form.querySelector('[name="contact_method"]')?.addEventListener('change', () => setError('contact_method', ''));
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     status.textContent = '';
     if (!validate()) {
-      form.querySelector<HTMLInputElement>('[aria-invalid="true"]')?.focus();
+      form.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
       return;
     }
 
     const data = new FormData(form);
-    const contact = String(data.get('contact') || '').trim();
     const service = String(data.get('service') || '');
     const payload = {
       name: String(data.get('name') || '').trim(),
-      contact,
-      contact_method: detectContact(contact) || '',
+      phone: String(data.get('phone') || '').trim(),
+      contact_method: String(data.get('contact_method') || ''),
       service,
       message: String(data.get('message') || '').trim(),
       website_hp: String(data.get('website_hp') || ''),
@@ -111,6 +111,7 @@ const initLeadForm = (dialog: HTMLDialogElement) => {
       form.reset();
       formView.hidden = true;
       successView.hidden = false;
+      if (directLinks) directLinks.hidden = true;
     } catch (error) {
       status.textContent =
         (error instanceof Error && error.message) || 'Не вдалося надіслати. Спробуйте ще раз або напишіть у Telegram.';
@@ -124,6 +125,7 @@ const initLeadForm = (dialog: HTMLDialogElement) => {
     if (!successView.hidden) {
       successView.hidden = true;
       formView.hidden = false;
+      if (directLinks) directLinks.hidden = false;
     }
   });
 };

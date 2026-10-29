@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { detectContact } from '../../lib/contact';
+import { isContactMethod, isValidPhone } from '../../lib/contact';
 
 export const runtime = 'nodejs';
 
@@ -202,8 +202,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   const lead: Record<LeadField, string> = {
     name: getString(payload, 'name', 80),
-    // Kept as `phone` for the webhook columns; holds a phone, Telegram handle or email.
-    phone: getString(payload, 'contact', 120) || getString(payload, 'phone', 120),
+    phone: getString(payload, 'phone', 32),
     contact_method: getString(payload, 'contact_method', 40),
     service: getString(payload, 'service', 120) || 'Не вказано',
     message: getString(payload, 'message', 1200) || 'Не вказано',
@@ -220,11 +219,12 @@ export const POST: APIRoute = async ({ request }) => {
   if (lead.name.length < 2) {
     return jsonResponse({ error: 'Вкажіть коректне ім’я.' }, 400);
   }
-  const contactKind = detectContact(lead.phone);
-  if (!contactKind) {
-    return jsonResponse({ error: 'Вкажіть телефон, Telegram або email для зв’язку.' }, 400);
+  if (!isValidPhone(lead.phone)) {
+    return jsonResponse({ error: 'Вкажіть коректний номер телефону.' }, 400);
   }
-  lead.contact_method = lead.contact_method || contactKind;
+  if (!isContactMethod(lead.contact_method)) {
+    return jsonResponse({ error: 'Оберіть спосіб зв’язку.' }, 400);
+  }
 
   try {
     await forwardLead(lead);

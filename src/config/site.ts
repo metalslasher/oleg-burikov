@@ -24,6 +24,7 @@ export const siteConfig = {
   },
   social: {
     linkedin: 'https://www.linkedin.com/in/oleg-burikov/',
+    djinni: 'https://djinni.co/q/f02bd53419/',
   },
   tracking: {
     // GA4, Microsoft Clarity and Meta Pixel are managed inside this GTM container.
@@ -55,7 +56,7 @@ export const withBrandTitle = (title: string) => {
   return branded.length <= TITLE_LIMIT ? branded : title;
 };
 
-export type ContactIcon = 'telegram' | 'viber' | 'linkedin' | 'email' | 'calendar';
+export type ContactIcon = 'telegram' | 'viber' | 'linkedin' | 'email' | 'calendar' | 'briefcase';
 
 export type ContactLink = {
   label: string;
@@ -68,8 +69,9 @@ export type ContactLink = {
 export const contactLinks: ContactLink[] = [
   { label: 'Telegram', url: siteConfig.contact.telegram, icon: 'telegram', event: 'messenger_click', external: true },
   { label: 'LinkedIn', url: siteConfig.social.linkedin, icon: 'linkedin', event: 'social_click', external: true },
-  { label: 'Email', url: `mailto:${siteConfig.contact.email}`, icon: 'email', event: 'contact_click', external: false },
   { label: 'Viber', url: siteConfig.contact.viber, icon: 'viber', event: 'messenger_click', external: true },
+  { label: 'Djinni', url: siteConfig.social.djinni, icon: 'briefcase', event: 'social_click', external: true },
+  { label: 'Email', url: `mailto:${siteConfig.contact.email}`, icon: 'email', event: 'contact_click', external: false },
 ];
 
-export const sameAsLinks = [siteConfig.social.linkedin, siteConfig.contact.telegram];
+export const sameAsLinks = [siteConfig.social.linkedin, siteConfig.social.djinni, siteConfig.contact.telegram];

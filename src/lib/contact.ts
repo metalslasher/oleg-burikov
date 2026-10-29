@@ -1,19 +1,15 @@
 // Shared by the lead form (browser) and /api/lead (server).
 
-export type ContactKind = 'Email' | 'Telegram' | 'Телефон';
+export const CONTACT_METHODS = ['Telegram', 'Viber', 'Дзвінок'] as const;
+export type ContactMethod = (typeof CONTACT_METHODS)[number];
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const TELEGRAM_RE = /^(?:@|(?:https?:\/\/)?t\.me\/)[a-z0-9_]{4,32}$/i;
+export const isContactMethod = (value: string): value is ContactMethod =>
+  (CONTACT_METHODS as readonly string[]).includes(value);
 
-/** Detects how the visitor wants to be contacted. Returns null for invalid input. */
-export const detectContact = (raw: string): ContactKind | null => {
+/** Accepts Ukrainian and international numbers: 9–15 digits, optional leading +, common separators. */
+export const isValidPhone = (raw: string) => {
   const value = raw.trim();
-  if (!value) return null;
-  if (EMAIL_RE.test(value)) return 'Email';
-  if (TELEGRAM_RE.test(value)) return 'Telegram';
-
-  const digits = value.replace(/[\s()+.-]/g, '');
-  if (/^\d{9,15}$/.test(digits)) return 'Телефон';
-
-  return null;
+  if (!/^\+?[\d\s()./-]+$/.test(value)) return false;
+  const digits = value.replace(/\D/g, '');
+  return digits.length >= 9 && digits.length <= 15;
 };

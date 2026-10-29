@@ -1,6 +1,7 @@
 ---
 import { businessFormats, teamOffer } from '../../data/profile';
 import Icon from '../Icon.astro';
+import { siteConfig } from '../../config/site';
 
 interface Props {
   /** Section number shown in the kicker, e.g. "03". */
@@ -68,6 +69,9 @@ const { num } = Astro.props;
             data-gtm-location="home_formats"
           >
             Запропонувати роль
+          </a>
+          <a href={siteConfig.social.djinni} target="_blank" rel="noopener noreferrer" class="team__djinni" data-gtm-event="social_click" data-gtm-label="djinni" data-gtm-location="home_formats">
+            Профіль на Djinni <Icon name="arrow-up-right" size={16} />
           </a>
         </div>
       </article>
@@ -225,7 +229,23 @@ const { num } = Astro.props;
   .team__actions {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 0.6rem;
+  }
+
+  .team__djinni {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0 0.5rem;
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: rgb(10 11 13 / 0.3);
+    text-underline-offset: 0.3em;
+  }
+
+  .team__djinni:hover {
+    text-decoration-color: var(--color-ink);
   }
 
   .btn--dark {
