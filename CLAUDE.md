@@ -8,6 +8,7 @@ Two audiences: businesses buying paid-acquisition services, and employers hiring
 - `docs/BACKLOG.md` — current round, roadmap, decisions. Update statuses as you go.
 - `docs/PROJECT.md` — where things live, common edits, leads, tracking, CSP.
 - `docs/OLEG_BURIKOV_PROFILE.md` — source of truth for experience claims (LinkedIn).
+- `docs/MARKET_RESEARCH.md` — strong competitor sites and the patterns we follow or avoid. Check copy/structure proposals against it.
 
 ## Rules
 - Reply to Oleg in Ukrainian. When he gives edits, push back with arguments if a best practice says otherwise.

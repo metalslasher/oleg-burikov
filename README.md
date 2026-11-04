@@ -31,7 +31,8 @@ LEADS_WEBHOOK_URL=   # server-side only, used by /api/lead
 
 - `docs/PROJECT.md` — structure, how to add cases and posts, tracking, security notes.
 - `docs/OLEG_BURIKOV_PROFILE.md` — source of truth for experience and claims.
-- `docs/COMPETITOR_ANALYSIS.md` — market research behind the structure.
+- `docs/MARKET_RESEARCH.md` — competitor research (Nov 2026) the copy and structure decisions rely on.
+- `docs/WORKFLOW.md`, `docs/BACKLOG.md` — how we work and what is next.
 
 ## Deployment
 
