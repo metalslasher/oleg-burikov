@@ -21,11 +21,10 @@ const { num } = Astro.props;
     <div class="section-head section-head--split">
       <div>
         <p class="kicker"><b>{num}</b> Кейси</p>
-        <h2 id="cases-title" class="h2" style="margin-top:1rem">Цифри зі звітів, а <em>не з презентацій</em></h2>
+        <h2 id="cases-title" class="h2" style="margin-top:1rem">Результати, <em>які можна порахувати</em></h2>
       </div>
       <p class="lead">
-        Кожен кейс — зі скріншотами з рекламних кабінетів: що було, що я зробив і що змінилося. Назви клієнтів приховані
-        через NDA.
+        Кілька проєктів з різних ніш: з якою проблемою прийшов клієнт, що я змінив і що це дало в цифрах.
       </p>
     </div>
 
@@ -201,8 +200,9 @@ const { num } = Astro.props;
   }
 
   .case-rows {
-    margin-top: 1rem;
-    border-top: 1px solid var(--line);
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
   }
 
   .case-row {
@@ -210,14 +210,20 @@ const { num } = Astro.props;
     grid-template-columns: 1fr auto;
     gap: 0.5rem 1.5rem;
     align-items: center;
-    padding: 1.5rem 0.25rem;
-    border-bottom: 1px solid var(--line);
-    transition: background-color 250ms ease, padding 300ms var(--ease-out);
+    padding: clamp(1.1rem, 2.5vw, 1.5rem) clamp(1.1rem, 3vw, 1.75rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--color-ink-2);
+    transition: border-color 250ms ease, background-color 250ms ease;
   }
 
   .case-row:hover {
-    padding-inline: 1rem;
-    background: var(--color-ink-2);
+    border-color: rgb(255 90 31 / 0.45);
+  }
+
+  .case-row:focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
   }
 
   .case-row__niche {

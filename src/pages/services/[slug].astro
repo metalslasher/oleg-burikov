@@ -67,7 +67,7 @@ const schema = [
       <h1 class="display svc-hero__title" set:html={emphasize(page.h1)} />
       <p class="lead svc-hero__lead">{page.lead}</p>
       <div class="svc-hero__actions">
-        <a href="#contact" class="btn btn--primary" data-contact-service="Реклама під ключ" data-gtm-event="cta_click" data-gtm-label="service_hero" data-gtm-location={`service_${page.slug}`}>
+        <a href="#contact" class="btn btn--primary" data-contact-service={page.slug === 'websites' ? 'Сайт' : 'Реклама під ключ'} data-gtm-event="cta_click" data-gtm-label="service_hero" data-gtm-location={`service_${page.slug}`}>
           Обговорити задачу <Icon name="arrow-up-right" />
         </a>
         <a href="#contact" class="btn btn--ghost" data-contact-service="Аудит" data-gtm-event="cta_click" data-gtm-label="service_audit" data-gtm-location={`service_${page.slug}`}>

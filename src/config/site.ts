@@ -33,7 +33,7 @@ export const siteConfig = {
   seo: {
     defaultTitle: 'Олег Буріков — performance-маркетолог: реклама під ключ',
     defaultDescription:
-      'Performance-маркетолог з 6+ роками досвіду: стратегія, сайти, креативи, реклама в Google, Meta і TikTok та аналітика під ключ. Кейси з реальними цифрами.',
+      'Performance-маркетолог з 7+ роками досвіду: стратегія, сайти, креативи, реклама в Google, Meta і TikTok та аналітика під ключ. Кейси з реальними цифрами.',
     defaultOgImage: '/images/og-oleg-burikov.jpg',
   },
 } as const;

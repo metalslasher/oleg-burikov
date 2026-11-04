@@ -1,7 +1,6 @@
 ---
 import { businessFormats, teamOffer } from '../../data/profile';
 import Icon from '../Icon.astro';
-import { siteConfig } from '../../config/site';
 
 interface Props {
   /** Section number shown in the kicker, e.g. "03". */
@@ -45,7 +44,6 @@ const { num } = Astro.props;
       ))}
 
       <article class="team" data-reveal>
-        <p class="team__kicker">Для команд і роботодавців</p>
         <h3 class="team__title">Шукаєте performance-маркетолога в команду?</h3>
         <p class="team__text">{teamOffer.text}</p>
         <dl class="team__facts">
@@ -63,15 +61,12 @@ const { num } = Astro.props;
           <a
             href="#contact"
             class="btn btn--outline-dark"
-            data-contact-service="Вакансія / робота в команді"
+            data-contact-service="Вакансія"
             data-gtm-event="cta_click"
             data-gtm-label="team_contact"
             data-gtm-location="home_formats"
           >
             Запропонувати роль
-          </a>
-          <a href={siteConfig.social.djinni} target="_blank" rel="noopener noreferrer" class="team__djinni" data-gtm-event="social_click" data-gtm-label="djinni" data-gtm-location="home_formats">
-            Профіль на Djinni <Icon name="arrow-up-right" size={16} />
           </a>
         </div>
       </article>
@@ -163,26 +158,16 @@ const { num } = Astro.props;
     .team {
       grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
       grid-template-areas:
-        "kicker facts"
         "title facts"
         "text facts"
         "actions facts";
+      align-content: center;
     }
 
-    .team__kicker { grid-area: kicker; }
     .team__title { grid-area: title; }
     .team__text { grid-area: text; }
     .team__actions { grid-area: actions; }
     .team__facts { grid-area: facts; align-self: center; }
-  }
-
-  .team__kicker {
-    color: #b53a0c;
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
   }
 
   .team__title {
@@ -231,21 +216,6 @@ const { num } = Astro.props;
     flex-wrap: wrap;
     align-items: center;
     gap: 0.6rem;
-  }
-
-  .team__djinni {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    padding: 0 0.5rem;
-    font-weight: 700;
-    text-decoration: underline;
-    text-decoration-color: rgb(10 11 13 / 0.3);
-    text-underline-offset: 0.3em;
-  }
-
-  .team__djinni:hover {
-    text-decoration-color: var(--color-ink);
   }
 
   .btn--dark {

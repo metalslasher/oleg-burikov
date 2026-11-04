@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { isContactMethod, isValidPhone } from '../../lib/contact';
+import { checkPhone, formatPhone, isContactMethod } from '../../lib/contact';
 
 export const runtime = 'nodejs';
 
@@ -219,9 +219,11 @@ export const POST: APIRoute = async ({ request }) => {
   if (lead.name.length < 2) {
     return jsonResponse({ error: 'Вкажіть коректне ім’я.' }, 400);
   }
-  if (!isValidPhone(lead.phone)) {
+  const phone = checkPhone(lead.phone);
+  if (!phone.ok) {
     return jsonResponse({ error: 'Вкажіть коректний номер телефону.' }, 400);
   }
+  lead.phone = formatPhone(phone.digits);
   if (!isContactMethod(lead.contact_method)) {
     return jsonResponse({ error: 'Оберіть спосіб зв’язку.' }, 400);
   }

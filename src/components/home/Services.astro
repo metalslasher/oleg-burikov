@@ -33,12 +33,9 @@ const { num } = Astro.props;
           </div>
           <p class="svc__task">{service.task}</p>
           <p class="svc__text">{service.text}</p>
-          <ul class="svc__tags">
-            {service.tags.map((tag) => <li class="chip chip--mono">{tag}</li>)}
-          </ul>
           {service.href && (
-            <a href={service.href} class="svc__link">
-              Детальніше про {service.title} <Icon name="arrow-right" size={16} />
+            <a href={service.href} class="svc__link" aria-label={`Детальніше про послугу: ${service.title}`}>
+              Детальніше <Icon name="arrow-right" size={16} />
             </a>
           )}
         </article>
@@ -165,7 +162,8 @@ const { num } = Astro.props;
     align-items: center;
     gap: 0.4rem;
     width: fit-content;
-    margin-top: 0.25rem;
+    margin-top: auto;
+    padding-top: 0.75rem;
     font-size: 0.92rem;
     font-weight: 700;
     transition: color 200ms ease, gap 200ms ease;
@@ -176,11 +174,4 @@ const { num } = Astro.props;
     color: var(--color-signal-soft);
   }
 
-  .svc__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-top: auto;
-    padding-top: 0.5rem;
-  }
 </style>

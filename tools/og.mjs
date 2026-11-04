@@ -167,7 +167,7 @@ const jobs = [
   { kicker: 'Послуги', title: 'Маркетинг *під ключ* — або окрема задача', file: 'services.jpg' },
   { kicker: 'Кейси', title: 'Результати, які можна *перевірити*', file: 'cases.jpg' },
   { kicker: 'Блог', title: 'Нотатки з *рекламних кабінетів*', file: 'blog.jpg' },
-  { kicker: 'Резюме', title: 'Performance Marketing *Manager*', subtitle: '6+ років · Google, Meta, TikTok Ads · аналітика', file: 'about.jpg' },
+  { kicker: 'Резюме', title: 'Performance Marketing *Manager*', subtitle: '7+ років · Google, Meta, TikTok Ads · аналітика', file: 'about.jpg' },
   ...servicePages.map((page) => ({ kicker: 'Послуга', title: page.h1, file: `service-${page.slug}.jpg` })),
   ...cases.map((item) => ({ kicker: `Кейс · ${item.niche}`, title: item.headline, subtitle: item.channels.join(' + ') + ' · ' + item.market, file: `case-${item.slug}.jpg` })),
   ...readdirSync(path.join(root, 'src/content/blog'))

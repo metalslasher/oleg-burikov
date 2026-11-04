@@ -2,9 +2,7 @@
 import { siteConfig } from '../config/site';
 import Icon from './Icon.astro';
 
-import { CONTACT_METHODS as contactMethods } from '../lib/contact';
-
-const requestTypes = ['Реклама під ключ', 'Аудит', 'Вакансія / робота в команді', 'Інше'];
+import { CONTACT_METHODS as contactMethods, DEFAULT_PHONE_CODE, REQUEST_TYPES as requestTypes } from '../lib/contact';
 ---
 
 <dialog id="contact-modal" class="modal" aria-labelledby="contact-modal-title">
@@ -14,8 +12,7 @@ const requestTypes = ['Реклама під ключ', 'Аудит', 'Вака�
     </button>
 
     <div class="modal__form-view" data-form-view>
-      <p class="kicker"><b>●</b> Відповідаю протягом робочого дня</p>
-      <h2 id="contact-modal-title" class="modal__title">Обговорімо задачу</h2>
+      <h2 id="contact-modal-title" class="modal__title">Обговоримо задачу</h2>
 
       <form id="contact-form" class="form" novalidate data-lead-form>
         <fieldset class="form__types">
@@ -38,7 +35,7 @@ const requestTypes = ['Реклама під ключ', 'Аудит', 'Вака�
           </div>
           <div class="form__field">
             <label for="lead-phone">Телефон <span aria-hidden="true">*</span></label>
-            <input id="lead-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="24" placeholder="+380 __ ___ __ __" />
+            <input id="lead-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="24" value={`+${DEFAULT_PHONE_CODE} `} />
             <p class="form__error" data-error-for="phone" aria-live="polite"></p>
           </div>
         </div>

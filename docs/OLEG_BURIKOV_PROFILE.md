@@ -6,7 +6,7 @@
 
 ## Коротке позиціонування
 
-Олег Буріков - performance marketing specialist і user acquisition спеціаліст з 6+ роками досвіду в digital marketing.
+Олег Буріков - performance marketing specialist і user acquisition спеціаліст з 7+ роками досвіду в digital marketing.
 
 Основний фокус: допомагати бізнесам залучати клієнтів, запускати й масштабувати рекламні кампанії, покращувати конверсії та приймати кращі маркетингові рішення на основі даних.
 
@@ -26,7 +26,7 @@
 
 ## Ключові proof points
 
-- 6+ років досвіду у маркетингу.
+- 7+ років досвіду у маркетингу.
 - Досвід побудови й масштабування paid acquisition систем у Google Ads, Meta Ads і TikTok Ads.
 - Управління рекламними бюджетами, які в сукупності перевищували 100 000 доларів на місяць.
 - Досвід у різних бізнес-моделях: eCommerce, Real Estate, SaaS, FinTech, EdTech, Automotive, Healthcare, сервісні бізнеси, фінансові продукти, мобільні додатки, affiliate/CPA.

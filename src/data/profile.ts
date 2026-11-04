@@ -3,30 +3,10 @@
 // Copy rule: plain Ukrainian for business owners and recruiters, minimum jargon.
 
 export const proofStats = [
-  { value: '6+', suffix: 'років', label: 'досвіду в маркетингу' },
+  { value: '7+', suffix: 'років', label: 'досвіду в маркетингу' },
   { value: '$100K+', suffix: '/ міс', label: 'рекламних бюджетів в управлінні' },
-  { value: '60+', suffix: 'проєктів', label: 'у різних нішах і моделях бізнесу' },
+  { value: '60+', suffix: 'проєктів', label: 'реалізовано в різних нішах' },
   { value: '4', suffix: 'ринки', label: 'Україна, Європа, США та Канада' },
-];
-
-// Tools shown in the running line under the hero.
-export const channels = [
-  'Google Ads',
-  'Meta Ads',
-  'TikTok Ads',
-  'Amazon Ads',
-  'GA4',
-  'Google Tag Manager',
-  'Looker Studio',
-  'Microsoft Clarity',
-  'Merchant Center',
-  'Search Console',
-  'AppsFlyer',
-  'Amplitude',
-  'WordPress',
-  'Figma',
-  'Ahrefs',
-  'ChatGPT',
 ];
 
 export type Service = {
@@ -34,7 +14,6 @@ export type Service = {
   title: string;
   task: string;
   text: string;
-  tags: string[];
   /** Dedicated service page, if one exists. */
   href?: string;
 };
@@ -45,7 +24,6 @@ export const services: Service[] = [
     title: 'Google Ads',
     task: 'Приводжу людей, які вже шукають ваш продукт',
     text: 'Пошукова реклама, торгові кампанії для інтернет-магазинів, Performance Max і YouTube. Налаштовую структуру, ключові слова, фід товарів і ставки так, щоб бюджет ішов на тих, хто готовий купити.',
-    tags: ['Пошук', 'Торгові кампанії', 'YouTube', 'Merchant Center'],
     href: '/services/google-ads',
   },
   {
@@ -53,7 +31,6 @@ export const services: Service[] = [
     title: 'Meta і TikTok Ads',
     task: 'Знаходжу нових клієнтів у соцмережах',
     text: 'Реклама у Facebook, Instagram і TikTok: тести креативів і аудиторій, каталоги товарів, лід-форми, повернення тих, хто вже цікавився. Кожен етап воронки має свою задачу й свою метрику.',
-    tags: ['Facebook', 'Instagram', 'TikTok', 'Лід-форми'],
     href: '/services/meta-tiktok-ads',
   },
   {
@@ -61,7 +38,6 @@ export const services: Service[] = [
     title: 'Сайти і лендінги',
     task: 'Роблю сайт, який перетворює трафік на заявки',
     text: 'Створюю лендінги й сайти під рекламу, налаштовую базове SEO і швидкість, дивлюся записи поведінки відвідувачів і прибираю все, що заважає залишити заявку.',
-    tags: ['Лендінги', 'WordPress', 'SEO', 'Швидкість'],
     href: '/services/websites',
   },
   {
@@ -69,7 +45,6 @@ export const services: Service[] = [
     title: 'Аналітика',
     task: 'Показую, що реально приносить гроші',
     text: 'GA4, Google Tag Manager, відстеження дзвінків і заявок, зв’язок з CRM і зрозумілі дашборди. Ви бачите ціну клієнта й виручку з кожного каналу, а рекламні системи навчаються на продажах.',
-    tags: ['GA4', 'Tag Manager', 'CRM', 'Looker Studio'],
     href: '/services/analytics',
   },
   {
@@ -77,14 +52,12 @@ export const services: Service[] = [
     title: 'Стратегія',
     task: 'Рахую, скільки можна платити за клієнта',
     text: 'Аналіз ринку й конкурентів, юніт-економіка, медіаплан і план запуску по тижнях. Ви заздалегідь знаєте, які канали тестуємо, з яким бюджетом і що вважаємо успіхом.',
-    tags: ['Конкуренти', 'Медіаплан', 'Юніт-економіка'],
   },
   {
     id: 'creatives',
     title: 'Креативи',
     task: 'Готую рекламу, яку хочеться дочитати',
     text: 'Банери, сценарії відео, тексти оголошень і план тестів під різні сегменти. Регулярно оновлюю креативи, щоб реклама не «вигорала», а ціна заявки не росла.',
-    tags: ['Банери', 'Відео', 'Тексти', 'Figma'],
   },
 ];
 
@@ -137,13 +110,12 @@ export const businessFormats = [
 ];
 
 export const teamOffer = {
-  title: 'Для команд і роботодавців',
-  text: 'Відкритий до пропозицій щодо full-time ролі Performance або Growth Marketing Manager у продуктовій компанії чи агенції. Працюю віддалено, разом з дизайнерами, розробниками й відділом продажів.',
+  text: 'Відкритий до пропозицій щодо ролі Performance або Growth Marketing Manager на повну зайнятість у продуктовій компанії чи агенції.',
   facts: [
-    { label: 'Формат', value: 'Full-time, віддалено' },
+    { label: 'Формат', value: 'Повна зайнятість, віддалено' },
     { label: 'Локація', value: 'Київ, Україна' },
-    { label: 'Мови', value: 'Українська, англійська B2' },
-    { label: 'Фокус', value: 'Залучення клієнтів, аналітика, конверсія' },
+    { label: 'Мови', value: 'Українська, англійська' },
+    { label: 'Канали', value: 'Google Ads, Meta, TikTok' },
   ],
 };
 
@@ -249,17 +221,18 @@ export const roles: Role[] = [
 ];
 
 export const niches = [
-  'Нерухомість',
   'Інтернет-магазини',
+  'Нерухомість',
   'B2B SaaS',
   'Фінтех і банки',
-  'Автобізнес',
+  'Автосалони та СТО',
   'Медицина',
-  'Освіта',
+  'Освіта та курси',
   'Локальні послуги',
+  'Доставка їжі',
+  'Одяг',
+  'Ювелірні вироби',
   'Мобільні застосунки',
-  'Amazon (США)',
-  'Партнерські програми',
 ];
 
 export const skillGroups = [

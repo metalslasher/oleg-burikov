@@ -1,67 +1,86 @@
-# Backlog — iteration 2 (2026-10-29)
+# Backlog
 
-Source: Oleg's feedback on the redesign + LinkedIn/Djinni PDFs (LinkedIn is the most accurate source).
-Status: [ ] todo · [~] in progress · [x] done · [?] waiting for Oleg
+Статуси: `[ ]` до роботи · `[~]` в роботі · `[x]` готово · `[?]` чекає рішення Олега · `[-]` відхилено
+Кожна задача: що зробити → де в коді. Рішення Олега фіксуються прямо в задачі.
 
-## P1 — Content accuracy (LinkedIn is source of truth)
-- [x] Titles: SvitSoft and Fortunatos → "Performance Marketing Manager"
-- [x] Admitad: Ukrainian banking products via affiliate partnerships (drop Kazakhstan)
-- [x] Richer role descriptions from LinkedIn bullets (call tracking, lead-form qualification, media plans, AI reporting…)
-- [x] Skills/marquee/about skills from LinkedIn skill list (67), grouped and filtered
-- [x] Languages: English B2 / professional working proficiency
-- [x] Team block: "Відкритий до пропозицій" (decided)
-- [x] DEVILS wording: neutral (decided: no "iGaming")
-- [x] Own projects section — removed on 2026-10-29 (Oleg: no strong projects yet; maybe much later)
-- [x] Update docs/OLEG_BURIKOV_PROFILE.md to match LinkedIn
+---
 
-## P1 — Hero & header
-- [x] Logo: name only + OB mark (no "Performance Marketing" subline)
-- [x] Kicker: plain "Performance Marketing Manager" — no live dot, no "Київ / remote"
-- [x] Remove dashed ring + orbiting dot
-- [x] Headline/subheadline back to previous calm positioning (turnkey: strategy, site, creatives, ads, analytics); no "clicks" repetition
-- [x] KPI cards rotate through cases (same 3 slots, crossfade), mobile-safe
-- [x] Stats: no duplication with subheadline; simpler labels ("в управлінні", not "сукупному"); no niche explanation
+## Раунд 4 — головна сторінка (зібрано і зроблено 2026-11-04, закомічено локально, чекає «ок» на пуш)
 
-## P1 — Copy pass (whole site)
-- [x] Fewer anglicisms/jargon (homepage, services, cases, blog)
-- [x] Services subtitle: "аудиту чи запуску реклами" (not only Google Ads)
-- [x] Services reflect turnkey positioning (sites + SEO basics, creatives, strategy)
-- [x] Experience section — stronger, less "simple"
-- [x] Proofread cases and blog
+Рекомендований режим: **Opus, effort medium** (переважно текст і верстка; логіка тільки в телефоні).
 
-## P1 — Bugs / polish
-- [x] Contact modal: center the direct links row
-- [x] Case creatives on mobile: portrait creatives leave empty space → proper grid
-- [x] Jewelry case: Meta creatives collage belongs to the Meta Ads campaign block, not creatives
-- [x] Lightbox gallery (prev/next, keyboard, swipe, counter, close) instead of opening images in a new tab
-- [x] About: divider right under the stats block — fix spacing
-- [x] Full responsive pass (375 / 768 / 1440)
+### 4.1 Блок з цифрами під hero — `src/data/profile.ts` → `proofStats`, стилі в `Hero.astro`
+- [x] `6+` → `7+` років **по всьому сайту**: `profile.ts`, `site.ts` (SEO description), `about.astro` (meta + intro),
+      `blog/[slug].astro` (блок автора), `Experience.astro` («Шість років» → «Сім років»), `tools/og.mjs` → перегенерувати OG (`npm run og`),
+      `docs/OLEG_BURIKOV_PROFILE.md`
+- [x] `60+ проєктів`: підпис → «реалізовано в різних нішах» (сенс: досвід, а не 60 поточних клієнтів)
+- [x] Прибрати горизонтальний розділювач у блоці
 
-## P2 — "Wow" animations (keep them cheap and reduced-motion safe)
-- [x] Section headings: word-by-word mask reveal
-- [x] Process: line fills as you scroll (scroll-driven, with fallback)
-- [x] Cursor spotlight on service cards
-- [ ] Featured case bars grow on reveal (exists) — check
+### 4.2 Форма заявки (модалка, вся сайт) — `ContactModal.astro`, `scripts/contactModal.ts`, `lib/contact.ts`, `pages/api/lead.ts`
+- [x] Прибрати бейдж «Відповідаю протягом робочого дня»
+- [x] «Обговорімо задачу» → «Обговоримо задачу» (обидва варіанти коректні, вибір Олега)
+- [x] Чипи: «Вакансія / робота в команді» → «Вакансія»; додати «Сайт» перед «Інше».
+      Оновити `data-contact-service` у `Formats.astro`; на `/services/websites` CTA має передвибирати «Сайт»
+- [x] Телефон: `+380` вже в полі, маска `+380 XX XXX XX XX`, валідація 9 цифр, нормалізація `0…`/`380…` при вставці.
+      **Рішення:** +380 за замовчуванням, код можна змінити; 27 країн мають свою маску й довжину, решта — 8–15 цифр. Іноземні номери (США/Канада/Європа — 3 з 4 ринків). Пропозиція: `+380` за замовчуванням, але код можна стерти й
+      ввести інший; сувора маска лише для +380, для інших — 9–15 цифр. Перевірка і на клієнті, і в API.
 
-## P2 — SEO
-- [x] Keyword-driven titles/descriptions/H1 per page (Ukrainian queries)
-- [x] Schema: Person + ProfessionalService (areaServed, services), Service, FAQ, Breadcrumbs on all inner pages
-- [x] Separate service landing pages (decided: 4 pages) (Google Ads, Meta/TikTok Ads, analytics, sites) for search traffic
-- [x] Internal linking: services ↔ cases ↔ blog
-- [x] Font preload, sitemap lastmod for posts, alt/H1/heading audit, title ≤62 / description ≤160 chars
-- [ ] Remove/rename leftovers that confuse future work (stale docs, unused data)
+### 4.3 Бігучий рядок з інструментами — `home/Marquee.astro`, `profile.ts` → `channels`, `index.astro`
+- [x] Видалити компонент і масив `channels` (стек лишається на /about у `skillGroups`)
 
-## Later / ideas
-- English version for international employers
-- Real testimonials (LinkedIn recommendations?) — only approved
+### 4.4 Картки послуг — `home/Services.astro`, `profile.ts` → `services[].tags`
+- [x] Прибрати теги-пілюлі (і поле `tags` з даних, якщо більше ніде не використовується)
+- [x] «Детальніше про X» → «Детальніше» + `aria-label` з повною назвою (заодно зникає баг «Детальніше про Аналітика»)
+- [x] Вирівняти «Детальніше» по низу карток
 
-## Next iteration
-- [x] 3 new articles linked to service pages (Merchant Center feed, Google Ads budget, real estate in Meta)
+### 4.5 Кейси: заголовок секції — `home/SelectedCases.astro`
+- [x] Заголовок: А «Результати, / **які можна порахувати**» (дефолт) · Б «Що змінюється, / **коли я беруся за рекламу**» · В «Реальні задачі — / **реальні результати**»
+- [x] Підзаголовок: А «Кілька проєктів з різних ніш: з якою проблемою прийшов клієнт, що я змінив і що це дало в цифрах.» (дефолт)
 
-## Iteration 3 (2026-10-29)
-- [x] Remove own projects block
-- [x] Hero: no kicker, more compact/balanced headline
-- [x] Lead form: name + phone (required) + contact method dropdown (Telegram/Viber/Дзвінок), no email
-- [x] Thank-you view: no divider row; "Напишіть напряму" Telegram + LinkedIn centered
-- [x] Djinni link (footer, about, team block, schema)
-- [x] Global double-check of design and copy
+### 4.6 Кейси: список під головним кейсом — `home/SelectedCases.astro`
+- [x] Кожен рядок → окрема картка (тонкий бордер, радіус як у карток послуг), відступ 12–16px, без ліній-розділювачів
+- [x] Hover: підсвітка бордера. Решта без змін
+
+### 4.7 Блок для роботодавців — `profile.ts` → `teamOffer`, `home/Formats.astro`
+- [x] Прибрати kicker «Для команд і роботодавців»
+- [x] Прибрати речення «Працюю віддалено, разом з…»; в абзаці «full-time ролі» → «на повну зайнятість»
+- [x] Прибрати «Профіль на Djinni» (у футері й на /about лишається — рішення Олега)
+- [x] Формат: «Повна зайнятість, віддалено»; Мови: «Українська, англійська» (B2 лишається в блоці «Мови» на /about)
+- [x] «Фокус» → «Канали: Google Ads, Meta, TikTok» (дефолт) / «Досвід: 7+ років, 60+ проєктів» / «Ринки: …»
+
+### 4.8 Знайдено під час аудиту (ініціатива Claude)
+- [x] Вертикальні відступи між секціями зараз до 256px (`.section` у `global.css`: `clamp(4.5rem, 10vw, 8rem)`) — звідси
+      «порожні пів екрана» на скрінах. Пропозиція: `clamp(3.5rem, 7vw, 5.5rem)`
+- [x] Фінальний CTA внизу головної: «● Відкритий до нових проєктів» + «Відповім протягом робочого дня» — та сама обіцянка, що
+      прибираємо з форми. Рішення: залишити тут і в повідомленні після відправки, з форми прибрано.
+- [x] «Ніші, з якими працював»: «Amazon (США)» і «Партнерські програми» — це канал і модель, а не ніші →
+      замінено на список зі старої версії сайту (git) + поточні: 12 ніш
+- [x] Dev-сервер слухає тільки IPv6 → вбудований браузер не відкриває localhost (`.claude/launch.json`: `--host 127.0.0.1`)
+
+---
+
+## Дорожня карта (порядок раундів)
+
+1. **Тексти й дизайн по сторінках** — Олег вичитує, Claude записує й критикує, потім один коміт на раунд
+   - [~] Головна (раунд 4)
+   - [ ] Послуги: `/services` + 4 сторінки
+   - [ ] Кейси: `/cases` + сторінки кейсів (цифри звіряти зі скрінами!)
+   - [ ] Про мене `/about`
+   - [ ] Блог: список + статті
+   - [ ] Футер, 404, privacy
+2. **SEO-прохід** — тільки після того, як тексти всіх сторінок затверджені: title/description/H1, schema, внутрішні посилання,
+   OG-картинки (`npm run og`), sitemap → Search Console
+3. **QA**: адаптив 375/768/1440, Lighthouse, форма заявки end-to-end (тестова заявка доходить у вебхук)
+4. **Ріст**: нові кейси, статті під пошукові запити, відгуки (тільки погоджені), англійська версія для роботодавців
+
+## Регулярні задачі (пропозиція, не налаштовано)
+- Щомісяця: `npm audit` + оновлення залежностей, Lighthouse головної й кейса, перевірка форми заявки
+- Раз на 1–2 місяці: нова стаття в блог або новий кейс
+- Після кожного нового кейса/статті: `npm run og`
+
+---
+
+## Архів: ітерації 1–3 (жовтень 2026) — зроблено
+Редизайн, LinkedIn як джерело правди про досвід, 4 сторінки послуг, лайтбокс, SEO-база (schema, ліміти title/description,
+sitemap), 3 нові статті, форма «ім'я + телефон + спосіб зв'язку», прибрано власні проєкти, Djinni, perf-прохід
+(GTM лишається стандартним — не чіпати). Деталі в історії git.

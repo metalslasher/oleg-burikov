@@ -1,5 +1,62 @@
-import { isContactMethod, isValidPhone } from '../lib/contact';
+import { DEFAULT_PHONE_CODE, checkPhone, formatPhone, isContactMethod, normalizePhoneDigits } from '../lib/contact';
 import { pushEvent } from './gtmEvents';
+
+const PHONE_PREFIX = `+${DEFAULT_PHONE_CODE} `;
+
+/**
+ * Live phone mask. The field starts with "+380 "; digits are grouped for the detected country code and the caret
+ * stays after the same digit. Pasted or autofilled numbers ("096…", "380…", "+1 …") are normalized.
+ * Errors appear on blur and disappear as soon as the number becomes valid.
+ */
+const initPhoneMask = (input: HTMLInputElement, validate: () => void, clearError: () => void) => {
+  const countDigits = (value: string) => value.replace(/\D/g, '').length;
+  const caretAfterDigits = (value: string, count: number) => {
+    if (count <= 0) return value.startsWith('+') ? 1 : 0;
+    let seen = 0;
+    for (let i = 0; i < value.length; i += 1) {
+      if (/\d/.test(value[i]) && ++seen === count) return i + 1;
+    }
+    return value.length;
+  };
+  const caretToEnd = () => input.setSelectionRange(input.value.length, input.value.length);
+
+  const apply = (raw: string, caretDigits: number | null) => {
+    const digits = normalizePhoneDigits(raw);
+    input.value = formatPhone(digits) || '+';
+    if (caretDigits === null) caretToEnd();
+    else {
+      // Normalization can drop or add digits (a stripped leading 0, an added 380), so shift the caret with it.
+      const shift = digits.length - countDigits(raw);
+      const pos = caretAfterDigits(input.value, Math.min(digits.length, caretDigits + shift));
+      input.setSelectionRange(pos, pos);
+    }
+    if (checkPhone(input.value).ok) clearError();
+  };
+
+  input.addEventListener('input', () => {
+    const caret = input.selectionStart ?? input.value.length;
+    apply(input.value, countDigits(input.value.slice(0, caret)));
+  });
+
+  // A pasted full number replaces the field instead of being glued to the prefilled +380.
+  input.addEventListener('paste', (event) => {
+    const text = event.clipboardData?.getData('text') || '';
+    if (countDigits(text) < 9) return;
+    event.preventDefault();
+    apply(text, null);
+    validate();
+  });
+
+  input.addEventListener('focus', () => {
+    if (countDigits(input.value) === 0) input.value = PHONE_PREFIX;
+    if (normalizePhoneDigits(input.value) === DEFAULT_PHONE_CODE) requestAnimationFrame(caretToEnd);
+  });
+
+  input.addEventListener('blur', () => {
+    const result = checkPhone(input.value);
+    if (result.ok || result.reason !== 'empty') validate();
+  });
+};
 
 const OPEN_SELECTOR = 'a[href="#contact"], a[href="/#contact"], [data-contact-open]';
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'] as const;
@@ -49,24 +106,25 @@ const initLeadForm = (dialog: HTMLDialogElement) => {
     if (error) error.textContent = message;
   };
 
+  const phoneInput = form.elements.namedItem('phone') as HTMLInputElement | null;
+
   const validate = () => {
     const data = new FormData(form);
     const name = String(data.get('name') || '').trim();
-    const phone = String(data.get('phone') || '').trim();
+    const phone = checkPhone(String(data.get('phone') || ''));
     const method = String(data.get('contact_method') || '');
     const errors = {
       name: name.length < 2 ? 'Вкажіть ім’я (мінімум 2 символи)' : '',
-      phone: !phone ? 'Вкажіть номер телефону' : isValidPhone(phone) ? '' : 'Перевірте номер: наприклад, +380 96 123 45 67',
+      phone: phone.ok ? '' : phone.hint,
       contact_method: isContactMethod(method) ? '' : 'Оберіть, як з вами зв’язатися',
     };
     Object.entries(errors).forEach(([field, message]) => setError(field, message));
     return Object.values(errors).every((message) => !message);
   };
 
-  ['name', 'phone'].forEach((name) => {
-    const input = form.elements.namedItem(name) as HTMLInputElement | null;
-    input?.addEventListener('blur', () => input.value && validate());
-  });
+  const nameInput = form.elements.namedItem('name') as HTMLInputElement | null;
+  nameInput?.addEventListener('blur', () => nameInput.value && validate());
+  if (phoneInput) initPhoneMask(phoneInput, () => validate(), () => setError('phone', ''));
   form.querySelector('[name="contact_method"]')?.addEventListener('change', () => setError('contact_method', ''));
 
   form.addEventListener('submit', async (event) => {

@@ -102,7 +102,7 @@
   }
 
   .section {
-    padding-block: clamp(4.5rem, 10vw, 8rem);
+    padding-block: clamp(3.5rem, 7vw, 5.5rem);
   }
 
   /* Mono "report" label, e.g. 01 / Послуги */

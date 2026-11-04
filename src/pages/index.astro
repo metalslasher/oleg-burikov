@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/home/Hero.astro';
-import Marquee from '../components/home/Marquee.astro';
 import Services from '../components/home/Services.astro';
 import Process from '../components/home/Process.astro';
 import SelectedCases from '../components/home/SelectedCases.astro';
@@ -28,7 +27,6 @@ const faqSchema = {
 
 <BaseLayout title={siteConfig.seo.defaultTitle} description={siteConfig.seo.defaultDescription} ogType="profile" schema={[faqSchema]}>
   <Hero />
-  <Marquee />
   <Services num={n('services')} />
   <Process num={n('process')} />
   <SelectedCases num={n('cases')} />
